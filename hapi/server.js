@@ -22,7 +22,15 @@ const manifest = {
 			}
 
 		},
-		{plugin: './routes/index.js'}
+		{plugin: './routes/index.js'},
+		{
+			plugin: './routes/reflected-xss/',
+			options: {
+				routes: {
+					prefix: '/reflectedxss'
+				}
+			}
+		}
 	]
 };
 

@@ -1,7 +1,12 @@
 'use strict';
 
 const glue = require('glue');
+const path = require('path');
+
 const manifest = {
+	server: {
+		debug: {'request': ['error', 'uncaught']}
+	},
 	connections: [{
 		port: 3000
 	}],
@@ -15,9 +20,10 @@ const manifest = {
 					engines: {
 						ejs: require('ejs')
 					},
-					relativeTo: __dirname,
-					path: 'views',
-					partialsPath: 'views/partials'
+					allowAbsolutePaths: true,
+					relativeTo: path.resolve(__dirname, 'views'),
+					path: 'pages',
+					partialsPath: 'partials'
 				}
 			}
 

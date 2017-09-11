@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<% include ../partials/head %>
+	</head>
+	<body class="container">
+
+		<header>
+			<% include ../partials/header %>
+			<% include ../partials/nav %>
+		</header>
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-9 col-sm-offset-1 col-md-10 col-md-offset-1 main">
+				<main>
+
+				  <div class="row">
+					<div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+						<h4 class="sub-header">Reflected XSS Query String</h4>
+						<p>
+							<a href="reflectedxss/query?input=<script>alert(1)%3B<%%2Fscript>" target="_blank">test unsafe</a>
+						</p>
+						<p>
+							<a href="reflectedxss/querySafe?input=<script>alert(1)%3B<%%2Fscript>" target="_blank">test safe</a>
+						</p>
+					</div>
+				  </div>
+
+				  <div class="row">
+					<div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+						<h4 class="sub-header">Reflected XSS Path Param</h4>
+						<p>
+							<a href="reflectedxss/param/'%20onerror='alert(3)" target="_blank">test unsafe</a>
+						</p>
+						<p>
+							<a href="reflectedxss/paramSafe/'%20onerror='alert(3)" target="_blank">test safe</a>
+						</p>
+					</div>
+				  </div>
+
+				  <div class="row">
+					<div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+						<h4 class="sub-header">Reflected XSS Form Body</h4>
+
+						<form method="POST" id='xsspost' action="/reflectedxss/post" target="_blank">
+				  			<div class="form-group">
+				    			<input name="input" class="form-control" placeholder="input" value="&lt;script&gt;alert(1);&lt;/script&gt;">
+				  			</div>
+				  			<button type="submit" id="post_btn0" class="btn btn-default">Unsafe</button>
+				  			<button type="button" id="post_btn1" class="btn btn-default">Safe</button>
+							<script>
+								document.getElementById('post_btn1').onclick = function() {
+									const form = document.getElementById('xsspost');
+									form.action = '/reflectedxss/postSafe';
+									form.submit();
+								}
+							</script>
+						</form>
+					</div>
+				  </div>
+
+				<div style="min-height: 300px;">
+					&nbsp;
+				</div>
+				</main>
+
+					<footer>
+						<% include ../partials/footer %>
+					</footer>
+
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

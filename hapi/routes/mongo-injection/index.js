@@ -27,6 +27,7 @@ exports.register = function mongoInjection(server, options, next) {
 	const db = server.plugins['hapitestbench.mongodb'].db;
 	if (!db) {
 		Hoek.assert(db, 'mongodb was not properly initialized');
+		next();
 	}
 
 	// curl http://localhost:3000/mongoinjection/header --header "input: hi_header"

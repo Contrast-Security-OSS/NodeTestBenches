@@ -9,7 +9,7 @@ const pluginName = 'hapitestbench.sqlinjection';
  */
 function baseHandler (db, type, safe, request, reply) {
 	const input = safe ? '' : request[type].input;
-	db.query('db.hapitestbench.find(' + input  + ')', function(err, result) {
+	db.query('SELECT FROM * WHERE NAME = "' + input + '";', function(err, result) {
 		if (err) {
 			reply(err.toString());
 		} else {
@@ -23,9 +23,9 @@ function makeHandler (db, type, safe) {
 }
 
 exports.register = function mongoInjection(server, options, next) {
-	const db = server.plugins['hapitestbench-mongo'].db;
+	const db = server.plugins['hapitestbench.mysql'].db;
 	if (!db) {
-		Hoek.assert(db, 'mongodb was not properly initialized');
+		Hoek.assert(db, 'mysql connection was not properly initialized');
 	}
 
 	// curl http://localhost:3000/sqlinjection/header --header "input: hi_header"
@@ -50,7 +50,7 @@ exports.register = function mongoInjection(server, options, next) {
 			method: 'GET',
 			path: '/',
 			handler: {
-				view: 'mongo-injection'
+				view: 'sql-injection'
 			}
 		},
 		{method: 'GET',  path: '/cookie',            handler: handlers.cookie},

@@ -11,5 +11,5 @@ exports.register = function mongo(server, options, next) {
 };
 
 exports.register.attributes = {
-	name: 'hapitestbench-mongo'
+	name: 'hapitestbench.mongodb'
 };

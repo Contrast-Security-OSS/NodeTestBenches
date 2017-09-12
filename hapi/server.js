@@ -11,6 +11,7 @@ const manifest = {
 		port: 3000
 	}],
 	registrations: [
+		// hapi plugins
 		{plugin: 'inert'},
 		{plugin: 'vision'},
 		{
@@ -28,7 +29,12 @@ const manifest = {
 			}
 
 		},
-		{plugin: './db/mongo.js'},
+
+		// DB initializers
+		{plugin: './db/mongodb.js'},
+		{plugin: './db/mysql.js'},
+
+		// route handlers
 		{plugin: './routes/index.js'},
 		{
 			plugin: './routes/reflected-xss/',

@@ -1,6 +1,6 @@
 'use strict';
 const Hoek = require('hoek');
-const pluginName = 'hapitestbench.mongoinjection';
+const pluginName = 'hapitestbench.sqlinjection';
 
 /**
  * @param {Object} db    - The mongo db instance to do stuff on
@@ -9,8 +9,7 @@ const pluginName = 'hapitestbench.mongoinjection';
  */
 function baseHandler (db, type, safe, request, reply) {
 	const input = safe ? '' : request[type].input;
-	// db.eval('db.hapitestbench.find(' + input  + ')', function(err, result) {
-	db.eval(input, function(err, result) {
+	db.query('db.hapitestbench.find(' + input  + ')', function(err, result) {
 		if (err) {
 			reply(err.toString());
 		} else {
@@ -24,15 +23,15 @@ function makeHandler (db, type, safe) {
 }
 
 exports.register = function mongoInjection(server, options, next) {
-	const db = server.plugins['hapitestbench.mongodb'].db;
+	const db = server.plugins['hapitestbench-mongo'].db;
 	if (!db) {
 		Hoek.assert(db, 'mongodb was not properly initialized');
 	}
 
-	// curl http://localhost:3000/mongoinjection/header --header "input: hi_header"
-	// curl http://localhost:3000/mongoinjection/headerSafe --header "input: hi_header"
-	// curl http://localhost:3000/mongoinjection/cookie --cookie "input=hi_cookie"
-	// curl http://localhost:3000/mongoinjection/cookieSafe --cookie "input=hi_cookie"
+	// curl http://localhost:3000/sqlinjection/header --header "input: hi_header"
+	// curl http://localhost:3000/sqlinjection/headerSafe --header "input: hi_header"
+	// curl http://localhost:3000/sqlinjection/cookie --cookie "input=hi_cookie"
+	// curl http://localhost:3000/sqlinjection/cookieSafe --cookie "input=hi_cookie"
 	const handlers = {
 		query:      makeHandler(db, 'query', false),
 		querySafe:  makeHandler(db, 'query', true),

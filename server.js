@@ -37,20 +37,16 @@ const manifest = {
 		// route handlers
 		{plugin: './routes/index.js'},
 		{
-			plugin: './routes/reflected-xss/',
-			options: {
-				routes: {
-					prefix: '/reflectedxss'
-				}
-			}
+			plugin: './routes/mongo-injection/',
+			options: {routes: {prefix: '/mongoinjection'}}
 		},
 		{
-			plugin: './routes/mongo-injection/',
-			options: {
-				routes: {
-					prefix: '/mongoinjection'
-				}
-			}
+			plugin: './routes/reflected-xss/',
+			options: {routes: {prefix: '/reflectedxss'}}
+		},
+		{
+			plugin: './routes/sql-injection/',
+			options: {routes: {prefix: '/sqlinjection'}}
 		}
 	]
 };

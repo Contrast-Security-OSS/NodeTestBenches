@@ -5,7 +5,7 @@ const path = require('path');
 
 const manifest = {
 	server: {
-		debug: {'request': ['error', 'uncaught']}
+		// debug: {'request': ['error', 'uncaught']}
 	},
 	connections: [{
 		port: 3000
@@ -28,12 +28,21 @@ const manifest = {
 			}
 
 		},
+		{plugin: './db/mongo.js'},
 		{plugin: './routes/index.js'},
 		{
 			plugin: './routes/reflected-xss/',
 			options: {
 				routes: {
 					prefix: '/reflectedxss'
+				}
+			}
+		},
+		{
+			plugin: './routes/mongo-injection/',
+			options: {
+				routes: {
+					prefix: '/mongoinjection'
 				}
 			}
 		}

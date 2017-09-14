@@ -17,6 +17,11 @@
   },
   "homepage": "https://github.com/Contrast-Security-OSS/HapiTestBench#readme",
   "dependencies": {
-    "hapi": "^16.5.2"
+    "ejs": "^2.5.7",
+    "glue": "^4.2.0",
+    "hapi": "^16.5.2",
+    "inert": "^4.2.1",
+    "vision": "^4.1.1",
+    "visionary": "^6.0.2"
   }
 }

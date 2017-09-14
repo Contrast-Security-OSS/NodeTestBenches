@@ -9,3 +9,4 @@ node server.js
 
 ## Requirements:
 [mongodb](https://docs.mongodb.com/manual/installation/)
+[mysql](https://www.mysql.com/)

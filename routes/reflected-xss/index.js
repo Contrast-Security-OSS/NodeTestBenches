@@ -59,5 +59,5 @@ exports.register = function reflectedXss(server, options, next) {
 };
 
 exports.register.attributes = {
-	name: 'hapitestbench-reflectedxss'
+	name: 'hapitestbench.reflectedxss'
 };

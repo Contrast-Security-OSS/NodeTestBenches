@@ -1,7 +1,12 @@
 'use strict';
 
 const glue = require('glue');
+const path = require('path');
+
 const manifest = {
+	server: {
+		// debug: {'request': ['error', 'uncaught']}
+	},
 	connections: [{
 		port: 3000
 	}],
@@ -15,14 +20,32 @@ const manifest = {
 					engines: {
 						ejs: require('ejs')
 					},
-					relativeTo: __dirname,
-					path: 'views',
-					partialsPath: 'views/partials'
+					allowAbsolutePaths: true,
+					relativeTo: path.resolve(__dirname, 'views'),
+					path: 'pages',
+					partialsPath: 'partials'
 				}
 			}
 
 		},
-		{plugin: './routes/index.js'}
+		{plugin: './db/mongo.js'},
+		{plugin: './routes/index.js'},
+		{
+			plugin: './routes/reflected-xss/',
+			options: {
+				routes: {
+					prefix: '/reflectedxss'
+				}
+			}
+		},
+		{
+			plugin: './routes/mongo-injection/',
+			options: {
+				routes: {
+					prefix: '/mongoinjection'
+				}
+			}
+		}
 	]
 };
 

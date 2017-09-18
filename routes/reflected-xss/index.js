@@ -8,7 +8,7 @@ function baseHandler (type, safe, request, reply) {
 	const input = safe ? encodeURIComponent(request[type].input)
 		: request[type].input;
 
-	const output = '<html>' + encodeURIComponent(input) + '</html>';
+	const output = '<html>' + input + '</html>';
 	reply(output);
 }
 

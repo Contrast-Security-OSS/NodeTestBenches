@@ -2,11 +2,6 @@
 const mysql = require('mysql');
 const hooker = require('hooker');
 
-const connection = mysql.createConnection({
-	host: 'localhost',
-	user: 'root'
-});
-
 // mock the sql query so the app does not require a database connection
 hooker.hook(require('mysql/lib/Connection').prototype, 'query', {
 	pre: function() {},
@@ -15,6 +10,11 @@ hooker.hook(require('mysql/lib/Connection').prototype, 'query', {
 			query: sql
 		}]);
 	}
+});
+
+const connection = mysql.createConnection({
+	host: 'localhost',
+	user: 'root'
 });
 
 // pretend we already connected

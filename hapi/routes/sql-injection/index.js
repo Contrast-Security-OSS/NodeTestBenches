@@ -9,7 +9,7 @@ const pluginName = 'hapitestbench.sqlinjection';
  */
 function baseHandler (db, type, safe, request, reply) {
 	const input = safe ? '' : request[type].input;
-	db.query('SELECT FROM * WHERE NAME = "' + input + '";', function(err, result) {
+	db.query('SELECT "' + input + '" as "test";', function(err, result) {
 		if (err) {
 			reply(err.toString());
 		} else {

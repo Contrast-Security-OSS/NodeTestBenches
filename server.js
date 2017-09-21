@@ -5,7 +5,7 @@ const path = require('path');
 
 const manifest = {
 	server: {
-		// debug: {'request': ['error', 'uncaught']}
+		debug: {'request': ['error', 'uncaught']}
 	},
 	connections: [{
 		port: 3000

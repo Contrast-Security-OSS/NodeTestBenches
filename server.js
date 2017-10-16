@@ -47,6 +47,22 @@ const manifest = {
 		{
 			plugin: './routes/sql-injection/',
 			options: {routes: {prefix: '/sqlinjection'}}
+		},
+		{
+			plugin: './routes/session/http-only.js',
+			options: {
+				routes: {
+					prefix: '/session/httponly'
+				}
+			}
+		},
+		{
+			plugin: './routes/session/secure-flag-missing.js',
+			options: {
+				routes: {
+					prefix: '/session/secureflagmissing'
+				}
+			}
 		}
 	]
 };

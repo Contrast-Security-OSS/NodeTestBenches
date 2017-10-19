@@ -45,6 +45,10 @@ const manifest = {
 			options: {routes: {prefix: '/reflectedxss'}}
 		},
 		{
+			plugin: './routes/reflected-xss/object-sources/',
+			options: {routes: {prefix: '/reflectedxss/objects'}}
+		},
+		{
 			plugin: './routes/sql-injection/',
 			options: {routes: {prefix: '/sqlinjection'}}
 		},

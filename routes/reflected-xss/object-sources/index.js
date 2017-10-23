@@ -1,3 +1,7 @@
+/**
+ * The purpose of this class is to test propagation with object sources,
+ * including serialization and toStringing
+ */
 'use strict';
 
 /**
@@ -5,11 +9,15 @@
  * @param {boolean} safe Whether or not to make the route safe
  */
 function baseHandler (type, safe, request, reply) {
-	const input = safe ? encodeURIComponent(request[type].input)
-		: request[type].input;
+	const input = request[type];
 
-	const output = '<html>' + input + '</html>';
-	// const output = `<html>${input}</html>`;
+	let output;
+	if (safe) {
+		// this will produce something like <html>[object Object]</html>
+		output = '<html>' + input + '</html>';
+	} else {
+		output = '<html>' + JSON.stringify(input) + '</html>';
+	}
 	reply(output);
 }
 
@@ -19,10 +27,10 @@ function makeHandler (type, safe) {
 
 exports.register = function reflectedXss(server, options, next) {
 
-	// curl http://localhost:3000/reflectedxss/header --header "input: hi_header"
-	// curl http://localhost:3000/reflectedxss/headerSafe --header "input: hi_header"
-	// curl http://localhost:3000/reflectedxss/cookie --cookie "input=hi_cookie"
-	// curl http://localhost:3000/reflectedxss/cookieSafe --cookie "input=hi_cookie"
+	// curl http://localhost:3000/reflectedxss/objects/header --header "input: hi_header"
+	// curl http://localhost:3000/reflectedxss/objects/headerSafe --header "input: hi_header"
+	// curl http://localhost:3000/reflectedxss/objects/cookie --cookie "input=hi_cookie"
+	// curl http://localhost:3000/reflectedxss/objects/cookieSafe --cookie "input=hi_cookie"
 	const handlers = {
 		query:      makeHandler('query', false),
 		querySafe:  makeHandler('query', true),
@@ -37,28 +45,28 @@ exports.register = function reflectedXss(server, options, next) {
 	};
 
 	server.route([
-		{
-			method: 'GET',
-			path: '/',
-			handler: {
-				view: 'reflected-xss'
-			}
-		},
+		// {
+		// 	method: 'GET',
+		// 	path: '/',
+		// 	handler: {
+		// 		view: 'reflected-xss'
+		// 	}
+		// },
 		{method: 'GET',  path: '/cookie',            handler: handlers.cookie},
-		{method: 'GET',  path: '/cookieSafe',        handler: handlers.cookieSafe},
+		// {method: 'GET',  path: '/cookieSafe',        handler: handlers.cookieSafe},
 		{method: 'GET',  path: '/header',            handler: handlers.header},
-		{method: 'GET',  path: '/headerSafe',        handler: handlers.headerSafe},
+		// {method: 'GET',  path: '/headerSafe',        handler: handlers.headerSafe},
 		{method: 'GET',  path: '/param/{input}',     handler: handlers.param},
-		{method: 'GET',  path: '/paramSafe/{input}', handler: handlers.paramSafe},
+		// {method: 'GET',  path: '/paramSafe/{input}', handler: handlers.paramSafe},
 		{method: 'GET',  path: '/query',             handler: handlers.query},
-		{method: 'GET',  path: '/querySafe',         handler: handlers.querySafe},
+		// {method: 'GET',  path: '/querySafe',         handler: handlers.querySafe},
 		{method: 'POST', path: '/post',              handler: handlers.post},
-		{method: 'POST', path: '/postSafe',          handler: handlers.postSafe},
+		// {method: 'POST', path: '/postSafe',          handler: handlers.postSafe},
 	]);
 
 	next();
 };
 
 exports.register.attributes = {
-	name: 'hapitestbench.reflectedxss'
+	name: 'hapitestbench.reflectedxss.objects'
 };

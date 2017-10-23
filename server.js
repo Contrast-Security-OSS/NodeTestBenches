@@ -2,13 +2,16 @@
 
 const glue = require('glue');
 const path = require('path');
+const pem = require('pem');
+
+const PORT = process.env.PORT || 3000;
 
 const manifest = {
 	server: {
 		debug: {'request': ['error', 'uncaught']}
 	},
 	connections: [{
-		port: 3000
+		port: PORT
 	}],
 	registrations: [
 		// hapi plugins
@@ -71,11 +74,26 @@ const options = {
 	relativeTo: __dirname
 };
 
-glue.compose(manifest, options, (err, server) => {
-	if (err) {
-		throw err;
-	}
-	server.start(() => {
-		console.log(`Server running at: ${server.info.uri}`); // eslint-disable-line
+if (process.env.SSL === '1') {
+	pem.createCertificate({days: 1, selfSigned: true}, ( err, keys ) => {
+		manifest.connections[0].tls = {
+			key: keys.serviceKey,
+			cert: keys.certificate
+		};
+		start();
 	});
-});
+} else {
+	start();
+}
+
+function start () {
+	glue.compose(manifest, options, (err, server) => {
+		if (err) {
+			throw err;
+		}
+
+		server.start(() => {
+			console.log(`Server running at: ${server.connections[0].info.uri}`); // eslint-disable-line
+		});
+	});
+}

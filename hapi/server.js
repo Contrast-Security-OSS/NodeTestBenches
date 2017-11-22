@@ -56,6 +56,10 @@ const manifest = {
 			options: {routes: {prefix: '/sqlinjection'}}
 		},
 		{
+			plugin: './routes/ssjs-injection',
+			options: {routes: {prefix: '/ssjs-injection'}}
+		},
+		{
 			plugin: './routes/session/http-only.js',
 			options: {
 				routes: {

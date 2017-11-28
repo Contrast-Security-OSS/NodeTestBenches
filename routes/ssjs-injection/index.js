@@ -62,6 +62,10 @@ exports.register = function ssjsInjection ( server, options, next ) {
 		});
 	};
 
+	const _eval = input => {
+		return eval("'" + input + "'");
+	};
+
 	const _Function = input => {
 		return Function(input)();
 	};
@@ -128,7 +132,7 @@ exports.register = function ssjsInjection ( server, options, next ) {
 	};
 
 	[
-		['/eval'                         , eval                ],
+		['/eval'                         , _eval               ],
 		['/function'                     , _Function           ],
 		['/vm-run-in-context'            , vmRunInCtx          ],
 		['/vm-run-in-new-context'        , vmRunInNewCtx       ],

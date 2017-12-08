@@ -50,20 +50,22 @@ exports.register = function ssjsInjection ( server, options, next ) {
 					path    : `${inputSegment}/safe${sinkSegment}`,
 					method  : methods,
 					handler : ( request, reply ) => {
-						return reply(handle('"Safe and trusted"'));
+						const value = handle('"Safe and trusted"');
+						return reply((value || '').toString());
 					}
 				}, {
 					path    : `${inputSegment}/unsafe${sinkSegment}`,
 					method  : methods,
 					handler : ( request, reply ) => {
-						return reply(handle(Hoek.reach(request, dataPath)));
+						const value = handle(Hoek.reach(request, dataPath));
+						return reply((value || '').toString());
 					}
 				}]);
 		});
 	};
 
 	const _eval = input => {
-		return eval("'" + input + "'");
+		return eval(input.toString());
 	};
 
 	const _Function = input => {
@@ -73,6 +75,7 @@ exports.register = function ssjsInjection ( server, options, next ) {
 	const vmRunInCtx = input => {
 		const sb  = { value: '', process };
 		const ctx = vm.createContext(sb);
+
 		vm.runInContext(`value = ${input};`, ctx);
 
 		return sb.value;

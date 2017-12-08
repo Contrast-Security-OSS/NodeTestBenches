@@ -44,6 +44,10 @@ const manifest = {
 			options: {routes: {prefix: '/mongoinjection'}}
 		},
 		{
+			plugin: './routes/path-traversal',
+			options: {routes: {prefix: '/path-traversal'}}
+		},
+		{
 			plugin: './routes/reflected-xss/',
 			options: {routes: {prefix: '/reflectedxss'}}
 		},

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<% include ../partials/head %>
+	</head>
+
+	<body class="container">
+
+		<header>
+			<% include ../partials/header %>		
+			<% include ../partials/nav %>
+		</header>
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-9 col-sm-offset-1 col-md-10 col-md-offset-1 main">
+					<main>
+
+						<h1 class="page-header">Path-Traversal</h1>
+
+						<div class="row" style="min-height: 200px;">
+							<div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+								<h4 class="sub-header">Path Traversal From fs.readFile</h4>
+								<form method="POST" action="/path-traversal/body/unsafe/read-file" target="_blank">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Path</label>
+										<input name="input" class="form-control" id="exampleInputEmail1" value="../../../../../../../../../etc/passwd">
+									</div>
+									<button type="submit" class="btn btn-default">Submit</button>
+								</form>
+							</div>
+						</div>
+
+						<div class="row" style="min-height: 200px;">
+							<div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+								<h4 class="sub-header">Path Traversal From fs.writeFile</h4>
+								<form method="POST" action="/path-traversal/body/unsafe/write-file" target="_blank">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Path</label>
+										<input name="input" class="form-control" id="input-write-file" value="../message.txt">
+									</div>
+									<button type="submit" class="btn btn-default">Submit</button>
+								</form>
+							</div>
+						</div>
+
+						<div class="row" style="min-height: 200px;">
+							<div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+								<h4 class="sub-header">Path Traversal From fs.readFile **safe</h4>
+								<form method="POST" action="/path-traversal/body/safe/read-file" target="_blank">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Path</label>
+										<input name="input" class="form-control" id="input-read-file-safe" value="../../../../../../../../../etc/passwd">
+									</div>
+									<button type="submit" class="btn btn-default">Submit</button>
+								</form>
+							</div>
+						</div>
+
+					</main>
+					
+					<footer>
+						<% include ../partials/footer %>
+					</footer>
+
+				</div>
+			</div>
+		</div>
+
+	</body>
+</html>

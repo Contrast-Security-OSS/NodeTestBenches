@@ -52,7 +52,8 @@ exports.register = function pathTraversal ( server, options, next ) {
 
 						/* For synchronous sink methods:  */
 						if (handle.length == 1) {
-							reply((value || '').toString());
+							try { reply((handle(value) || '').toString()); }
+							catch (error) { reply(error.message); }
 						}
 
 						/* For asynchronous sink methods: */
@@ -61,22 +62,26 @@ exports.register = function pathTraversal ( server, options, next ) {
 								reply((error || data || '').toString());
 							});
 						}
+
 					}
 				}]);
 		});
 	};
 
+	const content = 'EXPLOITED';
 	const sinks = {
 		fs: {
+			mkdir     : ( input, cb ) => fs.mkdir(input, cb),
 			readdir   : ( input, cb ) => fs.readdir(input, cb),
 			readFile  : ( input, cb ) => fs.readFile(input, cb),
 			readlink  : ( input, cb ) => fs.readlink(input, cb),
-			writeFile : ( input, cb ) => fs.writeFile(input, cb),
+			writeFile : ( input, cb ) => fs.writeFile(input, content, cb),
 
+			mkdirSync     : input => fs.mkdirSync(input),
 			readdirSync   : input => fs.readdirSync(input),
 			readFileSync  : input => fs.readFileSync(input),
 			readlinkSync  : input => fs.readlinkSync(input),
-			writeFileSync : input => fs.writeFileSync(input)
+			writeFileSync : input => fs.writeFileSync(input, content)
 		}
 	};
 

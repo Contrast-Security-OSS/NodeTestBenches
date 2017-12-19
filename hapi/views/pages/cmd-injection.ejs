@@ -8,7 +8,7 @@
 	<body class="container">
 
 		<header>
-			<% include ../partials/header %>		
+			<% include ../partials/header %>
 			<% include ../partials/nav %>
 		</header>
 
@@ -17,20 +17,21 @@
 				<div class="col-sm-9 col-sm-offset-1 col-md-10 col-md-offset-1 main">
 					<main>
 
-						<h1 class="page-header">Path-Traversal</h1>
+						<h1 class="page-header">Command Injection</h1>
 						<h3>Sinks</h3>
 
 						<ul>
 							<li class="sink-list">
-								<span>Node.js <code>fs</code> module:</span>
+
+								<span>Node.js <code>child_process</code> module:</span>
 
 								<div class="row" style="min-height: 200px;">
 									<div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
-										<h4 class="sub-header"><code>fs.readFile</code></h4>
-										<form method="POST" action="/path-traversal/body/unsafe/read-file" target="_blank">
+										<h4 class="sub-header"><code>child_process.exec()</code></h4>
+										<form method="POST" action="/cmd-injection/body/unsafe/exec" target="_blank">
 											<div class="form-group">
-												<label for="exampleInputEmail1">Path</label>
-												<input name="input" class="form-control" id="exampleInputEmail1" value="../../../../../../../../../etc/passwd">
+												<label>Path</label>
+												<input name="input" class="form-control" value=";ls -ahl ../">
 											</div>
 											<button type="submit" class="btn btn-default">Submit</button>
 										</form>
@@ -39,11 +40,11 @@
 
 								<div class="row" style="min-height: 200px;">
 									<div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
-										<h4 class="sub-header"><code>fs.writeFile</code></h4>
-										<form method="POST" action="/path-traversal/body/unsafe/write-file" target="_blank">
+										<h4 class="sub-header"><code>child_process.execSync()</code></h4>
+										<form method="POST" action="/cmd-injection/body/unsafe/exec-sync" target="_blank">
 											<div class="form-group">
-												<label for="exampleInputEmail1">Path</label>
-												<input name="input" class="form-control" id="input-write-file" value="../message.txt">
+												<label>Path</label>
+												<input name="input" class="form-control" value=";ls -ahl ../">
 											</div>
 											<button type="submit" class="btn btn-default">Submit</button>
 										</form>
@@ -55,13 +56,29 @@
 								<div class="row" style="min-height: 200px;">
 									<div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
 										<h4 class="sub-header">
-											<code>fs.readFile</code>
+											<code>child_process.exec()</code>
 											<span style="color:#339955">(safe)</span>
 										</h4>
-										<form method="POST" action="/path-traversal/body/safe/read-file" target="_blank">
+										<form method="POST" action="/cmd-injection/body/safe/exec" target="_blank">
 											<div class="form-group">
-												<label for="exampleInputEmail1">Path</label>
-												<input name="input" class="form-control" id="input-read-file-safe" value="../../../../../../../../../etc/passwd">
+												<label>Path</label>
+												<input name="input" class="form-control" value=";ls -ahl ./">
+											</div>
+											<button type="submit" class="btn btn-default">Submit</button>
+										</form>
+									</div>
+								</div>
+
+								<div class="row" style="min-height: 200px;">
+									<div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+										<h4 class="sub-header">
+											<code>child_process.execSync()</code>
+											<span style="color:#339955">(safe)</span>
+										</h4>
+										<form method="POST" action="/cmd-injection/body/safe/exec-sync" target="_blank">
+											<div class="form-group">
+												<label>Path</label>
+												<input name="input" class="form-control" value=";ls -ahl ./">
 											</div>
 											<button type="submit" class="btn btn-default">Submit</button>
 										</form>
@@ -69,11 +86,10 @@
 								</div>
 
 							</li>
-
 						</ul>
 
 					</main>
-					
+
 					<footer>
 						<% include ../partials/footer %>
 
@@ -153,6 +169,7 @@
 								 });
 						 });
 						</script>
+
 					</footer>
 
 				</div>

@@ -40,8 +40,16 @@ const manifest = {
 		// route handlers
 		{plugin: './routes/index.js'},
 		{
+			plugin: './routes/cmd-injection',
+			options: {routes: {prefix: '/cmd-injection'}}
+		},
+		{
 			plugin: './routes/mongo-injection/',
 			options: {routes: {prefix: '/mongoinjection'}}
+		},
+		{
+			plugin: './routes/path-traversal',
+			options: {routes: {prefix: '/path-traversal'}}
 		},
 		{
 			plugin: './routes/reflected-xss/',

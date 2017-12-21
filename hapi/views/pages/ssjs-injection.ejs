@@ -22,9 +22,9 @@
 
 							<!-- ####  eval  ############################ -->
 							<li class="sink-list">
+								<span>Global <code>eval</code> function:</span>
 								<div>
-									<span>Global <code>eval()</code> function:</span>
-									<h3 class="sub-header"><code>eval</code></h3>
+									<h3 class="sub-header"><code>eval()</code></h3>
 									<form method="GET"
 												action="/ssjs-injection/query/unsafe/eval"
 												data-action="/ssjs-injection/${type}/${safe}/eval">
@@ -39,9 +39,9 @@
 
 							<!-- ####  Function  ######################## -->
 							<li class="sink-list">
+								<span>Global <code>Function</code> constructor:</span>
 								<div>
-									<span>Global <code>Function()</code> constructor:</span>
-									<h3 class="sub-header"><code>Function</code></h3>
+									<h3 class="sub-header"><code>Function()</code></h3>
 									<form method="GET"
 												action="/ssjs-injection/query/unsafe/function"
 												data-action="/ssjs-injection/${type}/${safe}/function">
@@ -56,8 +56,9 @@
 
 							<!-- ####  vm.runInContext  ################# -->
 							<li class="sink-list">
+								<span>Node.js <code>vm</code> module:</span>
+
 								<div>
-									<span>Node.js VM module:</span>
 									<h3 class="sub-header"><code>vm.runInContext()</code></h3>
 									<form method="GET"
 												action="/ssjs-injection/query/unsafe/vm-run-in-context"

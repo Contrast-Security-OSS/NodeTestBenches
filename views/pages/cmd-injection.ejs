@@ -28,7 +28,10 @@
 								<div class="row" style="min-height: 200px;">
 									<div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
 										<h4 class="sub-header"><code>child_process.exec()</code></h4>
-										<form method="POST" action="/cmd-injection/body/unsafe/exec" target="_blank">
+										<form method="GET"
+													data-action="/cmd-injection/${type}/${safe}/exec"
+													action="/cmd-injection/query/unsafe/exec"
+													target="_blank">
 											<div class="form-group">
 												<label>Path</label>
 												<input name="input" class="form-control" value=";ls -ahl ../">
@@ -41,7 +44,10 @@
 								<div class="row" style="min-height: 200px;">
 									<div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
 										<h4 class="sub-header"><code>child_process.execSync()</code></h4>
-										<form method="POST" action="/cmd-injection/body/unsafe/exec-sync" target="_blank">
+										<form method="GET"
+													data-action="/cmd-injection/${type}/${safe}/exec-sync"
+													action="/cmd-injection/query/unsafe/exec-sync"
+													target="_blank">
 											<div class="form-group">
 												<label>Path</label>
 												<input name="input" class="form-control" value=";ls -ahl ../">
@@ -59,7 +65,10 @@
 											<code>child_process.exec()</code>
 											<span style="color:#339955">(safe)</span>
 										</h4>
-										<form method="POST" action="/cmd-injection/body/safe/exec" target="_blank">
+										<form method="GET"
+													action="/cmd-injection/query/safe/exec"
+													dat-action="/cmd-injection/${type}/${safe}exec"
+													target="_blank">
 											<div class="form-group">
 												<label>Path</label>
 												<input name="input" class="form-control" value=";ls -ahl ./">
@@ -75,7 +84,10 @@
 											<code>child_process.execSync()</code>
 											<span style="color:#339955">(safe)</span>
 										</h4>
-										<form method="POST" action="/cmd-injection/body/safe/exec-sync" target="_blank">
+										<form method="GET"
+													action="/cmd-injection/query/safe/exec-sync"
+													action="/cmd-injection/${type}/${safe}/exec-sync"
+													target="_blank">
 											<div class="form-group">
 												<label>Path</label>
 												<input name="input" class="form-control" value=";ls -ahl ./">
@@ -126,7 +138,7 @@
 							 const isSafe = 'unsafe';
 
 							 $('form')
-								 .attr('target', 'ssjs-injection')
+								 .attr('target', 'cmd-injection')
 								 .each(( idx, elem ) => {
 									 $(elem).find('.form-group').after(
 										 $('<button>')

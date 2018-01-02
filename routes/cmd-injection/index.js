@@ -52,8 +52,7 @@ exports.register = function cmdInjection ( server, options, next ) {
 
 						/* For synchronous sink methods:  */
 						if (handle.length == 1) {
-							try { reply((handle(value) || '').toString()); }
-							catch (error) { reply(error.message); }
+							reply((handle(value) || '').toString());
 						}
 
 						/* For asynchronous sink methods: */

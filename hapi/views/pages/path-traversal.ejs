@@ -27,7 +27,10 @@
 								<div class="row" style="min-height: 200px;">
 									<div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
 										<h4 class="sub-header"><code>fs.readFile</code></h4>
-										<form method="POST" action="/path-traversal/body/unsafe/read-file" target="_blank">
+										<form method="GET"
+													action="/path-traversal/query/unsafe/read-file"
+													data-action="/path-traversal/${type}/${safe}/read-file"
+													target="_blank">
 											<div class="form-group">
 												<label for="exampleInputEmail1">Path</label>
 												<input name="input" class="form-control" id="exampleInputEmail1" value="../../../../../../../../../etc/passwd">
@@ -40,7 +43,10 @@
 								<div class="row" style="min-height: 200px;">
 									<div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
 										<h4 class="sub-header"><code>fs.writeFile</code></h4>
-										<form method="POST" action="/path-traversal/body/unsafe/write-file" target="_blank">
+										<form method="GET"
+													action="/path-traversal/query/unsafe/write-file"
+													data-action="/path-traversal/${type}/${safe}/write-file"
+													target="_blank">
 											<div class="form-group">
 												<label for="exampleInputEmail1">Path</label>
 												<input name="input" class="form-control" id="input-write-file" value="../message.txt">
@@ -58,7 +64,10 @@
 											<code>fs.readFile</code>
 											<span style="color:#339955">(safe)</span>
 										</h4>
-										<form method="POST" action="/path-traversal/body/safe/read-file" target="_blank">
+										<form method="GET"
+													action="/path-traversal/query/safe/read-file"
+													action="/path-traversal/${type}/${safe}/read-file"
+													target="_blank">
 											<div class="form-group">
 												<label for="exampleInputEmail1">Path</label>
 												<input name="input" class="form-control" id="input-read-file-safe" value="../../../../../../../../../etc/passwd">

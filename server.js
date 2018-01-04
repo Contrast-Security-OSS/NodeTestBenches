@@ -48,26 +48,18 @@ const manifest = {
 				plugin: './routes/sql-injection/',
 				routes: {prefix: '/sqlinjection'}
 			},
-			// {
-			// 	plugin: './routes/path-traversal',
-			// 	options: {routes: {prefix: '/path-traversal'}}
-			// },
-			// {
-			// 	plugin: './routes/session/http-only.js',
-			// 	options: {
-			// 		routes: {
-			// 			prefix: '/session/httponly'
-			// 		}
-			// 	}
-			// },
-			// {
-			// 	plugin: './routes/session/secure-flag-missing.js',
-			// 	options: {
-			// 		routes: {
-			// 			prefix: '/session/secureflagmissing'
-			// 		}
-			// 	}
-			// }
+			{
+				plugin: './routes/path-traversal',
+				routes: {prefix: '/path-traversal'}
+			},
+			{
+				plugin: './routes/session/http-only.js',
+				routes: {prefix: '/session/httponly'}
+			},
+			{
+				plugin: './routes/session/secure-flag-missing.js',
+				routes: {prefix: '/session/secureflagmissing'}
+			}
 		]
 	}
 };
@@ -77,7 +69,7 @@ const options = {
 };
 
 if (process.env.SSL === '1') {
-	pem.createCertificate({days: 1, selfSigned: true}, ( err, keys ) => {
+	pem.createCertificate({days: 1, selfSigned: true}, (err, keys) => {
 		manifest.connections[0].tls = {
 			key: keys.serviceKey,
 			cert: keys.certificate

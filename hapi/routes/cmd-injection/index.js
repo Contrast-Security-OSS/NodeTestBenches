@@ -50,16 +50,10 @@ exports.register = function cmdInjection(server, options) {
 				}, {
 					path: `${inputSegment}/unsafe${sinkSegment}`,
 					method: methods,
-					handler: (request, h) => {
-
-						const value = Hoek.reach(request, dataPath);
-						/* For synchronous sink methods:  */
-						if (handle.length == 1) {
-							return (handle(value) || '').toString();
-						}
-
-						/* For asynchronous sink methods: */
-						return handle(value || '');
+					handler: async (request, h) => {
+						const value = Hoek.reach(request, dataPath) || '';
+						const result = await handle(value);
+						return result.toString();
 					}
 				}
 			]);

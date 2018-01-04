@@ -1,4 +1,5 @@
 'use strict';
+const util = require('util');
 const mysql = require('mysql');
 const hooker = require('hooker');
 
@@ -22,6 +23,7 @@ connection._connectCalled = true;
 
 exports.register = function mongo(server, options) {
 	connection.connect();
+	connection.query = util.promisify(connection.query);
 	console.log('connected to mysql server'); // eslint-disable-line
 	return server.expose('db', connection);
 };

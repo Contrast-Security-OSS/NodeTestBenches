@@ -23,7 +23,7 @@
     "hoek": "github:hapijs/hoek",
     "hooker": "^0.2.3",
     "inert": "github:hapijs/inert",
-    "mongodb": "^2.2.31",
+    "mongodb": "^3.0.1",
     "mysql": "^2.14.1",
     "pem": "^1.12.3",
     "vision": "github:hapijs/vision"

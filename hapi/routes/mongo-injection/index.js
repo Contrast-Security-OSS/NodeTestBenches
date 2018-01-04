@@ -7,15 +7,17 @@ const pluginName = 'hapitestbench.mongoinjection';
  * @param {string} type  - Name of the property of request to get the input from
  * @param {boolean} safe - Whether or not to make the route safe
  */
-function baseHandler (db, type, safe, request, reply) {
+function baseHandler (db, type, safe, request, h) {
 	const input = safe ? '' : request[type].input;
-	// db.eval('db.hapitestbench.find(' + input  + ')', function(err, result) {
-	db.eval(input, function(err, result) {
-		if (err) {
-			reply(err.toString());
-		} else {
-			reply(result);
-		}
+	return new Promise(function(resolve, reject) {
+		db.eval(input, function(err, result) {
+			console.log('?');
+			if (err) {
+				reject(err);
+			} else {
+				resolve(result);
+			}
+		});
 	});
 }
 
@@ -26,8 +28,7 @@ function makeHandler (db, type, safe) {
 exports.register = function mongoInjection(server, options, next) {
 	const db = server.plugins['hapitestbench.mongodb'].db;
 	if (!db) {
-		Hoek.assert(db, 'mongodb was not properly initialized');
-		next();
+		return Hoek.assert(db, 'mongodb was not properly initialized');
 	}
 
 	// curl http://localhost:3000/mongoinjection/header --header "input: hi_header"
@@ -66,10 +67,6 @@ exports.register = function mongoInjection(server, options, next) {
 		{method: 'POST', path: '/post',              handler: handlers.post},
 		{method: 'POST', path: '/postSafe',          handler: handlers.postSafe},
 	]);
-
-	next();
 };
 
-exports.register.attributes = {
-	name: pluginName
-};
+exports.name = pluginName;

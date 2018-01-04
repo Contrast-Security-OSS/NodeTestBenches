@@ -11,7 +11,6 @@ function baseHandler (db, type, safe, request, h) {
 	const input = safe ? '' : request[type].input;
 	return new Promise(function(resolve, reject) {
 		db.eval(input, function(err, result) {
-			console.log('?');
 			if (err) {
 				reject(err);
 			} else {
@@ -25,7 +24,7 @@ function makeHandler (db, type, safe) {
 	return baseHandler.bind(this, db, type, safe);
 }
 
-exports.register = function mongoInjection(server, options, next) {
+exports.register = function mongoInjection(server, options) {
 	const db = server.plugins['hapitestbench.mongodb'].db;
 	if (!db) {
 		return Hoek.assert(db, 'mongodb was not properly initialized');

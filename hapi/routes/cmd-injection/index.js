@@ -1,11 +1,15 @@
 'use strict';
 
-const cp = require('child_process');
 const Hoek = require('hoek');
+const util = require('util');
 
-const pluginName = 'hapitestbench.cmdinjection';
+const cp = require('child_process');
+const exec = util.promisify(cp.exec);
+const execSync = cp.execSync;
 
-exports.register = function cmdInjection ( server, options, next ) {
+exports.name = 'hapitestbench.cmdinjection';
+
+exports.register = function cmdInjection(server, options) {
 
 	/* ########################################################### */
 	/* ### Base index HTML page                                ### */
@@ -25,62 +29,53 @@ exports.register = function cmdInjection ( server, options, next ) {
 	const methods = ['DELETE', 'GET', 'OPTIONS', 'PATCH', 'PUT', 'POST'];
 	const inputTypes = ['query', 'params', 'headers', 'state', 'payload'];
 	const inputSegmentLookup = {
-		payload : '/body',
-		headers : '/headers',
-		params  : '/url-params',
-		query   : '/query',
-		state   : '/cookies'
+		payload: '/body',
+		headers: '/headers',
+		params: '/url-params',
+		query: '/query',
+		state: '/cookies'
 	};
 
-	const makeRouteHandlers = ( sinkSegment, handle ) => {
+	const makeRouteHandlers = (sinkSegment, handle) => {
 		inputTypes.forEach(type => {
 
 			const dataPath = `${type}.input`;
 			const inputSegment = inputSegmentLookup[type];
 
-			server.route(
-				[{
-					path    : `${inputSegment}/safe${sinkSegment}`,
-					method  : methods,
-					handler : ( _, reply ) => reply('SAFE')
+			server.route([
+				{
+					path: `${inputSegment}/safe${sinkSegment}`,
+					method: methods,
+					handler: (request, h) => 'SAFE'
 				}, {
-					path    : `${inputSegment}/unsafe${sinkSegment}`,
-					method  : methods,
-					handler : ( request, reply ) => {
+					path: `${inputSegment}/unsafe${sinkSegment}`,
+					method: methods,
+					handler: (request, h) => {
 
 						const value = Hoek.reach(request, dataPath);
-
 						/* For synchronous sink methods:  */
 						if (handle.length == 1) {
-							reply((handle(value) || '').toString());
+							return (handle(value) || '').toString();
 						}
 
 						/* For asynchronous sink methods: */
-						else {
-							handle(value || '', ( error, data ) => {
-								reply((error || data || '').toString());
-							});
-						}
-
+						return handle(value || '');
 					}
-				}]);
+				}
+			]);
 		});
 	};
 
 	const sinks = {
 		cp: {
-			exec: ( input, cb ) => cp.exec(input, cb),
-			execSync: input => cp.execSync(input)
+			exec: ( input, cb ) => exec(input, cb),
+			execSync: input => execSync(input)
 		}
 	};
 
 	[
-		['/exec'     , sinks.cp.exec    ],
+		['/exec'     , sinks.cp.exec],
 		['/exec-sync', sinks.cp.execSync]
 	].forEach(
 		confArgs => makeRouteHandlers.apply(null, confArgs));
-
-	next();
 };
-
-exports.register.attributes = { name: pluginName };

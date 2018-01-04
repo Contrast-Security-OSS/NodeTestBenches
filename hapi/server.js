@@ -36,14 +36,14 @@ const manifest = {
 				routes: {prefix: '/reflectedxss/objects'}
 			},
 
-			// {
-			// 	plugin: './routes/cmd-injection',
-			// 	options: {routes: {prefix: '/cmd-injection'}}
-			// },
-			// {
-			// 	plugin: './routes/ssjs-injection',
-			// 	options: {routes: {prefix: '/ssjs-injection'}}
-			// },
+			{
+				plugin: './routes/cmd-injection',
+				routes: {prefix: '/cmd-injection'}
+			},
+			{
+				plugin: './routes/ssjs-injection',
+				routes: {prefix: '/ssjs-injection'}
+			},
 			// {
 			// 	plugin: './routes/sql-injection/',
 			// 	options: {routes: {prefix: '/sqlinjection'}}
@@ -101,6 +101,7 @@ async function start () {
 		await server.start();
 		console.log(`Server running at: ${server.info.uri}`); // eslint-disable-line
 	} catch (err) {
-		console.error(err);
+		console.error(err); // eslint-disable-line
+		process.exit(1); // eslint-disable-line
 	}
 }

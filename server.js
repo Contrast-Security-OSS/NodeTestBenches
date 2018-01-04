@@ -8,82 +8,68 @@ const PORT = process.env.PORT || 3000;
 
 const manifest = {
 	server: {
-		debug: {'request': ['error', 'uncaught']}
-	},
-	connections: [{
+		debug: {'request': ['error', 'uncaught']},
 		port: PORT
-	}],
-	registrations: [
-		// hapi plugins
-		{plugin: 'inert'},
-		{plugin: 'vision'},
-		{
-			plugin: {
-				register: 'visionary',
-				options: {
-					engines: {
-						ejs: require('ejs')
-					},
-					allowAbsolutePaths: true,
-					relativeTo: path.resolve(__dirname, 'views'),
-					path: 'pages',
-					partialsPath: 'partials'
-				}
-			}
+	},
+	register: {
+		plugins: [
+			// hapi plugins
+			{plugin: 'inert'},
+			{plugin: 'vision'},
 
-		},
+			// DB initializers
+			{plugin: './db/mongodb.js'},
+			{plugin: './db/mysql.js'},
 
-		// DB initializers
-		{plugin: './db/mongodb.js'},
-		{plugin: './db/mysql.js'},
+			// route handlers
+			{plugin: './routes/index.js'},
+			{
+				plugin: './routes/mongo-injection/',
+				routes: {prefix: '/mongoinjection'}
+			},
+			{
+				plugin: './routes/reflected-xss/',
+				routes: {prefix: '/reflectedxss'}
+			},
+			{
+				plugin: './routes/reflected-xss/object-sources/',
+				routes: {prefix: '/reflectedxss/objects'}
+			},
 
-		// route handlers
-		{plugin: './routes/index.js'},
-		{
-			plugin: './routes/cmd-injection',
-			options: {routes: {prefix: '/cmd-injection'}}
-		},
-		{
-			plugin: './routes/mongo-injection/',
-			options: {routes: {prefix: '/mongoinjection'}}
-		},
-		{
-			plugin: './routes/path-traversal',
-			options: {routes: {prefix: '/path-traversal'}}
-		},
-		{
-			plugin: './routes/reflected-xss/',
-			options: {routes: {prefix: '/reflectedxss'}}
-		},
-		{
-			plugin: './routes/reflected-xss/object-sources/',
-			options: {routes: {prefix: '/reflectedxss/objects'}}
-		},
-		{
-			plugin: './routes/sql-injection/',
-			options: {routes: {prefix: '/sqlinjection'}}
-		},
-		{
-			plugin: './routes/ssjs-injection',
-			options: {routes: {prefix: '/ssjs-injection'}}
-		},
-		{
-			plugin: './routes/session/http-only.js',
-			options: {
-				routes: {
-					prefix: '/session/httponly'
-				}
-			}
-		},
-		{
-			plugin: './routes/session/secure-flag-missing.js',
-			options: {
-				routes: {
-					prefix: '/session/secureflagmissing'
-				}
-			}
-		}
-	]
+			// {
+			// 	plugin: './routes/cmd-injection',
+			// 	options: {routes: {prefix: '/cmd-injection'}}
+			// },
+			// {
+			// 	plugin: './routes/ssjs-injection',
+			// 	options: {routes: {prefix: '/ssjs-injection'}}
+			// },
+			// {
+			// 	plugin: './routes/sql-injection/',
+			// 	options: {routes: {prefix: '/sqlinjection'}}
+			// },
+			// {
+			// 	plugin: './routes/path-traversal',
+			// 	options: {routes: {prefix: '/path-traversal'}}
+			// },
+			// {
+			// 	plugin: './routes/session/http-only.js',
+			// 	options: {
+			// 		routes: {
+			// 			prefix: '/session/httponly'
+			// 		}
+			// 	}
+			// },
+			// {
+			// 	plugin: './routes/session/secure-flag-missing.js',
+			// 	options: {
+			// 		routes: {
+			// 			prefix: '/session/secureflagmissing'
+			// 		}
+			// 	}
+			// }
+		]
+	}
 };
 
 const options = {
@@ -102,14 +88,19 @@ if (process.env.SSL === '1') {
 	start();
 }
 
-function start () {
-	glue.compose(manifest, options, (err, server) => {
-		if (err) {
-			throw err;
-		}
-
-		server.start(() => {
-			console.log(`Server running at: ${server.connections[0].info.uri}`); // eslint-disable-line
+async function start () {
+	try {
+		const server = await glue.compose(manifest, options);
+		server.views({
+			engines: {ejs: require('ejs')},
+			allowAbsolutePaths: true,
+			relativeTo: path.resolve(__dirname, 'views'),
+			path: 'pages',
+			partialsPath: 'partials'
 		});
-	});
+		await server.start();
+		console.log(`Server running at: ${server.info.uri}`); // eslint-disable-line
+	} catch (err) {
+		console.error(err);
+	}
 }

@@ -4,20 +4,19 @@
  * @param {string} type Name of the property of request to get the input from
  * @param {boolean} safe Whether or not to make the route safe
  */
-function baseHandler (type, safe, request, reply) {
+function baseHandler (type, safe, request, h) {
 	const input = safe ? encodeURIComponent(request[type].input)
 		: request[type].input;
 
 	const output = '<html>' + input + '</html>';
-	// const output = `<html>${input}</html>`;
-	reply(output);
+	return output;
 }
 
 function makeHandler (type, safe) {
 	return baseHandler.bind(this, type, safe);
 }
 
-exports.register = function reflectedXss(server, options, next) {
+exports.register = function reflectedXss(server, options) {
 
 	// curl http://localhost:3000/reflectedxss/header --header "input: hi_header"
 	// curl http://localhost:3000/reflectedxss/headerSafe --header "input: hi_header"
@@ -55,10 +54,6 @@ exports.register = function reflectedXss(server, options, next) {
 		{method: 'POST', path: '/post',              handler: handlers.post},
 		{method: 'POST', path: '/postSafe',          handler: handlers.postSafe},
 	]);
-
-	next();
 };
 
-exports.register.attributes = {
-	name: 'hapitestbench.reflectedxss'
-};
+exports.name = 'hapitestbench.reflectedxss';

@@ -1,6 +1,7 @@
 'use strict';
 const Hoek = require('hoek');
-const pluginName = 'hapitestbench.mongoinjection';
+
+exports.name = 'hapitestbench.mongoinjection';
 
 /**
  * @param {Object} db    - The mongo db instance to do stuff on
@@ -8,16 +9,8 @@ const pluginName = 'hapitestbench.mongoinjection';
  * @param {boolean} safe - Whether or not to make the route safe
  */
 function baseHandler (db, type, safe, request, h) {
-	const input = safe ? '' : request[type].input;
-	return new Promise(function(resolve, reject) {
-		db.eval(input, function(err, result) {
-			if (err) {
-				reject(err);
-			} else {
-				resolve(result);
-			}
-		});
-	});
+	const input = safe ? 'function() {}' : `function() {${request[type].input}}`;
+	return db.eval(input);
 }
 
 function makeHandler (db, type, safe) {
@@ -67,5 +60,3 @@ exports.register = function mongoInjection(server, options) {
 		{method: 'POST', path: '/postSafe',          handler: handlers.postSafe},
 	]);
 };
-
-exports.name = pluginName;

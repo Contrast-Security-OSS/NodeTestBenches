@@ -1,31 +1,26 @@
 'use strict';
 const Hoek = require('hoek');
-const pluginName = 'hapitestbench.sqlinjection';
+
+exports.name = 'hapitestbench.sqlinjection';
 
 /**
  * @param {Object} db    - The mongo db instance to do stuff on
  * @param {string} type  - Name of the property of request to get the input from
  * @param {boolean} safe - Whether or not to make the route safe
  */
-function baseHandler (db, type, safe, request, reply) {
+function baseHandler (db, type, safe, request, h) {
 	const input = safe ? '' : request[type].input;
-	db.query('SELECT "' + input + '" as "test";', function(err, result) {
-		if (err) {
-			reply(err.toString());
-		} else {
-			reply(result);
-		}
-	});
+	return db.query('SELECT "' + input + '" as "test";');
 }
 
 function makeHandler (db, type, safe) {
 	return baseHandler.bind(this, db, type, safe);
 }
 
-exports.register = function mongoInjection(server, options, next) {
+exports.register = function mongoInjection(server, options) {
 	const db = server.plugins['hapitestbench.mysql'].db;
 	if (!db) {
-		Hoek.assert(db, 'mysql connection was not properly initialized');
+		return Hoek.assert(db, 'mysql connection was not properly initialized');
 	}
 
 	// curl http://localhost:3000/sqlinjection/header --header "input: hi_header"
@@ -64,10 +59,5 @@ exports.register = function mongoInjection(server, options, next) {
 		{method: 'POST', path: '/post',              handler: handlers.post},
 		{method: 'POST', path: '/postSafe',          handler: handlers.postSafe},
 	]);
-
-	next();
 };
 
-exports.register.attributes = {
-	name: pluginName
-};

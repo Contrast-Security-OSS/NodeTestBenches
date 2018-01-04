@@ -44,10 +44,10 @@ const manifest = {
 				plugin: './routes/ssjs-injection',
 				routes: {prefix: '/ssjs-injection'}
 			},
-			// {
-			// 	plugin: './routes/sql-injection/',
-			// 	options: {routes: {prefix: '/sqlinjection'}}
-			// },
+			{
+				plugin: './routes/sql-injection/',
+				routes: {prefix: '/sqlinjection'}
+			},
 			// {
 			// 	plugin: './routes/path-traversal',
 			// 	options: {routes: {prefix: '/path-traversal'}}

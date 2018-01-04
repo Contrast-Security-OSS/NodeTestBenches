@@ -50,15 +50,15 @@ exports.register = function ssjsInjection(server, options) {
 					path: `${inputSegment}/safe${sinkSegment}`,
 					method: methods,
 					handler: (request, h) => {
-						const value = handle('"Safe and trusted"');
-						return (value || '').toString();
+						const value = handle('"Safe and trusted"') || '';
+						return value.toString();
 					}
 				}, {
 					path: `${inputSegment}/unsafe${sinkSegment}`,
 					method: methods,
 					handler: (request, h) => {
-						const value = handle(Hoek.reach(request, dataPath));
-						return (value || '').toString();
+						const value = handle(Hoek.reach(request, dataPath)) || '';
+						return value.toString();
 					}
 				}]);
 		});

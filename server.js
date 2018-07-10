@@ -53,6 +53,10 @@ const manifest = {
                                 routes: {prefix: '/unsafe_eval'}
                         },
                         {
+                                plugin: './routes/unvalidated-redirect',
+                                routes: {prefix: '/unvalidated-redirect'}
+                        },
+                        {
 	                        plugin: './routes/path-traversal',
 	                        routes: {prefix: '/path-traversal'}
                         },
@@ -63,7 +67,8 @@ const manifest = {
                         {
 	                        plugin: './routes/session/secure-flag-missing.js',
 	                        routes: {prefix: '/session/secureflagmissing'}
-                        }
+                        },
+
                 ]
         }
 };

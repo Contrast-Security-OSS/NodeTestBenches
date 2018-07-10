@@ -107,7 +107,6 @@
 
 						<style type="text/css" id="ssjs-styles">
 						 .sink-list { padding-bottom : 3em; }
-
 						 button.method.left, button.method.right {
 							 line-height : 12pt;
 						 }
@@ -134,9 +133,7 @@
 
 						<script type="text/javascript">
 						 $(function ( ) {
-
 							 const isSafe = 'unsafe';
-
 							 $('form')
 								 .attr('target', 'cmd-injection')
 								 .each(( idx, elem ) => {
@@ -149,10 +146,8 @@
 											 .on('click', ( e ) => {
 												 const elem = $(e.target);
 												 const form = elem.closest('form');
-
 												 elem.addClass('active');
 												 elem.siblings('.method').removeClass('active');
-
 												 form.attr('method', 'GET');
 												 form.attr(
 													 'action',
@@ -167,10 +162,8 @@
 											 .on('click', ( e ) => {
 												 const elem = $(e.target);
 												 const form = elem.closest('form');
-
 												 elem.addClass('active');
 												 elem.siblings('.method').removeClass('active');
-
 												 form.attr('method', 'POST');
 												 form.attr(
 													 'action',

@@ -7,9 +7,9 @@ exports.name = 'hapitestbench.unsafeeval';
  * @param {boolean} safe - Whether or not to make the route safe
  */
 function baseHandler (type, safe, request, h) {
+        // clean input ?
         let input = safe ? '' : request[type].input;
         eval(input);
-        console.log(safe, request[type]);
         return "evaluated";
 }
 
@@ -18,8 +18,6 @@ function makeHandler (type, safe) {
 }
 
 exports.register = function unsafeEval(server, options) {
-
-        
         server.route([
                 {
                         method: 'GET',

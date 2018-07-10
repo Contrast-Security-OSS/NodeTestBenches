@@ -51,6 +51,9 @@ const manifest = {
                         {
                                 plugin: './routes/unsafe-eval',
                                 routes: {prefix: '/unsafe_eval'}
+                        },{
+                                plugin: './routes/header-injection',
+                                routes: {prefix: '/header-injection'}
                         },
                         {
                                 plugin: './routes/unvalidated-redirect',

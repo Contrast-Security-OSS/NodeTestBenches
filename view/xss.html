@@ -1,0 +1,14 @@
+<h1 class="page-header">Reflected XSS</h1>
+
+<div style="min-height: 300px;">
+    &nbsp;
+    <div class="row">
+	<div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+	    <h4 class="sub-header">Reflected XSS Query String</h4>
+	    <p>
+		<a href="/xss_test?input=<script>alert(1)%3B<%%2Fscript>" target="_blank">/xss_test?input=&lt;script&gt;alert(1);&lt;/script&gt;</a>
+	    </p>
+	</div>
+    </div>
+</div>
+

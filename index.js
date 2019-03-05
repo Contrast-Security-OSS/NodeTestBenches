@@ -29,7 +29,8 @@ require('./routes/index')({ router });
 require('./routes/xss')({ router });
 require('./routes/cmdi')({ router });
 require('./routes/sqli')({ router });
-require('./routes/unvalidated_redirect')({ router })
+require('./routes/unvalidated_redirect')({ router });
+require('./routes/path_traversal')({ router });
 
 app.use(router.routes());
 app.use(router.allowedMethods());

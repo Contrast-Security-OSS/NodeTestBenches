@@ -31,6 +31,10 @@ require('./routes/cmdi')({ router });
 require('./routes/sqli')({ router });
 require('./routes/unvalidated_redirect')({ router });
 require('./routes/path_traversal')({ router });
+require('./routes/ssjs')({ router });
+require('./routes/header_injection')({ router });
+require('./routes/csp_header')({ router });
+
 
 app.use(router.routes());
 app.use(router.allowedMethods());

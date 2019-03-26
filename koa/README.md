@@ -3,7 +3,7 @@ Intentionally Vulnerable Koa Application
 
 ## Running Locally
 
-Make sure you have [Node.js](http://nodejs.org/) installed or install a version on node from [nvm](https://github.com/creationix/nvm).
+Make sure you have [Node.js](http://nodejs.org/) installed or install a version of node from [nvm](https://github.com/creationix/nvm).
 
 ```sh
 git clone https://github.com/Contrast-Security-OSS/KoaTestBench.git # or clone your own fork

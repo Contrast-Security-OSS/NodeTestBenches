@@ -9,7 +9,7 @@ const serve = require('koa-static');
 const mount = require("koa-mount");
 const bodyParser = require('koa-bodyparser');
 
-const PORT = process.env.CONTRAST_PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 // setup static file serving
 app.use(mount("/assets", serve("./public")));

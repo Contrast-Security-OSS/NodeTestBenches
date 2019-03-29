@@ -1,2 +1,5 @@
 .#*
 node_modules/
+# node-agent logs
+node-contrast-*.log
+security-*.log

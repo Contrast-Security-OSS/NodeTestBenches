@@ -23,6 +23,13 @@ render(app, {
   async: false
 });
 
+// adding current year to be used in layout for copyright year
+app.use((ctx, next) => {
+  ctx.state = ctx.state || {};
+  ctx.state.currentYear = new Date().getFullYear()
+  return next();
+});
+
 app.use(bodyParser());
 
 require('./routes/index')({ router });

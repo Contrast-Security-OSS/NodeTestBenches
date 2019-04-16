@@ -3,9 +3,9 @@
 const Hoek = require('hoek');
 const vm = require('vm');
 
-const pluginName = 'hapitestbench.ssjsinjection';
+exports.name = 'hapitestbench.ssjsinjection';
 
-exports.register = function ssjsInjection ( server, options, next ) {
+exports.register = function ssjsInjection(server, options) {
 
 	/* ########################################################### */
 	/* ### Base index HTML page                                ### */
@@ -32,14 +32,14 @@ exports.register = function ssjsInjection ( server, options, next ) {
 	const methods = ['DELETE', 'GET', 'OPTIONS', 'PATCH', 'PUT', 'POST'];
 	const inputTypes = ['query', 'params', 'headers', 'state', 'payload'];
 	const inputSegmentLookup = {
-		payload : '/body',
-		headers : '/headers',
-		params  : '/url-params',
-		query   : '/query',
-		state   : '/cookies'
+		payload: '/body',
+		headers: '/headers',
+		params: '/url-params',
+		query: '/query',
+		state: '/cookies'
 	};
 
-	const makeRouteHandlers = ( sinkSegment, handle ) => {
+	const makeRouteHandlers = (sinkSegment, handle) => {
 		inputTypes.forEach(type => {
 
 			const dataPath = `${type}.input`;
@@ -47,18 +47,18 @@ exports.register = function ssjsInjection ( server, options, next ) {
 
 			server.route(
 				[{
-					path    : `${inputSegment}/safe${sinkSegment}`,
-					method  : methods,
-					handler : ( request, reply ) => {
-						const value = handle('"Safe and trusted"');
-						return reply((value || '').toString());
+					path: `${inputSegment}/safe${sinkSegment}`,
+					method: methods,
+					handler: (request, h) => {
+						const value = handle('"Safe and trusted"') || '';
+						return value.toString();
 					}
 				}, {
-					path    : `${inputSegment}/unsafe${sinkSegment}`,
-					method  : methods,
-					handler : ( request, reply ) => {
-						const value = handle(Hoek.reach(request, dataPath));
-						return reply((value || '').toString());
+					path: `${inputSegment}/unsafe${sinkSegment}`,
+					method: methods,
+					handler: (request, h) => {
+						const value = handle(Hoek.reach(request, dataPath)) || '';
+						return value.toString();
 					}
 				}]);
 		});
@@ -73,7 +73,7 @@ exports.register = function ssjsInjection ( server, options, next ) {
 	};
 
 	const vmRunInCtx = input => {
-		const sb  = { value: '', process };
+		const sb  = {value: '', process};
 		const ctx = vm.createContext(sb);
 
 		vm.runInContext(`value = ${input};`, ctx);
@@ -82,7 +82,7 @@ exports.register = function ssjsInjection ( server, options, next ) {
 	};
 
 	const vmRunInNewCtx = input => {
-		const sb = { value: '', process };
+		const sb = {value: '', process};
 		vm.runInNewContext(`value = ${input};`, sb);
 
 		return sb.value;
@@ -105,7 +105,7 @@ exports.register = function ssjsInjection ( server, options, next ) {
 	};
 
 	const vmScriptRunInCtx = input => {
-		const sb = { value: '', process };
+		const sb = {value: '', process};
 		const ctx = vm.createContext(sb);
 		const script = new vm.Script(`value = ${input};`);
 		script.runInContext(ctx);
@@ -114,7 +114,7 @@ exports.register = function ssjsInjection ( server, options, next ) {
 	};
 
 	const vmScriptRunInNewCtx = input => {
-		const sb = { value: '', process };
+		const sb = {value: '', process};
 		const script = new vm.Script(`value = ${input};`);
 		script.runInNewContext(sb);
 
@@ -135,19 +135,15 @@ exports.register = function ssjsInjection ( server, options, next ) {
 	};
 
 	[
-		['/eval'                         , _eval               ],
-		['/function'                     , _Function           ],
-		['/vm-run-in-context'            , vmRunInCtx          ],
-		['/vm-run-in-new-context'        , vmRunInNewCtx       ],
-		['/vm-run-in-this-context'       , vmRunInThisCtx      ],
-		['/vm-create-context'            , vmCreateContext     ],
-		['/vm-script-run-in-context'     , vmScriptRunInCtx    ],
-		['/vm-script-run-in-new-context' , vmScriptRunInNewCtx ],
+		['/eval'                         , _eval],
+		['/function'                     , _Function],
+		['/vm-run-in-context'            , vmRunInCtx],
+		['/vm-run-in-new-context'        , vmRunInNewCtx],
+		['/vm-run-in-this-context'       , vmRunInThisCtx],
+		['/vm-create-context'            , vmCreateContext],
+		['/vm-script-run-in-context'     , vmScriptRunInCtx],
+		['/vm-script-run-in-new-context' , vmScriptRunInNewCtx],
 		['/vm-script-run-in-this-context', vmScriptRunInThisCtx]
 	].forEach(
 		confArgs => makeRouteHandlers.apply(null, confArgs));
-
-	next();
 };
-
-exports.register.attributes = { name: pluginName };

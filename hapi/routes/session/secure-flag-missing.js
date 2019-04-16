@@ -1,21 +1,23 @@
 'use strict';
 
+exports.name = 'hapitestbench.secureflagmissing';
+
 /**
  * @param {string} type Name of the property of request to get the input from
  * @param {boolean} safe Whether or not to make the route safe
  */
-function baseHandler (type, safe, request, reply) {
-	reply.state('reply.state', 'valueSetInBaseHandler', {
+function baseHandler (type, safe, request, h) {
+	h.state('reply.state', 'valueSetInBaseHandler', {
 		isSecure: safe
 	});
-	reply('hi');
+	return safe ? 'safe' : 'unsafe';
 }
 
 function makeHandler (type, safe) {
 	return baseHandler.bind(this, type, safe);
 }
 
-exports.register = function httpOnly(server, options, next) {
+exports.register = function httpOnly(server, options) {
 
 	const handlers = {
 		safe: makeHandler('safe', true),
@@ -30,13 +32,8 @@ exports.register = function httpOnly(server, options, next) {
 				view: 'secureflagmissing'
 			}
 		},
-		{method: 'GET',  path: '/safe',     handler: handlers.safe},
+		{method: 'GET',  path: '/safe',   handler: handlers.safe},
 		{method: 'GET',  path: '/unsafe', handler: handlers.unsafe},
 	]);
-
-	next();
 };
 
-exports.register.attributes = {
-	name: 'hapitestbench.secureflagmissing'
-};

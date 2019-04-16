@@ -18,15 +18,14 @@
   "homepage": "https://github.com/Contrast-Security-OSS/HapiTestBench#readme",
   "dependencies": {
     "ejs": "^2.5.7",
-    "glue": "^4.2.0",
-    "hapi": "^16.5.2",
-    "hoek": "^4.2.0",
+    "glue": "^5.0.0",
+    "hapi": "^17.8.5",
+    "hoek": "^6.1.3",
     "hooker": "^0.2.3",
-    "inert": "^4.2.1",
-    "mongodb": "^2.2.31",
+    "inert": "^5.1.3",
+    "mongodb": "^3.0.1",
     "mysql": "^2.14.1",
     "pem": "^1.12.3",
-    "vision": "^4.1.1",
-    "visionary": "^6.0.2"
+    "vision": "^5.4.4"
   }
 }

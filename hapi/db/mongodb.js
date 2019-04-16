@@ -1,7 +1,7 @@
 'use strict';
 const MongoClient = require('mongodb').MongoClient;
 
-const url = 'mongodb://localhost:27017/';
+const url = process.env.MONGODB_URI || 'mongodb://localhost:27017/';
 
 exports.register = async function mongo(server, options) {
 	const client = await MongoClient.connect(url);

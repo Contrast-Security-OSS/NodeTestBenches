@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+	<% include ../partials/head %>
+    </head>
+    <body class="container">
+
+	<header>
+	    <% include ../partials/header %>
+	    <% include ../partials/nav %>
+	</header>
+
+	<div class="container-fluid">
+	    <div class="row">
+		<div class="col-sm-9 col-sm-offset-1 col-md-10 col-md-offset-1 main">
+		    <main>
+
+			<div class="row">
+			    <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+				<div class="row">
+				    <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+					<h4 class="sub-header">Invalidated Redirect</h4>
+
+					<form method="GET" id='xsspost' action="/unvalidated-redirect/get" target="_blank">
+				  	    <div class="form-group">
+	                                        <input name="input" class="form-control" placeholder="input" value="https://google.com">
+				  	    </div>
+				  	    <button type="submit" id="post_btn0" class="btn btn-default">redirect</button>
+					</form>
+				    </div>
+				</div>
+                                
+				<div style="min-height: 300px;">
+				    &nbsp;
+				</div>
+		    </main>
+
+		    <footer>
+			<% include ../partials/footer %>
+		    </footer>
+
+			    </div>
+			</div>
+		</div>
+    </body>
+</html>

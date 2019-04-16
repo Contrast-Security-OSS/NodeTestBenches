@@ -1,4 +1,5 @@
 'use strict';
+const util = require('util');
 const mysql = require('mysql');
 const hooker = require('hooker');
 
@@ -20,13 +21,11 @@ const connection = mysql.createConnection({
 // pretend we already connected
 connection._connectCalled = true;
 
-exports.register = function mongo(server, options, next) {
+exports.register = function mongo(server, options) {
 	connection.connect();
+	connection.query = util.promisify(connection.query);
 	console.log('connected to mysql server'); // eslint-disable-line
-	server.expose('db', connection);
-	next();
+	return server.expose('db', connection);
 };
 
-exports.register.attributes = {
-	name: 'hapitestbench.mysql'
-};
+exports.name = 'hapitestbench.mysql';

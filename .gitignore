@@ -1,3 +1,5 @@
+#Ignoring package-lock because master should be the latest of hapi modules
+package-lock.json
 # contrast
 contrast.json
 

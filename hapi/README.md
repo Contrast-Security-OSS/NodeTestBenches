@@ -1,5 +1,7 @@
 # HapiTestBench
-screener app for hapi
+screener app for Hapi 18.
+
+For Hapi 17 use: [hapi17](https://github.com/Contrast-Security-OSS/HapiTestBench/tree/hapi17)
 
 ## Installation
 ```bash

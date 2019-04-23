@@ -1,6 +1,6 @@
 'use strict';
 
-const Hoek = require('hoek');
+const Hoek = require('@hapi/hoek');
 const util = require('util');
 
 const fs = require('fs');

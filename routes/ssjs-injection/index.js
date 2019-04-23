@@ -1,6 +1,6 @@
 'use strict';
 
-const Hoek = require('hoek');
+const Hoek = require('@hapi/hoek');
 const vm = require('vm');
 
 exports.name = 'hapitestbench.ssjsinjection';

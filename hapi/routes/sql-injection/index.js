@@ -1,5 +1,5 @@
 'use strict';
-const Hoek = require('hoek');
+const Hoek = require('@hapi/hoek');
 
 exports.name = 'hapitestbench.sqlinjection';
 

@@ -1,6 +1,6 @@
 'use strict';
 
-const glue = require('glue');
+const glue = require('@hapi/glue');
 const path = require('path');
 const pem = require('pem');
 
@@ -14,8 +14,8 @@ const manifest = {
   register: {
     plugins: [
       // hapi plugins
-      {plugin: 'inert'},
-      {plugin: 'vision'},
+      {plugin: '@hapi/inert'},
+      {plugin: '@hapi/vision'},
 
       // DB initializers
       {plugin: './db/mongodb.js'},

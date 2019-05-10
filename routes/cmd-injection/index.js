@@ -1,10 +1,9 @@
 'use strict';
 
 const Hoek = require('@hapi/hoek');
-const util = require('util');
 
 const cp = require('child_process');
-const exec = util.promisify(cp.exec);
+const exec = cp.exec;
 const execSync = cp.execSync;
 
 exports.name = 'hapitestbench.cmdinjection';
@@ -62,7 +61,7 @@ exports.register = function cmdInjection(server, options) {
 
 	const sinks = {
 		cp: {
-			exec: ( input, cb ) => exec(input, cb),
+			exec: ( input ) => exec(input, () => input),
 			execSync: input => execSync(input)
 		}
 	};

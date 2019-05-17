@@ -4,7 +4,10 @@ const mysql = require('mysql');
 
 // mock the sql query so the app does not require a database connection
 hooker.hook(require('mysql/lib/Connection').prototype, 'query', {
-  post: function(result, sql, cb) {
+  post: function(result, sql, params, cb) {
+    if (typeof params === 'function') {
+      cb = params;
+    }
     cb(null, [{
       query: sql
     }]);

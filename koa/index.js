@@ -42,6 +42,7 @@ require('./routes/ssjs')({ router });
 require('./routes/header-injection')({ router });
 require('./routes/csp-header')({ router });
 require('./routes/xxe')({ router });
+require('./routes/parampollution')({ router });
 
 
 app.use(router.routes());

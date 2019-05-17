@@ -36,11 +36,12 @@ require('./routes/index')({ router });
 require('./routes/xss')({ router });
 require('./routes/cmdi')({ router });
 require('./routes/sqli')({ router });
-require('./routes/unvalidated_redirect')({ router });
-require('./routes/path_traversal')({ router });
+require('./routes/unvalidated-redirect')({ router });
+require('./routes/path-traversal')({ router });
 require('./routes/ssjs')({ router });
-require('./routes/header_injection')({ router });
-require('./routes/csp_header')({ router });
+require('./routes/header-injection')({ router });
+require('./routes/csp-header')({ router });
+require('./routes/xxe')({ router });
 
 
 app.use(router.routes());

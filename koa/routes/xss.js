@@ -12,13 +12,14 @@ module.exports = ({ router }) => {
     { method: 'get', key: 'header' },
     { method: 'post', key: 'body' }
   ].forEach(({ method, key }) => {
-    let route = `/xss_test/${key}`;
+    let route = `/xss-test/${key}`;
     if (key === 'params') {
       route += '/:input';
     }
 
     router[method](route, (ctx, next) => {
-      ctx.body = (ctx.request[key] || ctx[key]).input;
+      const value = (ctx.request[key] || ctx[key]).input;
+      ctx.body = value;
     });
 
     router[method](`${route}/safe`, (ctx, next) => {

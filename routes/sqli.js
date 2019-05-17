@@ -28,9 +28,21 @@ module.exports = ({ router }) => {
   router.get('/sqli', (ctx, next) => {
     return ctx.render('sqli');
   });
-  router.get('/sqli_test', async (ctx, next) => {
+
+  router.get('/sqli-test', async (ctx, next) => {
     const data = await new Promise(resolve => {
-      connection.query('SELECT "' + ctx.query.name + '" as "test";',
+      connection.query(`SELECT "${ctx.query.name}" as "test";`,
+		       function(error, rows, fields) {
+			resolve('The solution is: ' + util.inspect(rows));
+		       }
+                      );
+    });
+    ctx.body = data;
+  });
+
+  router.get('/sqli-test-safe', async (ctx, next) => {
+    const data = await new Promise(resolve => {
+      connection.query(`SELECT "foo" as "test";`,
 		       function(error, rows, fields) {
 			resolve('The solution is: ' + util.inspect(rows));
 		       }

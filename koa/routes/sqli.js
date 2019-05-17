@@ -42,7 +42,7 @@ module.exports = ({ router }) => {
 
   router.get('/sqli-test-safe', async (ctx, next) => {
     const data = await new Promise(resolve => {
-      connection.query(`SELECT "foo" as "test";`,
+      connection.query(`SELECT "?" as "test";`, [ctx.query.name],
 		       function(error, rows, fields) {
 			resolve('The solution is: ' + util.inspect(rows));
 		       }

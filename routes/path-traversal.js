@@ -16,4 +16,15 @@ module.exports = ({ router }) => {
     });
     ctx.body = data.toString();
   });
+
+  router.post('/path-traversal-test-safe', async (ctx, next) => {
+    let path = ctx.request.body.user_path;
+    path = encodeURIComponent(path);
+    const data = await new Promise(resolve => {
+      fs.readFile(path, (err, data) => {
+        resolve(data);
+      });
+    });
+    ctx.body = data.toString();
+  });
 };

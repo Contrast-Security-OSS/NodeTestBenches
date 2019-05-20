@@ -4,7 +4,10 @@ const mysql = require('mysql');
 
 // mock the sql query so the app does not require a database connection
 hooker.hook(require('mysql/lib/Connection').prototype, 'query', {
-  post: function(result, sql, cb) {
+  post: function(result, sql, params, cb) {
+    if (typeof params === 'function') {
+      cb = params;
+    }
     cb(null, [{
       query: sql
     }]);
@@ -28,9 +31,21 @@ module.exports = ({ router }) => {
   router.get('/sqli', (ctx, next) => {
     return ctx.render('sqli');
   });
-  router.get('/sqli_test', async (ctx, next) => {
+
+  router.get('/sqli-test', async (ctx, next) => {
     const data = await new Promise(resolve => {
-      connection.query('SELECT "' + ctx.query.name + '" as "test";',
+      connection.query(`SELECT "${ctx.query.name}" as "test";`,
+		       function(error, rows, fields) {
+			resolve('The solution is: ' + util.inspect(rows));
+		       }
+                      );
+    });
+    ctx.body = data;
+  });
+
+  router.get('/sqli-test-safe', async (ctx, next) => {
+    const data = await new Promise(resolve => {
+      connection.query(`SELECT "?" as "test";`, [ctx.query.name],
 		       function(error, rows, fields) {
 			resolve('The solution is: ' + util.inspect(rows));
 		       }

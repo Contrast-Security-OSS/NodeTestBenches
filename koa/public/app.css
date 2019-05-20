@@ -67,7 +67,7 @@ body {
 .nav-sidebar > .active > a:hover,
 .nav-sidebar > .active > a:focus {
     /*color: #fff;*/
-    /*background-color: #dddddd;*/	
+    /*background-color: #dddddd;*/
 }
 
 
@@ -111,3 +111,35 @@ body {
 /* themeing */
 body a { color: #8B4513; }
 .banner-dark { background: #345456; }
+
+/* XXE styling */
+
+#xxe .attack-xml {
+ font-family: monospace;
+ height: 15em;
+ margin: 1em 0;
+ resize: none;
+ width: 100%;
+}
+#xxe button.is-safe.left, button.is-safe.right {
+ line-height : 12pt;
+}
+#xxe button.is-safe.left {
+ border-top-right-radius : 0;
+ border-bottom-right-radius : 0;
+ border-right: none;
+ padding-right : .7em;
+ margin-right: 0;
+}
+#xxe button.is-safe.right {
+ border-top-left-radius : 0;
+ border-bottom-left-radius : 0;
+ border-left: none;
+ padding-left : .7em;
+ margin-left: 0;
+}
+#xxe button.is-safe.active {
+ color: #333;
+ background-color: #e6e6e6;
+ border-color: #adadad;
+}

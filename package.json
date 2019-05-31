@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/Contrast-Security-OSS/test-bench-utils/issues"
   },
-  "homepage": "https://github.com/Contrast-Security-OSS/test-bench-utils#readme"
+  "homepage": "https://github.com/Contrast-Security-OSS/test-bench-utils#readme",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "bent": "^1.5.13",
+    "node-fetch": "^2.6.0",
+    "request": "^2.88.0",
+    "superagent": "^5.0.5"
+  }
 }

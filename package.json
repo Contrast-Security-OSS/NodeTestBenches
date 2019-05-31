@@ -1,0 +1,19 @@
+{
+  "name": "@contrast/test-bench-utils",
+  "version": "1.0.0",
+  "description": "Shared code to use in Contrast's web framework test apps.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Contrast-Security-OSS/test-bench-utils.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Contrast-Security-OSS/test-bench-utils/issues"
+  },
+  "homepage": "https://github.com/Contrast-Security-OSS/test-bench-utils#readme"
+}

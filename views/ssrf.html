@@ -58,24 +58,24 @@
    const state = {
      action: '/ssrf/{lib}/{safety}',
      requestUrl: '<%= requestUrl %>',
-     safety: 'safe',
-     activeLib: 'axios'
+     selectedSafety: 'safe',
+     selectedLib: 'axios'
    };
 
    $('#constructed-url').text(state.requestUrl);
-   $(`li[id='${state.activeLib}-selection'] button`).toggleClass('active');
-   $(`li[id='${state.safety}-selection'] button`).toggleClass('active');
+   $(`li[id='${state.selectedLib}-selection'] button`).toggleClass('active');
+   $(`li[id='${state.selectedSafety}-selection'] button`).toggleClass('active');
 
    $('#libs-list button')
      .on('click', (e) => {
-       state.activeLib = $(e.target).text();
+       state.selectedLib = $(e.target).text();
        toggleActiveSelection(e);
        setAction();
      });
 
    $('#safety-list button')
      .on('click', (e) => {
-       state.safety = $(e.target).text();
+       state.selectedSafety = $(e.target).text();
        toggleActiveSelection(e);
        setAction();
      });
@@ -92,8 +92,8 @@
    function setAction() {
      const action = state
        .action
-       .replace('{lib}', state.activeLib)
-       .replace('{safety}', state.safety);
+       .replace('{lib}', state.selectedLib)
+       .replace('{safety}', state.selectedSafety);
      $('form').attr('action', action);
    }
 

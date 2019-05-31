@@ -1,0 +1,127 @@
+<h1 class="page-header">Server-Side Request Forgery</h1>
+
+<div class="row">
+  <div id="ssrf" class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+    <br>
+
+    <div style="overflow:auto">
+      <p>Select library to use when performing the server-side request.</p>
+      <ul id="libs-list" class="selections">
+        <li id="axios-selection">
+          <button type="submit" class="btn btn-default">axios</button>
+        </li>
+        <li id="bent-selection">
+          <button type="submit" class="btn btn-default">bent</button>
+        </li>
+        <li id="fetch-selection">
+          <button type="submit" class="btn btn-default">fetch</button>
+        </li>
+        <li id="request-selection">
+          <button type="submit" class="btn btn-default">request</button>
+        </li>
+        <li id="superagent-selection">
+          <button type="submit" class="btn btn-default">superagent</button>
+        </li>
+      </ul>
+    </div>
+
+    <div style="overflow:auto">
+      <p>Select manner in which to perform request.</p>
+      <ul id="safety-list" class="selections">
+        <li id="safe-selection">
+          <button type="submit" class="btn btn-default">safe</button>
+        </li>
+        <li id="unsafe-selection">
+          <button type="submit" class="btn btn-default">unsafe</button>
+        </li>
+      </ul>
+    </div>
+    <br>
+
+    <div>
+      <form action="/ssrf" method="GET" target="koa-test-bench-ssrf">
+        <p>The server will make a request to the following URL using the selected Node.js package.</p>
+        <pre id="constructed-url"></pre>
+        <br>
+        <label for="url-fragment">Input Value</label>
+        <br>
+        <input name="untrusted-input" class="form-control">
+        <br>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+ $(() => {
+   const state = {
+     action: '/ssrf/{lib}/{safety}',
+     requestUrl: '<%= requestUrl %>',
+     safety: 'safe',
+     activeLib: 'axios'
+   };
+
+   $('#constructed-url').text(state.requestUrl);
+   $(`li[id='${state.activeLib}-selection'] button`).toggleClass('active');
+   $(`li[id='${state.safety}-selection'] button`).toggleClass('active');
+
+   $('#libs-list button')
+     .on('click', (e) => {
+       state.activeLib = $(e.target).text();
+       toggleActiveSelection(e);
+       setAction();
+     });
+
+   $('#safety-list button')
+     .on('click', (e) => {
+       state.safety = $(e.target).text();
+       toggleActiveSelection(e);
+       setAction();
+     });
+
+   $('[name=untrusted-input]').on('keyup', (e) => {
+     const url = e.currentTarget.value
+       ? `${state.requestUrl}?input=${e.currentTarget.value}`
+       : `${state.requestUrl}`
+     $('#constructed-url').text(url)
+   });
+
+   setAction();
+
+   function setAction() {
+     const action = state
+       .action
+       .replace('{lib}', state.activeLib)
+       .replace('{safety}', state.safety);
+     $('form').attr('action', action);
+   }
+
+   function toggleActiveSelection(e) {
+     const target = $(e.target);
+     target.addClass('active');
+     target
+       .parent()
+       .siblings()
+       .children('button')
+       .removeClass('active')
+   }
+ });
+</script>
+
+<style type="text/css">
+ .btn.active:focus {
+   outline: none;
+ }
+ ul.selections {
+   font-family: monospace;
+   overflow: auto;
+   list-style-type: none;
+   padding: 0;
+ }
+ li[id*=-selection] {
+   margin: 2px 2px 5px;
+   float: left;
+   clear: none;
+ }
+</style>

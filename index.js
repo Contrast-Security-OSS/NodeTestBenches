@@ -44,10 +44,12 @@ require('./routes/header-injection')({ router });
 require('./routes/csp-header')({ router });
 require('./routes/xxe')({ router });
 require('./routes/parampollution')({ router });
+require('./routes/ssrf')({ router });
 
 app.use(router.routes());
 app.use(router.allowedMethods());
 
 app.listen(PORT, () => {
+  // eslint-disable-next-line
   console.log(`Listening on port ${PORT}`);
 });

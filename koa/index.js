@@ -6,13 +6,13 @@ const app = new Koa();
 const router = new Router();
 const render = require('koa-ejs');
 const serve = require('koa-static');
-const mount = require("koa-mount");
+const mount = require('koa-mount');
 const bodyParser = require('koa-bodyparser');
 
 const PORT = process.env.PORT || 3000;
 
 // setup static file serving
-app.use(mount("/assets", serve("./public")));
+app.use(mount('/assets', serve('./public')));
 
 // setup the ejs renderer
 render(app, {
@@ -20,13 +20,13 @@ render(app, {
   layout: 'layout',
   viewExt: 'html',
   cache: false,
-  async: false
+  async: false,
 });
 
 // adding current year to be used in layout for copyright year
 app.use((ctx, next) => {
   ctx.state = ctx.state || {};
-  ctx.state.currentYear = new Date().getFullYear()
+  ctx.state.currentYear = new Date().getFullYear();
   return next();
 });
 
@@ -38,12 +38,12 @@ require('./routes/cmdi')({ router });
 require('./routes/sqli')({ router });
 require('./routes/unvalidated-redirect')({ router });
 require('./routes/path-traversal')({ router });
+require('./routes/multipart-form-data')({ router });
 require('./routes/ssjs')({ router });
 require('./routes/header-injection')({ router });
 require('./routes/csp-header')({ router });
 require('./routes/xxe')({ router });
 require('./routes/parampollution')({ router });
-
 
 app.use(router.routes());
 app.use(router.allowedMethods());

@@ -1,5 +1,6 @@
 .#*
 node_modules/
+uploads/
 # node-agent logs
 node-contrast-*.log
 security-*.log

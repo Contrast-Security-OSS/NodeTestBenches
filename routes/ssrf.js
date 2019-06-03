@@ -7,7 +7,11 @@ const {
 const EXAMPLE_URL = 'http://www.example.com';
 
 module.exports = ({ router }) => {
-  router.get('/ssrf', (ctx) => ctx.render('ssrf', { requestUrl: EXAMPLE_URL }));
+  router.get('/ssrf', (ctx) =>
+    ctx.render('../node_modules/@contrast/test-bench-content/views/ssrf', {
+      requestUrl: EXAMPLE_URL
+    })
+  );
 
   const libs = ['axios', 'bent', 'fetch', 'request', 'superagent'];
 

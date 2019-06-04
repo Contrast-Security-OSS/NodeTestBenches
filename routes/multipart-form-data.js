@@ -14,7 +14,7 @@ module.exports = ({ router }) => {
     '/multipart-form-data',
     upload.single('test_file'),
     (ctx, next) => {
-      ctx.state.filename = ctx.req.file.originalname;
+      ctx.state.filename = ctx.req.file ? ctx.req.file.originalname : '';
       return ctx.render('multipart-form-data');
     },
   );

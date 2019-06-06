@@ -6,16 +6,14 @@ module.exports = ({ router }) => {
   if (!fs.existsSync('uploads')) fs.mkdirSync('uploads');
 
   router.get('/multipart-form-data', (ctx, next) => {
-    ctx.state.filename = '';
     return ctx.render('multipart-form-data');
   });
 
   router.post(
-    '/multipart-form-data',
+    '/multipart-form-data/submit',
     upload.single('test_file'),
     (ctx, next) => {
-      ctx.state.filename = ctx.req.file ? ctx.req.file.originalname : '';
-      return ctx.render('multipart-form-data');
+      ctx.body = ctx.req.body.test_text;
     },
   );
 };

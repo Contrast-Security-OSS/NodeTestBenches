@@ -17,15 +17,17 @@
   },
   "homepage": "https://github.com/Contrast-Security-OSS/HapiTestBench#readme",
   "dependencies": {
-    "ejs": "^2.5.7",
+    "@contrast/test-bench-content": "^1.0.0",
+    "@contrast/test-bench-utils": "^1.0.0",
     "@hapi/glue": "*",
     "@hapi/hapi": "*",
     "@hapi/hoek": "*",
-    "hooker": "^0.2.3",
     "@hapi/inert": "*",
+    "@hapi/vision": "*",
+    "ejs": "^2.5.7",
+    "hooker": "^0.2.3",
     "mongodb": "^3.0.1",
     "mysql": "^2.14.1",
-    "pem": "^1.12.3",
-    "@hapi/vision": "*"
+    "pem": "^1.12.3"
   }
 }

@@ -29,5 +29,8 @@
     "mysql": "^2.14.1",
     "pem": "^1.12.3",
     "@hapi/vision": "^5.4.4"
+  },
+  "devDependencies": {
+    "@contrast/eslint-config": "^1.0.0"
   }
 }

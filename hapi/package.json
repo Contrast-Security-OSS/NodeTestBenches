@@ -29,5 +29,8 @@
     "mongodb": "^3.0.1",
     "mysql": "^2.14.1",
     "pem": "^1.12.3"
+  },
+  "devDependencies": {
+    "@contrast/eslint-config": "^1.0.0"
   }
 }

@@ -1,9 +1,12 @@
+const path = require('path');
 const fs = require('fs');
 const multer = require('koa-multer');
-const upload = multer({ dest: 'uploads/' });
+
+const uploadPath = path.resolve(__dirname, '..', 'uploads');
+const upload = multer({ dest: uploadPath });
 
 module.exports = ({ router }) => {
-  if (!fs.existsSync('uploads')) fs.mkdirSync('uploads');
+  if (!fs.existsSync(uploadPath)) fs.mkdirSync(uploadPath);
 
   router.get('/multipart-form-data', (ctx, next) => {
     return ctx.render('multipart-form-data');

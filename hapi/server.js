@@ -69,6 +69,10 @@ const manifest = {
         routes: { prefix: '/path-traversal' }
       },
       {
+        plugin: './routes/unsafe-file-upload',
+        routes: {prefix: '/unsafe-file-upload'}
+      },
+      {
         plugin: './routes/session/http-only.js',
         routes: { prefix: '/session/httponly' }
       },

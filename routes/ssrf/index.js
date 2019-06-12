@@ -4,8 +4,6 @@ const {
   sinks: { ssrf }
 } = require('@contrast/test-bench-utils');
 
-const path = require('path');
-
 const EXAMPLE_URL = 'http://www.example.com';
 
 exports.name = 'hapitestbench.ssrf';
@@ -16,16 +14,12 @@ exports.register = function ssrf(server, options) {
     method: 'GET',
     path: '/',
     handler: {
-      file: path.resolve(
-        __dirname,
-        '..',
-        '..',
-        'node_modules',
-        '@contrast',
-        'test-bench-content',
-        'views',
-        'ssrf.html'
-      )
+      view: {
+        template: 'ssrf',
+        context: {
+          requestUrl: EXAMPLE_URL
+        }
+      }
     }
   });
 

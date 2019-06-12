@@ -32,7 +32,7 @@ exports.register = function ssrf(server, options) {
         path: `/${lib}/unsafe`,
         method: 'GET',
         handler: async (request, h) => {
-          const url = createUnsafeUrl(request.query.input);
+          const url = createUnsafeUrl(request.query['untrusted-input']);
           const data = await makeRequest(lib, url);
 
           return data;
@@ -42,7 +42,7 @@ exports.register = function ssrf(server, options) {
         path: `/${lib}/unsafe`,
         method: 'POST',
         handler: async (request, h) => {
-          const url = createUnsafeUrl(request.body.input);
+          const url = createUnsafeUrl(request.body['untrusted-input']);
           const data = await makeRequest(lib, url);
 
           return data;
@@ -52,7 +52,7 @@ exports.register = function ssrf(server, options) {
         path: `/${lib}/safe`,
         method: 'GET',
         handler: async (request, h) => {
-          const url = createSafeUrl(request.query.input);
+          const url = createSafeUrl(request.query['untrusted-input']);
           const data = await makeRequest(lib, url);
 
           return data;
@@ -62,7 +62,7 @@ exports.register = function ssrf(server, options) {
         path: `/${lib}/safe`,
         method: 'POST',
         handler: async (request, h) => {
-          const url = createSafeUrl(request.body.input);
+          const url = createSafeUrl(request.body['untrusted-input']);
           const data = await makeRequest(lib, url);
 
           return data;

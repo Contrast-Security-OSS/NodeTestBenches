@@ -29,7 +29,13 @@ exports.register = function unsafeFileUpload(server, options) {
 
         if (payload.file) {
           const name = payload.file.hapi.filename;
-          const filePath = path.join(__dirname, '../../uploads', name);
+          const filePath = path.resolve(path.join(
+            __dirname,
+            '..',
+            '..',
+            'uploads',
+            name
+          ));
           const file = fs.createWriteStream(filePath);
 
           file.on('error', (err) => console.error(err));

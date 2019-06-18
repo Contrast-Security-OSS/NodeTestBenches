@@ -4,7 +4,7 @@ const {
   sinks: { ssrf }
 } = require('@contrast/test-bench-utils');
 
-const EXAMPLE_URL = 'http://www.example.com';
+const EXAMPLE_URL = 'www.example.com';
 
 exports.name = 'hapitestbench.ssrf';
 
@@ -32,7 +32,7 @@ exports.register = function ssrf(server, options) {
         path: `/${lib}/unsafe`,
         method: 'GET',
         handler: async (request, h) => {
-          const url = createUnsafeUrl(request.query['untrusted-input']);
+          const url = createUnsafeUrl(request.query.input);
           const data = await makeRequest(lib, url);
 
           return data;
@@ -42,7 +42,7 @@ exports.register = function ssrf(server, options) {
         path: `/${lib}/unsafe`,
         method: 'POST',
         handler: async (request, h) => {
-          const url = createUnsafeUrl(request.body['untrusted-input']);
+          const url = createUnsafeUrl(request.body.input);
           const data = await makeRequest(lib, url);
 
           return data;
@@ -52,7 +52,7 @@ exports.register = function ssrf(server, options) {
         path: `/${lib}/safe`,
         method: 'GET',
         handler: async (request, h) => {
-          const url = createSafeUrl(request.query['untrusted-input']);
+          const url = createSafeUrl(request.query.input);
           const data = await makeRequest(lib, url);
 
           return data;
@@ -62,7 +62,7 @@ exports.register = function ssrf(server, options) {
         path: `/${lib}/safe`,
         method: 'POST',
         handler: async (request, h) => {
-          const url = createSafeUrl(request.body['untrusted-input']);
+          const url = createSafeUrl(request.body.input);
           const data = await makeRequest(lib, url);
 
           return data;
@@ -72,10 +72,11 @@ exports.register = function ssrf(server, options) {
   });
 };
 
-const createUnsafeUrl = (input) => `${EXAMPLE_URL}?q=${input}`;
+const createUnsafeUrl = (input, ssl) =>
+  `${ssl ? 'https' : 'http'}://${EXAMPLE_URL}?q=${input}`;
 
-const createSafeUrl = (input) =>
-  `${EXAMPLE_URL}?q=${encodeURIComponent(input)}`;
+const createSafeUrl = (input, ssl) =>
+  `${ssl ? 'https' : 'http'}://${EXAMPLE_URL}?q=${encodeURIComponent(input)}`;
 
 const makeRequest = async function makeRequest(lib, url) {
   switch (lib) {

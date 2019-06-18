@@ -8,70 +8,74 @@ const PORT = process.env.PORT || 3000;
 
 const manifest = {
   server: {
-    debug: {'request': ['error', 'uncaught']},
+    debug: { request: ['error', 'uncaught'] },
     port: PORT
   },
   register: {
     plugins: [
       // hapi plugins
-      {plugin: '@hapi/inert'},
-      {plugin: '@hapi/vision'},
+      { plugin: '@hapi/inert' },
+      { plugin: '@hapi/vision' },
 
       // DB initializers
-      {plugin: './db/mongodb.js'},
-      {plugin: './db/mysql.js'},
+      { plugin: './db/mongodb.js' },
+      { plugin: './db/mysql.js' },
 
       // route handlers
-      {plugin: './routes/index.js'},
+      { plugin: './routes/index.js' },
+      {
+        plugin: './routes/ssrf',
+        routes: { prefix: '/ssrf' }
+      },
       {
         plugin: './routes/mongo-injection/',
-        routes: {prefix: '/mongoinjection'}
+        routes: { prefix: '/mongoinjection' }
       },
       {
         plugin: './routes/reflected-xss/',
-        routes: {prefix: '/reflectedxss'}
+        routes: { prefix: '/reflectedxss' }
       },
       {
         plugin: './routes/reflected-xss/object-sources/',
-        routes: {prefix: '/reflectedxss/objects'}
+        routes: { prefix: '/reflectedxss/objects' }
       },
 
       {
         plugin: './routes/cmd-injection',
-        routes: {prefix: '/cmd-injection'}
+        routes: { prefix: '/cmd-injection' }
       },
       {
         plugin: './routes/ssjs-injection',
-        routes: {prefix: '/ssjs-injection'}
+        routes: { prefix: '/ssjs-injection' }
       },
       {
         plugin: './routes/sql-injection/',
-        routes: {prefix: '/sqlinjection'}
+        routes: { prefix: '/sqlinjection' }
       },
       {
         plugin: './routes/unsafe-eval',
-        routes: {prefix: '/unsafe_eval'}
-      },{
+        routes: { prefix: '/unsafe_eval' }
+      },
+      {
         plugin: './routes/header-injection',
-        routes: {prefix: '/header-injection'}
+        routes: { prefix: '/header-injection' }
       },
       {
         plugin: './routes/unvalidated-redirect',
-        routes: {prefix: '/unvalidated-redirect'}
+        routes: { prefix: '/unvalidated-redirect' }
       },
       {
         plugin: './routes/path-traversal',
-        routes: {prefix: '/path-traversal'}
+        routes: { prefix: '/path-traversal' }
       },
       {
         plugin: './routes/session/http-only.js',
-        routes: {prefix: '/session/httponly'}
+        routes: { prefix: '/session/httponly' }
       },
       {
         plugin: './routes/session/secure-flag-missing.js',
-        routes: {prefix: '/session/secureflagmissing'}
-      },
-
+        routes: { prefix: '/session/secureflagmissing' }
+      }
     ]
   }
 };
@@ -81,7 +85,7 @@ const options = {
 };
 
 if (process.env.SSL === '1') {
-  pem.createCertificate({days: 1, selfSigned: true}, (err, keys) => {
+  pem.createCertificate({ days: 1, selfSigned: true }, (err, keys) => {
     manifest.connections[0].tls = {
       key: keys.serviceKey,
       cert: keys.certificate
@@ -92,11 +96,14 @@ if (process.env.SSL === '1') {
   start();
 }
 
-async function start () {
+async function start() {
   try {
-    const server = await glue.compose(manifest, options);
+    const server = await glue.compose(
+      manifest,
+      options
+    );
     server.views({
-      engines: {ejs: require('ejs')},
+      engines: { ejs: require('ejs') },
       allowAbsolutePaths: true,
       relativeTo: path.resolve(__dirname, 'views'),
       path: 'pages',

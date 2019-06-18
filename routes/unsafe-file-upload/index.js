@@ -16,7 +16,7 @@ exports.register = function unsafeFileUpload(server, options) {
     },
     {
       method: 'POST',
-      path: '/submit',
+      path: '/submit-stream',
       options: {
         payload: {
           output: 'stream',
@@ -24,6 +24,7 @@ exports.register = function unsafeFileUpload(server, options) {
           allow: 'multipart/form-data'
         }
       },
+      // coverage for stream-based multipart form uploads
       handler: (request, h) => {
         const payload = request.payload;
 
@@ -52,6 +53,26 @@ exports.register = function unsafeFileUpload(server, options) {
         }
 
         return h.response('OK');
-    }},
+      }
+    },
+    // normal file uploads for sane people
+    {
+      method: 'POST',
+      path: '/submit',
+      options: {
+        payload: {
+          output: 'file',
+          parse: true,
+          allow: 'multipart/form-data'
+        }
+      },
+      handler: (request, h) => {
+        const payload = request.payload;
+        return {
+          filename: payload.file.filename,
+          headers: payload.file.headers
+        };
+      }
+    }
   ]);
 };

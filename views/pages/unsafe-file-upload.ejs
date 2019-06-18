@@ -1,41 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-	<% include ../partials/head %>
-    </head>
-    <body class="container">
+  <head>
+    <% include ../partials/head %>
+  </head>
+  <body class="container">
 
-	<header>
-	    <% include ../partials/header %>
-	    <% include ../partials/nav %>
-	</header>
+    <header>
+      <% include ../partials/header %>
+      <% include ../partials/nav %>
+    </header>
 
-	<div class="container-fluid">
+    <div class="container-fluid">
+      <div class="row">
+	<div class="col-sm-9 col-sm-offset-1 col-md-10 col-md-offset-1 main">
+	  <main>
+
 	    <div class="row">
-		<div class="col-sm-9 col-sm-offset-1 col-md-10 col-md-offset-1 main">
-		    <main>
-
-			<div class="row">
-			    <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
-				<h4 class="sub-header">Unsafe File Upload</h4>
-				<form action="/unsafe-file-upload/submit" method="POST" enctype="multipart/form-data">
-                                    <input type="file" name="file">
-                                    <input type="submit" value="Upload File" name="submit">
-                                </form>
-			    </div>
-			</div>
-
-			<div style="min-height: 300px;">
-			    &nbsp;
-			</div>
-		    </main>
-
-		    <footer>
-			<% include ../partials/footer %>
-		    </footer>
-
-		</div>
+	      <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+		<h4 class="sub-header">Unsafe File Upload</h4>
+                <h2>Traditional File Upload (output: `file')</h2>
+		<form action="/unsafe-file-upload/submit" method="POST" enctype="multipart/form-data">
+                  <input type="file" name="file">
+                  <input type="text" name="text-field">
+                  <input type="submit" value="Upload File" name="submit">
+                </form>
+                <h2>Stream-based File Upload (output: `stream')</h2>
+		<form action="/unsafe-file-upload/submit-stream" method="POST" enctype="multipart/form-data">
+                  <input type="file" name="file">
+                  <input type="text" name="text-field">
+                  <input type="submit" value="Upload File" name="submit">
+                </form>
+	      </div>
 	    </div>
+
+	    <div style="min-height: 300px;">
+	      &nbsp;
+	    </div>
+	  </main>
+
+	  <footer>
+	    <% include ../partials/footer %>
+	  </footer>
+
 	</div>
-    </body>
+      </div>
+    </div>
+  </body>
 </html>

@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/Contrast-Security-OSS/HapiTestBench#readme",
   "dependencies": {
+    "@contrast/test-bench-content": "^1.0.0",
+    "@contrast/test-bench-utils": "^1.0.0",
     "ejs": "^2.5.7",
     "@hapi/glue": "^5.0.0",
     "@hapi/hapi": "^17.8.5",
@@ -27,5 +29,8 @@
     "mysql": "^2.14.1",
     "pem": "^1.12.3",
     "@hapi/vision": "^5.4.4"
+  },
+  "devDependencies": {
+    "@contrast/eslint-config": "^1.0.0"
   }
 }

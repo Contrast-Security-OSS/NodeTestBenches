@@ -12,7 +12,7 @@
   "author": "Contrast Security",
   "license": "MIT",
   "dependencies": {
-    "@contrast/test-bench-content": "*",
+    "@contrast/test-bench-content": "1.1.1",
     "@contrast/test-bench-utils": "*",
     "hooker": "^0.2.3",
     "koa": "^2.7.0",

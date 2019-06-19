@@ -20,7 +20,7 @@ render(app, {
   layout: 'layout',
   viewExt: 'html',
   cache: false,
-  async: false,
+  async: false
 });
 
 // adding current year to be used in layout for copyright year
@@ -50,6 +50,6 @@ app.use(router.routes());
 app.use(router.allowedMethods());
 
 app.listen(PORT, () => {
-  // eslint-disable-next-line
+  // eslint-disable-next-line no-console
   console.log(`Listening on port ${PORT}`);
 });

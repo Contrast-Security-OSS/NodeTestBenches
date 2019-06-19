@@ -38,7 +38,7 @@ require('./routes/cmdi')({ router });
 require('./routes/sqli')({ router });
 require('./routes/unvalidated-redirect')({ router });
 require('./routes/path-traversal')({ router });
-require('./routes/multipart-form-data')({ router });
+require('./routes/unsafe-file-upload')({ router });
 require('./routes/ssjs')({ router });
 require('./routes/header-injection')({ router });
 require('./routes/csp-header')({ router });

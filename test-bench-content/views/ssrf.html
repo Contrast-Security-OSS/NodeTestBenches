@@ -80,7 +80,7 @@
        setAction();
      });
 
-   $('[name=untrusted-input]').on('keyup', (e) => {
+   $('[name=input]').on('keyup', (e) => {
      const url = e.currentTarget.value
        ? `${state.requestUrl}?input=${e.currentTarget.value}`
        : `${state.requestUrl}`

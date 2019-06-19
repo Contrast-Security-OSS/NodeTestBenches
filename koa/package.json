@@ -7,12 +7,24 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "contrast": "DEBUG=contrast:* node-contrast index.js",
-    "dev": "nodemon -e js,html index.js"
+    "dev": "nodemon -e js,html index.js",
+    "fix": "eslint . --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "author": "Contrast Security",
   "license": "MIT",
   "dependencies": {
-    "@contrast/test-bench-content": "1.1.1",
+    "@contrast/test-bench-content": "^1.1.2",
     "@contrast/test-bench-utils": "*",
     "hooker": "^0.2.3",
     "koa": "^2.7.0",
@@ -26,7 +38,12 @@
     "mysql": "^2.16.0"
   },
   "devDependencies": {
-    "nodemon": "^1.18.10"
+    "@contrast/eslint-config": "^1.0.3",
+    "eslint": "^5.16.0",
+    "husky": "^2.4.1",
+    "lint-staged": "^8.2.1",
+    "nodemon": "^1.18.10",
+    "prettier": "^1.18.2"
   },
   "engines": {
     "node": ">=8.0.0"

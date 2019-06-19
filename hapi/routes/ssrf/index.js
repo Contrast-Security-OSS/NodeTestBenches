@@ -42,7 +42,7 @@ exports.register = function ssrf(server, options) {
         path: `/${lib}/unsafe`,
         method: 'POST',
         handler: async (request, h) => {
-          const url = createUnsafeUrl(request.body.input);
+          const url = createUnsafeUrl(request.payload.input);
           const data = await makeRequest(lib, url);
 
           return data;
@@ -62,7 +62,7 @@ exports.register = function ssrf(server, options) {
         path: `/${lib}/safe`,
         method: 'POST',
         handler: async (request, h) => {
-          const url = createSafeUrl(request.body.input);
+          const url = createSafeUrl(request.payload.input);
           const data = await makeRequest(lib, url);
 
           return data;

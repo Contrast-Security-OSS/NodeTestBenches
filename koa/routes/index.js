@@ -1,5 +1,3 @@
 module.exports = ({ router }) => {
-  router.get('/', (ctx, next) => {
-    return ctx.render('index');
-  });
+  router.get('/', (ctx, next) => ctx.render('index'));
 };

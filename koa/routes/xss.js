@@ -2,13 +2,11 @@
  * @vulnerability: reflected-xss
  */
 module.exports = ({ router }) => {
-  router.get('/xss', (ctx, next) => {
-    return ctx.render('xss');
-  });
+  router.get('/xss', (ctx, next) => ctx.render('xss'));
 
   [
     { method: 'get', key: 'query' },
-    { method: 'get', key: 'params'},
+    { method: 'get', key: 'params' },
     { method: 'get', key: 'header' },
     { method: 'post', key: 'body' }
   ].forEach(({ method, key }) => {
@@ -26,7 +24,5 @@ module.exports = ({ router }) => {
       const value = (ctx.request[key] || ctx[key]).input;
       ctx.body = encodeURIComponent(value);
     });
-
   });
 };
-

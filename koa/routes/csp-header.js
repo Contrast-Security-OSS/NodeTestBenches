@@ -3,12 +3,12 @@
  */
 module.exports = ({ router }) => {
   const unsafePolicy = [
-    'default-src \'none\'',
+    "default-src 'none'",
     'font-src *',
     'img-src *',
     'media-src *',
     'script-src *',
-    'style-src \'unsafe-inline\' *'
+    "style-src 'unsafe-inline' *"
   ].join('; ');
 
   router.get('/csp-header', (ctx, next) => {

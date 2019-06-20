@@ -2,9 +2,7 @@
  * @vulnerability: ssjs-injection
  */
 module.exports = ({ router }) => {
-  router.get('/ssjs', (ctx, next) => {
-    return ctx.render('ssjs');
-  });
+  router.get('/ssjs', (ctx, next) => ctx.render('ssjs'));
 
   // vulns
   router.get('/ssjs/eval', (ctx, next) => {

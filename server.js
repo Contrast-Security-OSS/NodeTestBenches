@@ -24,6 +24,10 @@ const manifest = {
       // route handlers
       { plugin: './routes/index.js' },
       {
+        plugin: './routes/ssrf',
+        routes: { prefix: '/ssrf' }
+      },
+      {
         plugin: './routes/mongo-injection/',
         routes: { prefix: '/mongoinjection' }
       },
@@ -34,11 +38,6 @@ const manifest = {
       {
         plugin: './routes/reflected-xss/object-sources/',
         routes: { prefix: '/reflectedxss/objects' }
-      },
-
-      {
-        plugin: './routes/ssrf',
-        routes: { prefix: '/ssrf' }
       },
       {
         plugin: './routes/cmd-injection',
@@ -67,6 +66,10 @@ const manifest = {
       {
         plugin: './routes/path-traversal',
         routes: { prefix: '/path-traversal' }
+      },
+      {
+        plugin: './routes/unsafe-file-upload',
+        routes: {prefix: '/unsafe-file-upload'}
       },
       {
         plugin: './routes/session/http-only.js',

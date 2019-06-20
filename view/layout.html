@@ -1,111 +1,118 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Contrast Koa Sandbox</title>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Contrast Koa Sandbox</title>
 
-        <!-- Bootstrap -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="shortcut icon" href="/favicon.ico">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="/favicon.ico">
 
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="/assets/app.css">
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
-    </head>
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="/assets/app.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
 
-    <body>
-        <nav class="banner-dark navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Contrast Koa Test Bench</a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <!--
-			     <li><a href="#">Dashboard</a></li>
-			     <li><a href="#">Settings</a></li>
-			     <li><a href="#">Profile</a></li>
-			     <li><a href="#">Help</a></li>
-			   -->
-                    </ul>
-                </div>
-            </div>
-        </nav>
+  <body>
+    <div id="javascripts">
+      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+      <script src="/assets/xxe.js"></script>
+      <!-- Include all compiled plugins (below), or include individual files as needed -->
+    </div>
+    <nav class="banner-dark navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Contrast Koa Test Bench</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <!--
+                 <li><a href="#">Dashboard</a></li>
+                 <li><a href="#">Settings</a></li>
+                 <li><a href="#">Profile</a></li>
+                 <li><a href="#">Help</a></li>
+            -->
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-	<div class="container-fluid">
-	    <div class="row">
-		<div class="col-sm-3 col-md-2 sidebar">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
 
-                    <label>XSS</label>
-                    <ul class="nav nav-sidebar">
-	                <li><a href="/xss">Reflected XSS</a></li>
-                    </ul>
+          <label>XSS</label>
+          <ul class="nav nav-sidebar">
+            <li><a href="/xss">Reflected XSS</a></li>
+          </ul>
 
-                    <label>Injection</label>
-                    <ul class="nav nav-sidebar">
-	                <li><a href="/command-injection">Command Injection</a></li>
-	                <li><a href="/sqli">SQL Injection</a></li>
-	                <li><a href="/ssjs">SSJS Injection</a></li>
-                    </ul>
+          <label>Injection</label>
+          <ul class="nav nav-sidebar">
+            <li><a href="/command-injection">Command Injection</a></li>
+            <li><a href="/sqli">SQL Injection</a></li>
+            <li><a href="/ssjs">SSJS Injection</a></li>
+          </ul>
 
-                    <label>Header</label>
-                    <ul class="nav nav-sidebar">
-	                <li><a href="/unvalidated-redirect">Unvalidated Redirect</a></li>
-	                <li><a href="/header-injection">Header Injection</a></li>
-	                <li><a href="/csp-header">Csp Header Insecure</a></li>
-                    </ul>
+          <label>Header</label>
+          <ul class="nav nav-sidebar">
+            <li><a href="/unvalidated-redirect">Unvalidated Redirect</a></li>
+            <li><a href="/header-injection">Header Injection</a></li>
+            <li><a href="/csp-header">Csp Header Insecure</a></li>
+          </ul>
 
-                    <label>File / Path</label>
-                    <ul class="nav nav-sidebar">
-                    <li><a href="/path-traversal">Path Traversal</a></li>
-                    <li><a href="/multipart-form-data">Multipart Form Data</a></li>
-                    </ul>
+          <label>File / Path</label>
+          <ul class="nav nav-sidebar">
+          <li><a href="/path-traversal">Path Traversal</a></li>
+          <li><a href="/multipart-form-data">Multipart Form Data</a></li>
+          </ul>
 
-                    <label>HTTP</label>
-                    <ul class="nav nav-sidebar">
-	                <li><a href="/parampollution">Http Parameter Pollution</a></li>
-                    </ul>
+          <label>HTTP</label>
+          <ul class="nav nav-sidebar">
+            <li><a href="/parampollution">Http Parameter Pollution</a></li>
+          </ul>
 
-                      <label>XML External Entity Processing</label>
-  <ul class="nav nav-sidebar">
-    <li>
-      <a href="/xxe">
-        <code>libxmljs</code>
-      </a>
-    </li>
-  </ul>
+          <label>Request Forgery</label>
+          <ul class="nav nav-sidebar">
+            <li>
+              <a href="/ssrf">Server-Side Request Forgery</a>
+            </li>
+          </ul>
 
-                </div>
-
-                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <%- body %>
-                    <hr>
-
-                    <footer>
-                      <p>&copy; <%- currentYear %> Contrast, Inc.</p>
-                    </footer>
-
-                </div>
-            </div>
+          <label>XML External Entity Processing</label>
+          <ul class="nav nav-sidebar">
+            <li>
+              <a href="/xxe">
+                <code>libxmljs</code>
+              </a>
+            </li>
+          </ul>
         </div>
 
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-        <script src="/assets/xxe.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-    </body>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <%- body %>
+          <hr>
+
+          <footer>
+            <p>&copy; <%- currentYear %> Contrast, Inc.</p>
+          </footer>
+
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

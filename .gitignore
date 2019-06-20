@@ -7,3 +7,5 @@ uploads/
 # node-agent logs
 node-contrast-*.log
 security-*.log
+*.swo
+*.swp

@@ -2,9 +2,9 @@
  * @vulnerability: header-injection
  */
 module.exports = ({ router }) => {
-  router.get('/header-injection', (ctx, next) => {
-    return ctx.render('header-injection');
-  });
+  router.get('/header-injection', (ctx, next) =>
+    ctx.render('header-injection')
+  );
 
   // vuln
   router.get('/header-injection/inject', (ctx, next) => {

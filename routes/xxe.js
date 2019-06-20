@@ -12,9 +12,7 @@ const ATTACK_XML = `
 </users>`;
 
 module.exports = ({ router }) => {
-  router.get('/xxe', (ctx, next) => {
-    return ctx.render('xxe', { ATTACK_XML });
-  });
+  router.get('/xxe', (ctx, next) => ctx.render('xxe', { ATTACK_XML }));
 
   router.post(['/xxe/safe', '/xxe/unsafe'], (ctx, next) => {
     let options;
@@ -29,9 +27,7 @@ module.exports = ({ router }) => {
       };
     }
 
-
     const parsedXML = libxmljs.parseXmlString(ATTACK_XML, options);
     ctx.body = parsedXML.toString();
   });
 };
-

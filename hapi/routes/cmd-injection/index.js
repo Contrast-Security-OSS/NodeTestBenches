@@ -61,7 +61,7 @@ exports.register = function cmdInjection(server, options) {
 
 	const sinks = {
 		cp: {
-			exec: ( input, cb ) => exec(input, () => input),
+			exec: ( input ) => exec(input, () => input),
 			execSync: input => execSync(input)
 		}
 	};

@@ -29,7 +29,7 @@ exports.register = function ssrf(server, options) {
   libs.forEach((lib) => {
     server.route([
       {
-        path: `/${lib}/unsafe`,
+        path: `/${lib}/query/unsafe`,
         method: 'GET',
         handler: async (request, h) => {
           const url = createUnsafeUrl(request.query.input);
@@ -39,30 +39,10 @@ exports.register = function ssrf(server, options) {
         }
       },
       {
-        path: `/${lib}/unsafe`,
+        path: `/${lib}/body/unsafe`,
         method: 'POST',
         handler: async (request, h) => {
-          const url = createUnsafeUrl(request.body.input);
-          const data = await makeRequest(lib, url);
-
-          return data;
-        }
-      },
-      {
-        path: `/${lib}/safe`,
-        method: 'GET',
-        handler: async (request, h) => {
-          const url = createSafeUrl(request.query.input);
-          const data = await makeRequest(lib, url);
-
-          return data;
-        }
-      },
-      {
-        path: `/${lib}/safe`,
-        method: 'POST',
-        handler: async (request, h) => {
-          const url = createSafeUrl(request.body.input);
+          const url = createUnsafeUrl(request.payload.input);
           const data = await makeRequest(lib, url);
 
           return data;

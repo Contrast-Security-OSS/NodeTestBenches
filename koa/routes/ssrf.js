@@ -16,29 +16,15 @@ module.exports = ({ router }) => {
   const libs = ['axios', 'bent', 'fetch', 'request', 'superagent'];
 
   libs.forEach((lib) => {
-    router.get(`/ssrf/${lib}/unsafe`, async (ctx, next) => {
+    router.get(`/ssrf/${lib}/query/unsafe`, async (ctx, next) => {
       const url = createUnsafeUrl(ctx.query.input);
       const data = await makeRequest(lib, url);
 
       ctx.body = data;
     });
 
-    router.post(`/ssrf/${lib}/unsafe`, async (ctx, next) => {
+    router.post(`/ssrf/${lib}/body/unsafe`, async (ctx, next) => {
       const url = createUnsafeUrl(ctx.request.body.input);
-      const data = await makeRequest(lib, url);
-
-      ctx.body = data;
-    });
-
-    router.get(`/ssrf/${lib}/safe`, async (ctx, next) => {
-      const url = createSafeUrl(ctx.query.input);
-      const data = await makeRequest(lib, url);
-
-      ctx.body = data;
-    });
-
-    router.post(`/ssrf/${lib}/safe`, async (ctx, next) => {
-      const url = createSafeUrl(ctx.request.body.input);
       const data = await makeRequest(lib, url);
 
       ctx.body = data;

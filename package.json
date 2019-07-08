@@ -1,6 +1,6 @@
 {
   "name": "@contrast/test-bench-content",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Shared content to use in Contrast's web framework test apps.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

@@ -25,6 +25,19 @@
       </ul>
     </div>
 
+    <div style="overflow:auto">
+      <p>Select part of url to contain tracked data.</p>
+      <ul id="url-list" class="selections">
+        <li id="path-selection">
+          <button type="submit" class="btn btn-default">path</button>
+        </li>
+        <li id="query-selection">
+          <button type="submit" class="btn btn-default">query</button>
+        </li>
+      </ul>
+    </div>
+    <br>
+
     <div>
       <form action="/ssrf" method="GET" target="test-bench-ssrf">
         <p>The server will make a request to the following URL using the selected Node.js package.</p>
@@ -42,14 +55,30 @@
 
 <script type="text/javascript">
  $(() => {
+   debugger;
    const state = {
-     action: '/ssrf/{lib}/query/unsafe',
+     action: '/ssrf/{lib}/{url}',
      requestUrl: '<%= requestUrl %>',
-     selectedLib: 'axios'
+     selectedLib: 'axios',
+     selectedUrlPart: 'path'
    };
 
    $('#constructed-url').text(state.requestUrl);
+
    $(`li[id='${state.selectedLib}-selection'] button`).toggleClass('active');
+   $(`li[id='${state.selectedUrlPart}-selection'] button`).toggleClass('active');
+
+   // set the initial value on load so it is not empty
+   if (state.selectedUrlPart === 'path') {
+    $('[name=input]').val(state.requestUrl.substring(7));
+   }
+
+   $('#url-list button')
+     .on('click', (e) => {
+       state.selectedUrlPart = $(e.target).text();
+       toggleActiveSelection(e);
+       setAction();
+     });
 
    $('#libs-list button')
      .on('click', (e) => {
@@ -60,8 +89,10 @@
 
    $('[name=input]').on('keyup', (e) => {
      const url = e.currentTarget.value
-       ? `${state.requestUrl}?input=${e.currentTarget.value}`
-       : `${state.requestUrl}`
+      ? state.selectedUrlPart === 'path'
+      ? `http://${e.currentTarget.value}`
+      : `${state.requestUrl}?input=${e.currentTarget.value}`
+      : `${state.requestUrl}`
      $('#constructed-url').text(url)
    });
 
@@ -70,7 +101,9 @@
    function setAction() {
      const action = state
        .action
-       .replace('{lib}', state.selectedLib);
+       .replace('{lib}', state.selectedLib)
+       .replace('{url}', state.selectedUrlPart);
+
      $('form').attr('action', action);
    }
 

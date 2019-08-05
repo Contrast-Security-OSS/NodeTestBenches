@@ -3,22 +3,16 @@ const {
   routes: {
     cmd_injection: { base: baseUri, sinks }
   },
-  frameworkMapping: { koa }
+  frameworkMapping: { koa },
+  utils: { buildUrls }
 } = require('@contrast/test-bench-utils');
-const _ = require('lodash');
-
-const buildUrls = (key) =>
-  sinks.map((sink) => ({
-    url: `${baseUri}/${key}/${_.kebabCase(sink)}`,
-    sink
-  }));
 
 /**
  * @vulnerability: command-injection
  */
 module.exports = ({ router }) => {
   const { method, key } = koa.query;
-  const viewData = buildUrls(key);
+  const viewData = buildUrls({ sinks, key, baseUri });
   router.get(baseUri, (ctx, next) => ctx.render('cmdi', { viewData }));
 
   viewData.forEach(({ url, sink }) => {
@@ -28,7 +22,7 @@ module.exports = ({ router }) => {
       ctx.body = data.toString();
     });
 
-    router[method](`${url}/safe`, async (ctx, next) => {
+    router[method](`${url}/safe`, (ctx, next) => {
       // This rule has no untags so just returning untracked data
       ctx.body = 'SAFE';
     });

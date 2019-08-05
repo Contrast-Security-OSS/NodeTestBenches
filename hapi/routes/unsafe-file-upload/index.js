@@ -4,7 +4,6 @@ const path = require('path');
 
 exports.name = 'hapitestbench.unsafefileupload';
 
-
 exports.register = function unsafeFileUpload(server, options) {
   server.route([
     {
@@ -12,7 +11,7 @@ exports.register = function unsafeFileUpload(server, options) {
       path: '/',
       handler: {
         view: 'unsafe-file-upload'
-      },
+      }
     },
     {
       method: 'POST',
@@ -26,24 +25,20 @@ exports.register = function unsafeFileUpload(server, options) {
       },
       // coverage for stream-based multipart form uploads
       handler: (request, h) => {
-        const payload = request.payload;
+        const { payload } = request;
 
         if (payload.file) {
           const name = payload.file.hapi.filename;
-          const filePath = path.resolve(path.join(
-            __dirname,
-            '..',
-            '..',
-            'uploads',
-            name
-          ));
+          const filePath = path.resolve(
+            path.join(__dirname, '..', '..', 'uploads', name)
+          );
           const file = fs.createWriteStream(filePath);
 
           file.on('error', (err) => console.error(err));
 
           payload.file.pipe(file);
 
-          payload.file.on('end', (err) => { 
+          payload.file.on('end', (err) => {
             const ret = {
               filename: payload.file.hapi.filename,
               headers: payload.file.hapi.headers
@@ -67,7 +62,7 @@ exports.register = function unsafeFileUpload(server, options) {
         }
       },
       handler: (request, h) => {
-        const payload = request.payload;
+        const { payload } = request;
         return {
           filename: payload.file.filename,
           headers: payload.file.headers

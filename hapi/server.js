@@ -69,7 +69,7 @@ const manifest = {
       },
       {
         plugin: './routes/unsafe-file-upload',
-        routes: {prefix: '/unsafe-file-upload'}
+        routes: { prefix: '/unsafe-file-upload' }
       },
       {
         plugin: './routes/session/http-only.js',

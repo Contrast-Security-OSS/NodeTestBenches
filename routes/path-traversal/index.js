@@ -88,5 +88,5 @@ exports.register = function pathTraversal(server, options) {
     ['/read-file-sync', sinks.fs.readFileSync],
     ['/read-link-sync', sinks.fs.readlinkSync],
     ['/write-file-sync', sinks.fs.writeFileSync]
-  ].forEach((confArgs) => makeRouteHandlers.apply(...confArgs));
+  ].forEach((confArgs) => makeRouteHandlers(...confArgs));
 };

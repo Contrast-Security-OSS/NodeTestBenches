@@ -55,9 +55,6 @@ exports.register = function ssrf(server, options) {
 const createUnsafeUrl = (input, ssl) =>
   `${ssl ? 'https' : 'http'}://${EXAMPLE_URL}?q=${input}`;
 
-const createSafeUrl = (input, ssl) =>
-  `${ssl ? 'https' : 'http'}://${EXAMPLE_URL}?q=${encodeURIComponent(input)}`;
-
 const makeRequest = async function makeRequest(lib, url) {
   switch (lib) {
     case 'axios':

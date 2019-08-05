@@ -4,7 +4,20 @@
   "description": "screener app for hapi",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon -e js,ejs server.js",
+    "fix": "eslint . --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
@@ -31,6 +44,11 @@
     "pem": "^1.12.3"
   },
   "devDependencies": {
-    "@contrast/eslint-config": "^1.0.0"
+    "@contrast/eslint-config": "^1.0.3",
+    "eslint": "^6.1.0",
+    "husky": "^3.0.2",
+    "lint-staged": "^9.2.1",
+    "nodemon": "^1.19.1",
+    "prettier": "^1.18.2"
   }
 }

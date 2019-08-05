@@ -2,7 +2,6 @@
 
 exports.name = 'hapitestbench.unvalidatedredirect';
 
-
 exports.register = function unvalidatedRedirect(server, options) {
   server.route([
     {
@@ -12,8 +11,10 @@ exports.register = function unvalidatedRedirect(server, options) {
         view: 'unvalidated-redirect'
       }
     },
-    {method: 'GET', path: '/get',  handler: (request, h) => {
-      return h.redirect(request.query.input);
-    }},
+    {
+      method: 'GET',
+      path: '/get',
+      handler: (request, h) => h.redirect(request.query.input)
+    }
   ]);
 };

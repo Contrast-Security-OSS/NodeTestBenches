@@ -4,7 +4,8 @@
   "description": "Shared code to use in Contrast's web framework test apps.",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "fix": "eslint . --fix"
   },
   "author": "",
   "license": "ISC",
@@ -22,5 +23,23 @@
     "node-fetch": "^2.6.0",
     "request": "^2.88.0",
     "superagent": "^5.0.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "@contrast/eslint-config": "^1.0.3",
+    "eslint": "^6.1.0",
+    "husky": "^3.0.2",
+    "lint-staged": "^9.2.1",
+    "prettier": "^1.18.2"
   }
 }

@@ -144,5 +144,5 @@ exports.register = function ssjsInjection(server, options) {
     ['/vm-script-run-in-context', vmScriptRunInCtx],
     ['/vm-script-run-in-new-context', vmScriptRunInNewCtx],
     ['/vm-script-run-in-this-context', vmScriptRunInThisCtx]
-  ].forEach((confArgs) => makeRouteHandlers.apply(...confArgs));
+  ].forEach((confArgs) => makeRouteHandlers(...confArgs));
 };

@@ -1,71 +1,43 @@
 'use strict';
 
 const Hoek = require('@hapi/hoek');
-
-const cp = require('child_process');
-const { exec } = cp;
-const { execSync } = cp;
+const {
+  sinks: { cmd_injection: cmdi },
+  routes: {
+    cmd_injection: { base: baseUri, sinks }
+  },
+  frameworkMapping: { hapi },
+  utils: { buildUrls }
+} = require('@contrast/test-bench-utils');
 
 exports.name = 'hapitestbench.cmdinjection';
 
 exports.register = function cmdInjection(server, options) {
-  /* ########################################################### */
-  /* ### Base index HTML page                                ### */
-  /* ########################################################### */
+  const { method, key } = hapi.query;
+  const viewData = buildUrls({ sinks, key, baseUri });
+
   server.route({
     method: 'GET',
     path: '/',
-    handler: {
-      view: 'cmd-injection'
-    }
+    handler: (request, h) => h.view('cmd-injection', { viewData })
   });
 
-  /* ########################################################### */
-  /* ### Build API routes programmatically                  #### */
-  /* ########################################################### */
-
-  const methods = ['DELETE', 'GET', 'OPTIONS', 'PATCH', 'PUT', 'POST'];
-  const inputTypes = ['query', 'params', 'headers', 'state', 'payload'];
-  const inputSegmentLookup = {
-    payload: '/body',
-    headers: '/headers',
-    params: '/url-params',
-    query: '/query',
-    state: '/cookies'
-  };
-
-  const makeRouteHandlers = (sinkSegment, handle) => {
-    inputTypes.forEach((type) => {
-      const dataPath = `${type}.input`;
-      const inputSegment = inputSegmentLookup[type];
-
-      server.route([
-        {
-          path: `${inputSegment}/safe${sinkSegment}`,
-          method: methods,
-          handler: (request, h) => 'SAFE'
-        },
-        {
-          path: `${inputSegment}/unsafe${sinkSegment}`,
-          method: methods,
-          handler: async (request, h) => {
-            const value = Hoek.reach(request, dataPath) || '';
-            const result = await handle(value);
-            return result.toString();
-          }
+  viewData.forEach(({ uri, sink }) => {
+    server.route([
+      {
+        path: `${uri}/safe`,
+        method: [method],
+        handler: (request, h) => 'SAFE'
+      },
+      {
+        path: `${uri}/unsafe`,
+        method: [method],
+        handler: async (request, h) => {
+          const value = Hoek.reach(request, `${key}.input`) || '';
+          const result = await cmdi[sink](value);
+          return result.toString();
         }
-      ]);
-    });
-  };
-
-  const sinks = {
-    cp: {
-      exec: (input) => exec(input, () => input),
-      execSync: (input) => execSync(input)
-    }
-  };
-
-  [['/exec', sinks.cp.exec], ['/exec-sync', sinks.cp.execSync]].forEach(
-    (confArgs) => makeRouteHandlers(...confArgs)
-  );
+      }
+    ]);
+  });
 };

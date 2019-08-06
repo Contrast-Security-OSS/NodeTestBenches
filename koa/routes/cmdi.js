@@ -1,3 +1,4 @@
+'use strict';
 const {
   sinks: { cmd_injection: cmdi },
   routes: {

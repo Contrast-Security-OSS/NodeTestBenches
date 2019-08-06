@@ -1,13 +1,18 @@
 {
-    
+
     "express": {
         "view cache": false,
-        "view engine": "dust",
+        "view engine": "ejs",
         "views": "path:./public/templates"
     },
 
-    
+
     "view engines": {
+      "ejs": {
+        "name": "ejs",
+        "module": "ejs",
+        "renderer": "renderFile"
+      },
         "dust": {
             "module": "makara",
             "renderer": {
@@ -22,8 +27,8 @@
             }
         }
     },
-    
-    
+
+
 
     "middleware": {
 
@@ -36,14 +41,14 @@
                     "path:./public",
                     "path:./.build",
                     {
-                        
+
                         "template": {
                             "module": "construx-dustjs",
                             "files": "/templates/**/*.js",
                             "base": "templates"
                         },
-                        
-                        
+
+
                         "copier": {
                             "module": "construx-copier",
                             "files": "**/*"

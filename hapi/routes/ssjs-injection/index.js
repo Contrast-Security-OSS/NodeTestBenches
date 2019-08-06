@@ -1,148 +1,43 @@
 'use strict';
 
 const Hoek = require('@hapi/hoek');
-const vm = require('vm');
+const {
+  sinks: { ssjs },
+  routes: {
+    ssjs: { base: baseUri, sinks }
+  },
+  frameworkMapping: { hapi },
+  utils: { buildUrls }
+} = require('@contrast/test-bench-utils');
 
 exports.name = 'hapitestbench.ssjsinjection';
 
 exports.register = function ssjsInjection(server, options) {
-  /* ########################################################### */
-  /* ### Base index HTML page                                ### */
-  /* ########################################################### */
+  const { method, key } = hapi.query;
+  const viewData = buildUrls({ sinks, key, baseUri });
   server.route({
     method: 'GET',
     path: '/',
-    handler: {
-      view: 'ssjs-injection'
-    }
+    handler: (request, h) => h.view('ssjs-injection', { viewData })
   });
 
-  /* ########################################################### */
-  /* ### Build API routes programmatically                  #### */
-  /* ########################################################### */
-
-  /*  Routes:                                                    */
-  /*  /ssjs-injection/query/[un]safe/eval                  ,     */
-  /*  /ssjs-injection/query/[un]safe/function              ,     */
-  /*  /ssjs-injection/query/[un]safe/vm-create-context     ,     */
-  /*  /ssjs-injection/query/[un]safe/vm-run-in-context     ,     */
-  /*  /ssjs-injection/query/[un]safe/vm-run-in-new-context , ... */
-
-  const methods = ['DELETE', 'GET', 'OPTIONS', 'PATCH', 'PUT', 'POST'];
-  const inputTypes = ['query', 'params', 'headers', 'state', 'payload'];
-  const inputSegmentLookup = {
-    payload: '/body',
-    headers: '/headers',
-    params: '/url-params',
-    query: '/query',
-    state: '/cookies'
-  };
-
-  const makeRouteHandlers = (sinkSegment, handle) => {
-    inputTypes.forEach((type) => {
-      const dataPath = `${type}.input`;
-      const inputSegment = inputSegmentLookup[type];
-
-      server.route([
-        {
-          path: `${inputSegment}/safe${sinkSegment}`,
-          method: methods,
-          handler: (request, h) => {
-            const value = handle('"Safe and trusted"') || '';
-            return value.toString();
-          }
-        },
-        {
-          path: `${inputSegment}/unsafe${sinkSegment}`,
-          method: methods,
-          handler: (request, h) => {
-            const value = handle(Hoek.reach(request, dataPath)) || '';
-            return value.toString();
-          }
+  viewData.forEach(({ uri, sink }) => {
+    console.log('sink', sink, uri);
+    server.route([
+      {
+        path: `${uri}/safe`,
+        method: [method],
+        handler: (request, h) => 'SAFE'
+      },
+      {
+        path: `${uri}/unsafe`,
+        method: [method],
+        handler: async (request, h) => {
+          const value = Hoek.reach(request, `${key}.input`) || '';
+          const result = await ssjs[sink](value);
+          return result;
         }
-      ]);
-    });
-  };
-
-  const _eval = (input) => eval(input.toString());
-
-  const _Function = (input) => Function(input)();
-
-  const vmRunInCtx = (input) => {
-    const sb = { value: '', process };
-    const ctx = vm.createContext(sb);
-
-    vm.runInContext(`value = ${input};`, ctx);
-
-    return sb.value;
-  };
-
-  const vmRunInNewCtx = (input) => {
-    const sb = { value: '', process };
-    vm.runInNewContext(`value = ${input};`, sb);
-
-    return sb.value;
-  };
-
-  const vmRunInThisCtx = (input) => {
-    const epoch = new Date().getTime();
-    const name = `value${epoch}`;
-
-    global[name] = '';
-
-    vm.runInThisContext(`${name} = ${input};`);
-    setTimeout(() => {
-      delete global[name];
-    }, 1000);
-
-    return global[name];
-  };
-
-  const vmCreateContext = (input) => {
-    throw new Error('Not implemented.');
-  };
-
-  const vmScriptRunInCtx = (input) => {
-    const sb = { value: '', process };
-    const ctx = vm.createContext(sb);
-    const script = new vm.Script(`value = ${input};`);
-    script.runInContext(ctx);
-
-    return sb.value;
-  };
-
-  const vmScriptRunInNewCtx = (input) => {
-    const sb = { value: '', process };
-    const script = new vm.Script(`value = ${input};`);
-    script.runInNewContext(sb);
-
-    return sb.value;
-  };
-
-  const vmScriptRunInThisCtx = (input) => {
-    const epoch = new Date().getTime();
-    const name = `value${epoch}`;
-
-    global[name] = '';
-
-    const script = new vm.Script(`${name} = ${input};`);
-    script.runInThisContext();
-    setTimeout(() => {
-      delete global[name];
-    }, 1000);
-
-    return global[name];
-  };
-
-  [
-    ['/eval', _eval],
-    ['/function', _Function],
-    ['/vm-run-in-context', vmRunInCtx],
-    ['/vm-run-in-new-context', vmRunInNewCtx],
-    ['/vm-run-in-this-context', vmRunInThisCtx],
-    ['/vm-create-context', vmCreateContext],
-    ['/vm-script-run-in-context', vmScriptRunInCtx],
-    ['/vm-script-run-in-new-context', vmScriptRunInNewCtx],
-    ['/vm-script-run-in-this-context', vmScriptRunInThisCtx]
-  ].forEach((confArgs) => makeRouteHandlers(...confArgs));
+      }
+    ]);
+  });
 };

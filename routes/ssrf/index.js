@@ -1,14 +1,19 @@
 'use strict';
 
 const {
+  routes: {
+    ssrf: { sinks }
+  },
+  frameworkMapping: { hapi },
   sinks: { ssrf }
 } = require('@contrast/test-bench-utils');
 
-const EXAMPLE_URL = 'www.example.com';
+const EXAMPLE_URL = 'http://www.example.com';
 
 exports.name = 'hapitestbench.ssrf';
 
-exports.register = function ssrf(server, options) {
+exports.register = function(server, options) {
+  const { method, key } = hapi.query;
   // base index HTML page
   server.route({
     method: 'GET',
@@ -23,49 +28,27 @@ exports.register = function ssrf(server, options) {
     }
   });
 
-  // programatically generate the vulnerability routes for each lib
-  const libs = ['axios', 'bent', 'fetch', 'request', 'superagent'];
-
-  libs.forEach((lib) => {
+  sinks.forEach((sink) => {
+    const lib = sink.toLowerCase();
     server.route([
       {
-        path: `/${lib}/query/unsafe`,
-        method: 'GET',
+        path: `/${lib}/query`,
+        method,
         handler: async (request, h) => {
-          const url = createUnsafeUrl(request.query.input);
-          const data = await makeRequest(lib, url);
-
+          const url = `${EXAMPLE_URL}?q=${request[key].input}`;
+          const data = await ssrf[`make${sink}Request`](url);
           return data;
         }
       },
       {
-        path: `/${lib}/body/unsafe`,
-        method: 'POST',
+        path: `/${lib}/path`,
+        method,
         handler: async (request, h) => {
-          const url = createUnsafeUrl(request.payload.input);
-          const data = await makeRequest(lib, url);
-
+          const url = `http://${request[key].input}`;
+          const data = await ssrf[`make${sink}Request`](url);
           return data;
         }
       }
     ]);
   });
-};
-
-const createUnsafeUrl = (input, ssl) =>
-  `${ssl ? 'https' : 'http'}://${EXAMPLE_URL}?q=${input}`;
-
-const makeRequest = async function makeRequest(lib, url) {
-  switch (lib) {
-    case 'axios':
-      return ssrf.makeAxiosRequest(url);
-    case 'bent':
-      return ssrf.makeBentRequest(url);
-    case 'fetch':
-      return ssrf.makeFetchRequest(url);
-    case 'request':
-      return ssrf.makeRequestRequest(url);
-    case 'superagent':
-      return ssrf.makeSuperagentRequest(url);
-  }
 };

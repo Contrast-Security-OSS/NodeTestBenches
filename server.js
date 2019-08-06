@@ -3,6 +3,9 @@
 const glue = require('@hapi/glue');
 const path = require('path');
 const pem = require('pem');
+const {
+  routes: { cmd_injection, path_traversal, ssrf }
+} = require('@contrast/test-bench-utils');
 
 const PORT = process.env.PORT || 3000;
 
@@ -25,7 +28,7 @@ const manifest = {
       { plugin: './routes/index.js' },
       {
         plugin: './routes/ssrf',
-        routes: { prefix: '/ssrf' }
+        routes: { prefix: ssrf.base }
       },
       {
         plugin: './routes/mongo-injection/',
@@ -41,7 +44,7 @@ const manifest = {
       },
       {
         plugin: './routes/cmd-injection',
-        routes: { prefix: '/cmd-injection' }
+        routes: { prefix: cmd_injection.base }
       },
       {
         plugin: './routes/ssjs-injection',
@@ -65,7 +68,7 @@ const manifest = {
       },
       {
         plugin: './routes/path-traversal',
-        routes: { prefix: '/path-traversal' }
+        routes: { prefix: path_traversal.base }
       },
       {
         plugin: './routes/unsafe-file-upload',

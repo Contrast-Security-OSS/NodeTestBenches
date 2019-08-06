@@ -1,92 +1,53 @@
 'use strict';
 
 const Hoek = require('@hapi/hoek');
-const util = require('util');
-
-const fs = require('fs');
-const mkdir = util.promisify(fs.mkdir);
-const readdir = util.promisify(fs.readdir);
-const readFile = util.promisify(fs.readFile);
-const readlink = util.promisify(fs.readlink);
-const writeFile = util.promisify(fs.writeFile);
-
+const {
+  sinks: { path_traversal: fs },
+  routes: {
+    path_traversal: { base: baseUri, sinks }
+  },
+  frameworkMapping: { hapi },
+  utils: { buildUrls }
+} = require('@contrast/test-bench-utils');
 exports.name = 'hapitestbench.pathtraversal';
 
 exports.register = function pathTraversal(server, options) {
-  /* ########################################################### */
-  /* ### Base index HTML page                                ### */
-  /* ########################################################### */
+  const { method, key } = hapi.query;
+  const viewData = buildUrls({ sinks, key, baseUri });
+
   server.route({
     method: 'GET',
     path: '/',
-    handler: {
-      view: 'path-traversal'
-    }
+    handler: (request, h) => h.view('path-traversal', { viewData })
   });
 
-  /* ########################################################### */
-  /* ### Build API routes programmatically                  #### */
-  /* ########################################################### */
-
-  const methods = ['DELETE', 'GET', 'OPTIONS', 'PATCH', 'PUT', 'POST'];
-  const inputTypes = ['query', 'params', 'headers', 'state', 'payload'];
-  const inputSegmentLookup = {
-    payload: '/body',
-    headers: '/headers',
-    params: '/url-params',
-    query: '/query',
-    state: '/cookies'
-  };
-
-  const makeRouteHandlers = (sinkSegment, handle) => {
-    inputTypes.forEach((type) => {
-      const dataPath = `${type}.input`;
-      const inputSegment = inputSegmentLookup[type];
-
-      server.route([
-        {
-          path: `${inputSegment}/safe${sinkSegment}`,
-          method: methods,
-          handler: (request, h) => 'SAFE'
-        },
-        {
-          path: `${inputSegment}/unsafe${sinkSegment}`,
-          method: methods,
-          handler: async (request, h) => {
-            const value = Hoek.reach(request, dataPath) || '';
-            const result = await handle(value);
-            return result.toString();
-          }
+  viewData.forEach(({ uri, sink }) => {
+    server.route([
+      {
+        path: `${uri}/no-op`,
+        method: [method],
+        handler: (request, h) => 'PROBE'
+      },
+      {
+        path: `${uri}/safe`,
+        method: [method],
+        handler: async (request, h) => {
+          const value = encodeURIComponent(
+            Hoek.reach(request, `${key}.input`) || ''
+          );
+          const result = await fs[sink](value);
+          return result.toString();
         }
-      ]);
-    });
-  };
-
-  const content = 'EXPLOITED';
-  const sinks = {
-    fs: {
-      mkdir: (input, cb) => mkdir(input, cb),
-      readdir: (input, cb) => readdir(input, cb),
-      readFile: (input, cb) => readFile(input, cb),
-      readlink: (input, cb) => readlink(input, cb),
-      writeFile: (input, cb) => writeFile(input, content, cb),
-
-      mkdirSync: (input) => fs.mkdirSync(input),
-      readdirSync: (input) => fs.readdirSync(input),
-      readFileSync: (input) => fs.readFileSync(input),
-      readlinkSync: (input) => fs.readlinkSync(input),
-      writeFileSync: (input) => fs.writeFileSync(input, content)
-    }
-  };
-
-  [
-    ['/read-dir', sinks.fs.readdir],
-    ['/read-file', sinks.fs.readFile],
-    ['/read-link', sinks.fs.readlink],
-    ['/write-file', sinks.fs.writeFile],
-    ['/read-dir-sync', sinks.fs.readdirSync],
-    ['/read-file-sync', sinks.fs.readFileSync],
-    ['/read-link-sync', sinks.fs.readlinkSync],
-    ['/write-file-sync', sinks.fs.writeFileSync]
-  ].forEach((confArgs) => makeRouteHandlers(...confArgs));
+      },
+      {
+        path: `${uri}/unsafe`,
+        method: [method],
+        handler: async (request, h) => {
+          const value = Hoek.reach(request, `${key}.input`) || '';
+          const result = await fs[sink](value);
+          return result.toString();
+        }
+      }
+    ]);
+  });
 };

@@ -8,7 +8,7 @@
 	<body class="container">
 
 		<header>
-			<% include ../partials/header %>		
+			<% include ../partials/header %>
 			<% include ../partials/nav %>
 		</header>
 
@@ -16,152 +16,11 @@
 			<div class="row">
 				<div class="col-sm-9 col-sm-offset-1 col-md-10 col-md-offset-1 main">
 					<main>
-
-						<h1 class="page-header">Path-Traversal</h1>
-						<h3>Sinks</h3>
-
-						<ul>
-							<li class="sink-list">
-								<span>Node.js <code>fs</code> module:</span>
-
-								<div class="row" style="min-height: 200px;">
-									<div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
-										<h4 class="sub-header"><code>fs.readFile</code></h4>
-										<form method="GET"
-													action="/path-traversal/query/unsafe/read-file"
-													data-action="/path-traversal/${type}/${safe}/read-file"
-													target="_blank">
-											<div class="form-group">
-												<label for="exampleInputEmail1">Path</label>
-												<input name="input" class="form-control" id="exampleInputEmail1" value="../../../../../../../../../etc/passwd">
-											</div>
-											<button type="submit" class="btn btn-default">Submit</button>
-										</form>
-									</div>
-								</div>
-
-								<div class="row" style="min-height: 200px;">
-									<div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
-										<h4 class="sub-header"><code>fs.writeFile</code></h4>
-										<form method="GET"
-													action="/path-traversal/query/unsafe/write-file"
-													data-action="/path-traversal/${type}/${safe}/write-file"
-													target="_blank">
-											<div class="form-group">
-												<label for="exampleInputEmail1">Path</label>
-												<input name="input" class="form-control" id="input-write-file" value="../message.txt">
-											</div>
-											<button type="submit" class="btn btn-default">Submit</button>
-										</form>
-									</div>
-								</div>
-
-								<hr>
-
-								<div class="row" style="min-height: 200px;">
-									<div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
-										<h4 class="sub-header">
-											<code>fs.readFile</code>
-											<span style="color:#339955">(safe)</span>
-										</h4>
-										<form method="GET"
-													action="/path-traversal/query/safe/read-file"
-													action="/path-traversal/${type}/${safe}/read-file"
-													target="_blank">
-											<div class="form-group">
-												<label for="exampleInputEmail1">Path</label>
-												<input name="input" class="form-control" id="input-read-file-safe" value="../../../../../../../../../etc/passwd">
-											</div>
-											<button type="submit" class="btn btn-default">Submit</button>
-										</form>
-									</div>
-								</div>
-
-							</li>
-
-						</ul>
-
+						<% include ../../node_modules/@contrast/test-bench-content/views/path-traversal.ejs %>
 					</main>
-					
+
 					<footer>
 						<% include ../partials/footer %>
-
-						<style type="text/css" id="ssjs-styles">
-						 .sink-list { padding-bottom : 3em; }
-
-						 button.method.left, button.method.right {
-							 line-height : 12pt;
-						 }
-						 button.method.left {
-							 border-top-right-radius : 0;
-							 border-bottom-right-radius : 0;
-							 border-right: none;
-							 padding-right : .7em;
-							 margin-right: 0;
-						 }
-						 button.method.right {
-							 border-top-left-radius : 0;
-							 border-bottom-left-radius : 0;
-							 border-left: none;
-							 padding-left : .7em;
-							 margin-left: 0;
-						 }
-						 button.method.active {
-							 color: #333;
-							 background-color: #e6e6e6;
-							 border-color: #adadad;
-						 }
-						</style>
-
-						<script type="text/javascript">
-						 $(function ( ) {
-
-							 const isSafe = 'unsafe';
-
-							 $('form')
-								 .attr('target', 'ssjs-injection')
-								 .each(( idx, elem ) => {
-									 $(elem).find('.form-group').after(
-										 $('<button>')
-											 .text('GET')
-											 .attr('type', 'button')
-											 .text('GET')
-											 .addClass('method left btn btn-default active')
-											 .on('click', ( e ) => {
-												 const elem = $(e.target);
-												 const form = elem.closest('form');
-
-												 elem.addClass('active');
-												 elem.siblings('.method').removeClass('active');
-
-												 form.attr('method', 'GET');
-												 form.attr(
-													 'action',
-													 form.attr('data-action')
-															 .replace('${type}', 'query')
-															 .replace('${safe}', isSafe));
-											 }),
-										 $('<button>')
-											 .text('POST')
-											 .attr('type', 'button')
-											 .addClass('method right btn btn-default')
-											 .on('click', ( e ) => {
-												 const elem = $(e.target);
-												 const form = elem.closest('form');
-
-												 elem.addClass('active');
-												 elem.siblings('.method').removeClass('active');
-
-												 form.attr('method', 'POST');
-												 form.attr(
-													 'action',
-													 form.attr('data-action')
-															 .replace('${type}', 'body')
-															 .replace('${safe}', isSafe));
-											 }));
-								 });
-						 });
-						</script>
 					</footer>
 
 				</div>

@@ -1,24 +1,19 @@
-
-<h1 class="page-header">Command Injection</h1>
-<p><a target="_blank" href="https://www.owasp.org/index.php/Command_Injection">Command Injection Info</a></p>
-
+<h1 class="page-header">Path-Traversal</h1>
+<p><a target="_blank" href="https://www.owasp.org/index.php/Path_Traversal">Path Traversal Info</a></p>
 <% viewData.forEach(function(view) { %>
 <div class="row" style="min-height: 200px;">
   <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
-    <h4 class="sub-header"><code>child_process.<%= view.sink %></code></h4>
-    <form method="GET"
-          action="<%= view.url %>/unsafe"
-          target="_blank">
-      <div class="form-group">
-        <label>Path</label>
-        <input name="input" class="form-control" value="ls -ahl ../">
-      </div>
-      <button type="submit" class="btn btn-default">Submit</button>
-    </form>
+    <h4 class="sub-header">Path Traversal From <%= view.sink %></h4>
+  <form method="GET" action="<%= view.url %>/unsafe" target="_blank">
+    <div class="form-group">
+      <label for="exampleInputEmail1">Path</label>
+      <input name="input" class="form-control" id="exampleInputEmail1" value="../../../../../../../../../etc/passwd">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
   </div>
 </div>
 <% }); %>
-
 <style type="text/css">
  button.method.left, button.method.right {
    line-height : 12pt;

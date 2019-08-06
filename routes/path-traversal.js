@@ -1,28 +1,34 @@
-const fs = require('fs');
-/**
- * @vulnerabiility: path-traversal
- */
+'use strict';
+const {
+  sinks: { path_traversal: fs },
+  routes: {
+    path_traversal: { base: baseUri, sinks }
+  },
+  frameworkMapping: { koa },
+  utils: { buildUrls }
+} = require('@contrast/test-bench-utils');
 module.exports = ({ router }) => {
-  router.get('/path-traversal', (ctx, next) => ctx.render('path-traversal'));
+  const { method, key } = koa.query;
+  const viewData = buildUrls({ sinks, key, baseUri });
+  router.get(baseUri, (ctx, next) =>
+    ctx.render('path-traversal', { viewData })
+  );
 
-  router.post('/path-traversal-test', async (ctx, next) => {
-    const path = ctx.request.body.user_path;
-    const data = await new Promise((resolve) => {
-      fs.readFile(path, (err, data) => {
-        resolve(data);
-      });
+  viewData.forEach(({ url, sink }) => {
+    router[method](`${url}/no-op`, (ctx, res) => {
+      ctx.body = 'PROBE';
     });
-    ctx.body = data.toString();
-  });
 
-  router.post('/path-traversal-test-safe', async (ctx, next) => {
-    let path = ctx.request.body.user_path;
-    path = encodeURIComponent(path);
-    const data = await new Promise((resolve) => {
-      fs.readFile(path, (err, data) => {
-        resolve(data);
-      });
+    router[method](`${url}/safe`, async (ctx, res) => {
+      const path = encodeURIComponent(ctx[key].input);
+      const data = await fs[sink](path, true);
+      ctx.body = data.toString();
     });
-    ctx.body = data.toString();
+
+    router[method](`${url}/unsafe`, async (ctx, res) => {
+      const path = ctx[key].input;
+      const data = await fs[sink](path);
+      ctx.body = data.toString();
+    });
   });
 };

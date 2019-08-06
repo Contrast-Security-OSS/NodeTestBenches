@@ -11,5 +11,7 @@ module.exports.buildUrls = ({ sinks, key, baseUri }) =>
   sinks.map((sink) => ({
     url: `${baseUri}/${key}/${kebabCase(sink)}`,
     uri: `/${key}/${kebabCase(sink)}`, // hapi uses relative urls
-    sink
+    sink: sink.function || sink,
+    code: sink.code,
+    lib: sink.lib
   }));

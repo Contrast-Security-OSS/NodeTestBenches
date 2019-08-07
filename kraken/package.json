@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "build": "grunt build",
-    "dev": "nodemon -e js,ejs index.js",
+    "dev": "nodemon -e js,ejs,json server.js",
     "fix": "eslint . --fix"
   },
   "husky": {

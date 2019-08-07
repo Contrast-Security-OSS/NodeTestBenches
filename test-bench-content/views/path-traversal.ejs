@@ -4,13 +4,13 @@
 <div class="row" style="min-height: 200px;">
   <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
     <h4 class="sub-header">Path Traversal From <%= view.sink %></h4>
-  <form method="GET" action="<%= view.url %>/unsafe" target="_blank">
-    <div class="form-group">
-      <label for="exampleInputEmail1">Path</label>
-      <input name="input" class="form-control" id="exampleInputEmail1" value="../../../../../../../../../etc/passwd">
-    </div>
-    <button type="submit" class="btn btn-default">Submit</button>
-  </form>
+    <form method="GET" action="<%= view.url %>/unsafe" target="_blank">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Path</label>
+        <input name="input" class="form-control" id="exampleInputEmail1" value="../../../../../../../../../etc/passwd">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
   </div>
 </div>
 <% }); %>

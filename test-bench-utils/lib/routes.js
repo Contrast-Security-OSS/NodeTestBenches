@@ -29,5 +29,11 @@ module.exports = {
         code: 'vm.runInNewContext(`value = ${input}`, sandbox)'
       }
     ]
+  },
+  // This rule is specific for each framework, no sinks will be
+  // abstracted
+  unsafe_file_upload: {
+    base: '/unsafe-file-upload',
+    applicableInputs: ['body']
   }
 };

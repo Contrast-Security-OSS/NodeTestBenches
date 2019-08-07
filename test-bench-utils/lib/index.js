@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = {
+  rules: require('./rules'),
   sinks: {
     ssrf: require('./sinks/ssrf'),
     cmd_injection: require('./sinks/cmd-injection'),

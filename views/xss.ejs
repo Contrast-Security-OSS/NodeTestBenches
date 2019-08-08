@@ -15,9 +15,9 @@
     <p>
       <a
         target="_blank"
-        href="<%= viewData.query[0].url %>/<%= safety %>?input=<script>alert(1)%3B<%%2Fscript>"
+        href="<%= viewData[0].url %>/<%= safety %>?input=<script>alert(1)%3B<%%2Fscript>"
       >
-        <%= viewData.query[0].url %>/<%= safety %>?input=&lt;script&gt;alert(1);&lt;/script&gt;
+        <%= viewData[0].url %>/<%= safety %>?input=&lt;script&gt;alert(1);&lt;/script&gt;
       </a>
     </p>
     <% }); %>
@@ -30,9 +30,9 @@
     <p>
       <a
         target="_blank"
-        href="<%= viewData.params[0].url %>/<%= safety %>/<script>alert(1)%3B<%%2Fscript>"
+        href="<%= viewData[1].url %>/<%= safety %>/<script>alert(1)%3B<%%2Fscript>"
       >
-        <%= viewData.params[0].url %>/<%= safety %>/&lt;script&gt;alert(1);&lt;/script&gt;
+        <%= viewData[1].url %>/<%= safety %>/&lt;script&gt;alert(1);&lt;/script&gt;
       </a>
     </p>
     <% }); %>
@@ -42,8 +42,8 @@
   <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
     <h4 class="sub-header">POST Body</h4>
     <form
-      method="<%= viewData.body[0].method %>"
-      action="<%= viewData.body[0].url %>/unsafe"
+      method="<%= viewData[2].method %>"
+      action="<%= viewData[2].url %>/unsafe"
       target="_blank"
     >
       <div class="form-group">

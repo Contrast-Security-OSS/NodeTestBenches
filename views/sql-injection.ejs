@@ -8,9 +8,9 @@
 <div class="row">
   <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
     <h4 class="sub-header">
-      <code><%= view.sink %></code>
+      <code><%= view.sinkName %></code>
     </h4>
-    <form method="GET" action="<%= view.url %>/unsafe" target="_blank">
+    <form method="<%= view.method %>" action="<%= view.url %>/unsafe" target="_blank">
       <div class="form-group">
         <label>SELECT "${input}" as "test";</label>
         <input name="input" class="form-control" value="woot" />

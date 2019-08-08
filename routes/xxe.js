@@ -1,33 +1,30 @@
 'use strict';
-const libxmljs = require('libxmljs');
-
-const ATTACK_XML = `
-<!DOCTYPE read-fs [<!ELEMENT read-fs ANY >
-<!ENTITY passwd SYSTEM "file:///etc/passwd" >]>
-<users>
-  <user>
-    <read-fs>&passwd;</read-fs>
-    <name>C.K Frode</name>
-  </user>
-</users>`;
+const {
+  sinks: { xxe },
+  routes: {
+    xxe: { base: baseUri, sinks }
+  },
+  frameworkMapping: { koa },
+  utils: { attackXml }
+} = require('@contrast/test-bench-utils');
 
 module.exports = ({ router }) => {
-  router.get('/xxe', (ctx, next) => ctx.render('xxe', { ATTACK_XML }));
+  const { method } = koa.body;
+  router.get('/xxe', (ctx, next) =>
+    ctx.render('xxe', {
+      attackXml,
+      url: baseUri
+    })
+  );
+  sinks.forEach((sink) => {
+    router[method](`${baseUri}/safe`, (ctx, next) => {
+      const data = xxe[sink](attackXml, true);
+      ctx.body = data.toString();
+    });
 
-  router.post(['/xxe/safe', '/xxe/unsafe'], (ctx, next) => {
-    let options;
-
-    if (/\/safe$/.test(ctx.url)) {
-      options = {
-        noent: false
-      };
-    } else {
-      options = {
-        noent: true
-      };
-    }
-
-    const parsedXML = libxmljs.parseXmlString(ATTACK_XML, options);
-    ctx.body = parsedXML.toString();
+    router[method](`${baseUri}/unsafe`, (ctx, next) => {
+      const data = xxe[sink](attackXml);
+      ctx.body = data.toString();
+    });
   });
 };

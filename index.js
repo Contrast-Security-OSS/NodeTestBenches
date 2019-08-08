@@ -33,18 +33,18 @@ app.use((ctx, next) => {
 app.use(bodyParser());
 
 require('./routes/index')({ router });
-require('./routes/xss')({ router });
 require('./routes/cmdi')({ router });
-require('./routes/sqli')({ router });
-require('./routes/unvalidated-redirect')({ router });
-require('./routes/path-traversal')({ router });
-require('./routes/unsafe-file-upload')({ router });
-require('./routes/ssjs')({ router });
-require('./routes/header-injection')({ router });
 require('./routes/csp-header')({ router });
-require('./routes/xxe')({ router });
+require('./routes/header-injection')({ router });
 require('./routes/parampollution')({ router });
+require('./routes/path-traversal')({ router });
+require('./routes/sqli')({ router });
+require('./routes/ssjs')({ router });
 require('./routes/ssrf')({ router });
+require('./routes/unsafe-file-upload')({ router });
+require('./routes/unvalidated-redirect')({ router });
+require('./routes/xss')({ router });
+require('./routes/xxe')({ router });
 
 app.use(router.routes());
 app.use(router.allowedMethods());

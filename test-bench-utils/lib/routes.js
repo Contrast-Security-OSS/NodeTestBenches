@@ -35,5 +35,10 @@ module.exports = {
   unsafe_file_upload: {
     base: '/unsafe-file-upload',
     applicableInputs: ['body']
+  },
+  xxe: {
+    base: '/xxe',
+    applicableInputs: ['body'],
+    sinks: ['parseXmlString']
   }
 };

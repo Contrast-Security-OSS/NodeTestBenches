@@ -29,22 +29,10 @@ module.exports = {
     inputs: ['query'],
     sinks: ['readFile', 'readFileSync', 'writeFile', 'writeFileSync']
   },
-  sqli: {
-    base: '/sqli',
+  sql_injection: {
+    base: '/sql-injection',
     inputs: ['query'], // default,
-    sinks: [
-      'sequelize.prototype.query',
-      // 'typeorm.Repository.prototype.query',
-      // 'typeorm.Connection.prototype.query',
-      'mysql/lib/Connection.query'
-      // 'pg.Connection.prototype.query',
-      // 'sqlite3.Database.prototype.all',
-      // 'sqlite3.Database.prototype.run',
-      // 'sqlite3.Database.prototype.get',
-      // 'sqlite3.Database.prototype.each',
-      // 'sqlite3.Database.prototype.exec',
-      // 'sqlite3.Database.prototype.prepare'
-    ]
+    sinks: require('./sinks/sql-injection')
   },
   ssjs: {
     base: '/ssjs-injection',
@@ -80,7 +68,7 @@ module.exports = {
     base: '/xss',
     inputs: ['query', 'params', 'headers', 'body', 'cookies'],
     // There is a single `reflection` sink for reflected xss
-    sinks: ['reflectedXss']
+    sinks: require('./sinks/xss')
   },
   xxe: {
     base: '/xxe',

@@ -4,7 +4,15 @@ const glue = require('@hapi/glue');
 const path = require('path');
 const pem = require('pem');
 const {
-  routes: { cmd_injection, path_traversal, ssrf, ssjs, unsafe_file_upload, xxe }
+  routes: {
+    cmd_injection,
+    path_traversal,
+    ssrf,
+    ssjs,
+    unsafe_file_upload,
+    unvalidated_redirect,
+    xxe
+  }
 } = require('@contrast/test-bench-utils');
 
 const PORT = process.env.PORT || 3000;
@@ -64,7 +72,7 @@ const manifest = {
       },
       {
         plugin: './routes/unvalidated-redirect',
-        routes: { prefix: '/unvalidated-redirect' }
+        routes: { prefix: unvalidated_redirect.base }
       },
       {
         plugin: './routes/path-traversal',

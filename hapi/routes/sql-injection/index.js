@@ -2,22 +2,12 @@
 const Hoek = require('@hapi/hoek');
 const util = require('util');
 
-const {
-  sinks,
-  routes,
-  frameworkMapping,
-  utils
-} = require('@contrast/test-bench-utils');
+const { utils } = require('@contrast/test-bench-utils');
 
 exports.name = 'hapitestbench.sqlinjection';
 
 exports.register = function sqlInjection(server, options) {
-  const { method, key } = frameworkMapping.hapi.query;
-  const viewData = utils.buildUrls({
-    key,
-    sinks: routes.sqli.sinks,
-    baseUri: routes.sqli.base
-  });
+  const viewData = utils.getViewData('sql_injection', 'hapi');
 
   server.route({
     method: 'GET',
@@ -25,13 +15,13 @@ exports.register = function sqlInjection(server, options) {
     handler: (request, h) => h.view('sql-injection', { viewData })
   });
 
-  viewData.forEach(({ uri, sink }) => {
+  viewData.forEach(({ uri, method, sink, key }) => {
     server.route([
       {
         path: `${uri}/safe`,
         method: [method],
         handler: async (request, h) => {
-          const result = await sinks.sqli[sink]('clown');
+          const result = await sink('clown');
           return util.inspect(result);
         }
       },
@@ -40,7 +30,7 @@ exports.register = function sqlInjection(server, options) {
         method: [method],
         handler: async (request, h) => {
           const value = Hoek.reach(request, `${key}.input`) || '';
-          const result = await sinks.sqli[sink](value);
+          const result = await sink(value);
           return util.inspect(result);
         }
       }

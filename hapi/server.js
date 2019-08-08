@@ -7,7 +7,7 @@ const {
   routes: {
     cmd_injection,
     path_traversal,
-    sqli,
+    sql_injection,
     ssjs,
     ssrf,
     unsafe_file_upload,
@@ -61,7 +61,7 @@ const manifest = {
       },
       {
         plugin: './routes/sql-injection/',
-        routes: { prefix: sqli.base }
+        routes: { prefix: sql_injection.base }
       },
       {
         plugin: './routes/unsafe-eval',

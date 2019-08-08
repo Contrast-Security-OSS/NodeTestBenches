@@ -4,7 +4,7 @@ const glue = require('@hapi/glue');
 const path = require('path');
 const pem = require('pem');
 const {
-  routes: { cmd_injection, path_traversal, ssrf, ssjs, unsafe_file_upload }
+  routes: { cmd_injection, path_traversal, ssrf, ssjs, unsafe_file_upload, xxe }
 } = require('@contrast/test-bench-utils');
 
 const PORT = process.env.PORT || 3000;
@@ -73,6 +73,10 @@ const manifest = {
       {
         plugin: './routes/unsafe-file-upload',
         routes: { prefix: unsafe_file_upload.base }
+      },
+      {
+        plugin: './routes/xxe',
+        routes: { prefix: xxe.base }
       },
       {
         plugin: './routes/session/http-only.js',

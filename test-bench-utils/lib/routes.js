@@ -36,6 +36,10 @@ module.exports = {
     base: '/unsafe-file-upload',
     applicableInputs: ['body']
   },
+  unvalidated_redirect: {
+    base: '/unvalidated-redirect',
+    applicableInputs: ['query']
+  },
   xxe: {
     base: '/xxe',
     applicableInputs: ['body'],

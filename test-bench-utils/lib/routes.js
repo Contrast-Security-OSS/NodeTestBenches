@@ -1,12 +1,12 @@
 module.exports = {
   cmd_injection: {
     base: '/cmd-injection',
-    applicableInputs: ['query'],
+    inputs: ['query'],
     sinks: ['exec', 'execSync', 'spawn', 'spawnSync']
   },
   nosql_injection: {
     base: '/nosql-injection',
-    applicableInputs: ['query'], // default
+    inputs: ['query'], // default
     sinks: [
       // 'mongodb.Collection.prototype.rename',
       // 'mongodb.Db.prototype.eval',
@@ -26,12 +26,12 @@ module.exports = {
   },
   path_traversal: {
     base: '/path-traversal',
-    applicableInputs: ['query'],
+    inputs: ['query'],
     sinks: ['readFile', 'readFileSync', 'writeFile', 'writeFileSync']
   },
   sqli: {
     base: '/sqli',
-    applicableInputs: ['query'], // default,
+    inputs: ['query'], // default,
     sinks: [
       'sequelize.prototype.query',
       // 'typeorm.Repository.prototype.query',
@@ -48,7 +48,7 @@ module.exports = {
   },
   ssjs: {
     base: '/ssjs-injection',
-    applicableInputs: ['query'],
+    inputs: ['query'],
     // eval tests CODE_STRING sink type
     // runInNewContext tests CODE_ENV sink type
     sinks: [
@@ -63,22 +63,28 @@ module.exports = {
   },
   ssrf: {
     base: '/ssrf',
-    applicableInputs: ['query'],
+    inputs: ['query'],
     // these are not sinks but the ssrf sinks file has helpers to make a request for each
     sinks: ['Axios', 'Bent', 'Fetch', 'Request', 'Superagent']
   },
   // This rule is specific for each framework, no sinks will be abstracted
   unsafe_file_upload: {
     base: '/unsafe-file-upload',
-    applicableInputs: ['body']
+    inputs: ['body']
   },
   unvalidated_redirect: {
     base: '/unvalidated-redirect',
-    applicableInputs: ['query']
+    inputs: ['query']
+  },
+  xss: {
+    base: '/xss',
+    inputs: ['query', 'params', 'headers', 'body', 'cookies'],
+    // There is a single `reflection` sink for reflected xss
+    sinks: ['reflectedXss']
   },
   xxe: {
     base: '/xxe',
-    applicableInputs: ['body'],
+    inputs: ['body'],
     sinks: ['parseXmlString']
   }
 };

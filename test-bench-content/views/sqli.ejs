@@ -1,0 +1,23 @@
+<h1 class="page-header">SQL Injection</h1>
+<p>
+  <a target="_blank" href="https://www.owasp.org/index.php/SQL_Injection">
+    SQL Injection Info
+  </a>
+</p>
+<% viewData.forEach(function(view) { %>
+<div class="row">
+  <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+    <h4 class="sub-header">
+      <code><%= view.sink %></code>
+    </h4>
+    <form method="GET" action="<%= view.url %>/unsafe" target="_blank">
+      <div class="form-group">
+        <label>SELECT "${input}" as "test";</label>
+        <input name="input" class="form-control" value="woot" />
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+  </div>
+</div>
+<% }); %>
+<% include ../partials/safe-buttons %>

@@ -24,35 +24,37 @@
 </style>
 
 <script type="text/javascript">
- $(function ( ) {
-   $('form')
-     .each(( idx, elem ) => {
-       $(elem).find('.form-group').after(
-         $('<button>')
-           .text('Unsafe')
-           .attr('type', 'button')
-           .addClass('method left btn btn-default active')
-           .on('click', ( e ) => {
-             const elem = $(e.target);
-             const form = elem.closest('form');
-             elem.addClass('active');
-             elem.siblings('.method').removeClass('active');
-             const newUrl = form.attr('action').replace(/\bsafe\b/, 'unsafe');
-             form.attr('action', newUrl);
-           }),
-         $('<button>')
-           .text('Safe')
-           .attr('type', 'button')
-           .addClass('method right btn btn-default')
-           .on('click', ( e ) => {
-             const elem = $(e.target);
-             const form = elem.closest('form');
-             elem.addClass('active');
-             elem.siblings('.method').removeClass('active');
-             const newUrl = form.attr('action').replace(/\bunsafe\b/, 'safe');
-             form.attr('action', newUrl);
-           }));
-     });
- });
+  <% if (!locals.skipJs) { %>
+   $(function ( ) {
+     $('form')
+       .each(( idx, elem ) => {
+         $(elem).find('.form-group').after(
+           $('<button>')
+             .text('Unsafe')
+             .attr('type', 'button')
+             .addClass('method left btn btn-default active')
+             .on('click', ( e ) => {
+               const elem = $(e.target);
+               const form = elem.closest('form');
+               elem.addClass('active');
+               elem.siblings('.method').removeClass('active');
+               const newUrl = form.attr('action').replace(/\bsafe\b/, 'unsafe');
+               form.attr('action', newUrl);
+             }),
+           $('<button>')
+             .text('Safe')
+             .attr('type', 'button')
+             .addClass('method right btn btn-default')
+             .on('click', ( e ) => {
+               const elem = $(e.target);
+               const form = elem.closest('form');
+               elem.addClass('active');
+               elem.siblings('.method').removeClass('active');
+               const newUrl = form.attr('action').replace(/\bunsafe\b/, 'safe');
+               form.attr('action', newUrl);
+             }));
+       });
+   });
+  <% } %>
 </script>
 

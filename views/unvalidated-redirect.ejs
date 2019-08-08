@@ -1,0 +1,15 @@
+<h1 class="page-header">Unvalidated Redirect <%= locals.desc %></h1>
+<p><a target="_blank" href="https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html">Unvalidated Redirect Info</a></p>
+
+<div class="row" style="min-height: 200px;">
+  <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+    <h4 class="sub-header">Redirect From <%= res %>.redirect(<%= locals.args %>path) GET</h4>
+    <form method="GET" action="<%= url %>/unsafe" target="_blank">
+	    <div class="form-group">
+		    <input name="input" class="form-control" id="url" value="http://www.example.com">
+	    </div>
+	    <button type="submit" class="btn btn-default">Submit</button>
+	  </form>
+  </div>
+</div>
+<% include ../partials/safe-buttons %>

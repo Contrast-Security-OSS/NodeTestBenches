@@ -1,3 +1,4 @@
+const { get } = require('lodash');
 const util = require('util');
 
 const { routes, utils } = require('@contrast/test-bench-utils');
@@ -19,7 +20,7 @@ module.exports = ({ router }) => {
     });
 
     router[method](`${url}/unsafe`, async (ctx, next) => {
-      const result = await sink(ctx[key].input);
+      const result = await sink(get(ctx, key).input);
       ctx.body = util.inspect(result);
     });
   });

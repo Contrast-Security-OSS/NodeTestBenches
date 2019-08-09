@@ -1,4 +1,7 @@
 'use strict';
+
+const { get } = require('lodash');
+
 const {
   routes: {
     unvalidated_redirect: { base: baseUri }
@@ -14,10 +17,10 @@ module.exports = ({ router }) => {
 
   // endpoint for vuln
   router[method](`${baseUri}/unsafe`, (ctx, next) => {
-    ctx.redirect(ctx[key].input);
+    ctx.redirect(get(ctx, key).input);
   });
 
   router[method](`${baseUri}/safe`, (ctx, next) =>
-    ctx.redirect(encodeURIComponent(ctx[key].input))
+    ctx.redirect(encodeURIComponent(get(ctx, key).input))
   );
 };

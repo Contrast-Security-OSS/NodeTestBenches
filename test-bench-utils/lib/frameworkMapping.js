@@ -9,14 +9,14 @@ const sharedMapping = {
 };
 
 module.exports = {
-  koa: sharedMapping,
   express: sharedMapping,
   kraken: sharedMapping,
-  hapi: {
-    query: { method: 'get', key: 'query' }, // shared
-    params: { method: 'get', key: 'params', param: '{input}' }, // shared
-    headers: { method: 'get', key: 'headers' }, // shared
+  koa: Object.assign({}, sharedMapping, {
+    body: { method: 'post', key: 'request.body' }
+  }),
+  hapi: Object.assign({}, sharedMapping, {
+    params: { method: 'get', key: 'params', param: '{input}' },
     body: { method: 'post', key: 'payload' },
     cookies: { method: 'post', key: 'state' }
-  }
+  })
 };

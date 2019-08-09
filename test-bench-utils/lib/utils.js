@@ -38,7 +38,7 @@ function sinkData({ sinks, key, param, baseUri, method, input }) {
     sink = sink.function || sink;
 
     const prettyName = kebabCase(sinkName);
-    const uriWithoutParams = `/${key}/${prettyName}`;
+    const uriWithoutParams = `/${input}/${prettyName}`;
     const uri =
       key === 'params' ? `${uriWithoutParams}/${param}` : uriWithoutParams;
 

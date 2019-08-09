@@ -1,13 +1,15 @@
 'use strict';
-const { kebabCase, map, reduce } = require('lodash');
+const { groupBy, kebabCase, map, reduce } = require('lodash');
 
 const MAPPING = require('./frameworkMapping');
 const routes = require('./routes');
 
 /**
- * @typedef {Object} ViewData
- * @property {string} url fully qualified url
+ * @typedef {Object} SinkData
  * @property {string} uri relative url
+ * @property {string} url fully qualified url
+ * @property {string} urlWithoutParams url without parameter variable
+ * @property {string} input unmapped input key usder which user input lies
  * @property {string} key key under which user input lies
  * @property {string} method http method
  * @property {string|Function} sink name of the function/sink OR the sink itself
@@ -17,24 +19,34 @@ const routes = require('./routes');
  */
 
 /**
- * Builds the urls for a given rule
+ * Builds out the urls/view data for a given rule and input source.
  *
- * @param {object}            opts
- * @param {string[]|object[]} opts.sinks   list of applicable sinks
- * @param {string}            opts.key     relevant key on req object
- * @param {string}            opts.baseUri the base URI to use when constructing urls
- * @param {string}            opts.method  the method being handled
- * @return {ViewData[]}
+ * @param {object} opts
+ * @param {string[]|Object[]|Object<string, Function>} opts.sinks
+ * @param {string} opts.key relevant key on req object
+ * @param {string} opts.param the framework-specific paramter string for path parameters
+ * @param {string} opts.baseUri the base URI to use when constructing urls
+ * @param {string} opts.method the method being handled
+ * @param {string} input the input method being exercised (query, params, etc)
+ * @return {SinkData[]}
  */
-function viewData({ sinks, key, baseUri, method }) {
+function sinkData({ sinks, key, param, baseUri, method, input }) {
   return map(sinks, (sink, sinkName) => {
     const { code, lib } = sink;
     // Use function if object otherwise use string value
     // This is done after the code and lib
     sink = sink.function || sink;
+
+    const prettyName = kebabCase(sinkName);
+    const uriWithoutParams = `/${key}/${prettyName}`;
+    const uri =
+      key === 'params' ? `${uriWithoutParams}/${param}` : uriWithoutParams;
+
     return {
-      url: `${baseUri}/${key}/${kebabCase(sinkName)}`,
-      uri: `/${key}/${kebabCase(sinkName)}`, // hapi uses relative urls
+      uri, // hapi uses relative urls
+      url: `${baseUri}${uri}`,
+      urlWithoutParams: `${baseUri}${uriWithoutParams}`,
+      input,
       key,
       method,
       sinkName,
@@ -45,24 +57,48 @@ function viewData({ sinks, key, baseUri, method }) {
   });
 }
 
-module.exports.buildUrls = viewData;
+module.exports.buildUrls = sinkData;
 
 /**
- * @param {string} vuln      the vulnerability/sink being tested (ssrf, xss, etc)
+ * Generates sink data for a given rule and framework.
+ *
+ * @param {string} rule the rule being tested (ssrf, xss, etc)
  * @param {string} framework the framework being used (express, koa, etc)
- * @return {ViewData[]}
+ * @return {SinkData[]}
  */
-module.exports.getViewData = function getViewData(vuln, framework) {
-  const { base, inputs, sinks } = routes[vuln];
+module.exports.getSinkData = function getSinkData(rule, framework) {
+  const { base, inputs, sinks } = routes[rule];
 
   return reduce(
     inputs,
     (data, input) => {
-      const { method, key } = MAPPING[framework][input];
-      return [...data, ...viewData({ sinks, key, baseUri: base, method })];
+      const { method, key, param } = MAPPING[framework][input];
+      return [
+        ...data,
+        ...sinkData({
+          sinks,
+          key,
+          param,
+          baseUri: base,
+          method,
+          input
+        })
+      ];
     },
     []
   );
+};
+
+module.exports.getViewData = module.exports.getSinkData;
+
+/**
+ * Groups sink data arrays by input type (query, body, etc).
+ *
+ * @param {SinkData[]} sinkData
+ * @return {Object<string, SinkData[]}
+ */
+module.exports.groupSinkData = function groupSinkData(sinkData) {
+  return groupBy(sinkData, 'input');
 };
 
 module.exports.attackXml = `

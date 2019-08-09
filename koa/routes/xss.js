@@ -11,12 +11,12 @@ module.exports = ({ router }) => {
   router.get(routes.xss.base, (ctx, next) => ctx.render('xss', { viewData }));
 
   sinkData.forEach(({ method, url, sink, key }) => {
-    router[method](`${url}/safe`, async (ctx, next) => {
+    router[method](`${url}/safe`, (ctx, next) => {
       const { input } = get(ctx, key);
       ctx.body = sink(input, true);
     });
 
-    router[method](`${url}/unsafe`, async (ctx, next) => {
+    router[method](`${url}/unsafe`, (ctx, next) => {
       const { input } = get(ctx, key);
       ctx.body = sink(input);
     });

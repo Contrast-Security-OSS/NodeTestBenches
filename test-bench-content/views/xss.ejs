@@ -64,6 +64,26 @@
     <% }); %>
   </div>
 </div>
+<div class="row">
+  <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+    <h4 class="sub-header">GET headers</h4>
+    <% viewData.headers.forEach(function(sink) { %>
+    <% ['unsafe', 'safe'].forEach(function(safety) { %>
+    <p><pre>curl http://localhost:3000<%= sink.url %>/<%= safety %> -H "input: &lt;script&gt;alert(1)%3B&lt;%%2script&gt;"</pre></p>
+    <% }); %>
+    <% }); %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+    <h4 class="sub-header">POST cookies</h4>
+    <% viewData.cookies.forEach(function(sink) { %>
+    <% ['unsafe', 'safe'].forEach(function(safety) { %>
+    <p><pre>curl http://localhost:3000<%= sink.url %>/<%= safety %> -X POST -b "input=&lt;script&gt;alert(1)%3B&lt;%%2script&gt;"</pre></p>
+    <% }); %>
+    <% }); %>
+  </div>
+</div>
 <% include ../partials/safe-buttons %>
 
 <script type="text/javascript">

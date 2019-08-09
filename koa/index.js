@@ -18,7 +18,7 @@ app.use(mount('/assets', serve('./public')));
 render(app, {
   root: path.join(__dirname, 'view'),
   layout: 'layout',
-  viewExt: 'html',
+  viewExt: 'ejs',
   cache: false,
   async: false
 });

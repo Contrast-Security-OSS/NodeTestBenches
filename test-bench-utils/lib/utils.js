@@ -10,6 +10,7 @@ const routes = require('./routes');
  * @property {string} uri relative url
  * @property {string} url fully qualified url
  * @property {string} urlWithoutParams url without parameter variable
+ * @property {string} input unmapped input key usder which user input lies
  * @property {string} key key under which user input lies
  * @property {string} method http method
  * @property {string|Function} sink name of the function/sink OR the sink itself
@@ -28,7 +29,7 @@ const routes = require('./routes');
  * @param {string} opts.method the method being handled
  * @return {SinkData[]}
  */
-function sinkData({ sinks, key, baseUri, method }) {
+function sinkData({ sinks, key, baseUri, method, input }) {
   return map(sinks, (sink, sinkName) => {
     const { code, lib } = sink;
     // Use function if object otherwise use string value
@@ -44,6 +45,7 @@ function sinkData({ sinks, key, baseUri, method }) {
       uri, // hapi uses relative urls
       url: `${baseUri}${uri}`,
       urlWithoutParams: `${baseUri}${uriWithoutParams}`,
+      input,
       key,
       method,
       sinkName,
@@ -70,7 +72,10 @@ module.exports.getSinkData = function getSinkData(rule, framework) {
     inputs,
     (data, input) => {
       const { method, key } = MAPPING[framework][input];
-      return [...data, ...sinkData({ sinks, key, baseUri: base, method })];
+      return [
+        ...data,
+        ...sinkData({ sinks, key, baseUri: base, method, input })
+      ];
     },
     []
   );
@@ -85,7 +90,7 @@ module.exports.getViewData = module.exports.getSinkData;
  * @return {Object<string, SinkData[]}
  */
 module.exports.groupSinkData = function groupSinkData(sinkData) {
-  return groupBy(sinkData, 'key');
+  return groupBy(sinkData, 'input');
 };
 
 module.exports.attackXml = `

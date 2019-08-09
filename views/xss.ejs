@@ -12,7 +12,7 @@
   <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
     <h4 class="sub-header">Query</h4>
     <% viewData.query.forEach(function(sink) { %>
-    <% ['safe', 'unsafe'].forEach(function(safety) { %>
+    <% ['unsafe', 'safe'].forEach(function(safety) { %>
     <p>
       <a
         target="_blank"
@@ -29,13 +29,13 @@
   <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
     <h4 class="sub-header">Params</h4>
     <% viewData.params.forEach(function(sink) { %>
-    <% ['safe', 'unsafe'].forEach(function(safety) { %>
+    <% ['unsafe', 'safe'].forEach(function(safety) { %>
     <p>
       <a
         target="_blank"
-        href="<%= sink.url %>/<%= safety %>/<script>alert(1)%3B<%%2Fscript>"
+        href="<%= sink.urlWithoutParams %>/<script>alert(1)%3B<%%2Fscript>/<%= safety %>"
       >
-        <%= sink.url %>/<%= safety %>/&lt;script&gt;alert(1);&lt;/script&gt;
+        <%= sink.urlWithoutParams %>/&lt;script&gt;alert(1);&lt;/script&gt;/<%= safety %>
       </a>
     </p>
     <% }); %>

@@ -5,7 +5,6 @@ const util = require('util');
 const { utils } = require('@contrast/test-bench-utils');
 
 exports.name = 'hapitestbench.sqlinjection';
-
 exports.register = function sqlInjection(server, options) {
   const viewData = utils.getViewData('sql_injection', 'hapi');
 

@@ -12,6 +12,7 @@ const {
     ssrf,
     unsafe_file_upload,
     unvalidated_redirect,
+    xss,
     xxe
   }
 } = require('@contrast/test-bench-utils');
@@ -36,56 +37,20 @@ const manifest = {
       // route handlers
       { plugin: './routes/index.js' },
       {
-        plugin: './routes/ssrf',
-        routes: { prefix: ssrf.base }
-      },
-      {
-        plugin: './routes/mongo-injection/',
-        routes: { prefix: '/mongoinjection' }
-      },
-      {
-        plugin: './routes/reflected-xss/',
-        routes: { prefix: '/reflectedxss' }
-      },
-      {
-        plugin: './routes/reflected-xss/object-sources/',
-        routes: { prefix: '/reflectedxss/objects' }
-      },
-      {
         plugin: './routes/cmd-injection',
         routes: { prefix: cmd_injection.base }
-      },
-      {
-        plugin: './routes/ssjs-injection',
-        routes: { prefix: ssjs.base }
-      },
-      {
-        plugin: './routes/sql-injection/',
-        routes: { prefix: sql_injection.base }
-      },
-      {
-        plugin: './routes/unsafe-eval',
-        routes: { prefix: '/unsafe_eval' }
       },
       {
         plugin: './routes/header-injection',
         routes: { prefix: '/header-injection' }
       },
       {
-        plugin: './routes/unvalidated-redirect',
-        routes: { prefix: unvalidated_redirect.base }
+        plugin: './routes/mongo-injection/',
+        routes: { prefix: '/mongoinjection' }
       },
       {
         plugin: './routes/path-traversal',
         routes: { prefix: path_traversal.base }
-      },
-      {
-        plugin: './routes/unsafe-file-upload',
-        routes: { prefix: unsafe_file_upload.base }
-      },
-      {
-        plugin: './routes/xxe',
-        routes: { prefix: xxe.base }
       },
       {
         plugin: './routes/session/http-only.js',
@@ -94,6 +59,38 @@ const manifest = {
       {
         plugin: './routes/session/secure-flag-missing.js',
         routes: { prefix: '/session/secureflagmissing' }
+      },
+      {
+        plugin: './routes/sql-injection/',
+        routes: { prefix: sql_injection.base }
+      },
+      {
+        plugin: './routes/ssjs-injection',
+        routes: { prefix: ssjs.base }
+      },
+      {
+        plugin: './routes/ssrf',
+        routes: { prefix: ssrf.base }
+      },
+      {
+        plugin: './routes/unsafe-eval',
+        routes: { prefix: '/unsafe_eval' }
+      },
+      {
+        plugin: './routes/unsafe-file-upload',
+        routes: { prefix: unsafe_file_upload.base }
+      },
+      {
+        plugin: './routes/unvalidated-redirect',
+        routes: { prefix: unvalidated_redirect.base }
+      },
+      {
+        plugin: './routes/xss/',
+        routes: { prefix: xss.base }
+      },
+      {
+        plugin: './routes/xxe',
+        routes: { prefix: xxe.base }
       }
     ]
   }

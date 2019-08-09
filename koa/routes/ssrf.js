@@ -1,5 +1,7 @@
 'use strict';
 
+const { get } = require('lodash');
+
 const {
   routes: {
     ssrf: { base, sinks }
@@ -21,13 +23,13 @@ module.exports = ({ router }) => {
   sinks.forEach((sink) => {
     const lib = sink.toLowerCase();
     router[method](`${base}/${lib}/query`, async function(ctx, next) {
-      const url = `${EXAMPLE_URL}?q=${ctx[key].input}`;
+      const url = `${EXAMPLE_URL}?q=${get(ctx, key).input}`;
       const data = await ssrf[`make${sink}Request`](url);
       ctx.body = data;
     });
 
     router[method](`${base}/${lib}/path`, async function(ctx, next) {
-      const url = `http://${ctx[key].input}`;
+      const url = `http://${get(ctx, key).input}`;
       const data = await ssrf[`make${sink}Request`](url);
       ctx.body = data;
     });

@@ -1,28 +1,24 @@
+const { get } = require('lodash');
+const { routes, utils } = require('@contrast/test-bench-utils');
+
 /**
  * @vulnerability: reflected-xss
  */
 module.exports = ({ router }) => {
-  router.get('/xss', (ctx, next) => ctx.render('xss'));
+  const sinkData = utils.getSinkData('xss', 'koa');
+  const viewData = utils.groupSinkData(sinkData);
 
-  [
-    { method: 'get', key: 'query' },
-    { method: 'get', key: 'params' },
-    { method: 'get', key: 'header' },
-    { method: 'post', key: 'body' }
-  ].forEach(({ method, key }) => {
-    let route = `/xss-test/${key}`;
-    if (key === 'params') {
-      route += '/:input';
-    }
+  router.get(routes.xss.base, (ctx, next) => ctx.render('xss', { viewData }));
 
-    router[method](route, (ctx, next) => {
-      const value = (ctx.request[key] || ctx[key]).input;
-      ctx.body = value;
+  sinkData.forEach(({ method, url, sink, key }) => {
+    router[method](`${url}/safe`, async (ctx, next) => {
+      const { input } = get(ctx, key);
+      ctx.body = sink(input, true);
     });
 
-    router[method](`${route}/safe`, (ctx, next) => {
-      const value = (ctx.request[key] || ctx[key]).input;
-      ctx.body = encodeURIComponent(value);
+    router[method](`${url}/unsafe`, async (ctx, next) => {
+      const { input } = get(ctx, key);
+      ctx.body = sink(input);
     });
   });
 };

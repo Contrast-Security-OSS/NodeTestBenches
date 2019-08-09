@@ -1,4 +1,6 @@
 'use strict';
+const { get } = require('lodash');
+
 const {
   sinks: { cmd_injection: cmdi },
   routes: {
@@ -18,7 +20,7 @@ module.exports = ({ router }) => {
 
   viewData.forEach(({ url, sink }) => {
     router[method](`${url}/unsafe`, async (ctx, next) => {
-      const cmd = ctx[key].input;
+      const cmd = get(ctx, key).input;
       const data = await cmdi[sink](cmd);
       ctx.body = data.toString();
     });

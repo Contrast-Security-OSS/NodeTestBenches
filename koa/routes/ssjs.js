@@ -1,4 +1,6 @@
 'use strict';
+const { get } = require('lodash');
+
 const {
   sinks: { ssjs },
   routes: {
@@ -15,7 +17,7 @@ module.exports = ({ router }) => {
 
   viewData.forEach(({ url, sink }) => {
     router[method](`${url}/unsafe`, async (ctx, next) => {
-      const cmd = ctx[key].input;
+      const cmd = get(ctx, key).input;
       const data = await ssjs[sink](cmd);
       ctx.body = data.toString();
     });

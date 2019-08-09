@@ -1,7 +1,7 @@
 'use strict';
 const {
   sinks: { ssjs },
-  utils: { buildUrls },
+  utils: { buildUrls, navRoutes },
   frameworkMapping: { kraken },
   routes: {
     ssjs: { base, sinks }
@@ -11,6 +11,7 @@ const {
 module.exports = function SSJSModel() {
   const { method, key } = kraken.query;
   return {
+    navRoutes,
     method,
     key,
     ssjs,

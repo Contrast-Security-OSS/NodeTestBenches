@@ -1,7 +1,7 @@
 'use strict';
 const {
   sinks: { xxe },
-  utils: { attackXml },
+  utils: { attackXml, navRoutes },
   frameworkMapping: { kraken },
   routes: {
     xxe: { base, sinks }
@@ -11,6 +11,7 @@ const {
 module.exports = function XXEModel() {
   const { method } = kraken.body;
   return {
+    navRoutes,
     xxe,
     url: base,
     sinks,

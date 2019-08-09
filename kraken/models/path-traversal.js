@@ -1,7 +1,7 @@
 'use strict';
 const {
   sinks: { path_traversal: fs },
-  utils: { buildUrls },
+  utils: { buildUrls, navRoutes },
   frameworkMapping: { kraken },
   routes: {
     path_traversal: { base, sinks }
@@ -11,6 +11,7 @@ const {
 module.exports = function CmdInjectionModel() {
   const { method, key } = kraken.query;
   return {
+    navRoutes,
     method,
     key,
     fs,

@@ -1,12 +1,12 @@
 'use strict';
 
-const { kebabCase, map, reduce } = require('lodash');
+const { groupBy, kebabCase, map, reduce } = require('lodash');
 
 const MAPPING = require('./frameworkMapping');
 const routes = require('./routes');
 
 /**
- * @typedef {Object} ViewData
+ * @typedef {Object} SinkData
  * @property {string} url fully qualified url
  * @property {string} uri relative url
  * @property {string} key key under which user input lies
@@ -18,16 +18,16 @@ const routes = require('./routes');
  */
 
 /**
- * Builds the urls for a given rule
+ * Builds out the urls/view data for a given rule and input source.
  *
- * @param {object}            opts
- * @param {string[]|object[]} opts.sinks   list of applicable sinks
- * @param {string}            opts.key     relevant key on req object
- * @param {string}            opts.baseUri the base URI to use when constructing urls
- * @param {string}            opts.method  the method being handled
- * @return {ViewData[]}
+ * @param {object} opts
+ * @param {string[]|Object[]|Object<string, Function>} opts.sinks
+ * @param {string} opts.key relevant key on req object
+ * @param {string} opts.baseUri the base URI to use when constructing urls
+ * @param {string} opts.method the method being handled
+ * @return {SinkData[]}
  */
-function viewData({ sinks, key, baseUri, method }) {
+function sinkData({ sinks, key, baseUri, method }) {
   return map(sinks, (sink, sinkName) => {
     const { code, lib } = sink;
     // Use function if object otherwise use string value
@@ -46,24 +46,38 @@ function viewData({ sinks, key, baseUri, method }) {
   });
 }
 
-module.exports.buildUrls = viewData;
+module.exports.buildUrls = sinkData;
 
 /**
- * @param {string} vuln      the vulnerability/sink being tested (ssrf, xss, etc)
+ * Generates sink data for a given rule and framework.
+ *
+ * @param {string} rule the rule being tested (ssrf, xss, etc)
  * @param {string} framework the framework being used (express, koa, etc)
- * @return {ViewData[]}
+ * @return {SinkData[]}
  */
-module.exports.getViewData = function getViewData(vuln, framework) {
-  const { base, inputs, sinks } = routes[vuln];
+module.exports.getSinkData = function getSinkData(rule, framework) {
+  const { base, inputs, sinks } = routes[rule];
 
   return reduce(
     inputs,
     (data, input) => {
       const { method, key } = MAPPING[framework][input];
-      return [...data, ...viewData({ sinks, key, baseUri: base, method })];
+      return [...data, ...sinkData({ sinks, key, baseUri: base, method })];
     },
     []
   );
+};
+
+module.exports.getViewData = module.exports.getSinkData;
+
+/**
+ * Groups sink data arrays by input type (query, body, etc).
+ *
+ * @param {SinkData[]} sinkData
+ * @return {Object<string, SinkData[]}
+ */
+module.exports.groupSinkData = function groupSinkData(sinkData) {
+  return groupBy(sinkData, 'key');
 };
 
 module.exports.attackXml = `

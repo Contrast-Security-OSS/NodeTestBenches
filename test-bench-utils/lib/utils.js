@@ -1,5 +1,4 @@
 'use strict';
-
 const { kebabCase, map, reduce } = require('lodash');
 
 const MAPPING = require('./frameworkMapping');
@@ -75,3 +74,9 @@ module.exports.attackXml = `
     <name>C.K Frode</name>
   </user>
 </users>`;
+
+module.exports.navRoutes = map(routes, ({ base, name, products }) => ({
+  base,
+  name,
+  products
+}));

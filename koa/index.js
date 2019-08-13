@@ -38,7 +38,7 @@ require('./routes/csp-header')({ router });
 require('./routes/header-injection')({ router });
 require('./routes/parampollution')({ router });
 require('./routes/path-traversal')({ router });
-require('./routes/sql-injection')({ router });
+require('./routes/sqlInjection')({ router });
 require('./routes/ssjs')({ router });
 require('./routes/ssrf')({ router });
 require('./routes/unsafe-file-upload')({ router });
@@ -51,5 +51,5 @@ app.use(router.allowedMethods());
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
-  console.log(`Listening on port ${PORT}`);
+  console.log('Server listening on http://localhost:%d', PORT);
 });

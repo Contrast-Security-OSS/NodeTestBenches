@@ -11,8 +11,8 @@
 <div class="row">
   <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
     <h4 class="sub-header">Query</h4>
-    <% viewData.query.forEach(function(sink) { %>
-    <% ['unsafe', 'safe'].forEach(function(safety) { %>
+    <% groupedSinkData.query.forEach(function(sink) { %>
+    <% ['unsafe', 'safe', 'noop'].forEach(function(safety) { %>
     <p>
       <a
         target="_blank"
@@ -28,8 +28,8 @@
 <div class="row">
   <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
     <h4 class="sub-header">Params</h4>
-    <% viewData.params.forEach(function(sink) { %>
-    <% ['unsafe', 'safe'].forEach(function(safety) { %>
+    <% groupedSinkData.params.forEach(function(sink) { %>
+    <% ['unsafe', 'safe', 'noop'].forEach(function(safety) { %>
     <p>
       <a
         target="_blank"
@@ -45,7 +45,7 @@
 <div class="row">
   <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
     <h4 class="sub-header">POST Body</h4>
-    <% viewData.body.forEach(function(sink) { %>
+    <% groupedSinkData.body.forEach(function(sink) { %>
     <form
       method="<%= sink.method %>"
       action="<%= sink.url %>/unsafe"
@@ -70,8 +70,8 @@
 <div class="row">
   <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
     <h4 class="sub-header">GET headers</h4>
-    <% viewData.headers.forEach(function(sink) { %>
-    <% ['unsafe', 'safe'].forEach(function(safety) { %>
+    <% groupedSinkData.headers.forEach(function(sink) { %>
+    <% ['unsafe', 'safe', 'noop'].forEach(function(safety) { %>
     <p><pre>curl http://localhost:3000<%= sink.url %>/<%= safety %> -H "input: &lt;script&gt;alert(1)%3B&lt;%%2script&gt;"</pre></p>
     <% }); %>
     <% }); %>
@@ -80,8 +80,8 @@
 <div class="row">
   <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
     <h4 class="sub-header">POST cookies</h4>
-    <% viewData.cookies.forEach(function(sink) { %>
-    <% ['unsafe', 'safe'].forEach(function(safety) { %>
+    <% groupedSinkData.cookies.forEach(function(sink) { %>
+    <% ['unsafe', 'safe', 'noop'].forEach(function(safety) { %>
     <p><pre>curl http://localhost:3000<%= sink.url %>/<%= safety %> -X POST -b "input=&lt;script&gt;alert(1)%3B&lt;%%2script&gt;"</pre></p>
     <% }); %>
     <% }); %>

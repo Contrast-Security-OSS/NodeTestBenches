@@ -1,7 +1,7 @@
-<h1 class="page-header">SQL Injection</h1>
+<h1 class="page-header">Path Traversal</h1>
 <p>
-  <a target="_blank" href="https://www.owasp.org/index.php/SQL_Injection">
-    SQL Injection Info
+  <a target="_blank" href="https://www.owasp.org/index.php/pathTraversal">
+    Path Traversal Info
   </a>
 </p>
 <% sinkData.forEach(function(sink) { %>
@@ -12,8 +12,12 @@
     </h4>
     <form method="<%= sink.method %>" action="<%= sink.url %>/unsafe" target="_blank">
       <div class="form-group">
-        <label>SELECT "${input}" as "test";</label>
-        <input name="input" class="form-control" value="Robert&quot;); DROP TABLE Students;--" />
+        <label for="exampleInputEmail1">Path</label>
+        <input
+          name="input"
+          class="form-control"
+          value="../../../../../../../../../../../../etc/passwd"
+        />
       </div>
       <button type="submit" class="btn btn-default">Submit</button>
     </form>

@@ -13,9 +13,7 @@ const routes = require('./routes');
  * @property {string} key key under which user input lies
  * @property {string} method http method
  * @property {string|Function} sink name of the function/sink OR the sink itself
- * @property {string=} sinkName the name of the sink when it is a function
- * @property {string=} code string representation of code being executed by sink (for views)
- * @property {string=} lib library being exercised as a sync (for views)
+ * @property {string=} name the name of the sink when it is a function
  */
 
 /**
@@ -31,13 +29,8 @@ const routes = require('./routes');
  * @return {SinkData[]}
  */
 function sinkData({ sinks, key, param, baseUri, method, input }) {
-  return map(sinks, (sink, sinkName) => {
-    const { code, lib } = sink;
-    // Use function if object otherwise use string value
-    // This is done after the code and lib
-    sink = sink.function || sink;
-
-    const prettyName = camelCase(sinkName);
+  return map(sinks, (sink, name) => {
+    const prettyName = camelCase(name);
     const uriWithoutParams = `/${input}/${prettyName}`;
     const uri =
       key === 'params' ? `${uriWithoutParams}/${param}` : uriWithoutParams;
@@ -49,10 +42,8 @@ function sinkData({ sinks, key, param, baseUri, method, input }) {
       input,
       key,
       method,
-      sinkName,
-      sink,
-      code,
-      lib
+      name,
+      sink
     };
   });
 }

@@ -6,7 +6,7 @@ const errMsg = (method, msg, safe) =>
 const pre = (str) => `<pre>${str}</pre>`;
 
 /**
- * @param {string} input attack vector
+ * @param {string} input user input string
  * @param {Object} opts
  * @param {boolean=} opts.safe are we calling the sink safely?
  * @param {boolean=} opts.noop are we calling the sink as a noop?
@@ -31,7 +31,7 @@ module.exports['fs.readFile'] = function readFile(
 };
 
 /**
- * @param {string} input attack vector
+ * @param {string} input user input string
  * @param {Object} opts
  * @param {boolean=} opts.safe are we calling the sink safely?
  * @param {boolean=} opts.noop are we calling the sink as a noop?
@@ -53,7 +53,7 @@ module.exports['fs.readFileSync'] = function readFileSync(
 };
 
 /**
- * @param {string} input attack vector
+ * @param {string} input user input string
  * @param {Object} opts
  * @param {boolean=} opts.safe are we calling the sink safely?
  * @param {boolean=} opts.noop are we calling the sink as a noop?
@@ -78,7 +78,7 @@ module.exports['fs.writeFile'] = async function writeFile(
 };
 
 /**
- * @param {string} input attack vector
+ * @param {string} input user input string
  * @param {Object} opts
  * @param {boolean=} opts.safe are we calling the sink safely?
  * @param {boolean=} opts.noop are we calling the sink as a noop?

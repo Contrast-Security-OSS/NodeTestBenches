@@ -16,7 +16,7 @@ conn._connectCalled = true;
 conn.connect();
 
 /**
- * @param {string} input attack vector
+ * @param {string} input user input string
  * @param {Object} opts
  * @param {boolean=} opts.safe are we calling the sink safely?
  * @param {boolean=} opts.noop are we calling the sink as a noop?

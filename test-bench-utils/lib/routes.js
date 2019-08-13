@@ -1,11 +1,11 @@
 module.exports = {
-  cmd_injection: {
-    base: '/cmd-injection',
+  cmdInjection: {
+    base: '/cmdInjection',
     name: 'Command Injection',
     link: 'https://www.owasp.org/index.php/Command_Injection',
     products: ['Assess', 'Protect'],
     inputs: ['query'],
-    sinks: ['exec', 'execSync', 'spawn', 'spawnSync']
+    sinks: require('./sinks/cmdInjection')
   },
   nosqlInjection: {
     base: '/nosqlInjection',
@@ -29,12 +29,12 @@ module.exports = {
       // 'aws-sdk.DynamoDB.DocumentClient.prototype.put'
     ]
   },
-  path_traversal: {
-    base: '/path-traversal',
+  pathTraversal: {
+    base: '/pathTraversal',
     name: 'Path Traversal',
     products: ['Assess', 'Protect'],
     inputs: ['query'],
-    sinks: ['readFile', 'readFileSync', 'writeFile', 'writeFileSync']
+    sinks: require('./sinks/pathTraversal')
   },
   sqlInjection: {
     base: '/sqlInjection',

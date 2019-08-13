@@ -56,7 +56,6 @@ function sinkData({ sinks, key, param, baseUri, method, input }) {
     };
   });
 }
-
 module.exports.buildUrls = sinkData;
 
 /**
@@ -88,8 +87,6 @@ module.exports.getSinkData = function getSinkData(rule, framework) {
     []
   );
 };
-
-module.exports.getViewData = module.exports.getSinkData;
 
 /**
  * Groups sink data arrays by input type (query, body, etc).

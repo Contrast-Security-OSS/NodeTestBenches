@@ -22,7 +22,7 @@ module.exports = async function sequelizeQuery(
   input,
   { safe = false, noop = false } = {}
 ) {
-  if (noop) return 'SAFE';
+  if (noop) return 'NOOP';
 
   const sql = safe
     ? SQL`SELECT ${input} as "test"`

@@ -7,7 +7,7 @@ const {
   routes: {
     cmd_injection,
     path_traversal,
-    sql_injection,
+    sqlInjection,
     ssjs,
     ssrf,
     unsafe_file_upload,
@@ -61,8 +61,8 @@ const manifest = {
         routes: { prefix: '/session/secureflagmissing' }
       },
       {
-        plugin: './routes/sql-injection/',
-        routes: { prefix: sql_injection.base }
+        plugin: './routes/sqlInjection/',
+        routes: { prefix: sqlInjection.base }
       },
       {
         plugin: './routes/ssjs-injection',
@@ -126,7 +126,11 @@ async function start() {
       partialsPath: 'partials'
     });
     await server.start();
-    console.log(`Server running at: ${server.info.uri}`); // eslint-disable-line
+    console.log(
+      'Server listening on %s://localhost:%d',
+      process.env.SSL === '1' ? 'https' : 'http',
+      PORT
+    );
   } catch (err) {
     console.error(err); // eslint-disable-line
     process.exit(1); // eslint-disable-line

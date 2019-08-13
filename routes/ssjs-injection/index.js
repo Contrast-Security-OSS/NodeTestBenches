@@ -22,7 +22,6 @@ exports.register = function ssjsInjection(server, options) {
   });
 
   viewData.forEach(({ uri, sink }) => {
-    console.log('sink', sink, uri);
     server.route([
       {
         path: `${uri}/safe`,

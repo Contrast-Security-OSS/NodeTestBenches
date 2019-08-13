@@ -7,7 +7,7 @@ module.exports = {
     inputs: ['query'],
     sinks: ['exec', 'execSync', 'spawn', 'spawnSync']
   },
-  nosql_injection: {
+  nosqlInjection: {
     base: '/nosql-injection',
     name: 'NoSQL Injection',
     products: ['Assess', 'Protect'],
@@ -36,12 +36,12 @@ module.exports = {
     inputs: ['query'],
     sinks: ['readFile', 'readFileSync', 'writeFile', 'writeFileSync']
   },
-  sql_injection: {
+  sqlInjection: {
     base: '/sql-injection',
     name: 'SQL Injection',
     products: ['Assess', 'Protect'],
     inputs: ['query'], // default,
-    sinks: require('./sinks/sql-injection')
+    sinks: require('./sinks/sqlInjection')
   },
   ssjs: {
     base: '/ssjs-injection',
@@ -70,29 +70,29 @@ module.exports = {
   },
   // This rule is specific for each framework, no sinks will be abstracted
   unsafe_file_upload: {
+    base: '/unsafe-file-upload',
     name: 'Unsafe File Upload',
     products: ['Protect'],
-    base: '/unsafe-file-upload',
     inputs: ['body']
   },
   unvalidated_redirect: {
+    base: '/unvalidated-redirect',
     name: 'Unvalidated Redirect',
     products: ['Assess'],
-    base: '/unvalidated-redirect',
     inputs: ['query']
   },
   xss: {
+    base: '/xss',
     name: 'Reflected XSS',
     products: ['Assess', 'Protect'],
-    base: '/xss',
     inputs: ['query', 'params', 'headers', 'body', 'cookies'],
     // There is a single `reflection` sink for reflected xss
     sinks: require('./sinks/xss')
   },
   xxe: {
     base: '/xxe',
-    products: ['Protect'],
     name: 'XXE Processing',
+    products: ['Protect'],
     inputs: ['body'],
     sinks: ['parseXmlString']
   }

@@ -2,6 +2,7 @@
 
 const hooker = require('hooker');
 const mysql = require('mysql');
+const { SQL } = require('sql-template-strings');
 
 // Prevent the query method from requiring a real database connection.
 hooker.hook(require('mysql/lib/Connection').prototype, 'query', {
@@ -14,9 +15,24 @@ const conn = mysql.createConnection({ host: 'localhost', user: 'root' });
 conn._connectCalled = true;
 conn.connect();
 
-module.exports.query = function mysqlQuery(input) {
+/**
+ * @param {string} input attack vector
+ * @param {Object} opts
+ * @param {boolean=} opts.safe are we calling the sink safely?
+ * @param {boolean=} opts.noop are we calling the sink as a noop?
+ */
+module.exports = async function mysqlQuery(
+  input,
+  { safe = false, noop = false } = {}
+) {
+  if (noop) return 'SAFE';
+
+  const sql = safe
+    ? SQL`SELECT ${input} as "test"`
+    : `SELECT "${input}" as "test";`;
+
   return new Promise((resolve, reject) => {
-    conn.query(`SELECT "${input}" as "test";`, (err, result) => {
+    conn.query(sql, (err, result) => {
       if (err) return reject(err);
       return resolve(result);
     });

@@ -1,8 +1,8 @@
 'use strict';
 
-const _ = require('lodash');
+const { get } = require('lodash');
 
-module.exports = function shared(vulnerability) {
+module.exports = function controllerFactory(vulnerability) {
   const Model = require(`../models/${vulnerability}`);
   const model = new Model();
 
@@ -13,19 +13,19 @@ module.exports = function shared(vulnerability) {
 
     model.viewData.forEach(({ method, uri, sink, key }) => {
       router[method](`${uri}/safe`, async (req, res) => {
-        const { input } = _.get(req, key);
+        const { input } = get(req, key);
         const result = await sink(input, { safe: true });
         res.send(result);
       });
 
       router[method](`${uri}/unsafe`, async (req, res) => {
-        const { input } = _.get(req, key);
+        const { input } = get(req, key);
         const result = await sink(input);
         res.send(result);
       });
 
       router[method](`${uri}/noop`, async (req, res) => {
-        const { input } = _.get(req, key);
+        const { input } = get(req, key);
         const result = await sink(input, { noop: true });
         res.send(result);
       });

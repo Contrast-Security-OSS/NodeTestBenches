@@ -1,53 +1,54 @@
 'use strict';
-const { groupBy, camelCase, map, reduce } = require('lodash');
+const { camelCase, groupBy, map, reduce } = require('lodash');
 
 const MAPPING = require('./frameworkMapping');
 const routes = require('./routes');
 
 /**
  * @typedef {Object} SinkData
- * @property {string} uri relative url
- * @property {string} url fully qualified url
- * @property {string} urlWithoutParams url without parameter variable
  * @property {string} input unmapped input key usder which user input lies
  * @property {string} key key under which user input lies
  * @property {string} method http method
+ * @property {string} name the name of the sink
+ * @property {string} uri relative url
+ * @property {string} url fully qualified url
+ * @property {string} urlWithoutParams url without parameter variable
  * @property {string|Function} sink name of the function/sink OR the sink itself
- * @property {string=} name the name of the sink when it is a function
  */
 
 /**
  * Builds out the urls/view data for a given rule and input source.
  *
  * @param {object} opts
- * @param {Object<string, Function>} opts.sinks
+ * @param {string} opts.base the base URI to use when constructing urls
+ * @param {string} opts.input the input method being exercised (query, params, etc)
  * @param {string} opts.key relevant key on req object
- * @param {string} opts.param the framework-specific paramter string for path parameters
- * @param {string} opts.baseUri the base URI to use when constructing urls
  * @param {string} opts.method the method being handled
- * @param {string} input the input method being exercised (query, params, etc)
+ * @param {string} opts.param the framework-specific paramter string for path parameters
+ * @param {Object<string, Function>} opts.sinks
  * @return {SinkData[]}
  */
-function sinkData({ sinks, key, param, baseUri, method, input }) {
+function sinkData({ base, input, key, method, param, sinks }) {
   return map(sinks, (sink, name) => {
     const prettyName = camelCase(name);
     const uriWithoutParams = `/${input}/${prettyName}`;
     const uri =
       key === 'params' ? `${uriWithoutParams}/${param}` : uriWithoutParams;
+    const url = `${base}${uri}`;
+    const urlWithoutParams = `${base}${uriWithoutParams}`;
 
     return {
-      uri, // hapi uses relative urls
-      url: `${baseUri}${uri}`,
-      urlWithoutParams: `${baseUri}${uriWithoutParams}`,
       input,
       key,
       method,
       name,
-      sink
+      sink,
+      uri,
+      url,
+      urlWithoutParams
     };
   });
 }
-module.exports.buildUrls = sinkData;
 
 /**
  * Generates sink data for a given rule and framework.
@@ -62,16 +63,16 @@ module.exports.getSinkData = function getSinkData(rule, framework) {
   return reduce(
     inputs,
     (data, input) => {
-      const { method, key, param } = MAPPING[framework][input];
+      const { key, method, param } = MAPPING[framework][input];
       return [
         ...data,
         ...sinkData({
-          sinks,
+          base,
+          input,
           key,
-          param,
-          baseUri: base,
           method,
-          input
+          param,
+          sinks
         })
       ];
     },

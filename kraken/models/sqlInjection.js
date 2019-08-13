@@ -3,13 +3,13 @@
 const {
   utils: { getViewData, navRoutes },
   routes: {
-    sql_injection: { name, link }
+    sqlInjection: { name, link }
   }
 } = require('@contrast/test-bench-utils');
 
 module.exports = function SqlInjectionModel() {
   return {
-    viewData: getViewData('sql_injection', 'kraken'),
+    viewData: getViewData('sqlInjection', 'kraken'),
     name,
     link,
     navRoutes

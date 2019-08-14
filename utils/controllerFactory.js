@@ -4,24 +4,40 @@ const Hoek = require('@hapi/hoek');
 
 const { utils } = require('@contrast/test-bench-utils');
 
-module.exports = function controllerFactory(vulnerability) {
+const defaultRespond = (result, request, h) => result;
+/**
+ * Configures a route to handle sinks configured by our shared test-bench-utils
+ * module.
+ *
+ * @param {string} vulnerability the vulnerability or rule being tested
+ * @param {Object=} opts
+ * @param {Object=} opts.locals additional locals to provide to EJS
+ * @param {Function=} opts.respond if provided, a custom return or response
+ */
+module.exports = function controllerFactory(
+  vulnerability,
+  { locals = {}, respond = defaultRespond } = {}
+) {
   return (server, options) => {
-    const viewData = utils.getViewData(vulnerability, 'hapi');
+    const sinkData = utils.getSinkData(vulnerability, 'hapi');
+    const groupedSinkData = utils.groupSinkData(sinkData);
 
     server.route({
       method: 'GET',
       path: '/',
-      handler: (request, h) => h.view(vulnerability, { viewData })
+      handler: (request, h) =>
+        h.view(vulnerability, { groupedSinkData, sinkData, ...locals })
     });
 
-    viewData.forEach(({ uri, method, sink, key }) => {
+    sinkData.forEach(({ uri, method, sink, key }) => {
       server.route([
         {
           path: `${uri}/safe`,
           method: [method],
           handler: async (request, h) => {
             const input = Hoek.reach(request, `${key}.input`) || '';
-            return sink(input, { safe: true });
+            const result = await sink(input, { safe: true });
+            return respond(result, request, h);
           }
         },
         {
@@ -30,7 +46,7 @@ module.exports = function controllerFactory(vulnerability) {
           handler: async (request, h) => {
             const input = Hoek.reach(request, `${key}.input`) || '';
             const result = await sink(input);
-            return result;
+            return respond(result, request, h);
           }
         },
         {
@@ -39,7 +55,7 @@ module.exports = function controllerFactory(vulnerability) {
           handler: async (request, h) => {
             const input = Hoek.reach(request, `${key}.input`) || '';
             const result = await sink(input, { noop: true });
-            return result;
+            return respond(result, request, h);
           }
         }
       ]);

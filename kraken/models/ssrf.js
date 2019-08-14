@@ -1,22 +1,15 @@
-'use strict';
-const {
-  utils: { navRoutes },
-  sinks: { ssrf },
-  frameworkMapping: { kraken },
-  routes: {
-    ssrf: { sinks }
-  }
-} = require('@contrast/test-bench-utils');
+const { utils, routes } = require('@contrast/test-bench-utils');
+
 const EXAMPLE_URL = 'http://www.example.com';
 
-module.exports = function CmdInjectionModel() {
-  const { method, key } = kraken.query;
+module.exports = function ServerSideRequestForgeryModel() {
+  const sinkData = utils.getSinkData('ssrf', 'kraken');
+
   return {
-    navRoutes,
     requestUrl: EXAMPLE_URL,
-    method,
-    key,
-    ssrf,
-    sinks
+    sinkData,
+    name: routes.ssrf.name,
+    link: routes.ssrf.link,
+    navRoutes: utils.navRoutes
   };
 };

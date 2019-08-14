@@ -1,17 +1,12 @@
-'use strict';
+const { utils, routes } = require('@contrast/test-bench-utils');
 
-const {
-  utils: { getViewData, navRoutes },
-  routes: {
-    sqlInjection: { name, link }
-  }
-} = require('@contrast/test-bench-utils');
+module.exports = function SQLInjectionModel() {
+  const sinkData = utils.getSinkData('sqlInjection', 'kraken');
 
-module.exports = function SqlInjectionModel() {
   return {
-    viewData: getViewData('sqlInjection', 'kraken'),
-    name,
-    link,
-    navRoutes
+    sinkData,
+    name: routes.xss.name,
+    link: routes.xss.link,
+    navRoutes: utils.navRoutes
   };
 };

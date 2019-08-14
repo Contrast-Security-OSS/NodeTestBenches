@@ -1,4 +1,6 @@
 'use strict';
+const { get } = require('lodash');
+
 const SSRFModel = require('../../models/ssrf');
 
 module.exports = (router) => {
@@ -8,18 +10,19 @@ module.exports = (router) => {
     res.render('ssrf', model);
   });
 
-  model.sinks.forEach((sink) => {
-    const lib = sink.toLowerCase();
-    router[model.method](`/${lib}/query`, async (req, res) => {
-      const url = `${model.requestUrl}?q=${req[model.key].input}`;
-      const data = await model.ssrf[`make${sink}Request`](url);
-      res.send(data.toString());
+  model.sinkData.forEach(({ method, sink, name, key }) => {
+    router[method](`/${name}/query`, async (req, res) => {
+      const { input } = get(req, key);
+      const url = `${model.requestUrl}?q=${input}`;
+      const result = await sink(url);
+      res.send(result);
     });
 
-    router[model.method](`/${lib}/path`, async (req, res) => {
-      const url = `http://${req[model.key].input}`;
-      const data = await model.ssrf[`make${sink}Request`](url);
-      res.send(data.toString());
+    router[method](`/${name}/path`, async (req, res) => {
+      const { input } = get(req, key);
+      const url = `http://${input}`;
+      const result = await sink(url);
+      res.send(result);
     });
   });
 };

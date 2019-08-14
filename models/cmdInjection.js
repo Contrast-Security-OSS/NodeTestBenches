@@ -6,7 +6,6 @@ module.exports = function CommandInjectionModel() {
   return {
     sinkData,
     name: routes.cmdInjection.name,
-    link: routes.cmdInjection.link,
-    navRoutes: utils.navRoutes
+    link: routes.cmdInjection.link
   };
 };

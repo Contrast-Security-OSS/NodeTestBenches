@@ -9,7 +9,6 @@ module.exports = function ServerSideRequestForgeryModel() {
     requestUrl: EXAMPLE_URL,
     sinkData,
     name: routes.ssrf.name,
-    link: routes.ssrf.link,
-    navRoutes: utils.navRoutes
+    link: routes.ssrf.link
   };
 };

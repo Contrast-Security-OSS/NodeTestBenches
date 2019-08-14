@@ -6,7 +6,6 @@ module.exports = function SQLInjectionModel() {
   return {
     sinkData,
     name: routes.xss.name,
-    link: routes.xss.link,
-    navRoutes: utils.navRoutes
+    link: routes.xss.link
   };
 };

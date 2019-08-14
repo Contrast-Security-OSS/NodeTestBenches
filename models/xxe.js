@@ -7,7 +7,6 @@ module.exports = function XmlExternalEntityModel() {
     sinkData,
     name: routes.xxe.name,
     link: routes.xxe.link,
-    navRoutes: utils.navRoutes,
     attackXml: utils.attackXml
   };
 };

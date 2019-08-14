@@ -1,20 +1,15 @@
 'use strict';
 
-const {
-  routes: {
-    ssrf: { sinks }
-  },
-  frameworkMapping: { hapi },
-  sinks: { ssrf }
-} = require('@contrast/test-bench-utils');
+const Hoek = require('@hapi/hoek');
+
+const { utils } = require('@contrast/test-bench-utils');
 
 const EXAMPLE_URL = 'http://www.example.com';
 
 exports.name = 'hapitestbench.ssrf';
-
 exports.register = function(server, options) {
-  const { method, key } = hapi.query;
-  // base index HTML page
+  const sinkData = utils.getSinkData('ssrf', 'hapi');
+
   server.route({
     method: 'GET',
     path: '/',
@@ -22,30 +17,32 @@ exports.register = function(server, options) {
       view: {
         template: 'ssrf',
         context: {
-          requestUrl: EXAMPLE_URL
+          requestUrl: EXAMPLE_URL,
+          sinkData
         }
       }
     }
   });
 
-  sinks.forEach((sink) => {
-    const lib = sink.toLowerCase();
+  sinkData.forEach(({ name, method, sink, key }) => {
     server.route([
       {
-        path: `/${lib}/query`,
+        path: `/${name}/query`,
         method,
         handler: async (request, h) => {
-          const url = `${EXAMPLE_URL}?q=${request[key].input}`;
-          const data = await ssrf[`make${sink}Request`](url);
+          const input = Hoek.reach(request, `${key}.input`) || '';
+          const url = `${EXAMPLE_URL}?q=${input}`;
+          const data = await sink(url);
           return data;
         }
       },
       {
-        path: `/${lib}/path`,
+        path: `/${name}/path`,
         method,
         handler: async (request, h) => {
-          const url = `http://${request[key].input}`;
-          const data = await ssrf[`make${sink}Request`](url);
+          const input = Hoek.reach(request, `${key}.input`) || '';
+          const url = `http://${input}`;
+          const data = await sink(url);
           return data;
         }
       }

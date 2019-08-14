@@ -5,13 +5,13 @@ const path = require('path');
 const pem = require('pem');
 const {
   routes: {
-    cmd_injection,
-    path_traversal,
+    cmdInjection,
+    pathTraversal,
     sqlInjection,
     ssjs,
     ssrf,
-    unsafe_file_upload,
-    unvalidated_redirect,
+    unsafeFileUpload,
+    unvalidatedRedirect,
     xss,
     xxe
   }
@@ -37,8 +37,8 @@ const manifest = {
       // route handlers
       { plugin: './routes/index.js' },
       {
-        plugin: './routes/cmd-injection',
-        routes: { prefix: cmd_injection.base }
+        plugin: './routes/cmdInjection',
+        routes: { prefix: cmdInjection.base }
       },
       {
         plugin: './routes/header-injection',
@@ -49,8 +49,8 @@ const manifest = {
         routes: { prefix: '/mongoinjection' }
       },
       {
-        plugin: './routes/path-traversal',
-        routes: { prefix: path_traversal.base }
+        plugin: './routes/pathTraversal',
+        routes: { prefix: pathTraversal.base }
       },
       {
         plugin: './routes/session/http-only.js',
@@ -65,7 +65,7 @@ const manifest = {
         routes: { prefix: sqlInjection.base }
       },
       {
-        plugin: './routes/ssjs-injection',
+        plugin: './routes/ssjs',
         routes: { prefix: ssjs.base }
       },
       {
@@ -73,16 +73,12 @@ const manifest = {
         routes: { prefix: ssrf.base }
       },
       {
-        plugin: './routes/unsafe-eval',
-        routes: { prefix: '/unsafe_eval' }
+        plugin: './routes/unsafeFileUpload',
+        routes: { prefix: unsafeFileUpload.base }
       },
       {
-        plugin: './routes/unsafe-file-upload',
-        routes: { prefix: unsafe_file_upload.base }
-      },
-      {
-        plugin: './routes/unvalidated-redirect',
-        routes: { prefix: unvalidated_redirect.base }
+        plugin: './routes/unvalidatedRedirect',
+        routes: { prefix: unvalidatedRedirect.base }
       },
       {
         plugin: './routes/xss/',

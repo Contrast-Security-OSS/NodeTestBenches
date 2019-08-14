@@ -8,6 +8,7 @@ const render = require('koa-ejs');
 const serve = require('koa-static');
 const mount = require('koa-mount');
 const bodyParser = require('koa-bodyparser');
+const { utils } = require('@contrast/test-bench-utils');
 
 const PORT = process.env.PORT || 3000;
 
@@ -26,6 +27,7 @@ render(app, {
 // adding current year to be used in layout for copyright year
 app.use((ctx, next) => {
   ctx.state = ctx.state || {};
+  ctx.state.navRoutes = utils.navRoutes;
   ctx.state.currentYear = new Date().getFullYear();
   return next();
 });

@@ -33,16 +33,16 @@ app.use((ctx, next) => {
 app.use(bodyParser());
 
 require('./routes/index')({ router });
-require('./routes/cmdi')({ router });
+require('./routes/cmdInjection')({ router });
 require('./routes/csp-header')({ router });
 require('./routes/header-injection')({ router });
 require('./routes/parampollution')({ router });
-require('./routes/path-traversal')({ router });
+require('./routes/pathTraversal')({ router });
 require('./routes/sqlInjection')({ router });
 require('./routes/ssjs')({ router });
 require('./routes/ssrf')({ router });
-require('./routes/unsafe-file-upload')({ router });
-require('./routes/unvalidated-redirect')({ router });
+require('./routes/unsafeFileUpload')({ router });
+require('./routes/unvalidatedRedirect')({ router });
 require('./routes/xss')({ router });
 require('./routes/xxe')({ router });
 

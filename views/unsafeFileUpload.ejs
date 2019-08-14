@@ -14,11 +14,16 @@
       target="_blank"
     >
       <div class="form-group">
-        <label for="testFile">Upload a file:</label>
+        <label for="testFile">
+          Upload a file
+          <% if (sink.name === 'uploadStream') { %>
+          with a stream
+          <% } %>
+        </label>
         <input class="form-control" type="file" name="file" id="testFile" />
       </div>
       <div class="form-group">
-        <label for="testText">Text Field:</label>
+        <label for="testText">Text</label>
         <input class="form-control" name="input" id="testText" />
       </div>
       <% if (locals._csrf) { %>
@@ -29,4 +34,3 @@
   </div>
 </div>
 <% }); %>
-

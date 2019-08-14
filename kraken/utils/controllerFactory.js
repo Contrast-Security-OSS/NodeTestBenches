@@ -9,8 +9,8 @@ const defaultRespond = (result, req, res) => res.send(result);
  * module.
  *
  * @param {string} vulnerability the vulnerability or rule being tested
- * @param {Object} opts
- * @param {Function} opts.respond if provided, a custom return or response
+ * @param {Object=} opts
+ * @param {Function=} opts.respond if provided, a custom return or response
  */
 module.exports = function controllerFactory(
   vulnerability,

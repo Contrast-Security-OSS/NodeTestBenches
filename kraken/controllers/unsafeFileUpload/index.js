@@ -14,7 +14,7 @@ module.exports = (router) => {
   model.sinkData.forEach(({ method, uri, sink, key }) => {
     router[method](uri, async (req, res) => {
       const { input } = get(req, key);
-      const result = await sink(input);
+      const result = await sink(input); // doesn't really do anything
       res.send(result);
     });
   });

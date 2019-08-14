@@ -1,26 +1,5 @@
-const { get } = require('lodash');
+'use strict';
 
-const CrossSiteScriptingModel = require('../../models/xss');
+const controllerFactory = require('../../utils/controllerFactory');
 
-module.exports = (router) => {
-  const model = CrossSiteScriptingModel();
-
-  router.get('/', (req, res) => {
-    model._csrf = req.csrfToken();
-    res.render('xss', model);
-  });
-
-  model.sinkData.forEach(({ method, uri, sink, key }) => {
-    router[method](`${uri}/safe`, (req, res) => {
-      const { input } = get(req, key);
-      const result = sink(input, true);
-      res.send(result);
-    });
-
-    router[method](`${uri}/unsafe`, (req, res) => {
-      const { input } = get(req, key);
-      const result = sink(input);
-      res.send(result);
-    });
-  });
-};
+module.exports = controllerFactory('xss');

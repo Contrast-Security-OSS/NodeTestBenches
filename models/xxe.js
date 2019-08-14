@@ -1,21 +1,13 @@
-'use strict';
-const {
-  sinks: { xxe },
-  utils: { attackXml, navRoutes },
-  frameworkMapping: { kraken },
-  routes: {
-    xxe: { base, sinks }
-  }
-} = require('@contrast/test-bench-utils');
+const { utils, routes } = require('@contrast/test-bench-utils');
 
-module.exports = function XXEModel() {
-  const { method } = kraken.body;
+module.exports = function XmlExternalEntityModel() {
+  const sinkData = utils.getSinkData('xxe', 'kraken');
+
   return {
-    navRoutes,
-    xxe,
-    url: base,
-    sinks,
-    method,
-    attackXml
+    sinkData,
+    name: routes.xxe.name,
+    link: routes.xxe.link,
+    navRoutes: utils.navRoutes,
+    attackXml: utils.attackXml
   };
 };

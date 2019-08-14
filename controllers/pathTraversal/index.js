@@ -2,4 +2,4 @@
 
 const controllerFactory = require('../../utils/controllerFactory');
 
-module.exports = controllerFactory('xxe');
+module.exports = controllerFactory('pathTraversal');

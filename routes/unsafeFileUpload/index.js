@@ -7,7 +7,7 @@ const { utils } = require('@contrast/test-bench-utils');
 
 const uploadDir = path.resolve(__dirname, 'uploads');
 const sinkData = utils.getSinkData('unsafeFileUpload', 'hapi');
-console.log(sinkData);
+
 // write our own custom sink to work with the generated view.
 sinkData.push({
   ...sinkData[0],
@@ -16,7 +16,6 @@ sinkData.push({
   url: `${sinkData[0].url}Stream`,
   urlWithoutParams: `${sinkData[0].urlWithoutParams}Stream`
 });
-console.log(sinkData);
 
 function formatResponse({ filename, headers }, input) {
   const json = JSON.stringify(

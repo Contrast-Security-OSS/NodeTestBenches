@@ -14,7 +14,8 @@ const {
     unvalidatedRedirect,
     xss,
     xxe
-  }
+  },
+  utils
 } = require('@contrast/test-bench-utils');
 
 const PORT = process.env.PORT || 3000;
@@ -119,7 +120,11 @@ async function start() {
       allowAbsolutePaths: true,
       relativeTo: path.resolve(__dirname, 'views'),
       path: 'pages',
-      partialsPath: 'partials'
+      layout: true,
+      context: {
+        currentYear: new Date().getFullYear(),
+        navRoutes: utils.navRoutes
+      }
     });
     await server.start();
     console.log(

@@ -6,7 +6,6 @@ module.exports = function PathTraversalModel() {
   return {
     sinkData,
     name: routes.pathTraversal.name,
-    link: routes.pathTraversal.link,
-    navRoutes: utils.navRoutes
+    link: routes.pathTraversal.link
   };
 };

@@ -6,7 +6,6 @@ module.exports = function ServerSideJavaScriptModel() {
   return {
     sinkData,
     name: routes.ssjs.name,
-    link: routes.ssjs.link,
-    navRoutes: utils.navRoutes
+    link: routes.ssjs.link
   };
 };

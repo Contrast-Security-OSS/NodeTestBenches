@@ -8,7 +8,6 @@ module.exports = function CrossSiteScriptingModel() {
     sinkData,
     name: routes.xss.name,
     link: routes.xss.link,
-    navRoutes: utils.navRoutes,
     groupedSinkData
   };
 };

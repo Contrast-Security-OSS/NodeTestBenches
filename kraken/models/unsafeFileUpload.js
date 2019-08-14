@@ -6,7 +6,6 @@ module.exports = function UnsafeFileUploadModel() {
   return {
     sinkData,
     name: routes.unsafeFileUpload.name,
-    link: routes.unsafeFileUpload.link,
-    navRoutes: utils.navRoutes
+    link: routes.unsafeFileUpload.link
   };
 };

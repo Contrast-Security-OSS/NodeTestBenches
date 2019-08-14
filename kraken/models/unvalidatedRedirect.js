@@ -7,7 +7,6 @@ module.exports = function UnvalidatedRedirectModel() {
     sinkData,
     name: routes.unvalidatedRedirect.name,
     link: routes.unvalidatedRedirect.link,
-    navRoutes: utils.navRoutes,
     res: 'res'
   };
 };

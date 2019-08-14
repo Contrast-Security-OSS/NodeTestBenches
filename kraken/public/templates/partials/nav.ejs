@@ -1,9 +1,9 @@
 <div class="col-sm-3 col-md-2 sidebar">
   <label>Rules</label>
   <ul class="nav nav-sidebar">
-    <% navRoutes.forEach(({ name, base: baseUri, products }) => { %>
+    <% navRoutes.forEach(({ name, base, products }) => { %>
     <li>
-      <a href="<%= baseUri %>">
+      <a href="<%= base %>">
         <%= name %>
         <% products.forEach((product) => {%>
         <span class="badge pull-right <% if(product === 'Protect') { %>badge-info<% } else { %>badge-success<%}%>">

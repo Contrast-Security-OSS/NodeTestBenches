@@ -32,7 +32,7 @@ module.exports['child_process.exec'] = async function exec(
  * @param {boolean=} opts.safe are we calling the sink safely?
  * @param {boolean=} opts.noop are we calling the sink as a noop?
  */
-module.exports['child_process.execSync'] = function execSync(
+module.exports['child_process.execSync'] = async function execSync(
   input,
   { safe = false, noop = false } = {}
 ) {
@@ -74,7 +74,7 @@ module.exports['child_process.spawn'] = async function spawn(
  * @param {boolean=} opts.safe are we calling the sink safely?
  * @param {boolean=} opts.noop are we calling the sink as a noop?
  */
-module.exports['child_process.spawnSync'] = function spawn(
+module.exports['child_process.spawnSync'] = async function spawn(
   input,
   { safe = false, noop = false } = {}
 ) {

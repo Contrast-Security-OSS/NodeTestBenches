@@ -12,22 +12,7 @@ module.exports = {
     name: 'NoSQL Injection',
     products: ['Assess', 'Protect'],
     inputs: ['query'], // default
-    sinks: [
-      // 'mongodb.Collection.prototype.rename',
-      // 'mongodb.Db.prototype.eval',
-      // 'rethinkdb.js',
-      // 'aws-sdk.DynamoDB.prototype.makeRequest'
-      // 'aws-sdk.DynamoDB.DocumentClient.prototype.batchGet',
-      // 'aws-sdk.DynamoDB.DocumentClient.prototype.batchWrite',
-      // 'aws-sdk.DynamoDB.DocumentClient.prototype.delete',
-      // 'aws-sdk.DynamoDB.DocumentClient.prototype.query',
-      // 'aws-sdk.DynamoDB.DocumentClient.prototype.scan',
-      // 'aws-sdk.DynamoDB.DocumentClient.prototype.transactGet',
-      // 'aws-sdk.DynamoDB.DocumentClient.prototype.transactWrite',
-      // 'aws-sdk.DynamoDB.DocumentClient.prototype.get',
-      // 'aws-sdk.DynamoDB.DocumentClient.prototype.update',
-      // 'aws-sdk.DynamoDB.DocumentClient.prototype.put'
-    ]
+    sinks: require('./sinks/nosqlInjection')
   },
   pathTraversal: {
     base: '/pathTraversal',
@@ -58,18 +43,21 @@ module.exports = {
     // these are not sinks but the ssrf sinks file has helpers to make a request for each
     sinks: require('./sinks/ssrf')
   },
-  // This rule is specific for each framework, no sinks will be abstracted
-  unsafe_file_upload: {
-    base: '/unsafe-file-upload',
+  unsafeFileUpload: {
+    base: '/unsafeFileUpload',
     name: 'Unsafe File Upload',
     products: ['Protect'],
-    inputs: ['body']
+    inputs: ['body'],
+    // This rule is specific for each framework, no sinks will be abstracted
+    sinks: require('./sinks/unsafeFileUpload')
   },
-  unvalidated_redirect: {
-    base: '/unvalidated-redirect',
+  unvalidatedRedirect: {
+    base: '/unvalidatedRedirect',
     name: 'Unvalidated Redirect',
     products: ['Assess'],
-    inputs: ['query']
+    inputs: ['query'],
+    // This rule is specific for each framework
+    sinks: require('./sinks/unvalidatedRedirect')
   },
   xss: {
     base: '/xss',

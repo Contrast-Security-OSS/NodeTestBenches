@@ -11,19 +11,19 @@ const superagent = require('superagent');
  * custom route handlers.
  */
 
-exports.axios = function makeAxiosRequest(url) {
+exports.axios = async function makeAxiosRequest(url) {
   return axios.get(url).then((response) => response.data);
 };
 
-exports.bent = function makeBentRequest(url) {
+exports.bent = async function makeBentRequest(url) {
   return bent(url, 'GET', 'string', 200)();
 };
 
-exports.fetch = function makeFetchRequest(url) {
+exports.fetch = async function makeFetchRequest(url) {
   return fetch(url).then((res) => res.text());
 };
 
-exports.request = function makeRequestRequest(url) {
+exports.request = async function makeRequestRequest(url) {
   return new Promise((resolve, reject) => {
     request(url, (err, response, body) => {
       if (err) reject(err);
@@ -32,6 +32,6 @@ exports.request = function makeRequestRequest(url) {
   });
 };
 
-exports.Superagent = function makeSuperagentRequest(url) {
+exports.Superagent = async function makeSuperagentRequest(url) {
   return superagent.get(url).then((res) => res.text);
 };

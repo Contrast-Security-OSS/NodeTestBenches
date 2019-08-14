@@ -11,7 +11,7 @@ const pre = (str) => `<pre>${str}</pre>`;
  * @param {boolean=} opts.safe are we calling the sink safely?
  * @param {boolean=} opts.noop are we calling the sink as a noop?
  */
-module.exports['fs.readFile'] = function readFile(
+module.exports['fs.readFile'] = async function readFile(
   input,
   { safe = false, noop = false } = {}
 ) {
@@ -36,7 +36,7 @@ module.exports['fs.readFile'] = function readFile(
  * @param {boolean=} opts.safe are we calling the sink safely?
  * @param {boolean=} opts.noop are we calling the sink as a noop?
  */
-module.exports['fs.readFileSync'] = function readFileSync(
+module.exports['fs.readFileSync'] = async function readFileSync(
   input,
   { safe = false, noop = false } = {}
 ) {
@@ -83,7 +83,7 @@ module.exports['fs.writeFile'] = async function writeFile(
  * @param {boolean=} opts.safe are we calling the sink safely?
  * @param {boolean=} opts.noop are we calling the sink as a noop?
  */
-module.exports['fs.writeFileSync'] = function writeFileSync(
+module.exports['fs.writeFileSync'] = async function writeFileSync(
   input,
   { safe = false, noop = false } = {}
 ) {

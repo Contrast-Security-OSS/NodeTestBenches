@@ -7,12 +7,11 @@
     "postversion": "npm publish",
     "postpublish": "git push origin --all; git push origin --tags"
   },
+  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Contrast-Security-OSS/test-bench-content.git"
   },
-  "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/Contrast-Security-OSS/test-bench-content/issues"
   },

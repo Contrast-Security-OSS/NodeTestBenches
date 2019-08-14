@@ -1,7 +1,7 @@
 'use strict';
 const { camelCase, groupBy, map, reduce } = require('lodash');
 
-const MAPPING = require('./frameworkMapping');
+const frameworks = require('./frameworks');
 const routes = require('./routes');
 
 /**
@@ -63,7 +63,7 @@ module.exports.getSinkData = function getSinkData(rule, framework) {
   return reduce(
     inputs,
     (data, input) => {
-      const { key, method, param } = MAPPING[framework][input];
+      const { key, method, param } = frameworks[framework][input];
       return [
         ...data,
         ...sinkData({

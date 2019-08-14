@@ -1,3 +1,5 @@
+const sinks = require('./sinks');
+
 module.exports = {
   cmdInjection: {
     base: '/cmdInjection',
@@ -5,35 +7,35 @@ module.exports = {
     link: 'https://www.owasp.org/index.php/Command_Injection',
     products: ['Assess', 'Protect'],
     inputs: ['query'],
-    sinks: require('./sinks/cmdInjection')
+    sinks: sinks.cmdInjection
   },
   nosqlInjection: {
     base: '/nosqlInjection',
     name: 'NoSQL Injection',
     products: ['Assess', 'Protect'],
     inputs: ['query'], // default
-    sinks: require('./sinks/nosqlInjection')
+    sinks: sinks.nosqlInjection
   },
   pathTraversal: {
     base: '/pathTraversal',
     name: 'Path Traversal',
     products: ['Assess', 'Protect'],
     inputs: ['query'],
-    sinks: require('./sinks/pathTraversal')
+    sinks: sinks.pathTraversal
   },
   sqlInjection: {
     base: '/sqlInjection',
     name: 'SQL Injection',
     products: ['Assess', 'Protect'],
     inputs: ['query'], // default,
-    sinks: require('./sinks/sqlInjection')
+    sinks: sinks.sqlInjection
   },
   ssjs: {
     base: '/ssjs',
     name: 'SSJS Injection',
     products: ['Protect'],
     inputs: ['query'],
-    sinks: require('./sinks/ssjs')
+    sinks: sinks.ssjs
   },
   ssrf: {
     base: '/ssrf',
@@ -41,7 +43,7 @@ module.exports = {
     products: ['Assess'],
     inputs: ['query'],
     // these are not sinks but the ssrf sinks file has helpers to make a request for each
-    sinks: require('./sinks/ssrf')
+    sinks: sinks.ssrf
   },
   unsafeFileUpload: {
     base: '/unsafeFileUpload',
@@ -49,7 +51,7 @@ module.exports = {
     products: ['Protect'],
     inputs: ['body'],
     // This rule is specific for each framework, no sinks will be abstracted
-    sinks: require('./sinks/unsafeFileUpload')
+    sinks: sinks.unsafeFileUpload
   },
   unvalidatedRedirect: {
     base: '/unvalidatedRedirect',
@@ -57,20 +59,20 @@ module.exports = {
     products: ['Assess'],
     inputs: ['query'],
     // This rule is specific for each framework
-    sinks: require('./sinks/unvalidatedRedirect')
+    sinks: sinks.unvalidatedRedirect
   },
   xss: {
     base: '/xss',
     name: 'Reflected XSS',
     products: ['Assess', 'Protect'],
     inputs: ['query', 'params', 'headers', 'body', 'cookies'],
-    sinks: require('./sinks/xss')
+    sinks: sinks.xss
   },
   xxe: {
     base: '/xxe',
     name: 'XXE Processing',
     products: ['Protect'],
     inputs: ['body'],
-    sinks: require('./sinks/xxe')
+    sinks: sinks.xxe
   }
 };

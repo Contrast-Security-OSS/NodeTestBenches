@@ -3,6 +3,6 @@
 const controllerFactory = require('../utils/controllerFactory');
 
 /**
- * @vulnerability: sqlInjection
+ * @vulnerability: sql-injection
  */
 module.exports = controllerFactory('sqlInjection');

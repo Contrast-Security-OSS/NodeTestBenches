@@ -4,31 +4,48 @@ const { get } = require('lodash');
 
 const { routes, utils } = require('@contrast/test-bench-utils');
 
-module.exports = function controllerFactory(vulnerability) {
-  return ({ router }) => {
-    const viewData = utils.getViewData(vulnerability, 'koa');
+const defaultRespond = (result, ctx) => {
+  ctx.body = result;
+};
 
+/**
+ * Configures a route to handle sinks configured by our shared test-bench-utils
+ * module.
+ *
+ * @param {string} vulnerability the vulnerability or rule being tested
+ * @param {Object} opts
+ * @param {Object} opts.locals additional locals to provide to EJS
+ * @param {Function} opts.respond if provided, a custom return or response
+ */
+module.exports = function controllerFactory(
+  vulnerability,
+  { locals = {}, respond = defaultRespond } = {}
+) {
+  const sinkData = utils.getSinkData(vulnerability, 'koa');
+  const groupedSinkData = utils.groupSinkData(sinkData);
+
+  return ({ router }) => {
     router.get(routes[vulnerability].base, (ctx, next) =>
-      ctx.render(vulnerability, { viewData })
+      ctx.render(vulnerability, { sinkData, groupedSinkData, ...locals })
     );
 
-    viewData.forEach(({ method, url, sink, key }) => {
+    sinkData.forEach(({ method, url, sink, key }) => {
       router[method](`${url}/safe`, async (ctx, next) => {
         const { input } = get(ctx, key);
         const result = await sink(input, { safe: true });
-        ctx.body = result;
+        respond(result, ctx);
       });
 
       router[method](`${url}/unsafe`, async (ctx, next) => {
         const { input } = get(ctx, key);
         const result = await sink(input);
-        ctx.body = result;
+        respond(result, ctx);
       });
 
       router[method](`${url}/noop`, async (ctx, next) => {
         const { input } = get(ctx, key);
         const result = await sink(input, { noop: true });
-        ctx.body = result;
+        respond(result, ctx);
       });
     });
   };

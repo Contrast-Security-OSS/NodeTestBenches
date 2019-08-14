@@ -6,7 +6,7 @@ const { routes, utils } = require('@contrast/test-bench-utils');
 
 const dest = path.resolve(__dirname, '..', 'uploads');
 const upload = multer({ dest });
-const sinkData = utils.getSinkData('unsafeFileUpload', 'express');
+const sinkData = utils.getSinkData('unsafeFileUpload', 'koa');
 
 /**
  * @vulnerability: unsafe-file-upload

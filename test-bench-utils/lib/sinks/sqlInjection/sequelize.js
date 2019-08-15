@@ -7,7 +7,7 @@ const sequelize = new Sequelize('postgres://root@localhost:5432/db');
 
 const origQuery = Sequelize.prototype.query;
 Sequelize.prototype.query = async function overloadedQuery(sql, opts) {
-  // run the original query asynchronously, ignoring any errors it will throw.
+  // run the original query asynchronously, ignoring any errors it will throw since we aren't connected.
   origQuery.call(this, sql, opts).catch((err) => {});
   return { query: sql };
 };

@@ -6,6 +6,7 @@ const pem = require('pem');
 const {
   routes: {
     cmdInjection,
+    nosqlInjection,
     pathTraversal,
     sqlInjection,
     ssjs,
@@ -15,7 +16,7 @@ const {
     xss,
     xxe
   },
-  utils
+  navRoutes
 } = require('@contrast/test-bench-utils');
 
 const PORT = process.env.PORT || 3000;
@@ -44,6 +45,10 @@ const manifest = {
       {
         plugin: './routes/header-injection',
         routes: { prefix: '/header-injection' }
+      },
+      {
+        plugin: './routes/nosqlInjection',
+        routes: { prefix: nosqlInjection.base }
       },
       {
         plugin: './routes/mongo-injection/',
@@ -123,7 +128,7 @@ async function start() {
       layout: true,
       context: {
         currentYear: new Date().getFullYear(),
-        navRoutes: utils.navRoutes
+        navRoutes
       }
     });
     await server.start();

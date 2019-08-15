@@ -3,7 +3,7 @@
 const express = require('express');
 const layouts = require('express-ejs-layouts');
 const kraken = require('kraken-js');
-const { utils } = require('@contrast/test-bench-utils');
+const { navRoutes } = require('@contrast/test-bench-utils');
 
 /*
  * Create and configure application. Also exports application instance for use by tests.
@@ -21,7 +21,7 @@ const options = {
 
 const app = (module.exports = express());
 app.set('view engine', 'ejs');
-app.locals.navRoutes = utils.navRoutes;
+app.locals.navRoutes = navRoutes;
 app.locals.currentYear = new Date().getFullYear();
 app.use(layouts);
 app.use(kraken(options));

@@ -1,4 +1,4 @@
-const { utils, routes } = require('@contrast/test-bench-utils');
+const { utils } = require('@contrast/test-bench-utils');
 
 module.exports = function CrossSiteScriptingModel() {
   const sinkData = utils.getSinkData('xss', 'kraken');
@@ -6,8 +6,6 @@ module.exports = function CrossSiteScriptingModel() {
 
   return {
     sinkData,
-    name: routes.xss.name,
-    link: routes.xss.link,
     groupedSinkData
   };
 };

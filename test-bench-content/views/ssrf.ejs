@@ -1,10 +1,28 @@
-<h1 class="page-header">Server-Side Request Forgery</h1>
-<p><a href="https://www.owasp.org/index.php/Server_Side_Request_Forgery" target="_blank">SSRF Info</a></p>
+<style type="text/css">
+ .btn.active:focus {
+   outline: none;
+ }
+ ul.selections {
+   font-family: monospace;
+   overflow: auto;
+   list-style-type: none;
+   padding: 0;
+ }
+ li[id*=-selection] {
+   margin: 2px 2px 5px;
+   float: left;
+   clear: none;
+ }
+</style>
 
+<h1 class="page-header">Server-Side Request Forgery</h1>
+<blockquote class="bs-callout bs-callout-info">
+  <a href="https://www.owasp.org/index.php/Server_Side_Request_Forgery" target="_blank">
+    SSRF Info
+  </a>
+</blockquote>
 <div class="row">
   <div id="ssrf" class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
-    <br>
-
     <div style="overflow:auto">
       <p>Select library to use when performing the server-side request.</p>
       <ul id="libs-list" class="selections">
@@ -118,20 +136,3 @@
    }
  });
 </script>
-
-<style type="text/css">
- .btn.active:focus {
-   outline: none;
- }
- ul.selections {
-   font-family: monospace;
-   overflow: auto;
-   list-style-type: none;
-   padding: 0;
- }
- li[id*=-selection] {
-   margin: 2px 2px 5px;
-   float: left;
-   clear: none;
- }
-</style>

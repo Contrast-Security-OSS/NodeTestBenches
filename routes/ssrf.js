@@ -1,34 +1,36 @@
 'use strict';
 
-const {
-  routes: {
-    ssrf: { base, sinks }
-  },
-  frameworkMapping: { koa },
-  sinks: { ssrf }
-} = require('@contrast/test-bench-utils');
+const { get } = require('lodash');
+
+const { routes, utils } = require('@contrast/test-bench-utils');
 
 const EXAMPLE_URL = 'http://www.example.com';
+const { base } = routes.ssrf;
+const sinkData = utils.getSinkData('ssrf', 'koa');
 
+/**
+ * @vulnerability: ssrf
+ */
 module.exports = ({ router }) => {
-  const { method, key } = koa.query;
   router.get(base, (ctx) =>
     ctx.render('ssrf', {
-      requestUrl: EXAMPLE_URL
+      requestUrl: EXAMPLE_URL,
+      sinkData
     })
   );
 
-  sinks.forEach((sink) => {
-    const lib = sink.toLowerCase();
-    router[method](`${base}/${lib}/query`, async function(ctx, next) {
-      const url = `${EXAMPLE_URL}?q=${ctx[key].input}`;
-      const data = await ssrf[`make${sink}Request`](url);
+  sinkData.forEach(({ method, name, sink, key }) => {
+    router[method](`${base}/${name}/query`, async function(ctx, next) {
+      const { input } = get(ctx, key);
+      const url = `${EXAMPLE_URL}?q=${input}`;
+      const data = await sink(url);
       ctx.body = data;
     });
 
-    router[method](`${base}/${lib}/path`, async function(ctx, next) {
-      const url = `http://${ctx[key].input}`;
-      const data = await ssrf[`make${sink}Request`](url);
+    router[method](`${base}/${name}/path`, async function(ctx, next) {
+      const { input } = get(ctx, key);
+      const url = `http://${input}`;
+      const data = await sink(url);
       ctx.body = data;
     });
   });

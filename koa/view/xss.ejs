@@ -1,14 +1,1 @@
-<h1 class="page-header">Reflected XSS</h1>
-
-<div style="min-height: 300px;">
-    &nbsp;
-    <div class="row">
-	<div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
-	    <h4 class="sub-header">Reflected XSS Query String</h4>
-	    <p>
-		<a href="/xss-test/query?input=<script>alert(1)%3B<%%2Fscript>" target="_blank">/xss-test/query?input=&lt;script&gt;alert(1);&lt;/script&gt;</a>
-	    </p>
-	</div>
-    </div>
-</div>
-
+<% include ../node_modules/@contrast/test-bench-content/views/xss.ejs %>

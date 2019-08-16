@@ -8,6 +8,7 @@ const render = require('koa-ejs');
 const serve = require('koa-static');
 const mount = require('koa-mount');
 const bodyParser = require('koa-bodyparser');
+const { navRoutes } = require('@contrast/test-bench-utils');
 
 const PORT = process.env.PORT || 3000;
 
@@ -26,6 +27,7 @@ render(app, {
 // adding current year to be used in layout for copyright year
 app.use((ctx, next) => {
   ctx.state = ctx.state || {};
+  ctx.state.navRoutes = navRoutes;
   ctx.state.currentYear = new Date().getFullYear();
   return next();
 });
@@ -33,16 +35,17 @@ app.use((ctx, next) => {
 app.use(bodyParser());
 
 require('./routes/index')({ router });
-require('./routes/cmdi')({ router });
+require('./routes/cmdInjection')({ router });
 require('./routes/csp-header')({ router });
 require('./routes/header-injection')({ router });
+require('./routes/nosqlInjection')({ router });
 require('./routes/parampollution')({ router });
-require('./routes/path-traversal')({ router });
-require('./routes/sql-injection')({ router });
+require('./routes/pathTraversal')({ router });
+require('./routes/sqlInjection')({ router });
 require('./routes/ssjs')({ router });
 require('./routes/ssrf')({ router });
-require('./routes/unsafe-file-upload')({ router });
-require('./routes/unvalidated-redirect')({ router });
+require('./routes/unsafeFileUpload')({ router });
+require('./routes/unvalidatedRedirect')({ router });
 require('./routes/xss')({ router });
 require('./routes/xxe')({ router });
 
@@ -51,5 +54,5 @@ app.use(router.allowedMethods());
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
-  console.log(`Listening on port ${PORT}`);
+  console.log('Server listening on http://localhost:%d', PORT);
 });

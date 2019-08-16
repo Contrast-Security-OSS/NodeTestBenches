@@ -43,7 +43,7 @@ exports.register = function(server, options) {
         method,
         handler: async (request, h) => {
           const input = Hoek.reach(request, `${key}.input`) || '';
-          const url = `http://${input}`;
+          const url = `https://${input}`;
           const data = await sink(url);
           return data;
         }

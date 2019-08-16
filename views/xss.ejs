@@ -1,65 +1,93 @@
 <h1 class="page-header">Cross-site Scripting</h1>
-<p>
+<blockquote class="bs-callout bs-callout-info">
   <a
     target="blank"
     href="https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)#Stored_and_Reflected_XSS_Attacks"
   >
     Cross-site Scripting (XSS) Info
   </a>
-</p>
-
+</blockquote>
 <div class="row">
   <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
     <h4 class="sub-header">Query</h4>
-    <% ['safe', 'unsafe'].forEach(function(safety) { %>
+    <% groupedSinkData.query.forEach(function(sink) { %>
+    <% ['unsafe', 'safe', 'noop'].forEach(function(safety) { %>
     <p>
       <a
         target="_blank"
-        href="<%= viewData[0].url %>/<%= safety %>?input=<script>alert(1)%3B<%%2Fscript>"
+        href="<%= sink.url %>/<%= safety %>?input=<script>alert(1)%3B<%%2Fscript>"
       >
-        <%= viewData[0].url %>/<%= safety %>?input=&lt;script&gt;alert(1);&lt;/script&gt;
+        <%= sink.url %>/<%= safety %>?input=&lt;script&gt;alert(1);&lt;/script&gt;
       </a>
     </p>
+    <% }); %>
     <% }); %>
   </div>
 </div>
 <div class="row">
   <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
     <h4 class="sub-header">Params</h4>
-    <% ['safe', 'unsafe'].forEach(function(safety) { %>
+    <% groupedSinkData.params.forEach(function(sink) { %>
+    <% ['unsafe', 'safe', 'noop'].forEach(function(safety) { %>
     <p>
       <a
         target="_blank"
-        href="<%= viewData[1].url %>/<%= safety %>/<script>alert(1)%3B<%%2Fscript>"
+        href="<%= sink.urlWithoutParams %>/<script>alert(1)%3B<%%2Fscript>/<%= safety %>"
       >
-        <%= viewData[1].url %>/<%= safety %>/&lt;script&gt;alert(1);&lt;/script&gt;
+        <%= sink.urlWithoutParams %>/&lt;script&gt;alert(1);&lt;/script&gt;/<%= safety %>
       </a>
     </p>
+    <% }); %>
     <% }); %>
   </div>
 </div>
 <div class="row">
   <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
     <h4 class="sub-header">POST Body</h4>
+    <% groupedSinkData.body.forEach(function(sink) { %>
     <form
-      method="<%= viewData[2].method %>"
-      action="<%= viewData[2].url %>/unsafe"
+      method="<%= sink.method %>"
+      action="<%= sink.url %>/unsafe"
       target="_blank"
     >
       <div class="form-group">
-        <label>body.input</label>
+        <label><%= sink.key %>.input</label>
         <input
           name="input"
           class="form-control"
           value="<script>alert(1)%3B<%%2Fscript>"
         />
       </div>
+<<<<<<< HEAD
       <button type="submit" class="btn btn-primary">Submit</button>
+=======
+      <% if (locals._csrf) { %>
+      <input name="_csrf" type="hidden" value="<%= _csrf %>" />
+      <% } %>
+      <button type="submit" class="btn btn-default">Submit</button>
+>>>>>>> e8f18035fe5f18a6c3735125662df942532493dd
     </form>
+    <% }); %>
   </div>
 </div>
-<% include ../partials/safe-buttons %>
-
-<script type="text/javascript">
-
-</script>
+<div class="row">
+  <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+    <h4 class="sub-header">GET headers</h4>
+    <% groupedSinkData.headers.forEach(function(sink) { %>
+    <% ['unsafe', 'safe', 'noop'].forEach(function(safety) { %>
+    <p><pre>curl http://localhost:3000<%= sink.url %>/<%= safety %> -H "input: &lt;script&gt;alert(1)%3B&lt;%%2script&gt;"</pre></p>
+    <% }); %>
+    <% }); %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+    <h4 class="sub-header">POST cookies</h4>
+    <% groupedSinkData.cookies.forEach(function(sink) { %>
+    <% ['unsafe', 'safe', 'noop'].forEach(function(safety) { %>
+    <p><pre>curl http://localhost:3000<%= sink.url %>/<%= safety %> -X POST -b "input=&lt;script&gt;alert(1)%3B&lt;%%2script&gt;"</pre></p>
+    <% }); %>
+    <% }); %>
+  </div>
+</div>
+<% include ../partials/safeButtons %>

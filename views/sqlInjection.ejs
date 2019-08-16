@@ -1,23 +1,23 @@
 <h1 class="page-header">SQL Injection</h1>
-<p>
+<blockquote class="bs-callout bs-callout-info">
   <a target="_blank" href="https://www.owasp.org/index.php/SQL_Injection">
     SQL Injection Info
   </a>
-</p>
-<% viewData.forEach(function(view) { %>
+</blockquote>
+<% sinkData.forEach(function(sink) { %>
 <div class="row">
   <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
     <h4 class="sub-header">
-      <code><%= view.sinkName %></code>
+      <code><%= sink.name %></code>
     </h4>
-    <form method="<%= view.method %>" action="<%= view.url %>/unsafe" target="_blank">
+    <form method="<%= sink.method %>" action="<%= sink.url %>/unsafe" target="_blank">
       <div class="form-group">
         <label>SELECT "${input}" as "test";</label>
-        <input name="input" class="form-control" value="woot" />
+        <input name="input" class="form-control" value="Robert&quot;); DROP TABLE Students;--" />
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
 </div>
 <% }); %>
-<% include ../partials/safe-buttons %>
+<% include ../partials/safeButtons %>

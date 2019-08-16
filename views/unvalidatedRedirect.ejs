@@ -1,0 +1,24 @@
+<h1 class="page-header">Unvalidated Redirect <%= locals.desc %></h1>
+<blockquote class="bs-callout bs-callout-info">
+  <a target="_blank" href="https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html">
+    Unvalidated Redirect Info
+  </a>
+</blockquote>
+<% sinkData.forEach(function(sink) { %>
+<div class="row" style="min-height: 200px;">
+  <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+    <h4 class="sub-header">
+      <code><%= res %>.<%= sink.name %></code>
+    </h4>
+    <form method="GET" action="<%= sink.url %>/unsafe" target="_blank">
+      <div class="form-group">
+        <label>URL</label>
+        <input name="input" class="form-control" value="http://www.example.com"
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+<% }); %>
+<% include ../partials/safeButtons %>

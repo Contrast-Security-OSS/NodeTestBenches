@@ -4,7 +4,20 @@ const { get } = require('lodash');
 
 const { routes, utils } = require('@contrast/test-bench-utils');
 
-const defaultRespond = (result, ctx) => {
+/**
+ * Custom response functions allow you to change the functionality or return
+ * value of a sink endpoint.
+ *
+ * @callback ResponseFn
+ * @param {any} result return value of the sink method
+ * @param {koa.Context} ctx koa context object
+ * @param {Function} next `next` function
+ */
+
+/**
+ * @type {ResponseFn}
+ */
+const defaultRespond = (result, ctx, next) => {
   ctx.body = result;
 };
 
@@ -13,9 +26,9 @@ const defaultRespond = (result, ctx) => {
  * module.
  *
  * @param {string} vulnerability the vulnerability or rule being tested
- * @param {Object=} opts
- * @param {Object=} opts.locals additional locals to provide to EJS
- * @param {Function=} opts.respond if provided, a custom return or response
+ * @param {Object} opts
+ * @param {Object} opts.locals additional locals to provide to EJS
+ * @param {ResponseFn} opts.respond if provided, a custom return or response
  */
 module.exports = function controllerFactory(
   vulnerability,
@@ -33,19 +46,19 @@ module.exports = function controllerFactory(
       router[method](`${url}/safe`, async (ctx, next) => {
         const { input } = get(ctx, key);
         const result = await sink(input, { safe: true });
-        respond(result, ctx);
+        respond(result, ctx, next);
       });
 
       router[method](`${url}/unsafe`, async (ctx, next) => {
         const { input } = get(ctx, key);
         const result = await sink(input);
-        respond(result, ctx);
+        respond(result, ctx, next);
       });
 
       router[method](`${url}/noop`, async (ctx, next) => {
         const { input } = get(ctx, key);
         const result = await sink(input, { noop: true });
-        respond(result, ctx);
+        respond(result, ctx, next);
       });
     });
   };

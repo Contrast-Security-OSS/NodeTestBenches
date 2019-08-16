@@ -89,3 +89,5 @@ module.exports.getSinkData = function getSinkData(rule, framework) {
 module.exports.groupSinkData = function groupSinkData(sinkData) {
   return groupBy(sinkData, 'input');
 };
+
+module.exports.getRouteMeta = (rule) => routes[rule];

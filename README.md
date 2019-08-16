@@ -52,3 +52,11 @@ to render an input prepopulated with the attack value.
 ### Views
 After you have configured a sink within `@contrast/test-bench-utils`, you should
 add a shared view in [`@contrast/test-bench-content`](https://github.com/Contrast-Security-OSS/test-bench-content).
+
+### Test Bench Applications
+Once you have configured the shared sink and view, consult the following
+instructions for including the shared functionality in each test bench app:
+- [ExpressTestBench](https://github.com/Contrast-Security-OSS/NodeTestBench#adding-a-shared-vulnerability)
+- [HapiTestBench](https://github.com/Contrast-Security-OSS/HapiTestBench#adding-a-shared-vulnerability)
+- [KoaTestBench](https://github.com/Contrast-Security-OSS/KoaTestBench#adding-a-shared-vulnerability)
+- [KrakenTestBench](https://github.com/Contrast-Security-OSS/KrakenTestBench#adding-a-shared-vulnerability)

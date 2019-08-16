@@ -7,6 +7,7 @@ const { routes, utils } = require('@contrast/test-bench-utils');
 const EXAMPLE_URL = 'http://www.example.com';
 const { base } = routes.ssrf;
 const sinkData = utils.getSinkData('ssrf', 'koa');
+const routeMeta = utils.getRouteMeta('ssrf');
 
 /**
  * @vulnerability: ssrf
@@ -14,6 +15,7 @@ const sinkData = utils.getSinkData('ssrf', 'koa');
 module.exports = ({ router }) => {
   router.get(base, (ctx) =>
     ctx.render('ssrf', {
+      ...routeMeta,
       requestUrl: EXAMPLE_URL,
       sinkData
     })

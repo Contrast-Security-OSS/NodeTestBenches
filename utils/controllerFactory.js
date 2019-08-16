@@ -36,10 +36,16 @@ module.exports = function controllerFactory(
 ) {
   const sinkData = utils.getSinkData(vulnerability, 'koa');
   const groupedSinkData = utils.groupSinkData(sinkData);
+  const routeMeta = utils.getRouteMeta(vulnerability);
 
   return ({ router }) => {
     router.get(routes[vulnerability].base, (ctx, next) =>
-      ctx.render(vulnerability, { sinkData, groupedSinkData, ...locals })
+      ctx.render(vulnerability, {
+        ...routeMeta,
+        sinkData,
+        groupedSinkData,
+        ...locals
+      })
     );
 
     sinkData.forEach(({ method, url, sink, key }) => {

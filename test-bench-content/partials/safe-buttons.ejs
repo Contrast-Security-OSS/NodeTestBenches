@@ -32,24 +32,24 @@
            $('<button>')
              .text('Unsafe')
              .attr('type', 'button')
-             .addClass('method left btn btn-default active')
+             .addClass('method left btn btn-danger')
              .on('click', ( e ) => {
                const elem = $(e.target);
                const form = elem.closest('form');
                elem.addClass('active');
-               elem.siblings('.method').removeClass('active');
+               elem.siblings('.method').addClass('active');
                const newUrl = form.attr('action').replace(/\bsafe\b/, 'unsafe');
                form.attr('action', newUrl);
              }),
            $('<button>')
              .text('Safe')
              .attr('type', 'button')
-             .addClass('method right btn btn-default')
+             .addClass('method right btn btn-success')
              .on('click', ( e ) => {
                const elem = $(e.target);
                const form = elem.closest('form');
                elem.addClass('active');
-               elem.siblings('.method').removeClass('active');
+               elem.siblings('.method').addClass('active');
                const newUrl = form.attr('action').replace(/\bunsafe\b/, 'safe');
                form.attr('action', newUrl);
              }));

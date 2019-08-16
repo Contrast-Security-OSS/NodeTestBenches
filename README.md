@@ -1,4 +1,4 @@
-# test-bench-utils
+# @contrast/test-bench-utils
 Shared code for use in Contrast's Node.js test apps.
 
 ## Adding a shared sink to multiple apps

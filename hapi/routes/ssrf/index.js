@@ -9,6 +9,7 @@ const EXAMPLE_URL = 'http://www.example.com';
 exports.name = 'hapitestbench.ssrf';
 exports.register = function(server, options) {
   const sinkData = utils.getSinkData('ssrf', 'hapi');
+  const routeMeta = utils.getRouteMeta('ssrf');
 
   server.route({
     method: 'GET',
@@ -17,6 +18,7 @@ exports.register = function(server, options) {
       view: {
         template: 'ssrf',
         context: {
+          ...routeMeta,
           requestUrl: EXAMPLE_URL,
           sinkData
         }

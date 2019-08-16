@@ -1,9 +1,9 @@
 'use strict';
 
-const { utils } = require('@contrast/test-bench-utils');
+const { content } = require('@contrast/test-bench-utils');
 const controllerFactory = require('../../utils/controllerFactory');
 
 exports.name = 'hapitestbench.xxe';
 exports.register = controllerFactory('xxe', {
-  locals: { attackXml: utils.attackXml }
+  locals: { attackXml: content.xxe.attackXml }
 });

@@ -7,6 +7,7 @@ const { routes, utils } = require('@contrast/test-bench-utils');
 const dest = path.resolve(__dirname, '..', 'uploads');
 const upload = multer({ dest });
 const sinkData = utils.getSinkData('unsafeFileUpload', 'koa');
+const routeMeta = utils.getRouteMeta('unsafeFileUpload');
 
 /**
  * @vulnerability: unsafe-file-upload
@@ -14,6 +15,7 @@ const sinkData = utils.getSinkData('unsafeFileUpload', 'koa');
 module.exports = ({ router }) => {
   router.get(routes.unsafeFileUpload.base, (ctx, next) =>
     ctx.render('unsafeFileUpload', {
+      ...routeMeta,
       sinkData
     })
   );

@@ -21,12 +21,18 @@ module.exports = function controllerFactory(
   return (server, options) => {
     const sinkData = utils.getSinkData(vulnerability, 'hapi');
     const groupedSinkData = utils.groupSinkData(sinkData);
+    const routeMeta = utils.getRouteMeta(vulnerability);
 
     server.route({
       method: 'GET',
       path: '/',
       handler: (request, h) =>
-        h.view(vulnerability, { groupedSinkData, sinkData, ...locals })
+        h.view(vulnerability, {
+          ...routeMeta,
+          groupedSinkData,
+          sinkData,
+          ...locals
+        })
     });
 
     sinkData.forEach(({ uri, method, sink, key }) => {

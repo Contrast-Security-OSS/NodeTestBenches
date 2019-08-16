@@ -7,6 +7,7 @@ const { utils } = require('@contrast/test-bench-utils');
 
 const uploadDir = path.resolve(__dirname, 'uploads');
 const sinkData = utils.getSinkData('unsafeFileUpload', 'hapi');
+const routeMeta = utils.getRouteMeta('unsafeFileUpload');
 
 // write our own custom sink to work with the generated view.
 sinkData.push({
@@ -57,6 +58,7 @@ exports.register = function unsafeFileUpload(server, options) {
         view: {
           template: 'unsafeFileUpload',
           context: {
+            ...routeMeta,
             sinkData
           }
         }

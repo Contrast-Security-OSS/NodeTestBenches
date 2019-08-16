@@ -4,15 +4,29 @@ const Hoek = require('@hapi/hoek');
 
 const { utils } = require('@contrast/test-bench-utils');
 
+/**
+ * Custom response functions allow you to change the functionality or return
+ * value of a sink endpoint.
+ *
+ * @callback ResponseFn
+ * @param {any} result return value of the sink method
+ * @param {hapi.Request} request hapi request object
+ * @param {hapi.Response} h hapi response toolkit
+ */
+
+/**
+ * @type {ResponseFn}
+ */
 const defaultRespond = (result, request, h) => result;
+
 /**
  * Configures a route to handle sinks configured by our shared test-bench-utils
  * module.
  *
  * @param {string} vulnerability the vulnerability or rule being tested
- * @param {Object=} opts
- * @param {Object=} opts.locals additional locals to provide to EJS
- * @param {Function=} opts.respond if provided, a custom return or response
+ * @param {Object} opts
+ * @param {Object} opts.locals additional locals to provide to EJS
+ * @param {ResponseFn} opts.respond if provided, a custom return or response
  */
 module.exports = function controllerFactory(
   vulnerability,

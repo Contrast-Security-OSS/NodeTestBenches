@@ -20,6 +20,9 @@
       "git add"
     ]
   },
+  "engines": {
+    "node": ">=8.11.3"
+  },
   "dependencies": {
     "@contrast/test-bench-content": "^1.1.4",
     "@contrast/test-bench-utils": "^1.0.0",

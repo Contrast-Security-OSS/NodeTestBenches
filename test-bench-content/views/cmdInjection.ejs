@@ -1,19 +1,15 @@
-<h1 class="page-header">Server Side JavaScript Injection</h1>
-<blockquote class="bs-callout bs-callout-info">
-  <a target="_blank" href="https://ckarande.gitbooks.io/owasp-nodegoat-tutorial/content/tutorial/a1_-_server_side_js_injection.html">
-    SSJS Info
-  </a>
-</blockquote>
+<h1 class="page-header">Command Injection</h1>
+<% include ../partials/rule-info.ejs %>
 <% sinkData.forEach(function(sink) { %>
-<div class="row" style="min-height: 200px;">
+<div class="row">
   <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
     <h4 class="sub-header">
       <code><%= sink.name %></code>
     </h4>
     <form method="<%= sink.method %>" action="<%= sink.url %>/unsafe" target="_blank">
       <div class="form-group">
-        <label>JS to execute</label>
-        <input name="input" class="form-control" value="'PID: ' + process.pid" />
+        <label>Path</label>
+        <input name="input" class="form-control" value="ls -ahl .">
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>

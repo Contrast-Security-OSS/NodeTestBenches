@@ -15,31 +15,27 @@
  }
 </style>
 
-<h1 class="page-header">Server-Side Request Forgery</h1>
-<blockquote class="bs-callout bs-callout-info">
-  <a href="https://www.owasp.org/index.php/Server_Side_Request_Forgery" target="_blank">
-    SSRF Info
-  </a>
-</blockquote>
+<h1 class="page-header"><%= name %></h1>
+<% include ../partials/ruleInfo.ejs %>
 <div class="row">
   <div id="ssrf" class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
     <div style="overflow:auto">
       <p>Select library to use when performing the server-side request.</p>
       <ul id="libs-list" class="selections">
         <li id="axios-selection">
-          <button type="submit" class="btn btn-primary">axios</button>
+          <button type="submit" class="btn btn-warning">axios</button>
         </li>
         <li id="bent-selection">
-          <button type="submit" class="btn btn-primary">bent</button>
+          <button type="submit" class="btn btn-warning">bent</button>
         </li>
         <li id="fetch-selection">
-          <button type="submit" class="btn btn-primary">fetch</button>
+          <button type="submit" class="btn btn-warning">fetch</button>
         </li>
         <li id="request-selection">
-          <button type="submit" class="btn btn-primary">request</button>
+          <button type="submit" class="btn btn-warning">request</button>
         </li>
         <li id="superagent-selection">
-          <button type="submit" class="btn btn-primary">superagent</button>
+          <button type="submit" class="btn btn-warning">superagent</button>
         </li>
       </ul>
     </div>
@@ -48,10 +44,10 @@
       <p>Select part of url to contain tracked data.</p>
       <ul id="url-list" class="selections">
         <li id="path-selection">
-          <button type="submit" class="btn btn-primary">path</button>
+          <button type="submit" class="btn btn-warning">path</button>
         </li>
         <li id="query-selection">
-          <button type="submit" class="btn btn-primary">query</button>
+          <button type="submit" class="btn btn-warning">query</button>
         </li>
       </ul>
     </div>

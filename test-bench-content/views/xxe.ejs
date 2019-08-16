@@ -7,14 +7,8 @@
  }
 </style>
 
-<h1 class="page-header">
-  XML External Entity Processing
-</h1>
-<blockquote class="bs-callout bs-callout-info">
-  <a target="_blank" href="https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Processing">
-    XXE Info
-  </a>
-</blockquote>
+<h1 class="page-header"><%= name %></h1>
+<% include ../partials/ruleInfo.ejs %>
 <p>
   The following XML snippet is crafted to exploit SAX parsers that
   are configured to allow for external entity processing. If successful,

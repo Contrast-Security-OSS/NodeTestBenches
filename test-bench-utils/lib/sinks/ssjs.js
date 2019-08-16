@@ -15,11 +15,7 @@ module.exports.eval = async function _eval(
   if (safe) return 'SAFE';
   if (noop) return 'NOOP';
 
-  try {
-    return eval(input);
-  } catch (err) {
-    return `eval failed ${err.message}`;
-  }
+  return eval(input);
 };
 
 /**
@@ -35,11 +31,7 @@ module.exports.Function = async function _Function(
   if (safe) return 'SAFE';
   if (noop) return 'NOOP';
 
-  try {
-    return Function(`return ${input};`)();
-  } catch (err) {
-    return `Function failed ${err.message}`;
-  }
+  return Function(`return ${input};`)();
 };
 
 /**
@@ -56,11 +48,7 @@ module.exports['vm.runInNewContext'] = async function _runInNewContext(
   if (safe) return 'SAFE';
   if (noop) return 'NOOP';
 
-  try {
-    const sandbox = { value: '', process };
-    vm.runInNewContext(`value = ${input}`, sandbox);
-    return sandbox.value;
-  } catch (err) {
-    return `runInNewContext failed ${err.message}`;
-  }
+  const sandbox = { value: '', process };
+  vm.runInNewContext(`value = ${input}`, sandbox);
+  return sandbox.value;
 };

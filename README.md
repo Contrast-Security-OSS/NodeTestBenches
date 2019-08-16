@@ -1,4 +1,4 @@
-# test-bench-views
+# @contrast/test-bench-content
 Shared views to use in Contrast's web framework test apps.
 
 ## Adding a shared view to multiple apps

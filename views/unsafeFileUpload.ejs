@@ -1,9 +1,5 @@
-<h1 class="page-header">Unsafe File Upload</h1>
-<blockquote class="bs-callout bs-callout-info">
-  <a target="_blank" href="https://www.owasp.org/index.php/Unrestricted_File_Upload">
-    Unsafe File Upload Info
-  </a>
-</blockquote>
+<h1 class="page-header"><%= name %></h1>
+<% include ../partials/ruleInfo.ejs %>
 <% sinkData.forEach(function(sink) { %>
 <div class="row">
   <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">

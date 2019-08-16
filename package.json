@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@contrast/test-bench-content": "^1.2.1-0",
-    "@contrast/test-bench-utils": "^1.1.1-0",
+    "@contrast/test-bench-utils": "^1.1.2-0",
     "@hapi/glue": "^6.0.0",
     "@hapi/hapi": "^18.1.0",
     "@hapi/hoek": "^6.1.3",

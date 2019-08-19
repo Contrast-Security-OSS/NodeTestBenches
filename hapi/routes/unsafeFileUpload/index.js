@@ -64,7 +64,7 @@ exports.register = function unsafeFileUpload(server, options) {
       },
       handler: async (request, h) => {
         const { key } = sinkData[0];
-        const input = Hoek.reach(request, `${key}.input`) || '';
+        const { input } = Hoek.reach(request, key);
         return input;
       }
     },
@@ -82,11 +82,10 @@ exports.register = function unsafeFileUpload(server, options) {
       // coverage for stream-based multipart form uploads
       handler: async (request, h) => {
         const { key } = sinkData[1];
-        const fileStream = Hoek.reach(request, `${key}.file`);
-        const input = Hoek.reach(request, `${key}.input`) || '';
+        const { file, input } = Hoek.reach(request, key);
 
-        if (fileStream.hapi.filename) {
-          await uploadFile(fileStream);
+        if (file.hapi.filename) {
+          await uploadFile(file);
         }
 
         return input;

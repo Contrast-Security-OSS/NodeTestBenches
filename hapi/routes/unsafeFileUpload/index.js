@@ -9,6 +9,11 @@ const uploadDir = path.resolve(__dirname, 'uploads');
 const sinkData = utils.getSinkData('unsafeFileUpload', 'hapi');
 const routeMeta = utils.getRouteMeta('unsafeFileUpload');
 
+function formatResponse(input = 'Uploaded file without form field') {
+  console.log('my input', input);
+  return `<pre>${input}</pre>`;
+}
+
 // write our own custom sink to work with the generated view.
 sinkData.push({
   ...sinkData[0],
@@ -17,20 +22,6 @@ sinkData.push({
   url: `${sinkData[0].url}Stream`,
   urlWithoutParams: `${sinkData[0].urlWithoutParams}Stream`
 });
-
-function formatResponse({ filename, headers }, input) {
-  const json = JSON.stringify(
-    {
-      filename,
-      headers,
-      input
-    },
-    null,
-    2
-  );
-
-  return `<pre>${json}</pre>`;
-}
 
 function uploadFile(fileStream) {
   const name = fileStream.hapi.filename;
@@ -78,9 +69,8 @@ exports.register = function unsafeFileUpload(server, options) {
       },
       handler: async (request, h) => {
         const { key } = sinkData[0];
-        const file = Hoek.reach(request, `${key}.file`) || {};
         const input = Hoek.reach(request, `${key}.input`) || '';
-        return formatResponse(file, input);
+        return formatResponse(input);
       }
     },
     // stream uploads
@@ -102,11 +92,9 @@ exports.register = function unsafeFileUpload(server, options) {
 
         if (fileStream.hapi.filename) {
           await uploadFile(fileStream);
-          return formatResponse(fileStream.hapi, input);
         }
 
-        // no file upload just returning text field
-        return formatResponse(fileStream.hapi, input);
+        return formatResponse(input);
       }
     }
   ]);

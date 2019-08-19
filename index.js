@@ -35,19 +35,16 @@ app.use((ctx, next) => {
 app.use(bodyParser());
 
 require('./routes/index')({ router });
-require('./routes/cmdInjection')({ router });
+
+// dynamically register routes from shared config
+navRoutes.forEach(({ base }) => {
+  require(`./routes/${base.substring(1)}`)({ router });
+});
+
+// one offs that need to eventually be removed
 require('./routes/csp-header')({ router });
 require('./routes/header-injection')({ router });
-require('./routes/nosqlInjection')({ router });
 require('./routes/parampollution')({ router });
-require('./routes/pathTraversal')({ router });
-require('./routes/sqlInjection')({ router });
-require('./routes/ssjs')({ router });
-require('./routes/ssrf')({ router });
-require('./routes/unsafeFileUpload')({ router });
-require('./routes/unvalidatedRedirect')({ router });
-require('./routes/xss')({ router });
-require('./routes/xxe')({ router });
 
 app.use(router.routes());
 app.use(router.allowedMethods());

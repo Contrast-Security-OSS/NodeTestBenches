@@ -9,11 +9,6 @@ const uploadDir = path.resolve(__dirname, 'uploads');
 const sinkData = utils.getSinkData('unsafeFileUpload', 'hapi');
 const routeMeta = utils.getRouteMeta('unsafeFileUpload');
 
-function formatResponse(input = 'Uploaded file without form field') {
-  console.log('my input', input);
-  return `<pre>${input}</pre>`;
-}
-
 // write our own custom sink to work with the generated view.
 sinkData.push({
   ...sinkData[0],
@@ -70,7 +65,7 @@ exports.register = function unsafeFileUpload(server, options) {
       handler: async (request, h) => {
         const { key } = sinkData[0];
         const input = Hoek.reach(request, `${key}.input`) || '';
-        return formatResponse(input);
+        return input;
       }
     },
     // stream uploads
@@ -94,7 +89,7 @@ exports.register = function unsafeFileUpload(server, options) {
           await uploadFile(fileStream);
         }
 
-        return formatResponse(input);
+        return input;
       }
     }
   ]);

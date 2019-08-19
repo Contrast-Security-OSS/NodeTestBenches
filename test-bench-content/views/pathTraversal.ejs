@@ -1,11 +1,18 @@
+<style>
+  form {
+    padding-bottom: 10px;
+  }
+</style>
+
 <h1 class="page-header"><%= name %></h1>
 <% include ../partials/ruleInfo.ejs %>
-<% sinkData.forEach(function(sink) { %>
+<% groupedSinkData.query.forEach(function(sink, i) { %>
 <div class="row">
   <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
     <h4 class="sub-header">
       <code><%= sink.name %></code>
     </h4>
+    <h4 class="sub-header">Query</h4>
     <form method="<%= sink.method %>" action="<%= sink.url %>/unsafe" target="_blank">
       <div class="form-group">
         <label for="exampleInputEmail1">Path</label>
@@ -17,6 +24,11 @@
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    <h4 class="sub-header">Headers</h4>
+    <% headerSink = groupedSinkData.headers[i] %>
+    <% ['unsafe', 'safe', 'noop'].forEach(function(safety) { %>
+    <p><pre>curl http://localhost:3000<%= headerSink.url %>/<%= safety %> -H "input: ../../../../../../../../../../../../etc/passwd"</pre></p>
+    <% }); %>
   </div>
 </div>
 <% }); %>

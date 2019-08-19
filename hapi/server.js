@@ -47,10 +47,6 @@ const manifest = {
         routes: { prefix: nosqlInjection.base }
       },
       {
-        plugin: './routes/mongo-injection/',
-        routes: { prefix: '/mongoinjection' }
-      },
-      {
         plugin: './routes/pathTraversal',
         routes: { prefix: pathTraversal.base }
       },

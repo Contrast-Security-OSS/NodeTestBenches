@@ -32,7 +32,7 @@ exports.register = function(server, options) {
         path: `/${name}/query`,
         method,
         handler: async (request, h) => {
-          const input = Hoek.reach(request, `${key}.input`) || '';
+          const { input } = Hoek.reach(request, key);
           const url = `${EXAMPLE_URL}?q=${input}`;
           const data = await sink(url);
           return data;
@@ -42,7 +42,7 @@ exports.register = function(server, options) {
         path: `/${name}/path`,
         method,
         handler: async (request, h) => {
-          const input = Hoek.reach(request, `${key}.input`) || '';
+          const { input } = Hoek.reach(request, key);
           const url = `https://${input}`;
           const data = await sink(url);
           return data;

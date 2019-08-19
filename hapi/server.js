@@ -32,8 +32,15 @@ const manifest = {
       { plugin: '@hapi/inert' },
       { plugin: '@hapi/vision' },
 
+      // DB initializer
+      { plugin: './db/mongodb.js' },
+
       // route handlers
       { plugin: './routes/index.js' },
+      {
+        plugin: './routes/mongo-injection',
+        routes: { prefix: '/mongoinjection' }
+      },
       {
         plugin: './routes/cmdInjection',
         routes: { prefix: cmdInjection.base }

@@ -32,10 +32,6 @@ const manifest = {
       { plugin: '@hapi/inert' },
       { plugin: '@hapi/vision' },
 
-      // DB initializers
-      { plugin: './db/mongodb.js' },
-      { plugin: './db/mysql.js' },
-
       // route handlers
       { plugin: './routes/index.js' },
       {

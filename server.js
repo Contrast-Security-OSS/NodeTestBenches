@@ -3,21 +3,8 @@
 const glue = require('@hapi/glue');
 const path = require('path');
 const pem = require('pem');
-const {
-  routes: {
-    cmdInjection,
-    nosqlInjection,
-    pathTraversal,
-    sqlInjection,
-    ssjs,
-    ssrf,
-    unsafeFileUpload,
-    unvalidatedRedirect,
-    xss,
-    xxe
-  },
-  navRoutes
-} = require('@contrast/test-bench-utils');
+const { navRoutes } = require('@contrast/test-bench-utils');
+console.log('nav routes', navRoutes);
 
 const PORT = process.env.PORT || 3000;
 
@@ -35,27 +22,15 @@ const manifest = {
       // DB initializer
       { plugin: './db/mongodb.js' },
 
-      // route handlers
+      // one-off route handlers
       { plugin: './routes/index.js' },
       {
         plugin: './routes/mongo-injection',
         routes: { prefix: '/mongoinjection' }
       },
       {
-        plugin: './routes/cmdInjection',
-        routes: { prefix: cmdInjection.base }
-      },
-      {
         plugin: './routes/header-injection',
         routes: { prefix: '/header-injection' }
-      },
-      {
-        plugin: './routes/nosqlInjection',
-        routes: { prefix: nosqlInjection.base }
-      },
-      {
-        plugin: './routes/pathTraversal',
-        routes: { prefix: pathTraversal.base }
       },
       {
         plugin: './routes/session/http-only.js',
@@ -64,38 +39,18 @@ const manifest = {
       {
         plugin: './routes/session/secure-flag-missing.js',
         routes: { prefix: '/session/secureflagmissing' }
-      },
-      {
-        plugin: './routes/sqlInjection/',
-        routes: { prefix: sqlInjection.base }
-      },
-      {
-        plugin: './routes/ssjs',
-        routes: { prefix: ssjs.base }
-      },
-      {
-        plugin: './routes/ssrf',
-        routes: { prefix: ssrf.base }
-      },
-      {
-        plugin: './routes/unsafeFileUpload',
-        routes: { prefix: unsafeFileUpload.base }
-      },
-      {
-        plugin: './routes/unvalidatedRedirect',
-        routes: { prefix: unvalidatedRedirect.base }
-      },
-      {
-        plugin: './routes/xss/',
-        routes: { prefix: xss.base }
-      },
-      {
-        plugin: './routes/xxe',
-        routes: { prefix: xxe.base }
       }
     ]
   }
 };
+
+// dynamically register routes from our shared utils config
+navRoutes.forEach((route) => {
+  manifest.register.plugins.push({
+    plugin: `./routes/${route.base.substring(1)}`,
+    routes: { prefix: route.base }
+  });
+});
 
 const options = {
   relativeTo: __dirname

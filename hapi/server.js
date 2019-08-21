@@ -3,6 +3,7 @@
 const glue = require('@hapi/glue');
 const path = require('path');
 const pem = require('pem');
+const { navRoutes } = require('@contrast/test-bench-utils');
 
 const PORT = process.env.PORT || 3000;
 
@@ -17,59 +18,18 @@ const manifest = {
       { plugin: '@hapi/inert' },
       { plugin: '@hapi/vision' },
 
-      // DB initializers
+      // DB initializer
       { plugin: './db/mongodb.js' },
-      { plugin: './db/mysql.js' },
 
-      // route handlers
+      // one-off route handlers
       { plugin: './routes/index.js' },
       {
-        plugin: './routes/ssrf',
-        routes: { prefix: '/ssrf' }
-      },
-      {
-        plugin: './routes/mongo-injection/',
+        plugin: './routes/mongo-injection',
         routes: { prefix: '/mongoinjection' }
-      },
-      {
-        plugin: './routes/reflected-xss/',
-        routes: { prefix: '/reflectedxss' }
-      },
-      {
-        plugin: './routes/reflected-xss/object-sources/',
-        routes: { prefix: '/reflectedxss/objects' }
-      },
-      {
-        plugin: './routes/cmd-injection',
-        routes: { prefix: '/cmd-injection' }
-      },
-      {
-        plugin: './routes/ssjs-injection',
-        routes: { prefix: '/ssjs-injection' }
-      },
-      {
-        plugin: './routes/sql-injection/',
-        routes: { prefix: '/sqlinjection' }
-      },
-      {
-        plugin: './routes/unsafe-eval',
-        routes: { prefix: '/unsafe_eval' }
       },
       {
         plugin: './routes/header-injection',
         routes: { prefix: '/header-injection' }
-      },
-      {
-        plugin: './routes/unvalidated-redirect',
-        routes: { prefix: '/unvalidated-redirect' }
-      },
-      {
-        plugin: './routes/path-traversal',
-        routes: { prefix: '/path-traversal' }
-      },
-      {
-        plugin: './routes/unsafe-file-upload',
-        routes: {prefix: '/unsafe-file-upload'}
       },
       {
         plugin: './routes/session/http-only.js',
@@ -82,6 +42,14 @@ const manifest = {
     ]
   }
 };
+
+// dynamically register routes from our shared utils config
+navRoutes.forEach((route) => {
+  manifest.register.plugins.push({
+    plugin: `./routes/${route.base.substring(1)}`,
+    routes: { prefix: route.base }
+  });
+});
 
 const options = {
   relativeTo: __dirname
@@ -110,10 +78,18 @@ async function start() {
       allowAbsolutePaths: true,
       relativeTo: path.resolve(__dirname, 'views'),
       path: 'pages',
-      partialsPath: 'partials'
+      layout: true,
+      context: {
+        currentYear: new Date().getFullYear(),
+        navRoutes
+      }
     });
     await server.start();
-    console.log(`Server running at: ${server.info.uri}`); // eslint-disable-line
+    console.log(
+      'Server listening on %s://localhost:%d',
+      process.env.SSL === '1' ? 'https' : 'http',
+      PORT
+    );
   } catch (err) {
     console.error(err); // eslint-disable-line
     process.exit(1); // eslint-disable-line

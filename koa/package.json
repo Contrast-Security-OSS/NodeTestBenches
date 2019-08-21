@@ -24,8 +24,8 @@
   "author": "Contrast Security",
   "license": "MIT",
   "dependencies": {
-    "@contrast/test-bench-content": "^1.2.2-0",
-    "@contrast/test-bench-utils": "^1.1.4-0",
+    "@contrast/test-bench-content": "^2.0.0",
+    "@contrast/test-bench-utils": "^2.0.0",
     "hooker": "^0.2.3",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",

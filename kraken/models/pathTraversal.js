@@ -1,9 +1,9 @@
 const { utils } = require('@contrast/test-bench-utils');
 
-module.exports = function CrossSiteScriptingModel() {
-  const sinkData = utils.getSinkData('xss', 'kraken');
+module.exports = function PathTraversalModel() {
+  const sinkData = utils.getSinkData('pathTraversal', 'kraken');
   const groupedSinkData = utils.groupSinkData(sinkData);
-  const routeMeta = utils.getRouteMeta('xss');
+  const routeMeta = utils.getRouteMeta('pathTraversal');
 
   return {
     ...routeMeta,

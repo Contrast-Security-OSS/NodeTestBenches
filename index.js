@@ -8,6 +8,7 @@ const render = require('koa-ejs');
 const serve = require('koa-static');
 const mount = require('koa-mount');
 const bodyParser = require('koa-bodyparser');
+const cookieParser = require('koa-cookie');
 const { navRoutes } = require('@contrast/test-bench-utils');
 
 const PORT = process.env.PORT || 3000;
@@ -33,6 +34,7 @@ app.use((ctx, next) => {
 });
 
 app.use(bodyParser());
+app.use(cookieParser.default());
 
 require('./routes/index')({ router });
 

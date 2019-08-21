@@ -1,15 +1,16 @@
 'use strict';
 
-const {
-  sinks: { ssrf }
-} = require('@contrast/test-bench-utils');
+const Hoek = require('@hapi/hoek');
 
-const EXAMPLE_URL = 'www.example.com';
+const { utils } = require('@contrast/test-bench-utils');
+
+const EXAMPLE_URL = 'http://www.example.com';
 
 exports.name = 'hapitestbench.ssrf';
+exports.register = function(server, options) {
+  const sinkData = utils.getSinkData('ssrf', 'hapi');
+  const routeMeta = utils.getRouteMeta('ssrf');
 
-exports.register = function ssrf(server, options) {
-  // base index HTML page
   server.route({
     method: 'GET',
     path: '/',
@@ -17,78 +18,36 @@ exports.register = function ssrf(server, options) {
       view: {
         template: 'ssrf',
         context: {
-          requestUrl: EXAMPLE_URL
+          ...routeMeta,
+          requestUrl: EXAMPLE_URL,
+          sinkData
         }
       }
     }
   });
 
-  // programatically generate the vulnerability routes for each lib
-  const libs = ['axios', 'bent', 'fetch', 'request', 'superagent'];
-
-  libs.forEach((lib) => {
+  sinkData.forEach(({ name, method, sink, key }) => {
     server.route([
       {
-        path: `/${lib}/unsafe`,
-        method: 'GET',
+        path: `/${name}/query`,
+        method,
         handler: async (request, h) => {
-          const url = createUnsafeUrl(request.query.input);
-          const data = await makeRequest(lib, url);
-
+          const { input } = Hoek.reach(request, key);
+          const url = `${EXAMPLE_URL}?q=${input}`;
+          const data = await sink(url);
           return data;
         }
       },
       {
-        path: `/${lib}/unsafe`,
-        method: 'POST',
+        path: `/${name}/path`,
+        method,
         handler: async (request, h) => {
-          const url = createUnsafeUrl(request.body.input);
-          const data = await makeRequest(lib, url);
-
-          return data;
-        }
-      },
-      {
-        path: `/${lib}/safe`,
-        method: 'GET',
-        handler: async (request, h) => {
-          const url = createSafeUrl(request.query.input);
-          const data = await makeRequest(lib, url);
-
-          return data;
-        }
-      },
-      {
-        path: `/${lib}/safe`,
-        method: 'POST',
-        handler: async (request, h) => {
-          const url = createSafeUrl(request.body.input);
-          const data = await makeRequest(lib, url);
-
+          const { input } = Hoek.reach(request, key);
+          const url = `https://${input}`;
+          const data = await sink(url);
           return data;
         }
       }
     ]);
   });
-};
-
-const createUnsafeUrl = (input, ssl) =>
-  `${ssl ? 'https' : 'http'}://${EXAMPLE_URL}?q=${input}`;
-
-const createSafeUrl = (input, ssl) =>
-  `${ssl ? 'https' : 'http'}://${EXAMPLE_URL}?q=${encodeURIComponent(input)}`;
-
-const makeRequest = async function makeRequest(lib, url) {
-  switch (lib) {
-    case 'axios':
-      return ssrf.makeAxiosRequest(url);
-    case 'bent':
-      return ssrf.makeBentRequest(url);
-    case 'fetch':
-      return ssrf.makeFetchRequest(url);
-    case 'request':
-      return ssrf.makeRequestRequest(url);
-    case 'superagent':
-      return ssrf.makeSuperagentRequest(url);
-  }
 };

@@ -1,57 +1,19 @@
-<div class="container-fluid">
-	<div class="row">
-		<div title="navbar" class="col-sm-3 col-md-2 sidebar">
+<div id="navbar" class="col-sm-3 col-md-2 sidebar">
+  <% include ../../node_modules/@contrast/test-bench-content/partials/nav.ejs %>
 
-			<label>reflected-xss</label>
-			<ul class="nav nav-sidebar">
-				<li><a href="/reflectedxss">reflected-xss</a></li>
-			</ul>
+  <label>Other Rules</label>
+	<ul class="nav nav-sidebar">
+    <li><a href="/mongoinjection">mongo-injection</a></li>
+  </ul>
+  <!-- <label>Sessions</label> -->
+	<ul class="nav nav-sidebar">
+    <li><a href="/session/httponly">httponly</a></li>
+    <li><a href="/session/secureflagmissing">secure-flag-missing</a></li>
+  </ul>
 
-			<label>nosql-injection</label>
-			<ul class="nav nav-sidebar">
-				<li><a href="/mongoinjection">mongo-injection</a></li>
-			</ul>
-
-			<label>sql-injection</label>
-			<ul class="nav nav-sidebar">
-				<li><a href="/sqlinjection">sql-injection</a></li>
-			</ul>
-
-			<label>ssjs-injection</label>
-			<ul class="nav nav-sidebar">
-				<li><a href="/ssjs-injection">ssjs-injection</a></li>
-			</ul>
-
-			<label>sessions</label>
-			<ul class="nav nav-sidebar">
-				<li><a href="/session/httponly">httponly</a></li>
-				<li><a href="/session/secureflagmissing">secure-flag-missing</a></li>
-			</ul>
-
-			<label>Command Injection</label>
-			<ul class="nav nav-sidebar">
-				<li><a href="/cmd-injection">cmd-injection</a></li>
-				<li><a href="/unsafe_eval">unsafe-eval</a></li>
-			</ul>
-
-			<label>Header</label>
-			<ul class="nav nav-sidebar">
-				<li><a href="/unvalidated-redirect">unvalidated-redirect</a></li>
-				<li><a href="/header-injection">header-injection</a></li>
-				<li><a href="/csp-header-insecure">csp-header-insecure</a></li>
-			</ul>
-
-			<label>File / Path</label>
-			<ul class="nav nav-sidebar">
-				<li><a href="/path-traversal">path-traversal</a></li>
-			</ul>
-
-			<label>Request Forgery</label>
-			<ul class="nav nav-sidebar">
-				<li><a href="/ssrf">Server Side Request Forgery</a></li>
-			</ul>
-
-		</div>
-		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"></div>
-	</div>
+	<!-- <label>Header</label> -->
+  <ul class="nav nav-sidebar">
+    <li><a href="/header-injection">header-injection</a></li>
+    <li><a href="/csp-header-insecure">csp-header-insecure</a></li>
+  </ul>
 </div>

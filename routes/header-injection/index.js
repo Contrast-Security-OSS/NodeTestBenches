@@ -19,6 +19,6 @@ exports.register = function headerInjection(server, options) {
         view: 'header-injection'
       }
     },
-    {method: 'GET', path: '/get', handler: handler}
+    { method: 'GET', path: '/get', handler }
   ]);
 };

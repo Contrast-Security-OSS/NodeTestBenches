@@ -3,6 +3,6 @@
 const controllerFactory = require('../utils/controllerFactory');
 
 /**
- * @vulnerability: ssjs-injection
+ * @vulnerability: cmd-injection
  */
-module.exports = controllerFactory('ssjs');
+module.exports = controllerFactory('cmdInjection');

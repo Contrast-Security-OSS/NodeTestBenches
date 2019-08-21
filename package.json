@@ -1,18 +1,17 @@
 {
   "name": "@contrast/test-bench-content",
-  "version": "1.1.4",
+  "version": "1.2.2-0",
   "description": "Shared content to use in Contrast's web framework test apps.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "postversion": "npm publish",
     "postpublish": "git push origin --all; git push origin --tags"
   },
+  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Contrast-Security-OSS/test-bench-content.git"
   },
-  "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/Contrast-Security-OSS/test-bench-content/issues"
   },

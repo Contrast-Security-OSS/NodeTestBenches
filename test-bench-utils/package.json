@@ -1,12 +1,13 @@
 {
   "name": "@contrast/test-bench-utils",
-  "version": "1.0.0",
+  "version": "1.1.4-0",
   "description": "Shared code to use in Contrast's web framework test apps.",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "test"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postversion": "npm publish",
+    "postpublish": "git push origin --all; git push origin --tags"
   },
-  "author": "",
   "license": "ISC",
   "repository": {
     "type": "git",
@@ -16,11 +17,40 @@
     "url": "https://github.com/Contrast-Security-OSS/test-bench-utils/issues"
   },
   "homepage": "https://github.com/Contrast-Security-OSS/test-bench-utils#readme",
+  "engines": {
+    "node": ">=8.3.0"
+  },
   "dependencies": {
     "axios": "^0.19.0",
     "bent": "^1.5.13",
+    "hooker": "^0.2.3",
+    "libxmljs": "^0.19.5",
+    "lodash": "^4.17.15",
+    "mongodb": "^3.3.0",
+    "mysql": "^2.17.1",
     "node-fetch": "^2.6.0",
+    "pg": "^7.12.0",
     "request": "^2.88.0",
+    "sequelize": "^5.12.3",
+    "sql-template-strings": "^2.2.2",
     "superagent": "^5.0.5"
+  },
+  "devDependencies": {
+    "@contrast/eslint-config": "^1.0.3",
+    "eslint": "^6.1.0",
+    "husky": "^3.0.2",
+    "lint-staged": "^9.2.1",
+    "prettier": "^1.18.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   }
 }

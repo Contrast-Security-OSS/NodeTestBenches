@@ -13,7 +13,8 @@ module.exports = {
   kraken: sharedMapping,
   koa: {
     ...sharedMapping,
-    body: { method: 'post', key: 'request.body' }
+    body: { method: 'post', key: 'request.body' },
+    cookies: { method: 'post', key: 'cookie' }
   },
   hapi: {
     ...sharedMapping,

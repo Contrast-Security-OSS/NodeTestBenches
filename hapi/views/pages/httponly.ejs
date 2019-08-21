@@ -1,43 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<% include ../partials/head %>
-	</head>
-	<body class="container">
+<div class="row">
+  <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+    <h4 class="sub-header">HttpOnly missing in cookie</h4>
+    <p>
+      <a href="httponly/unsafe" target="_blank">test unsafe</a>
+    </p>
+    <p>
+      <a href="httponly/safe" target="_blank">test safe</a>
+    </p>
+  </div>
+</div>
 
-		<header>
-			<% include ../partials/header %>
-			<% include ../partials/nav %>
-		</header>
-
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-sm-9 col-sm-offset-1 col-md-10 col-md-offset-1 main">
-				<main>
-
-				  <div class="row">
-					<div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
-						<h4 class="sub-header">HttpOnly missing in cookie</h4>
-						<p>
-							<a href="httponly/unsafe" target="_blank">test unsafe</a>
-						</p>
-						<p>
-							<a href="httponly/safe" target="_blank">test safe</a>
-						</p>
-					</div>
-				  </div>
-
-				<div style="min-height: 300px;">
-					&nbsp;
-				</div>
-				</main>
-
-					<footer>
-						<% include ../partials/footer %>
-					</footer>
-
-				</div>
-			</div>
-		</div>
-	</body>
-</html>
+<div style="min-height: 300px;">
+  &nbsp;
+</div>

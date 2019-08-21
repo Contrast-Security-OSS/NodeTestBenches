@@ -67,3 +67,6 @@ typings/
 
 # tern
 .tern-port
+
+# uploads dir
+routes/unsafeFileUpload/uploads/*

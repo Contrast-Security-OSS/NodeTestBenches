@@ -1,6 +1,26 @@
 'use strict';
 
 const express = require('express');
+/**
+ * This allows use to naively handle
+ * async controller requests without
+ * a catch handler that calls next
+ *
+ * Instead of:
+ * try {
+ *   const data = await asyncCall();
+ *   res.send(data.toString());
+ * } catch(err) {
+ *   next(err);
+ * }
+ *
+ * We can do:
+ *
+ * const data = await asyncCall();
+ * res.send(data.toString());
+ *
+ */
+require('express-async-errors');
 const layouts = require('express-ejs-layouts');
 const kraken = require('kraken-js');
 const { navRoutes } = require('@contrast/test-bench-utils');

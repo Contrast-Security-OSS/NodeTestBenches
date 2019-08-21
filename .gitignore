@@ -1,3 +1,7 @@
 node_modules/
 .#*
 .build/
+uploads/*
+# node-agent logs
+node-contrast-*.log
+security-*.log

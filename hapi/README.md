@@ -42,15 +42,4 @@ Add a _views/pages/ruleName.ejs_ file that includes the shared template from
 <% include ../../../node_modules/@contrast/test-bench-content/views/ruleName.ejs %>
 ```
 
-Add a handler for the rule in _index.js_:
-```js
-const { routes: { ..., ruleName } } = require('@contrast/test-bench-utils');
-...
-{
-  plugin: './routes/ruleName',
-  routes: { prefix: ruleName.base }
-},
-...
-```
-
 Now run the app and make sure everything works as expected!

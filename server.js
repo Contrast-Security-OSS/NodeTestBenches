@@ -4,7 +4,6 @@ const glue = require('@hapi/glue');
 const path = require('path');
 const pem = require('pem');
 const { navRoutes } = require('@contrast/test-bench-utils');
-console.log('nav routes', navRoutes);
 
 const PORT = process.env.PORT || 3000;
 

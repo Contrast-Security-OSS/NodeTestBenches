@@ -1,0 +1,72 @@
+<h1 class="page-header"><%= name %></h1>
+<% include ../partials/ruleInfo.ejs %>
+<div class="row">
+  <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+    <h4 class="sub-header">Query</h4>
+    <% groupedSinkData.query.forEach(function(sink) { %>
+    <% ['unsafe', 'safe', 'noop'].forEach(function(safety) { %>
+    <p>
+      <a
+        target="_blank"
+        href="<%= sink.url %>/<%= safety %>?input=<script>alert(1)%3B<%%2Fscript>"
+      >
+        <%= sink.url %>/<%= safety %>?input=&lt;script&gt;alert(1);&lt;/script&gt;
+      </a>
+    </p>
+    <% }); %>
+    <% }); %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+    <h4 class="sub-header">Params</h4>
+    <% groupedSinkData.params.forEach(function(sink) { %>
+    <% ['unsafe', 'safe', 'noop'].forEach(function(safety) { %>
+    <p>
+      <a
+        target="_blank"
+        href="<%= sink.urlWithoutParams %>/<script>alert(1)%3B<%%2Fscript>/<%= safety %>"
+      >
+        <%= sink.urlWithoutParams %>/&lt;script&gt;alert(1);&lt;/script&gt;/<%= safety %>
+      </a>
+    </p>
+    <% }); %>
+    <% }); %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+    <h4 class="sub-header">POST Body</h4>
+    <% groupedSinkData.body.forEach(function(sink) { %>
+    <form
+      method="<%= sink.method %>"
+      action="<%= sink.url %>/unsafe"
+      target="_blank"
+    >
+      <div class="form-group">
+        <label><%= sink.key %>.input</label>
+        <input
+          name="input"
+          class="form-control"
+          value="<script>alert(1)%3B<%%2Fscript>"
+        />
+      </div>
+      <% if (locals._csrf) { %>
+      <input name="_csrf" type="hidden" value="<%= _csrf %>" />
+      <% } %>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <% }); %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+    <h4 class="sub-header">POST cookies</h4>
+    <% groupedSinkData.cookies.forEach(function(sink) { %>
+    <% ['unsafe', 'safe', 'noop'].forEach(function(safety) { %>
+    <p><pre>curl http://localhost:3000<%= sink.url %>/<%= safety %> -X POST -b "input=&lt;script&gt;alert(1)%3B&lt;%%2script&gt;"</pre></p>
+    <% }); %>
+    <% }); %>
+  </div>
+</div>
+<% include ../partials/safeButtons %>

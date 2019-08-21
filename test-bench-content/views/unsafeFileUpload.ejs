@@ -1,0 +1,32 @@
+<h1 class="page-header"><%= name %></h1>
+<% include ../partials/ruleInfo.ejs %>
+<% sinkData.forEach(function(sink) { %>
+<div class="row">
+  <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+    <form
+      method="post"
+      enctype="multipart/form-data"
+      action="<%= sink.url %>"
+      target="_blank"
+    >
+      <div class="form-group">
+        <label for="testFile">
+          Upload a file
+          <% if (sink.name === 'uploadStream') { %>
+          with a stream
+          <% } %>
+        </label>
+        <input class="form-control" type="file" name="file" id="testFile" />
+      </div>
+      <div class="form-group">
+        <label for="testText">Text</label>
+        <input class="form-control" name="input" id="testText" />
+      </div>
+      <% if (locals._csrf) { %>
+      <input name="_csrf" type="hidden" value="<%= _csrf %>" />
+      <% } %>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+<% }); %>

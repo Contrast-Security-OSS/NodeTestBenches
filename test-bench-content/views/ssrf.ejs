@@ -1,26 +1,41 @@
-<h1 class="page-header">Server-Side Request Forgery</h1>
+<style type="text/css">
+ .btn.active:focus {
+   outline: none;
+ }
+ ul.selections {
+   font-family: monospace;
+   overflow: auto;
+   list-style-type: none;
+   padding: 0;
+ }
+ li[id*=-selection] {
+   margin: 2px 2px 5px;
+   float: left;
+   clear: none;
+ }
+</style>
 
+<h1 class="page-header"><%= name %></h1>
+<% include ../partials/ruleInfo.ejs %>
 <div class="row">
   <div id="ssrf" class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
-    <br>
-
     <div style="overflow:auto">
       <p>Select library to use when performing the server-side request.</p>
       <ul id="libs-list" class="selections">
         <li id="axios-selection">
-          <button type="submit" class="btn btn-default">axios</button>
+          <button type="submit" class="btn btn-warning">axios</button>
         </li>
         <li id="bent-selection">
-          <button type="submit" class="btn btn-default">bent</button>
+          <button type="submit" class="btn btn-warning">bent</button>
         </li>
         <li id="fetch-selection">
-          <button type="submit" class="btn btn-default">fetch</button>
+          <button type="submit" class="btn btn-warning">fetch</button>
         </li>
         <li id="request-selection">
-          <button type="submit" class="btn btn-default">request</button>
+          <button type="submit" class="btn btn-warning">request</button>
         </li>
         <li id="superagent-selection">
-          <button type="submit" class="btn btn-default">superagent</button>
+          <button type="submit" class="btn btn-warning">superagent</button>
         </li>
       </ul>
     </div>
@@ -29,10 +44,10 @@
       <p>Select part of url to contain tracked data.</p>
       <ul id="url-list" class="selections">
         <li id="path-selection">
-          <button type="submit" class="btn btn-default">path</button>
+          <button type="submit" class="btn btn-warning">path</button>
         </li>
         <li id="query-selection">
-          <button type="submit" class="btn btn-default">query</button>
+          <button type="submit" class="btn btn-warning">query</button>
         </li>
       </ul>
     </div>
@@ -47,7 +62,7 @@
         <br>
         <input name="input" class="form-control">
         <br>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
   </div>
@@ -55,7 +70,6 @@
 
 <script type="text/javascript">
  $(() => {
-   debugger;
    const state = {
      action: '/ssrf/{lib}/{url}',
      requestUrl: '<%= requestUrl %>',
@@ -118,20 +132,3 @@
    }
  });
 </script>
-
-<style type="text/css">
- .btn.active:focus {
-   outline: none;
- }
- ul.selections {
-   font-family: monospace;
-   overflow: auto;
-   list-style-type: none;
-   padding: 0;
- }
- li[id*=-selection] {
-   margin: 2px 2px 5px;
-   float: left;
-   clear: none;
- }
-</style>

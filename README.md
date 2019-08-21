@@ -45,10 +45,4 @@ template from `@contrast/test-bench-content`:
 <% include ../node_modules/@contrast/test-bench-content/views/ruleName.ejs %>
 ```
 
-Add a handler for the rule in _index.js_:
-```js
-const { routes: { ..., ruleName } } = require('@contrast/test-bench-utils');
-require('./routes/ruleName')({ router });
-```
-
 Now run the app and make sure everything works as expected!

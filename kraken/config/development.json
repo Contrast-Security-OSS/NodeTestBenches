@@ -31,7 +31,6 @@
 
 
     "middleware": {
-
         "devtools": {
             "enabled": true,
             "priority": 35,

@@ -9,23 +9,7 @@
       "name": "ejs",
       "module": "ejs",
       "renderer": "renderFile"
-    },
-    "dust": {
-      "module": "makara",
-      "renderer": {
-        "method": "dust",
-        "arguments": [
-          {
-            "cache": false,
-            "helpers": "config:dust.helpers",
-            "whitespace": true
-          }
-        ]
-      }
     }
-  },
-  "dust": {
-    "helpers": ["dust-makara-helpers"]
   },
   "middleware": {
     "appsec": {
@@ -44,19 +28,6 @@
             "p3p": false,
             "csp": false,
             "xframe": "SAMEORIGIN"
-          }
-        ]
-      }
-    },
-    "makara": {
-      "priority": 100,
-      "enabled": true,
-      "module": {
-        "name": "makara",
-        "arguments": [
-          {
-            "i18n": "config:i18n",
-            "specialization": "config:specialization"
           }
         ]
       }

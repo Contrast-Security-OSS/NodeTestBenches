@@ -1,61 +1,51 @@
 {
-
-    "express": {
-        "view cache": false,
-        "view engine": "ejs",
-        "views": "path:./public/templates"
+  "express": {
+    "view cache": false,
+    "view engine": "ejs",
+    "views": "path:./public/templates"
+  },
+  "view engines": {
+    "ejs": {
+      "name": "ejs",
+      "module": "ejs",
+      "renderer": "renderFile"
     },
-
-
-    "view engines": {
-      "ejs": {
-        "name": "ejs",
-        "module": "ejs",
-        "renderer": "renderFile"
-      },
-        "dust": {
-            "module": "makara",
-            "renderer": {
-                "method": "dust",
-                "arguments": [
-                    {
-                        "cache": false,
-                        "helpers": "config:dust.helpers",
-                        "whitespace": true
-                    }
-                ]
-            }
-        }
-    },
-
-
-
-    "middleware": {
-
-        "devtools": {
-            "enabled": true,
-            "priority": 35,
-            "module": {
-                "name": "construx",
-                "arguments": [
-                    "path:./public",
-                    "path:./.build",
-                    {
-
-                        "template": {
-                            "module": "construx-dustjs",
-                            "files": "/templates/**/*.js",
-                            "base": "templates"
-                        },
-
-
-                        "copier": {
-                            "module": "construx-copier",
-                            "files": "**/*"
-                        }
-                    }
-                ]
-            }
-        }
+    "dust": {
+      "module": "makara",
+      "renderer": {
+        "method": "dust",
+        "arguments": [
+          {
+            "cache": false,
+            "helpers": "config:dust.helpers",
+            "whitespace": true
+          }
+        ]
+      }
     }
+  },
+  "middleware": {
+    "devtools": {
+      "enabled": true,
+      "priority": 35,
+      "module": {
+        "name": "construx",
+        "arguments": [
+          "path:./public",
+          "path:./.build",
+          {
+            "template": {
+              "module": "construx-dustjs",
+              "files": "/templates/**/*.js",
+              "base": "templates"
+            },
+            "copier": {
+              "module": "construx-copier",
+              "files": "**/*"
+            }
+          }
+        ]
+      }
+    }
+  }
 }

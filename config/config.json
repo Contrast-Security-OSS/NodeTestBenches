@@ -1,31 +1,32 @@
 {
   "express": {
     "view cache": false,
-    "view engine": "js",
-    "views": "path:./.build/templates"
+    "view engine": "ejs",
+    "views": "path:./public/templates"
   },
   "view engines": {
-    "html": {
+    "ejs": {
       "name": "ejs",
       "module": "ejs",
       "renderer": "renderFile"
     },
-    "js": {
+    "dust": {
       "module": "makara",
       "renderer": {
-        "method": "js",
-        "arguments": [{ "cache": true, "helpers": "config:dust.helpers" }]
+        "method": "dust",
+        "arguments": [
+          {
+            "cache": false,
+            "helpers": "config:dust.helpers",
+            "whitespace": true
+          }
+        ]
       }
     }
   },
   "dust": {
     "helpers": ["dust-makara-helpers"]
   },
-  "i18n": {
-    "contentPath": "path:./locales",
-    "fallback": "en-US"
-  },
-  "specialization": {},
   "middleware": {
     "appsec": {
       "module": {
@@ -58,11 +59,6 @@
             "specialization": "config:specialization"
           }
         ]
-      }
-    },
-    "static": {
-      "module": {
-        "arguments": ["path:./.build"]
       }
     },
     "router": {

@@ -40,7 +40,6 @@ const options = {
 };
 
 const app = (module.exports = express());
-app.set('view engine', 'ejs');
 app.locals.navRoutes = navRoutes;
 app.locals.currentYear = new Date().getFullYear();
 app.use(layouts);

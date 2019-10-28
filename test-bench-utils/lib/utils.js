@@ -106,5 +106,5 @@ module.exports.getRouteMeta = function getRouteMeta(rule) {
  * @param {string} params.key key on request to get input from
  */
 module.exports.getInput = function getInput({ model, req, key }) {
-  return model.input || get(req, key);
+  return model.input || get(req, key).input;
 };

@@ -1,6 +1,8 @@
 'use strict';
 
-const { get } = require('lodash');
+const {
+  utils: { getInput }
+} = require('@contrast/test-bench-utils');
 
 /**
  * Custom response functions allow you to change the functionality or return
@@ -17,17 +19,6 @@ const { get } = require('lodash');
  * @type {ResponseFn}
  */
 const defaultRespond = (result, req, res, next) => res.send(result);
-
-/**
- * Gets the proper input from either req or from model
- * @param {Object} params
- * @param {Object} params.model Kraken model
- * @param {Object} params.req IncomingMessage
- * @param {string} params.key key on request to get input from
- */
-function getInput({ model, req, key }) {
-  return model.input || get(req, key).input;
-}
 
 /**
  * Configures a route to handle sinks configured by our shared test-bench-utils

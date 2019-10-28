@@ -19,6 +19,17 @@ const { get } = require('lodash');
 const defaultRespond = (result, req, res, next) => res.send(result);
 
 /**
+ * Gets the proper input from either req or from model
+ * @param {Object} params
+ * @param {Object} params.model Kraken model
+ * @param {Object} params.req IncomingMessage
+ * @param {string} params.key key on request to get input from
+ */
+function getInput({ model, req, key }) {
+  return model.input || get(req, key);
+}
+
+/**
  * Configures a route to handle sinks configured by our shared test-bench-utils
  * module.
  *
@@ -43,19 +54,20 @@ module.exports = function controllerFactory(
 
     model.sinkData.forEach(({ method, uri, sink, key }) => {
       router[method](`${uri}/safe`, async (req, res, next) => {
-        const { input } = get(req, key);
+        const input = getInput({ model, req, key });
         const result = await sink(input, { safe: true });
         respond(result, req, res, next);
       });
 
       router[method](`${uri}/unsafe`, async (req, res, next) => {
-        const { input } = get(req, key);
+        const input = getInput({ model, req, key });
+        console.log('my input', input);
         const result = await sink(input);
         respond(result, req, res, next);
       });
 
       router[method](`${uri}/noop`, async (req, res, next) => {
-        const { input } = get(req, key);
+        const input = getInput({ model, req, key });
         const result = await sink(input, { noop: true });
         respond(result, req, res, next);
       });

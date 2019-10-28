@@ -7,6 +7,6 @@ module.exports = function XmlExternalEntityModel() {
   return {
     ...routeMeta,
     sinkData,
-    attackXml: content.xxe.attackXml
+    input: content.xxe.attackXml
   };
 };

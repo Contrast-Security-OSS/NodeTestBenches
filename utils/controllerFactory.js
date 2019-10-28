@@ -59,7 +59,7 @@ module.exports = function controllerFactory(
       });
 
       router[method](`${url}/noop`, async (ctx, next) => {
-        const input = utils.getInput({ model, req: ctx, key });
+        const input = 'NOOP';
         const result = await sink(input, { noop: true });
         respond(result, ctx, next);
       });

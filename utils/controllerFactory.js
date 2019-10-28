@@ -29,7 +29,7 @@ const defaultRespond = (result, ctx, next) => {
  */
 module.exports = function controllerFactory(
   vulnerability,
-  { model = {}, respond = defaultRespond } = {}
+  { locals = {}, respond = defaultRespond } = {}
 ) {
   const sinkData = utils.getSinkData(vulnerability, 'koa');
   const groupedSinkData = utils.groupSinkData(sinkData);
@@ -41,19 +41,19 @@ module.exports = function controllerFactory(
         ...routeMeta,
         sinkData,
         groupedSinkData,
-        ...model
+        ...locals
       })
     );
 
     sinkData.forEach(({ method, url, sink, key }) => {
       router[method](`${url}/safe`, async (ctx, next) => {
-        const input = utils.getInput({ model, req: ctx, key });
+        const input = utils.getInput({ model: locals, req: ctx, key });
         const result = await sink(input, { safe: true });
         respond(result, ctx, next);
       });
 
       router[method](`${url}/unsafe`, async (ctx, next) => {
-        const input = utils.getInput({ model, req: ctx, key });
+        const input = utils.getInput({ model: locals, req: ctx, key });
         const result = await sink(input);
         respond(result, ctx, next);
       });

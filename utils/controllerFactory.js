@@ -1,7 +1,4 @@
 'use strict';
-
-const Hoek = require('@hapi/hoek');
-
 const { utils } = require('@contrast/test-bench-utils');
 
 /**
@@ -55,7 +52,7 @@ module.exports = function controllerFactory(
           path: `${uri}/safe`,
           method: [method],
           handler: async (request, h) => {
-            const input = Hoek.reach(request, `${key}.input`) || '';
+            const input = utils.getInput({ model: locals, req: request, key });
             const result = await sink(input, { safe: true });
             return respond(result, request, h);
           }
@@ -64,7 +61,7 @@ module.exports = function controllerFactory(
           path: `${uri}/unsafe`,
           method: [method],
           handler: async (request, h) => {
-            const input = Hoek.reach(request, `${key}.input`) || '';
+            const input = utils.getInput({ model: locals, req: request, key });
             const result = await sink(input);
             return respond(result, request, h);
           }
@@ -73,7 +70,7 @@ module.exports = function controllerFactory(
           path: `${uri}/noop`,
           method: [method],
           handler: async (request, h) => {
-            const input = Hoek.reach(request, `${key}.input`) || '';
+            const input = 'NOOP';
             const result = await sink(input, { noop: true });
             return respond(result, request, h);
           }

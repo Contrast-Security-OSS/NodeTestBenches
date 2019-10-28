@@ -1,7 +1,4 @@
 'use strict';
-
-const { get } = require('lodash');
-
 const { routes, utils } = require('@contrast/test-bench-utils');
 
 /**
@@ -32,7 +29,7 @@ const defaultRespond = (result, ctx, next) => {
  */
 module.exports = function controllerFactory(
   vulnerability,
-  { locals = {}, respond = defaultRespond } = {}
+  { model = {}, respond = defaultRespond } = {}
 ) {
   const sinkData = utils.getSinkData(vulnerability, 'koa');
   const groupedSinkData = utils.groupSinkData(sinkData);
@@ -44,25 +41,25 @@ module.exports = function controllerFactory(
         ...routeMeta,
         sinkData,
         groupedSinkData,
-        ...locals
+        ...model
       })
     );
 
     sinkData.forEach(({ method, url, sink, key }) => {
       router[method](`${url}/safe`, async (ctx, next) => {
-        const { input } = get(ctx, key);
+        const input = utils.getInput({ model, req: ctx, key });
         const result = await sink(input, { safe: true });
         respond(result, ctx, next);
       });
 
       router[method](`${url}/unsafe`, async (ctx, next) => {
-        const { input } = get(ctx, key);
+        const input = utils.getInput({ model, req: ctx, key });
         const result = await sink(input);
         respond(result, ctx, next);
       });
 
       router[method](`${url}/noop`, async (ctx, next) => {
-        const { input } = get(ctx, key);
+        const input = utils.getInput({ model, req: ctx, key });
         const result = await sink(input, { noop: true });
         respond(result, ctx, next);
       });

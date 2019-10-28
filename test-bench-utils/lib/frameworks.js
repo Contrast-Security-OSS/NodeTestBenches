@@ -5,7 +5,8 @@ const sharedMapping = {
   params: { method: 'get', key: 'params', param: ':input' },
   headers: { method: 'get', key: 'headers' },
   body: { method: 'post', key: 'body' },
-  cookies: { method: 'post', key: 'cookies' }
+  cookies: { method: 'post', key: 'cookies' },
+  input: { method: 'get' }
 };
 
 module.exports = {

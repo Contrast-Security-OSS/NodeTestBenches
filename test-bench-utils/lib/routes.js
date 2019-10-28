@@ -85,7 +85,7 @@ module.exports = {
     link:
       'https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Processing',
     products: ['Protect'],
-    inputs: ['body'],
+    inputs: ['input'],
     sinks: sinks.xxe
   }
 };

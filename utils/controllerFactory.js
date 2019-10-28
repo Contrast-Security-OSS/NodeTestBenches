@@ -26,7 +26,7 @@ const defaultRespond = (result, req, res, next) => res.send(result);
  * @param {string} params.key key on request to get input from
  */
 function getInput({ model, req, key }) {
-  return model.input || get(req, key);
+  return model.input || get(req, key).input;
 }
 
 /**

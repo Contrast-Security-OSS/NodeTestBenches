@@ -1,5 +1,5 @@
 'use strict';
-const { camelCase, groupBy, map, reduce } = require('lodash');
+const { camelCase, groupBy, map, reduce, get } = require('lodash');
 
 const frameworks = require('./frameworks');
 const routes = require('./routes');
@@ -96,4 +96,15 @@ module.exports.groupSinkData = function groupSinkData(sinkData) {
  */
 module.exports.getRouteMeta = function getRouteMeta(rule) {
   return routes[rule];
+};
+
+/**
+ * Gets the proper input from either req or from model
+ * @param {Object} params
+ * @param {Object} params.model Kraken model
+ * @param {Object} params.req IncomingMessage
+ * @param {string} params.key key on request to get input from
+ */
+module.exports.getInput = function getInput({ model, req, key }) {
+  return model.input || get(req, key);
 };

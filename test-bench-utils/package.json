@@ -1,6 +1,6 @@
 {
   "name": "@contrast/test-bench-utils",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Shared code to use in Contrast's web framework test apps.",
   "main": "lib/index.js",
   "scripts": {
@@ -31,7 +31,7 @@
     "node-fetch": "^2.6.0",
     "pg": "^7.12.0",
     "request": "^2.88.0",
-    "sequelize": "^5.12.3",
+    "sequelize": "^5.21.1",
     "sql-template-strings": "^2.2.2",
     "superagent": "^5.0.5"
   },

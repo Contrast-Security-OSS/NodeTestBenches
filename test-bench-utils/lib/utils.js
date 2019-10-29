@@ -101,10 +101,10 @@ module.exports.getRouteMeta = function getRouteMeta(rule) {
 /**
  * Gets the proper input from either req or from model
  * @param {Object} params
- * @param {Object} params.model Kraken model
+ * @param {Object} params.locals local model object
  * @param {Object} params.req IncomingMessage
  * @param {string} params.key key on request to get input from
  */
-module.exports.getInput = function getInput({ model, req, key }) {
-  return model.input || get(req, key).input;
+module.exports.getInput = function getInput({ locals, req, key }) {
+  return locals.input || get(req, key).input;
 };

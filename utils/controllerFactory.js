@@ -1,6 +1,8 @@
 'use strict';
 
-const { get } = require('lodash');
+const {
+  utils: { getInput }
+} = require('@contrast/test-bench-utils');
 
 /**
  * Custom response functions allow you to change the functionality or return
@@ -43,19 +45,19 @@ module.exports = function controllerFactory(
 
     model.sinkData.forEach(({ method, uri, sink, key }) => {
       router[method](`${uri}/safe`, async (req, res, next) => {
-        const { input } = get(req, key);
+        const input = getInput({ locals: model, req, key });
         const result = await sink(input, { safe: true });
         respond(result, req, res, next);
       });
 
       router[method](`${uri}/unsafe`, async (req, res, next) => {
-        const { input } = get(req, key);
+        const input = getInput({ locals: model, req, key });
         const result = await sink(input);
         respond(result, req, res, next);
       });
 
       router[method](`${uri}/noop`, async (req, res, next) => {
-        const { input } = get(req, key);
+        const input = 'NOOP';
         const result = await sink(input, { noop: true });
         respond(result, req, res, next);
       });

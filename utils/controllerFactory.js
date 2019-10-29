@@ -52,7 +52,7 @@ module.exports = function controllerFactory(
           path: `${uri}/safe`,
           method: [method],
           handler: async (request, h) => {
-            const input = utils.getInput({ model: locals, req: request, key });
+            const input = utils.getInput({ locals, req: request, key });
             const result = await sink(input, { safe: true });
             return respond(result, request, h);
           }
@@ -61,7 +61,7 @@ module.exports = function controllerFactory(
           path: `${uri}/unsafe`,
           method: [method],
           handler: async (request, h) => {
-            const input = utils.getInput({ model: locals, req: request, key });
+            const input = utils.getInput({ locals, req: request, key });
             const result = await sink(input);
             return respond(result, request, h);
           }

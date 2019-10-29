@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@contrast/test-bench-content": "^2.1.0",
-    "@contrast/test-bench-utils": "^2.2.1",
+    "@contrast/test-bench-utils": "^2.2.2",
     "construx": "^1.0.0",
     "construx-copier": "^1.0.0",
     "construx-dustjs": "^1.1.0",

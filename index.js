@@ -11,7 +11,7 @@ const bodyParser = require('koa-bodyparser');
 const cookieParser = require('koa-cookie');
 const { navRoutes } = require('@contrast/test-bench-utils');
 
-const PORT = process.env.PORT || 3000;
+const { PORT = 3000, HOST = 'localhost' } = process.env;
 
 // setup static file serving
 app.use(mount('/assets', serve('./public')));
@@ -51,7 +51,8 @@ require('./routes/parampollution')({ router });
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-app.listen(PORT, () => {
+app.listen(PORT, HOST, function listener() {
+  const { address, port } = this.address();
   // eslint-disable-next-line no-console
-  console.log('Server listening on http://localhost:%d', PORT);
+  console.log('Server listening on http://%s:%d', address, port);
 });

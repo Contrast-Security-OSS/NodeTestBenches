@@ -5,12 +5,14 @@ const path = require('path');
 const pem = require('pem');
 const { navRoutes } = require('@contrast/test-bench-utils');
 
-const PORT = process.env.PORT || 3000;
+const { PORT = 3000, HOST = 'localhost', SSL } = process.env;
+const isHttps = SSL === 1;
 
 const manifest = {
   server: {
     debug: { request: ['error', 'uncaught'] },
-    port: PORT
+    port: PORT,
+    host: HOST
   },
   register: {
     plugins: [
@@ -55,7 +57,7 @@ const options = {
   relativeTo: __dirname
 };
 
-if (process.env.SSL === '1') {
+if (isHttps) {
   pem.createCertificate({ days: 1, selfSigned: true }, (err, keys) => {
     manifest.connections[0].tls = {
       key: keys.serviceKey,
@@ -86,8 +88,9 @@ async function start() {
     });
     await server.start();
     console.log(
-      'Server listening on %s://localhost:%d',
-      process.env.SSL === '1' ? 'https' : 'http',
+      'Server listening on %s://%s:%d',
+      isHttps ? 'https' : 'http',
+      HOST,
       PORT
     );
   } catch (err) {

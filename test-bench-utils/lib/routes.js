@@ -6,7 +6,7 @@ module.exports = {
     name: 'Command Injection',
     link: 'https://www.owasp.org/index.php/Command_Injection',
     products: ['Assess', 'Protect'],
-    inputs: ['query'],
+    inputs: ['query', 'cookies'],
     sinks: sinks.cmdInjection
   },
   nosqlInjection: {
@@ -76,7 +76,7 @@ module.exports = {
     link:
       'https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)#Stored_and_Reflected_XSS_Attacks',
     products: ['Assess', 'Protect'],
-    inputs: ['query', 'params', 'body', 'cookies'],
+    inputs: ['query', 'params', 'body'],
     sinks: sinks.xss
   },
   xxe: {

@@ -3,12 +3,15 @@
 const app = require('./index');
 const http = require('http');
 
+const { PORT = 3000, HOST = 'localhost' } = process.env;
+
 /*
  * Create and start HTTP server.
  */
 
 const server = http.createServer(app);
-server.listen(process.env.PORT || 3000);
-server.on('listening', function() {
-  console.log('Server listening on http://localhost:%d', this.address().port);
+server.listen(PORT, HOST);
+server.on('listening', function listener() {
+  const { address, port } = this.address();
+  console.log('Server listening on http://%s:%d', address, port);
 });

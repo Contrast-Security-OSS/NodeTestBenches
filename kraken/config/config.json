@@ -20,7 +20,7 @@
             "csrf": {
               "blacklist": [
                 "/xss/body",
-                "/xss/cookies",
+                "/cmdInjection/cookies",
                 "/unsafeFileUpload/body"
               ]
             },

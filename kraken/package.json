@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "description": "Intentionally Vulnerable Node Application",
   "author": "Contrast Security",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "build": "grunt build",
+    "start": "node server",
     "dev": "nodemon -e js,ejs,json server.js",
     "fix": "eslint . --fix"
   },

@@ -20,7 +20,7 @@ module.exports['libxmljs.parseXmlString'] = async function parseXmlString(
   return pre(result);
 };
 
-module.exports['libxmljs.parseXml'] = async function parseXml(
+module.exports['libxmljs2.parseXml'] = async function parseXml(
   input,
   { safe = false, noop = false } = {}
 ) {

@@ -58,6 +58,6 @@ Once you have configured the shared sink and view, consult the following
 instructions for including the shared functionality in each test bench app:
 - [ExpressTestBench](https://github.com/Contrast-Security-OSS/NodeTestBench#adding-a-shared-vulnerability)
 - [HapiTestBench](https://github.com/Contrast-Security-OSS/HapiTestBench#adding-a-shared-vulnerability)
-- [Hapi16TestBench]((https://github.com/Contrast-Security-OSS/Hapi16TestBench)
+- [Hapi16TestBench](https://github.com/Contrast-Security-OSS/Hapi16TestBench)
 - [KoaTestBench](https://github.com/Contrast-Security-OSS/KoaTestBench#adding-a-shared-vulnerability)
 - [KrakenTestBench](https://github.com/Contrast-Security-OSS/KrakenTestBench#adding-a-shared-vulnerability)

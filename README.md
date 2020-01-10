@@ -1,6 +1,19 @@
 # @contrast/test-bench-utils
 Shared code for use in Contrast's Node.js test apps.
 
+## NOTE:
+When working on this module, require hooks will not run against the correct
+module if it is `npm link`ed. In order for the module and application to share
+modules correctly it is recommended to install the application from a local path
+while developing, e.g.
+```json
+{
+  "dependencies": {
+    "@contrast/test-bench-utils": "../test-bench-utils"
+  }
+}
+```
+
 ## Adding a shared sink to multiple apps
 Under _lib/routes.js_, create a sink definition with the following form:
 ```js
@@ -14,7 +27,8 @@ Under _lib/routes.js_, create a sink definition with the following form:
   }
 ```
 
-Then create a file under _lib/sinks/_ that exports functions with a consistent signature:
+Then create a file under _lib/sinks/_ that exports functions with a consistent
+signature:
 ```js
   /**
    * @param {string} input user input string
@@ -31,8 +45,8 @@ user input, and for the `/safe` and `/noop` endpoints it is called with the
 
 ### Front-end content
 If there is any custom data you want to provide to the test bench front end, you
-can export it from _lib/content/_. For example, we export the following XML string
-as a potential attack for the xxe rule:
+can export it from _lib/content/_. For example, we export the following XML
+string as a potential attack for the xxe rule:
 
 _lib/content/xxe.js_
 ```js

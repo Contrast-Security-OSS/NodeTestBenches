@@ -23,6 +23,7 @@
   "dependencies": {
     "axios": "^0.19.0",
     "bent": "^1.5.13",
+    "escape-html": "^1.0.3",
     "hooker": "^0.2.3",
     "libxmljs": "^0.19.7",
     "libxmljs2": "^0.22.0",

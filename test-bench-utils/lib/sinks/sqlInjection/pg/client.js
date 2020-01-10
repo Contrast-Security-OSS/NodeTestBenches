@@ -16,7 +16,6 @@ hooker.hook(client, 'query', {
     // return a new promise that just resolves
     return hooker.override(
       new Promise((resolve, reject) => {
-        debugger;
         // escape it so it isn't reported as an XSS
         resolve(escape(JSON.stringify(config)));
       })

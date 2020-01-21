@@ -1,6 +1,6 @@
 {
   "name": "@contrast/test-bench-utils",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "description": "Shared code to use in Contrast's web framework test apps.",
   "main": "lib/index.js",
   "scripts": {

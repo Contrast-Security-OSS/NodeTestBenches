@@ -31,6 +31,7 @@
     "mongodb": "^3.3.0",
     "mysql": "^2.17.1",
     "node-fetch": "^2.6.0",
+    "node-serialize": "0.0.4",
     "pg": "^7.12.0",
     "request": "^2.88.0",
     "sequelize": "^5.21.1",

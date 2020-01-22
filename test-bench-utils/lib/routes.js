@@ -93,7 +93,7 @@ module.exports = {
     name: 'Untrusted Deserialization',
     link:
       'https://owasp.org/www-community/vulnerabilities/Deserialization_of_untrusted_data',
-    products: [],
+    products: ['Protect'],
     inputs: ['input'],
     sinks: sinks.untrustedDeserialization
   }

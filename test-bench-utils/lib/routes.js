@@ -94,7 +94,7 @@ module.exports = {
     link:
       'https://owasp.org/www-community/vulnerabilities/Deserialization_of_untrusted_data',
     products: ['Protect'],
-    inputs: ['input'],
+    inputs: ['query'],
     sinks: sinks.untrustedDeserialization
   }
 };

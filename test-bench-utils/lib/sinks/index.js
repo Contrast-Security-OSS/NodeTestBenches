@@ -10,5 +10,6 @@ module.exports = {
   unsafeFileUpload: require('./unsafeFileUpload'),
   unvalidatedRedirect: require('./unvalidatedRedirect'),
   xss: require('./xss'),
-  xxe: require('./xxe')
+  xxe: require('./xxe'),
+  untrustedDeserialization: require('./untrustedDeserialization')
 };

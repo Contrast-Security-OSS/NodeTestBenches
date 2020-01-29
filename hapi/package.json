@@ -33,8 +33,8 @@
     "node": ">=8.3.0"
   },
   "dependencies": {
-    "@contrast/test-bench-content": "^2.2.0",
-    "@contrast/test-bench-utils": "^2.5.0",
+    "@contrast/test-bench-content": "^2.4.0",
+    "@contrast/test-bench-utils": "^2.7.0",
     "@hapi/glue": "*",
     "@hapi/hapi": "*",
     "@hapi/hoek": "*",

@@ -2,11 +2,12 @@
   "name": "loopback3testbench",
   "version": "0.0.1",
   "description": "Intentionally Vulnerable Node Application",
+  "main": "server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "contrast": "DEBUG=contrast:* node-contrast index.js",
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "contrast": "DEBUG=contrast:* node-contrast server/server.js",
+    "start": "node server/server.js",
+    "dev": "nodemon server/server.js",
     "fix": "eslint . --fix"
   },
   "husky": {
@@ -27,7 +28,15 @@
   },
   "dependencies": {
     "@contrast/test-bench-content": "^2.4.0",
-    "@contrast/test-bench-utils": "^2.7.0"
+    "@contrast/test-bench-utils": "^2.7.0",
+    "compression": "^1.0.3",
+    "cors": "^2.5.2",
+    "helmet": "^3.10.0",
+    "loopback-boot": "^2.6.5",
+    "serve-favicon": "^2.0.1",
+    "strong-error-handler": "^3.0.0",
+    "loopback-component-explorer": "^6.2.0",
+    "loopback": "^3.22.0"
   },
   "devDependencies": {
     "@contrast/eslint-config": "^1.0.3",

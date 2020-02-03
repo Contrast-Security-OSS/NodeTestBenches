@@ -1,0 +1,41 @@
+{
+  "name": "loopback3testbench",
+  "version": "0.0.1",
+  "description": "Intentionally Vulnerable Node Application",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "contrast": "DEBUG=contrast:* node-contrast index.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "fix": "eslint . --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.3.0"
+  },
+  "dependencies": {
+    "@contrast/test-bench-content": "^2.4.0",
+    "@contrast/test-bench-utils": "^2.7.0"
+  },
+  "devDependencies": {
+    "@contrast/eslint-config": "^1.0.3",
+    "eslint": "^5.16.0",
+    "husky": "^2.4.1",
+    "lint-staged": "^8.2.1",
+    "loopback-cli": "^5.0.3",
+    "nodemon": "^1.18.9",
+    "prettier": "^1.18.2"
+  }
+}

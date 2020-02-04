@@ -2,4 +2,4 @@
 
 const controllerFactory = require('../utils/controllerFactory');
 
-module.exports = controllerFactory('cmdInjection');
+module.exports = controllerFactory('sqlInjection');

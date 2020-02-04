@@ -26,46 +26,47 @@ const defaultRespond = (result, req, res, next) => res.send(result);
  * @param {Object} opts
  * @param {Object} opts.locals additional locals to provide to EJS
  * @param {ResponseFn} opts.respond if provided, a custom return or response
- * @param {loopback} opts.server loopback server being configured
- * @return {loopback.Router} a configured router
  */
 module.exports = function controllerFactory(
   vulnerability,
-  { locals = {}, respond = defaultRespond, server } = {}
+  { locals = {}, respond = defaultRespond } = {}
 ) {
-  const router = server.loopback.Router();
   const sinkData = utils.getSinkData(vulnerability, 'loopback');
   const groupedSinkData = utils.groupSinkData(sinkData);
   const routeMeta = utils.getRouteMeta(vulnerability);
 
-  router.get('/', function(req, res, next) {
-    res.render(`pages/${vulnerability}`, {
-      ...routeMeta,
-      groupedSinkData,
-      sinkData,
-      ...locals
-    });
-  });
+  return function(server) {
+    const router = server.loopback.Router();
 
-  sinkData.forEach(({ method, uri, sink, key }) => {
-    router[method](`${uri}/safe`, async (req, res, next) => {
-      const input = utils.getInput({ locals, req, key });
-      const result = await sink(input, { safe: true });
-      respond(result, req, res, next);
+    router.get('/', function(req, res, next) {
+      res.render(`pages/${vulnerability}`, {
+        ...routeMeta,
+        groupedSinkData,
+        sinkData,
+        ...locals
+      });
     });
 
-    router[method](`${uri}/unsafe`, async (req, res, next) => {
-      const input = utils.getInput({ locals, req, key });
-      const result = await sink(input);
-      respond(result, req, res, next);
+    sinkData.forEach(({ method, uri, sink, key }) => {
+      router[method](`${uri}/safe`, async (req, res, next) => {
+        const input = utils.getInput({ locals, req, key });
+        const result = await sink(input, { safe: true });
+        respond(result, req, res, next);
+      });
+
+      router[method](`${uri}/unsafe`, async (req, res, next) => {
+        const input = utils.getInput({ locals, req, key });
+        const result = await sink(input);
+        respond(result, req, res, next);
+      });
+
+      router[method](`${uri}/noop`, async (req, res, next) => {
+        const input = 'noop';
+        const result = await sink(input, { noop: true });
+        respond(result, req, res, next);
+      });
     });
 
-    router[method](`${uri}/noop`, async (req, res, next) => {
-      const input = 'noop';
-      const result = await sink(input, { noop: true });
-      respond(result, req, res, next);
-    });
-  });
-
-  return router;
+    server.use(`/${vulnerability}`, router);
+  };
 };

@@ -30,6 +30,25 @@ and
 [`@contrast/test-bench-content`](https://github.com/Contrast-Security-OSS/test-bench-content),
 you are ready to add an endpoint in the test bench application.
 
-### TODO
+Create a _server/boot/ruleName.js_ file and call the `controllerFactory` method:
+```js
+'use strict';
+
+const controllerFactory = require('../utils/controllerFactory');
+
+module.exports = function(server) {
+  const controller = controllerFactory('ruleName', { server });
+  server.use('/ruleName', controller);
+};
+```
+
+Check the documentation for `controllerFactory` under _server/utils/controllerFactory.js_
+usage information.
+
+Add a _server/views/pages/ruleName.ejs_ file that includes the shared
+template from `@contrast/test-bench-content`:
+```html
+<% include ../../../node_modules/@contrast/test-bench-content/views/ruleName.ejs %>
+```
 
 Now run the app and make sure everything works as expected!

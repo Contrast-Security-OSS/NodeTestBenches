@@ -75,3 +75,4 @@ instructions for including the shared functionality in each test bench app:
 - [Hapi16TestBench](https://github.com/Contrast-Security-OSS/Hapi16TestBench)
 - [KoaTestBench](https://github.com/Contrast-Security-OSS/KoaTestBench#adding-a-shared-vulnerability)
 - [KrakenTestBench](https://github.com/Contrast-Security-OSS/KrakenTestBench#adding-a-shared-vulnerability)
+- [LoopbackTestBench](https://github.com/Contrast-Security-OSS/LoopbackTestBench#adding-a-shared-vulnerability)

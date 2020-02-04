@@ -27,8 +27,8 @@
     "node": ">=8.3.0"
   },
   "dependencies": {
-    "@contrast/test-bench-content": "^2.4.0",
-    "@contrast/test-bench-utils": "^2.7.0",
+    "@contrast/test-bench-content": "^2.4.1",
+    "@contrast/test-bench-utils": "github:Contrast-Security-OSS/test-bench-utils#NODE-588/loopback-support",
     "compression": "^1.0.3",
     "cors": "^2.5.2",
     "express-ejs-layouts": "^2.5.0",

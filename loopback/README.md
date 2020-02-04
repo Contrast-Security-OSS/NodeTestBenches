@@ -36,10 +36,7 @@ Create a _server/boot/ruleName.js_ file and call the `controllerFactory` method:
 
 const controllerFactory = require('../utils/controllerFactory');
 
-module.exports = function(server) {
-  const controller = controllerFactory('ruleName', { server });
-  server.use('/ruleName', controller);
-};
+module.exports = controllerFactory('ruleName');
 ```
 
 Check the documentation for `controllerFactory` under _server/utils/controllerFactory.js_

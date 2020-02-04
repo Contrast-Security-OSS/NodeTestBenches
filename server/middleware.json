@@ -30,7 +30,14 @@
   },
   "session": {},
   "auth": {},
-  "parse": {},
+  "parse": {
+    "body-parser#json": {},
+    "body-parser#urlencoded": {
+      "params": {
+        "extended": true
+      }
+    }
+  },
   "routes": {
     "loopback#rest": {
       "paths": [

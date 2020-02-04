@@ -73,7 +73,7 @@ module.exports = {
     base: '/unvalidatedRedirect',
     name: 'Unvalidated Redirect',
     link:
-      'https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_For  wards_Cheat_Sheet.html',
+      'https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html',
     products: ['Assess'],
     inputs: ['query'],
     // This rule is specific for each framework

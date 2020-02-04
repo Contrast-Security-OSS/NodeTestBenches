@@ -60,6 +60,15 @@ module.exports = {
     // This rule is specific for each framework, no sinks will be abstracted
     sinks: sinks.unsafeFileUpload
   },
+  untrustedDeserialization: {
+    base: '/untrustedDeserialization',
+    name: 'Untrusted Deserialization',
+    link:
+      'https://owasp.org/www-community/vulnerabilities/Deserialization_of_untrusted_data',
+    products: ['Protect'],
+    inputs: ['query'],
+    sinks: sinks.untrustedDeserialization
+  },
   unvalidatedRedirect: {
     base: '/unvalidatedRedirect',
     name: 'Unvalidated Redirect',
@@ -87,15 +96,6 @@ module.exports = {
     products: ['Protect'],
     inputs: ['input'],
     sinks: sinks.xxe
-  },
-  untrustedDeserialization: {
-    base: '/untrustedDeserialization',
-    name: 'Untrusted Deserialization',
-    link:
-      'https://owasp.org/www-community/vulnerabilities/Deserialization_of_untrusted_data',
-    products: ['Protect'],
-    inputs: ['query'],
-    sinks: sinks.untrustedDeserialization
   },
   xpathInjection: {
     base: '/xpathInjection',

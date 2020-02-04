@@ -6,8 +6,11 @@
 'use strict';
 
 module.exports = function(server) {
-  // Install a `/` route that returns server status
   const router = server.loopback.Router();
-  router.get('/', server.loopback.status());
+
+  router.get('/', (req, res) => {
+    res.render('pages/index');
+  });
+
   server.use(router);
 };

@@ -38,7 +38,12 @@
       ]
     }
   },
-  "files": {},
+  "files": {
+    "loopback#static": {
+      "paths": ["/assets"],
+      "params": "$!../client"
+    }
+  },
   "final": {
     "loopback#urlNotFound": {}
   },

@@ -1,3 +1,6 @@
 {
-  "extends": "@contrast"
+  "extends": "@contrast",
+  "rules": {
+    "no-console": "off"
+  }
 }

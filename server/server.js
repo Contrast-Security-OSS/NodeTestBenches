@@ -5,10 +5,20 @@
 
 'use strict';
 
+const layouts = require('express-ejs-layouts');
 const loopback = require('loopback');
 const boot = require('loopback-boot');
+const path = require('path');
+const { navRoutes } = require('@contrast/test-bench-utils');
 
-const app = module.exports = loopback();
+const app = (module.exports = loopback());
+
+app.set('view engine', 'ejs');
+app.set('views', path.resolve(__dirname, 'views'));
+app.use(layouts);
+
+app.locals.currentYear = new Date().getFullYear();
+app.locals.navRoutes = navRoutes;
 
 app.start = function() {
   // start the web server
@@ -29,6 +39,5 @@ boot(app, __dirname, function(err) {
   if (err) throw err;
 
   // start the server if `$ node server.js`
-  if (require.main === module)
-    app.start();
+  if (require.main === module) app.start();
 });

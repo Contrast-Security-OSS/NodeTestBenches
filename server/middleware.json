@@ -36,6 +36,9 @@
       "params": {
         "extended": true
       }
+    },
+    "cookie-parser": {
+      "params": "keyboard cat"
     }
   },
   "routes": {

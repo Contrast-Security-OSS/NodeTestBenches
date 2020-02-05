@@ -29,7 +29,9 @@
   "dependencies": {
     "@contrast/test-bench-content": "^2.4.1",
     "@contrast/test-bench-utils": "github:Contrast-Security-OSS/test-bench-utils#NODE-588/loopback-support",
+    "body-parser": "^1.19.0",
     "compression": "^1.0.3",
+    "cookie-parser": "^1.4.4",
     "cors": "^2.5.2",
     "express-ejs-layouts": "^2.5.0",
     "helmet": "^3.10.0",

@@ -1,6 +1,6 @@
 {
   "name": "@contrast/test-bench-utils",
-  "version": "2.7.0",
+  "version": "2.8.0",
   "description": "Shared code to use in Contrast's web framework test apps.",
   "main": "lib/index.js",
   "scripts": {
@@ -36,7 +36,9 @@
     "request": "^2.88.0",
     "sequelize": "^5.21.1",
     "sql-template-strings": "^2.2.2",
-    "superagent": "^5.0.5"
+    "superagent": "^5.0.5",
+    "xmldom": "^0.2.1",
+    "xpath": "0.0.27"
   },
   "devDependencies": {
     "@contrast/eslint-config": "^1.0.3",

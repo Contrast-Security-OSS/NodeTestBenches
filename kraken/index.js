@@ -44,6 +44,9 @@ app.locals.navRoutes = navRoutes;
 app.locals.currentYear = new Date().getFullYear();
 app.use(layouts);
 app.use(kraken(options));
+app.use('/foo', (req, res) => {
+  res.send('hi!');
+});
 app.on('start', function() {
   console.log('Application ready to serve requests.');
   console.log('Environment: %s', app.kraken.get('env:env'));

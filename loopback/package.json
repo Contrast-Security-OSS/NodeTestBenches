@@ -27,7 +27,7 @@
     "node": ">=8.3.0"
   },
   "dependencies": {
-    "@contrast/test-bench-content": "^2.4.1",
+    "@contrast/test-bench-content": "^2.5.0",
     "@contrast/test-bench-utils": "github:Contrast-Security-OSS/test-bench-utils#NODE-588/loopback-support",
     "body-parser": "^1.19.0",
     "compression": "^1.0.3",

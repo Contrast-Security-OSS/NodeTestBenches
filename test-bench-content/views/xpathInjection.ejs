@@ -1,0 +1,32 @@
+<style type="text/css">
+ #xml {
+   font-family: monospace;
+   height: 22em;
+   resize: none;
+   width: 100%;
+ }
+</style>
+<h1 class="page-header"><%= name %></h1>
+<% include ../partials/ruleInfo.ejs %>
+<p>
+  The following XML snippet is being used in backend handler. Use the
+  input field below to try to return more than 1 user.
+</p>
+<% sinkData.forEach(function(sink) { %>
+<div class="row">
+  <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+    <h4 class="sub-header">
+      <code><%= sink.name %></code>
+    </h4>
+    <textarea name="input" class="form-control" id="xml"><%= xml %></textarea>
+    <form method="<%= sink.method %>" action="<%= sink.url %>/unsafe" target="_blank">
+      <div class="form-group">
+        <label>Username Search</label>
+        <input name="input" class="form-control" value="' or '1' = '1" />
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+<% }); %>
+<% include ../partials/safeButtons %>

@@ -79,6 +79,14 @@ module.exports = {
     // This rule is specific for each framework
     sinks: sinks.unvalidatedRedirect
   },
+  xpathInjection: {
+    base: '/xpathInjection',
+    name: 'XPath Injection',
+    link: 'https://owasp.org/www-community/attacks/XPATH_Injection',
+    products: ['Assess'],
+    inputs: ['query'],
+    sinks: sinks.xpathInjection
+  },
   xss: {
     base: '/xss',
     name: 'Reflected XSS',
@@ -96,13 +104,5 @@ module.exports = {
     products: ['Protect'],
     inputs: ['input'],
     sinks: sinks.xxe
-  },
-  xpathInjection: {
-    base: '/xpathInjection',
-    name: 'XPath Injection',
-    link: 'https://owasp.org/www-community/attacks/XPATH_Injection',
-    products: ['Assess'],
-    inputs: ['query'],
-    sinks: sinks.xpathInjection
   }
 };

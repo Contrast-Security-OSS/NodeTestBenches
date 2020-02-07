@@ -13,7 +13,9 @@
     },
     "helmet#xssFilter": {},
     "helmet#frameguard": {
-      "params": { "action": "deny" }
+      "params": {
+        "action": "deny"
+      }
     },
     "helmet#hsts": {
       "params": {
@@ -50,7 +52,9 @@
   },
   "files": {
     "loopback#static": {
-      "paths": ["/assets"],
+      "paths": [
+        "/assets"
+      ],
       "params": "$!../client"
     }
   },

@@ -1,7 +1,7 @@
 'use strict';
 
 const { MongoClient } = require('mongodb');
-const mock = require('mongodb-mock-server');
+//const mock = require('mongodb-mock-server');
 // const server = mock.createServer();
 const url = process.env.MONGODB_URI || 'mongodb://localhost:27017/';
 
@@ -22,8 +22,11 @@ Db.prototype.eval = async function overloadedEval(code, params, opts) {
 
 const origRename = Collection.prototype.rename;
 Collection.prototype.rename = async function overloadedRename(name, options, callback) {
+  this.s.topology.s = { promiseLibrary: this.s.promiseLibrary };
+  this.s.topology.command = function() { return false; };
+  this.s.topology.hasSessionSupport = function() { return false; }
   try {
-    origCreateCollection.call(this, name, options, callback);
+    origRename.call(this, name, options, callback);
   } catch (err) {
     console.log(err);
   }
@@ -76,7 +79,6 @@ module.exports['mongodb.Collection.prototype.rename'] = async function rename(
   input,
   { safe = false, noop = false } = {}
 ) {
-  debugger;
   const newName = safe ? 'newName' : input;
   // const result = await collection.rename(newName);
   if (noop) return 'NOOP';

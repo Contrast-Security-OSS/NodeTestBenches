@@ -3,6 +3,7 @@
 const hooker = require('hooker');
 const mysql = require('mysql');
 const { SQL } = require('sql-template-strings');
+const escape = require('escape-html');
 
 // Prevent the query method from requiring a real database connection.
 hooker.hook(require('mysql/lib/Connection').prototype, 'query', {
@@ -34,7 +35,7 @@ module.exports = async function mysqlQuery(
   return new Promise((resolve, reject) => {
     conn.query(sql, (err, result) => {
       if (err) return reject(err);
-      return resolve(result);
+      return resolve(escape(JSON.stringify(result)));
     });
   });
 };

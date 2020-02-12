@@ -21,13 +21,11 @@ module.exports = function(server) {
   sinkData.forEach(({ method, uri, sink, key }) => {
     router[method](uri, async (req, res, next) => {
       try {
-        const input = get(req, [key, 'input']);
-        const result = await sink(input);
-
         const container = await model.createContainer({ name: uuid() });
-        const uploadResult = await model.upload(container.name, req, res);
+        const uploadResult = await model.upload(container.name, req, res, {});
+        const result = get(uploadResult, 'fields.input[0]');
 
-        res.send({ result, uploadResult });
+        res.send(result);
       } catch (err) {
         next(err);
       }

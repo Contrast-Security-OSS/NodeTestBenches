@@ -58,7 +58,9 @@
       "params": "$!../client"
     }
   },
-  "final": {},
+  "final": {
+    "loopback#urlNotFound": {}
+  },
   "final:after": {
     "strong-error-handler": {}
   }

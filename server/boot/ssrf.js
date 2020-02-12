@@ -21,18 +21,26 @@ module.exports = function(server) {
   });
 
   sinkData.forEach(({ method, sink, name, key }) => {
-    router[method](`/${name}/query`, async (req, res) => {
-      const { input } = get(req, key);
-      const url = `${EXAMPLE_URL}?q=${input}`;
-      const result = await sink(url);
-      res.send(result);
+    router[method](`/${name}/query`, async (req, res, next) => {
+      try {
+        const { input } = get(req, key);
+        const url = `${EXAMPLE_URL}?q=${input}`;
+        const result = await sink(url);
+        res.send(result);
+      } catch (err) {
+        next(err);
+      }
     });
 
-    router[method](`/${name}/path`, async (req, res) => {
-      const { input } = get(req, key);
-      const url = `http://${input}`;
-      const result = await sink(url);
-      res.send(result);
+    router[method](`/${name}/path`, async (req, res, next) => {
+      try {
+        const { input } = get(req, key);
+        const url = `http://${input}`;
+        const result = await sink(url);
+        res.send(result);
+      } catch (err) {
+        next(err);
+      }
     });
   });
 

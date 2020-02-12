@@ -49,21 +49,33 @@ module.exports = function controllerFactory(
 
     sinkData.forEach(({ method, uri, sink, key }) => {
       router[method](`${uri}/safe`, async (req, res, next) => {
-        const input = utils.getInput({ locals, req, key });
-        const result = await sink(input, { safe: true });
-        respond(result, req, res, next);
+        try {
+          const input = utils.getInput({ locals, req, key });
+          const result = await sink(input, { safe: true });
+          respond(result, req, res, next);
+        } catch (err) {
+          next(err);
+        }
       });
 
       router[method](`${uri}/unsafe`, async (req, res, next) => {
-        const input = utils.getInput({ locals, req, key });
-        const result = await sink(input);
-        respond(result, req, res, next);
+        try {
+          const input = utils.getInput({ locals, req, key });
+          const result = await sink(input);
+          respond(result, req, res, next);
+        } catch (err) {
+          next(err);
+        }
       });
 
       router[method](`${uri}/noop`, async (req, res, next) => {
-        const input = 'noop';
-        const result = await sink(input, { noop: true });
-        respond(result, req, res, next);
+        try {
+          const input = 'noop';
+          const result = await sink(input, { noop: true });
+          respond(result, req, res, next);
+        } catch (err) {
+          next(err);
+        }
       });
     });
 

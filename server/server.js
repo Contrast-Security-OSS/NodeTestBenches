@@ -5,7 +5,6 @@
 
 'use strict';
 
-require('express-async-errors');
 const layouts = require('express-ejs-layouts');
 const loopback = require('loopback');
 const boot = require('loopback-boot');

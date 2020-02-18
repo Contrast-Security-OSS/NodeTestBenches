@@ -17,12 +17,8 @@ Db.prototype.eval = async function overloadedEval(code, params, opts) {
   this.s.topology.isDestroyed = function() {
     return false;
   };
-  // run the original eval asynchronously, ignoring any errors it will throw since we aren't connected.
-  try {
-    origEval.call(this, code, params, opts);
-  } catch (err) {
-    // throw it away
-  }
+
+  origEval.call(this, code, params, opts);
   return { code };
 };
 
@@ -50,12 +46,8 @@ Collection.prototype.rename = async function overloadedRename(
   this.s.topology.hasSessionSupport = function() {
     return false;
   };
-  // run the original rename asynchronously, ignoring any errors it will throw since we aren't connected.
-  try {
-    origRename.call(this, name, options, callback);
-  } catch (err) {
-    // throw it away
-  }
+
+  origRename.call(this, name, options, callback);
   return { name };
 };
 

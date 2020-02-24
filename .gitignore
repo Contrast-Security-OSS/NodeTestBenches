@@ -70,3 +70,5 @@ typings/
 
 # uploads dir
 routes/unsafeFileUpload/uploads/*
+
+.vscode/

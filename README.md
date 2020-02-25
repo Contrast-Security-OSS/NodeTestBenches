@@ -42,7 +42,25 @@ usage information.
 Add a _view/ruleName.js_ file that includes the shared
 template from `@contrast/test-bench-content`:
 ```html
-<% include ../node_modules/@contrast/test-bench-content/views/ruleName.ejs %>
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ./partials/head %>
+  </head>
+  <body>
+    <% include ./partials/header %>
+    <div class="container-fluid">
+      <div class="row">
+        <% include ./partials/nav %>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <% include ../node_modules/@contrast/test-bench-content/views/ruleName.ejs %>
+          <% include ./partials/footer %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
 ```
 
 Now run the app and make sure everything works as expected!

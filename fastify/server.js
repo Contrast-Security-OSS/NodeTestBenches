@@ -25,16 +25,17 @@ fastify.register(require('fastify-static'), {
 fastify.register(require('./routes/index'), context);
 
 // register routes for each vulnerability
-navRoutes.forEach(({ base }) => {
-   //fastify.register(`./routes/${base.substring(1)}`, context);
-});
+// navRoutes.forEach(({ base }) => {
+//    fastify.register(`./routes/${base.substring(1)}`, context);
+// });
+fastify.register(require(`./routes/cmdInjection`), context);
 
 const start = async () => {
   try {
     await fastify.listen(3000);
     fastify.log.info(`server listening on ${fastify.server.address().port}`);
   } catch (err) {
-    fastify.log.error(err);
+    console.log(err);
   }
 };
 

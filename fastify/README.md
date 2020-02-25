@@ -39,7 +39,7 @@ module.exports = controllerFactory('ruleName');
 Check the documentation for `controllerFactory` under _utils/controllerFactory.js_
 usage information.
 
-Add a _view/ruleName.js_ file that includes the shared
+Add a _view/ruleName.ejs_ file that includes the shared
 template from `@contrast/test-bench-content`:
 ```html
 <!DOCTYPE html>

@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "contrast": "DEBUG=contrast:* node-contrast server.js"
+    "contrast": "DEBUG=contrast:* node-contrast server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,9 +21,12 @@
   "dependencies": {
     "@contrast/test-bench-content": "^2.5.0",
     "@contrast/test-bench-utils": "^2.10.1",
-    "fastify": "^2.12.0"
+    "ejs": "^3.0.1",
+    "fastify": "^2.12.0",
+    "fastify-static": "^2.6.0",
+    "point-of-view": "^3.7.1"
   },
   "devDependencies": {
-    "@contrast/eslint-config": "^1.0.3",
+    "@contrast/eslint-config": "^1.0.3"
   }
 }

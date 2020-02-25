@@ -21,7 +21,7 @@
   "dependencies": {
     "@contrast/test-bench-content": "^2.5.0",
     "@contrast/test-bench-utils": "^2.10.1",
-    "ejs": "^3.0.1",
+    "ejs": "2.6.1",
     "fastify": "^2.12.0",
     "fastify-static": "^2.6.0",
     "point-of-view": "^3.7.1"

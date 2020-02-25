@@ -23,6 +23,7 @@
     "@contrast/test-bench-utils": "^2.10.1",
     "ejs": "2.6.1",
     "fastify": "^2.12.0",
+    "fastify-multipart": "^1.0.5",
     "fastify-static": "^2.6.0",
     "point-of-view": "^3.7.1"
   },

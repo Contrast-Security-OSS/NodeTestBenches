@@ -13,6 +13,8 @@ fastify.register(require('point-of-view'), {
   includeViewExtension: true // dont want to write .ejs every time
 });
 
+fastify.register(require('fastify-multipart'));
+
 // shared route information
 const context = { navRoutes, currentYear: new Date().getFullYear() };
 
@@ -25,10 +27,9 @@ fastify.register(require('fastify-static'), {
 fastify.register(require('./routes/index'), context);
 
 // register routes for each vulnerability
-// navRoutes.forEach(({ base }) => {
-//    fastify.register(`./routes/${base.substring(1)}`, context);
-// });
-fastify.register(require(`./routes/cmdInjection`), context);
+navRoutes.forEach(({ base }) => {
+  fastify.register(require(`./routes/${base.substring(1)}`), context);
+});
 
 const start = async () => {
   try {

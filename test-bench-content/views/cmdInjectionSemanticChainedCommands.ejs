@@ -1,0 +1,19 @@
+<h1 class="page-header"><%= name %></h1>
+<% include ../partials/ruleInfo.ejs %>
+<div class="row">
+  <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+    <% groupedSinkData.query.forEach(function(sink) { %>
+    <% ['unsafe', 'safe', 'noop'].forEach(function(safety) { %>
+    <p>
+      <a
+        target="_blank"
+        href="<%= sink.url %>/<%= safety %>"
+      >
+        <%= sink.url %>/<%= safety %>
+      </a>
+    </p>
+    <% }); %>
+    <% }); %>
+  </div>
+</div>
+

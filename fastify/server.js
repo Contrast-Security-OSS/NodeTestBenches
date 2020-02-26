@@ -28,8 +28,13 @@ fastify.register(require('./routes/index'), context);
 
 // register routes for each vulnerability
 navRoutes.forEach(({ base }) => {
-  fastify.register(require(`./routes/${base.substring(1)}`), context);
+    fastify.register(require(`./routes/${base.substring(1)}`), context);
 });
+
+// one off routes that are not members of navroutes
+fastify.register(require('./routes/parampollution'), context);
+fastify.register(require('./routes/header-injection'), context);
+fastify.register(require('./routes/csp-header'), context);
 
 const start = async () => {
   try {

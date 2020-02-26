@@ -9,6 +9,14 @@ module.exports = {
     inputs: ['query', 'cookies'],
     sinks: sinks.cmdInjection
   },
+  cmdInjectionSemanticChainedCommands: {
+    base: '/cmdInjectionSemanticChainedCommands',
+    name: 'Command Injection Semantic Chained Commands',
+    link: 'https://www.owasp.org/index.php/Command_Injection',
+    products: ['Protect'],
+    inputs: ['query'],
+    sinks: sinks.cmdInjectionSemanticChainedCommands
+  },
   nosqlInjection: {
     base: '/nosqlInjection',
     name: 'NoSQL Injection',

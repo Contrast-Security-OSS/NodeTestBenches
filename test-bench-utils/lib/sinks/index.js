@@ -4,6 +4,7 @@ module.exports = {
   nosqlInjection: require('./nosqlInjection'),
   sqlInjection: require('./sqlInjection'),
   cmdInjection: require('./cmdInjection'),
+  cmdInjectionSemanticChainedCommands: require('./cmdInjectionSemanticChainedCommands'),
   pathTraversal: require('./pathTraversal'),
   ssjs: require('./ssjs'),
   ssrf: require('./ssrf'),

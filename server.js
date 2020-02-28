@@ -1,6 +1,7 @@
 const fastify = require('fastify')({ logger: true });
 const path = require('path');
 const { navRoutes } = require('@contrast/test-bench-utils');
+const { PORT = 3000, HOST = 'localhost' } = process.env;
 
 // setup ejs renderer
 // god damn point-of-view doesnt support layouts like every other
@@ -38,7 +39,7 @@ fastify.register(require('./routes/csp-header'), context);
 
 const start = async () => {
   try {
-    await fastify.listen(3000);
+    await fastify.listen(PORT, HOST);
     fastify.log.info(`server listening on ${fastify.server.address().port}`);
   } catch (err) {
     console.log(err);

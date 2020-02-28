@@ -19,8 +19,8 @@
   },
   "homepage": "https://github.com/Contrast-Security-OSS/FastifyTestBench#readme",
   "dependencies": {
-    "@contrast/test-bench-content": "^2.5.0",
-    "@contrast/test-bench-utils": "^2.10.1",
+    "@contrast/test-bench-content": "^2.6.0",
+    "@contrast/test-bench-utils": "^2.12.0",
     "ejs": "2.6.1",
     "fastify": "^2.12.0",
     "fastify-multipart": "^1.0.5",

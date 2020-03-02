@@ -17,6 +17,14 @@ module.exports = {
     inputs: ['query'],
     sinks: sinks.cmdInjectionSemanticChainedCommands
   },
+  cmdInjectionSemanticDangerousPaths: {
+    base: '/cmdInjectionSemanticDangerousPaths',
+    name: 'Command Injection Semantic Dangerous Paths',
+    link: 'https://www.owasp.org/index.php/Command_Injection',
+    products: ['Protect'],
+    inputs: ['query'],
+    sinks: sinks.cmdInjectionSemanticDangerousPaths
+  },
   nosqlInjection: {
     base: '/nosqlInjection',
     name: 'NoSQL Injection',

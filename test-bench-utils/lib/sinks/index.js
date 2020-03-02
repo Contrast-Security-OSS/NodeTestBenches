@@ -5,6 +5,7 @@ module.exports = {
   sqlInjection: require('./sqlInjection'),
   cmdInjection: require('./cmdInjection'),
   cmdInjectionSemanticChainedCommands: require('./cmdInjectionSemanticChainedCommands'),
+  cmdInjectionSemanticDangerousPaths: require('./cmdInjectionSemanticDangerousPaths'),
   pathTraversal: require('./pathTraversal'),
   ssjs: require('./ssjs'),
   ssrf: require('./ssrf'),

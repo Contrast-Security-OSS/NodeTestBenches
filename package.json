@@ -24,7 +24,7 @@
     "node": ">=8.11.3"
   },
   "dependencies": {
-    "@contrast/test-bench-content": "^2.5.0",
+    "@contrast/test-bench-content": "^2.6.0",
     "@contrast/test-bench-utils": "^2.10.1",
     "ejs": "^2.7.4",
     "express": "^4.12.2",

@@ -4,6 +4,7 @@
   "description": "Shared code to use in Contrast's web framework test apps.",
   "main": "lib/index.js",
   "scripts": {
+    "lint": "eslint lib/",
     "test": "echo \"Error: no test specified\" && exit 1",
     "postversion": "npm publish",
     "postpublish": "git push origin --all; git push origin --tags"
@@ -41,11 +42,15 @@
     "xpath": "0.0.27"
   },
   "devDependencies": {
-    "@contrast/eslint-config": "^1.0.3",
-    "eslint": "^6.1.0",
+    "@contrast/eslint-config": "^2.0.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-mocha": "^6.3.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "husky": "^3.0.2",
     "lint-staged": "^9.2.1",
-    "prettier": "^1.18.2"
+    "prettier": "^1.19.1"
   },
   "husky": {
     "hooks": {

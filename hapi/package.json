@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@contrast/test-bench-content": "^2.7.0",
-    "@contrast/test-bench-utils": "^2.13.0",
+    "@contrast/test-bench-utils": "github:Contrast-Security-OSS/test-bench-utils#NODE-620/stealthy-require",
     "@hapi/glue": "*",
     "@hapi/hapi": "*",
     "@hapi/hoek": "*",

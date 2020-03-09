@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@contrast/test-bench-content": "^2.7.0",
-    "@contrast/test-bench-utils": "^2.13.0",
+    "@contrast/test-bench-utils": "github:Contrast-Security-OSS/test-bench-utils#NODE-620/stealthy-require",
     "ejs": "^2.7.4",
     "express": "^4.12.2",
     "express-async-errors": "^3.1.1",

@@ -4,7 +4,7 @@
   "description": "Intentionally Vulnerable Node Application",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node server.js | pino-pretty",
     "contrast": "DEBUG=contrast:* node-contrast server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -28,6 +28,7 @@
     "point-of-view": "^3.7.1"
   },
   "devDependencies": {
-    "@contrast/eslint-config": "^1.0.3"
+    "@contrast/eslint-config": "^1.0.3",
+    "pino-pretty": "^3.6.1"
   }
 }

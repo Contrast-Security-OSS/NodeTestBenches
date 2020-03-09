@@ -40,7 +40,6 @@ fastify.register(require('./routes/csp-header'), context);
 const start = async () => {
   try {
     await fastify.listen(PORT, HOST);
-    fastify.log.info(`server listening on ${fastify.server.address().port}`);
   } catch (err) {
     console.log(err);
   }

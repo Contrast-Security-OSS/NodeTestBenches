@@ -8,7 +8,7 @@
     <p>
       <a
         target="_blank"
-        href="<%= sink.url %>/<%= safety %>?input=<script>alert(1);</script>"
+        href="<%= sink.url %>/<%= safety %>?input=%3Cscript%3Ealert(1)%3B%3C%2Fscript%3E"
       >
         <%= sink.url %>/<%= safety %>?input=&lt;script&gt;alert(1);&lt;/script&gt;
       </a>
@@ -25,7 +25,7 @@
     <p>
       <a
         target="_blank"
-        href="<%= sink.urlWithoutParams %>/<script>alert(1);</script>/<%= safety %>"
+        href="<%= sink.urlWithoutParams %>/%3Cscript%3Ealert(1)%3B%3C%2Fscript%3E/<%= safety %>"
       >
         <%= sink.urlWithoutParams %>/&lt;script&gt;alert(1);&lt;/script&gt;/<%= safety %>
       </a>

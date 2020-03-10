@@ -1,0 +1,14 @@
+{
+  "version": "3.0.0",
+  "npmClient": "npm",
+  "packages": [
+    "ExpressTestBench",
+    "FastifyTestBench",
+    "HapiTestBench",
+    "KoaTestBench",
+    "KrakenTestBench",
+    "LoopbackTestBench",
+    "test-bench-content",
+    "test-bench-utils"
+  ]
+}

@@ -8,7 +8,7 @@
     <p>
       <a
         target="_blank"
-        href="<%= sink.url %>/<%= safety %>?input=<script>alert(1)%3B<%%2Fscript>"
+        href="<%= sink.url %>/<%= safety %>?input=<script>alert(1);</script>"
       >
         <%= sink.url %>/<%= safety %>?input=&lt;script&gt;alert(1);&lt;/script&gt;
       </a>
@@ -25,7 +25,7 @@
     <p>
       <a
         target="_blank"
-        href="<%= sink.urlWithoutParams %>/<script>alert(1)%3B<%%2Fscript>/<%= safety %>"
+        href="<%= sink.urlWithoutParams %>/<script>alert(1);</script>/<%= safety %>"
       >
         <%= sink.urlWithoutParams %>/&lt;script&gt;alert(1);&lt;/script&gt;/<%= safety %>
       </a>
@@ -48,7 +48,7 @@
         <input
           name="input"
           class="form-control"
-          value="<script>alert(1)%3B<%%2Fscript>"
+          value="<script>alert(1);</script>"
         />
       </div>
       <% if (locals._csrf) { %>

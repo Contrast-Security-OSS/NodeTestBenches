@@ -1,0 +1,55 @@
+{
+  "name": "hapitestbench",
+  "version": "1.0.0",
+  "description": "screener app for hapi",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon -e js,ejs server.js",
+    "fix": "eslint . --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Contrast-Security-OSS/HapiTestBench.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Contrast-Security-OSS/HapiTestBench/issues"
+  },
+  "homepage": "https://github.com/Contrast-Security-OSS/HapiTestBench#readme",
+  "engines": {
+    "node": ">=8.3.0"
+  },
+  "dependencies": {
+    "@contrast/test-bench-content": "^2.7.1",
+    "@contrast/test-bench-utils": "^2.14.0",
+    "@hapi/glue": "*",
+    "@hapi/hapi": "*",
+    "@hapi/hoek": "*",
+    "@hapi/inert": "*",
+    "@hapi/vision": "*",
+    "ejs": "^2.5.7",
+    "mongodb": "^3.0.1",
+    "pem": "^1.14.2"
+  },
+  "devDependencies": {
+    "@contrast/eslint-config": "^1.0.3",
+    "eslint": "^6.6.0",
+    "husky": "^3.0.2",
+    "lint-staged": "^9.2.1",
+    "nodemon": "^1.19.1",
+    "prettier": "^1.18.2"
+  }
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ./partials/head %>
+  </head>
+  <body>
+    <% include ./partials/header %>
+    <div class="container-fluid">
+      <div class="row">
+        <% include ./partials/nav %>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">HTTP</h1>
+
+          <div class="row" style="min-height: 200px;">
+            <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+
+              <h4 class="sub-header">Parameter Pollution</h4>
+
+              <form method="POST">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Email address</label>
+                  <input name="email" class="form-control" id="exampleInputEmail1" placeholder="Email" value="">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+              </form>
+
+            </div>
+
+          </div>
+          <div class="row" style="min-height: 200px;">
+            <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+
+              <h4 class="sub-header">Cache Controls Missing</h4>
+
+              <form method="POST" action="/http/">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Email address</label>
+                  <input name="email" class="form-control" id="exampleInputEmail1" placeholder="Email" value="">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+              </form>
+
+            </div>
+          </div>
+
+
+          <% include ./partials/footer %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

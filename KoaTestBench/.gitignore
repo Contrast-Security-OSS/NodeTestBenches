@@ -1,0 +1,11 @@
+*~
+*#
+.#*
+node_modules/
+uploads/
+.vscode/
+# node-agent logs
+node-contrast-*.log
+security-*.log
+*.swo
+*.swp

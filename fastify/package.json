@@ -1,0 +1,34 @@
+{
+  "name": "fastifytestbench",
+  "version": "0.0.1",
+  "description": "Intentionally Vulnerable Node Application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js | pino-pretty",
+    "contrast": "DEBUG=contrast:* node-contrast server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Contrast-Security-OSS/FastifyTestBench.git"
+  },
+  "author": "Contrast Security",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Contrast-Security-OSS/FastifyTestBench/issues"
+  },
+  "homepage": "https://github.com/Contrast-Security-OSS/FastifyTestBench#readme",
+  "dependencies": {
+    "@contrast/test-bench-content": "^2.7.1",
+    "@contrast/test-bench-utils": "^2.14.0",
+    "ejs": "2.6.1",
+    "fastify": "^2.12.0",
+    "fastify-multipart": "^1.0.5",
+    "fastify-static": "^2.6.0",
+    "point-of-view": "^3.7.1"
+  },
+  "devDependencies": {
+    "@contrast/eslint-config": "^1.0.3",
+    "pino-pretty": "^3.6.1"
+  }
+}

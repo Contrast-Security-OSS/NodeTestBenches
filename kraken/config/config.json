@@ -1,0 +1,41 @@
+{
+  "express": {
+    "view cache": false,
+    "view engine": "ejs",
+    "views": "path:./public/templates"
+  },
+  "view engines": {
+    "ejs": {
+      "name": "ejs",
+      "module": "ejs",
+      "renderer": "renderFile"
+    }
+  },
+  "middleware": {
+    "appsec": {
+      "module": {
+        "name": "lusca",
+        "arguments": [
+          {
+            "csrf": {
+              "blacklist": [
+                "/xss/body",
+                "/cmdInjection/cookies",
+                "/unsafeFileUpload/body"
+              ]
+            },
+            "xssProtection": true,
+            "p3p": false,
+            "csp": false,
+            "xframe": "SAMEORIGIN"
+          }
+        ]
+      }
+    },
+    "router": {
+      "module": {
+        "arguments": [{ "directory": "path:./controllers" }]
+      }
+    }
+  }
+}

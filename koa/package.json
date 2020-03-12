@@ -1,5 +1,6 @@
 {
-  "name": "koatestbench",
+  "name": "@contrast/koa-test-bench",
+  "private": true,
   "version": "0.0.1",
   "description": "Intentionally Vulnerable Node Application",
   "main": "index.js",

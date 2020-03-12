@@ -1,5 +1,6 @@
 {
-  "name": "hapitestbench",
+  "name": "@contrast/hapi-test-bench",
+  "private": true,
   "version": "1.0.0",
   "description": "screener app for hapi",
   "main": "index.js",

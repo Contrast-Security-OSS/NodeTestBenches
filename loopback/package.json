@@ -1,5 +1,6 @@
 {
-  "name": "loopback3testbench",
+  "name": "@contrast/loopback-test-bench",
+  "private": true,
   "version": "0.0.1",
   "description": "Intentionally Vulnerable Node Application",
   "main": "server/server.js",

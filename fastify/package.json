@@ -1,5 +1,6 @@
 {
-  "name": "fastifytestbench",
+  "name": "@contrast/fastify-test-bench",
+  "private": true,
   "version": "0.0.1",
   "description": "Intentionally Vulnerable Node Application",
   "main": "server.js",

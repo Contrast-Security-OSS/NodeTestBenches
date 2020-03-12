@@ -1,5 +1,6 @@
 {
-  "name": "krakentestbench",
+  "name": "@contrast/kraken-test-bench",
+  "private": true,
   "version": "0.1.0",
   "description": "Intentionally Vulnerable Node Application",
   "author": "Contrast Security",

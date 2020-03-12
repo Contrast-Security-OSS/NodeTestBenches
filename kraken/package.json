@@ -1,0 +1,44 @@
+{
+  "name": "krakentestbench",
+  "version": "0.1.0",
+  "description": "Intentionally Vulnerable Node Application",
+  "author": "Contrast Security",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon -e js,ejs,json server.js",
+    "fix": "eslint . --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "engines": {
+    "node": ">=8.11.3"
+  },
+  "dependencies": {
+    "@contrast/test-bench-content": "^2.7.1",
+    "@contrast/test-bench-utils": "^2.14.0",
+    "ejs": "^2.7.4",
+    "express": "^4.12.2",
+    "express-async-errors": "^3.1.1",
+    "express-ejs-layouts": "^2.5.0",
+    "kraken-js": "^2.0.0",
+    "lodash": "^4.17.15"
+  },
+  "devDependencies": {
+    "@contrast/eslint-config": "^1.0.3",
+    "eslint": "^6.6.0",
+    "husky": "^3.1.0",
+    "lint-staged": "^9.4.3",
+    "nodemon": "^1.19.4",
+    "prettier": "^1.19.1"
+  }
+}

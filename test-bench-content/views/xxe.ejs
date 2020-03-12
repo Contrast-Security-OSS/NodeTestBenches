@@ -1,0 +1,33 @@
+<style type="text/css">
+ #attack-xml {
+   font-family: monospace;
+   height: 15em;
+   resize: none;
+   width: 100%;
+ }
+</style>
+
+<h1 class="page-header"><%= name %></h1>
+<% include ../partials/ruleInfo.ejs %>
+<p>
+  The following XML snippet is crafted to exploit SAX parsers that
+  are configured to allow for external entity processing. If successful,
+  the exploit will instruct the parser to read the <code>/etc/passwd</code>
+  file from the server's file system.
+</p>
+<% sinkData.forEach(function(sink) { %>
+<div class="row">
+  <div class="col-sm-10 col-sm-8" style="padding-bottom: 30px;">
+    <h4 class="sub-header">
+      <code><%= sink.name %></code>
+    </h4>
+    <!-- this rule is input less putting the attack vector here just for context -->
+    <textarea name="input" class="form-control" id="attack-xml"><%= input %></textarea>
+    <form method="<%= sink.method %>" action="<%= sink.url %>/unsafe" target="_blank">
+      <div class="form-group"></div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+<% }); %>
+<% include ../partials/safeButtons %>

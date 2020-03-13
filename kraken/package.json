@@ -1,28 +1,22 @@
 {
   "name": "@contrast/kraken-test-bench",
   "private": true,
-  "version": "0.1.0",
-  "description": "Intentionally Vulnerable Node Application",
-  "author": "Contrast Security",
+  "version": "0.0.1",
+  "description": "Intentionally vulnerable Kraken application",
+  "author": "Contrast Security <nodejs@contrastsecurity.com>",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Contrast-Security-OSS/NodeTestBenches.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Contrast-Security-OSS/NodeTestBenches/issues"
+  },
+  "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches#readme",
   "main": "server.js",
   "scripts": {
-    "start": "node server",
-    "dev": "nodemon -e js,ejs,json server.js",
-    "fix": "eslint . --fix"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "**/*.js": [
-      "eslint --fix",
-      "git add"
-    ]
-  },
-  "engines": {
-    "node": ">=8.11.3"
+    "contrast": "DEBUG=contrast:* node-contrast server.js",
+    "start": "node index.js"
   },
   "dependencies": {
     "@contrast/test-bench-content": "^2.7.1",
@@ -35,11 +29,23 @@
     "lodash": "^4.17.15"
   },
   "devDependencies": {
-    "@contrast/eslint-config": "^1.0.3",
-    "eslint": "^6.6.0",
-    "husky": "^3.1.0",
-    "lint-staged": "^9.4.3",
-    "nodemon": "^1.19.4",
+    "@contrast/eslint-config": "^2.0.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-mocha": "^6.3.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.8",
+    "nodemon": "^2.0.2",
     "prettier": "^1.19.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint --fix"
   }
 }

@@ -1,37 +1,22 @@
 {
   "name": "@contrast/hapi-test-bench",
   "private": true,
-  "version": "1.0.0",
-  "description": "screener app for hapi",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon -e js,ejs server.js",
-    "fix": "eslint . --fix"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "**/*.js": [
-      "eslint --fix",
-      "git add"
-    ]
-  },
+  "version": "0.0.1",
+  "description": "Intentionally vulnerable Hapi application",
+  "author": "Contrast Security <nodejs@contrastsecurity.com>",
+  "license": "UNLICENSED",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Contrast-Security-OSS/HapiTestBench.git"
+    "url": "git+https://github.com/Contrast-Security-OSS/NodeTestBenches.git"
   },
-  "author": "",
-  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Contrast-Security-OSS/HapiTestBench/issues"
+    "url": "https://github.com/Contrast-Security-OSS/NodeTestBenches/issues"
   },
-  "homepage": "https://github.com/Contrast-Security-OSS/HapiTestBench#readme",
-  "engines": {
-    "node": ">=8.3.0"
+  "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches#readme",
+  "main": "server.js",
+  "scripts": {
+    "contrast": "DEBUG=contrast:* node-contrast server.js",
+    "start": "node server.js"
   },
   "dependencies": {
     "@contrast/test-bench-content": "^2.7.1",
@@ -46,11 +31,23 @@
     "pem": "^1.14.2"
   },
   "devDependencies": {
-    "@contrast/eslint-config": "^1.0.3",
-    "eslint": "^6.6.0",
-    "husky": "^3.0.2",
-    "lint-staged": "^9.2.1",
-    "nodemon": "^1.19.1",
-    "prettier": "^1.18.2"
+    "@contrast/eslint-config": "^2.0.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-mocha": "^6.3.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.8",
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint --fix"
   }
 }

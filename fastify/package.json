@@ -2,23 +2,23 @@
   "name": "@contrast/fastify-test-bench",
   "private": true,
   "version": "0.0.1",
-  "description": "Intentionally Vulnerable Node Application",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js | pino-pretty",
-    "contrast": "DEBUG=contrast:* node-contrast server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "description": "Intentionally vulnerable Fastify application",
+  "author": "Contrast Security <nodejs@contrastsecurity.com>",
+  "license": "UNLICENSED",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Contrast-Security-OSS/FastifyTestBench.git"
+    "url": "git+https://github.com/Contrast-Security-OSS/NodeTestBenches.git"
   },
-  "author": "Contrast Security",
-  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Contrast-Security-OSS/FastifyTestBench/issues"
+    "url": "https://github.com/Contrast-Security-OSS/NodeTestBenches/issues"
   },
-  "homepage": "https://github.com/Contrast-Security-OSS/FastifyTestBench#readme",
+  "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches#readme",
+  "main": "server.js",
+  "scripts": {
+    "contrast": "DEBUG=contrast:* node-contrast server.js",
+    "dev": "nodemon server.js | pino-pretty",
+    "start": "node server.js | pino-pretty"
+  },
   "dependencies": {
     "@contrast/test-bench-content": "^2.7.1",
     "@contrast/test-bench-utils": "^2.14.0",
@@ -29,7 +29,24 @@
     "point-of-view": "^3.7.1"
   },
   "devDependencies": {
-    "@contrast/eslint-config": "^1.0.3",
-    "pino-pretty": "^3.6.1"
+    "@contrast/eslint-config": "^2.0.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-mocha": "^6.3.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.8",
+    "nodemon": "^2.0.2",
+    "pino-pretty": "^3.6.1",
+    "prettier": "^1.19.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint --fix"
   }
 }

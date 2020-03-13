@@ -2,30 +2,22 @@
   "name": "@contrast/loopback-test-bench",
   "private": true,
   "version": "0.0.1",
-  "description": "Intentionally Vulnerable Node Application",
+  "description": "Intentionally vulnerable Loopback application",
+  "author": "Contrast Security <nodejs@contrastsecurity.com>",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Contrast-Security-OSS/NodeTestBenches.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Contrast-Security-OSS/NodeTestBenches/issues"
+  },
+  "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches#readme",
   "main": "server/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "contrast": "DEBUG=contrast:* node-contrast server/server.js",
-    "start": "node server/server.js",
     "dev": "nodemon server/server.js",
-    "fix": "eslint . --fix"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "**/*.js": [
-      "eslint --fix",
-      "git add"
-    ]
-  },
-  "author": "",
-  "license": "MIT",
-  "engines": {
-    "node": ">=8.3.0"
+    "start": "node server/server.js"
   },
   "dependencies": {
     "@contrast/test-bench-content": "^2.7.1",
@@ -46,12 +38,24 @@
     "uuid": "^3.4.0"
   },
   "devDependencies": {
-    "@contrast/eslint-config": "^1.0.3",
-    "eslint": "^5.16.0",
-    "husky": "^2.4.1",
-    "lint-staged": "^8.2.1",
+    "@contrast/eslint-config": "^2.0.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-mocha": "^6.3.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.8",
     "loopback-cli": "^5.0.3",
-    "nodemon": "^1.18.9",
-    "prettier": "^1.18.2"
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint --fix"
   }
 }

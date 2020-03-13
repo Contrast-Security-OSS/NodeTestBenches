@@ -45,7 +45,7 @@ usage information.
 Add a _server/views/pages/ruleName.ejs_ file that includes the shared
 template from `@contrast/test-bench-content`:
 ```html
-<% include ../../../node_modules/@contrast/test-bench-content/views/ruleName.ejs %>
+<% include ../../../node_modules/@contrast/test-bench-utils/public/views/ruleName.ejs %>
 ```
 
 Now run the app and make sure everything works as expected!

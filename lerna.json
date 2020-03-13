@@ -6,8 +6,7 @@
     "koa",
     "kraken",
     "loopback",
-    "test-bench-content",
     "test-bench-utils"
   ],
-  "version": "0.0.0"
+  "version": "2.14.0"
 }

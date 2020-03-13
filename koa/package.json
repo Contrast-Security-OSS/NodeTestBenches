@@ -19,7 +19,6 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "@contrast/test-bench-content": "^2.7.1",
     "@contrast/test-bench-utils": "^2.14.0",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",

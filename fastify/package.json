@@ -20,7 +20,6 @@
     "start": "node server.js | pino-pretty"
   },
   "dependencies": {
-    "@contrast/test-bench-content": "^2.7.1",
     "@contrast/test-bench-utils": "^2.14.0",
     "ejs": "2.6.1",
     "fastify": "^2.12.0",

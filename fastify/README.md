@@ -53,7 +53,7 @@ template from `@contrast/test-bench-content`:
       <div class="row">
         <% include ./partials/nav %>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <% include ../node_modules/@contrast/test-bench-content/views/ruleName.ejs %>
+          <% include ../node_modules/@contrast/test-bench-utils/public/views/ruleName.ejs %>
           <% include ./partials/footer %>
         </div>
       </div>

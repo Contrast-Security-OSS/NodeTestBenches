@@ -20,7 +20,6 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "@contrast/test-bench-content": "^2.7.1",
     "@contrast/test-bench-utils": "^2.14.0",
     "aws-sdk": "^2.397.0",
     "body-parser": "^1.14.2",

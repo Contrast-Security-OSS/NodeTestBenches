@@ -12,7 +12,7 @@
   "bugs": {
     "url": "https://github.com/Contrast-Security-OSS/NodeTestBenches/issues"
   },
-  "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches#readme",
+  "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/master/kraken#readme",
   "main": "server.js",
   "scripts": {
     "contrast": "DEBUG=contrast:* node-contrast server.js",

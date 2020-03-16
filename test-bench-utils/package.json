@@ -11,7 +11,7 @@
   "bugs": {
     "url": "https://github.com/Contrast-Security-OSS/NodeTestBenches/issues"
   },
-  "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches#readme",
+  "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/master/test-bench-utils#readme",
   "main": "lib/index.js",
   "scripts": {
     "lint": "eslint --fix lib/",

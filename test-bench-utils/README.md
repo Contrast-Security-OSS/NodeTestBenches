@@ -1,20 +1,7 @@
 # @contrast/test-bench-utils
 Shared code for use in Contrast's Node.js test apps.
 
-## NOTE:
-When working on this module, require hooks will not run against the correct
-module if it is `npm link`ed. In order for the module and application to share
-modules correctly it is recommended to install the application from a local path
-while developing, e.g.
-```json
-{
-  "dependencies": {
-    "@contrast/test-bench-utils": "../test-bench-utils"
-  }
-}
-```
-
-## Adding a shared sink to multiple apps
+## Adding a shared sink
 Under _lib/routes.js_, create a sink definition with the following form:
 ```js
   [ruleName: string]: {
@@ -43,7 +30,7 @@ framework. By default, for the `/unsafe` endpoint the function is called with
 user input, and for the `/safe` and `/noop` endpoints it is called with the
 `safe` and `noop` options set to true, respectively.
 
-### Front-end content
+## Front-end content
 If there is any custom data you want to provide to the test bench front end, you
 can export it from _lib/content/_. For example, we export the following XML
 string as a potential attack for the xxe rule:
@@ -63,16 +50,29 @@ module.exports.attackXml = `
 This string is then used by the `xxe.ejs` view in `@contrast/test-bench-content`
 to render an input prepopulated with the attack value.
 
-### Views
-After you have configured a sink within `@contrast/test-bench-utils`, you should
-add a shared view in [`@contrast/test-bench-content`](https://github.com/Contrast-Security-OSS/test-bench-content).
+## Adding a shared view
+Once you have configured a sink you're ready to add a shared view. Shared view
+templates are rendered with the following locals provided:
+- `name`: the name of the vulnerability being tested
+- `link`: a link to OWASP or another reference describing the vulnerability
+- `sinkData`: an array of objects describing the sinks exercising a rule,
+  containing (at least) the following keys:
+  - `method`: the HTTP method being used to submit the attack
+  - `name`: the name of the particular sink being exercised
+  - `url`: the api endpoint url to hit
+- `_csrf` for Kraken apps, we provide the csrf token to be included as a hidden
+  field within a form
 
-### Test Bench Applications
+An endpoint may also be configured to provide additional locals to the template
+to render additional context for a rule. For example, we provide an XML string
+to the _xxe_ endpoint as a potential attack value.
+
+## Test Bench Applications
 Once you have configured the shared sink and view, consult the following
 instructions for including the shared functionality in each test bench app:
-- [ExpressTestBench](https://github.com/Contrast-Security-OSS/NodeTestBench#adding-a-shared-vulnerability)
-- [FastifyTestBench](https://github.com/Contrast-Security-OSS/FastifyTestBench#adding-a-shared-vulnerability)
-- [HapiTestBench](https://github.com/Contrast-Security-OSS/HapiTestBench#adding-a-shared-vulnerability)
-- [KoaTestBench](https://github.com/Contrast-Security-OSS/KoaTestBench#adding-a-shared-vulnerability)
-- [KrakenTestBench](https://github.com/Contrast-Security-OSS/KrakenTestBench#adding-a-shared-vulnerability)
-- [LoopbackTestBench](https://github.com/Contrast-Security-OSS/LoopbackTestBench#adding-a-shared-vulnerability)
+- [express](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/master/express#adding-a-shared-vulnerability)
+- [fastify](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/master/fastify#adding-a-shared-vulnerability)
+- [hapi](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/master/hapi#adding-a-shared-vulnerability)
+- [koa](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/master/koa#adding-a-shared-vulnerability)
+- [kraken](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/master/kraken#adding-a-shared-vulnerability)
+- [loopback](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/master/loopback#adding-a-shared-vulnerability)

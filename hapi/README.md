@@ -1,11 +1,11 @@
 # HapiTestBench
-screener app for Hapi
+screener app for Hapi 18
 
 **Note**: `master` branch will always test the latest @hapi npm packages.
 
 If you're looking for a specific version:
 
- * [Hapi 18](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/hapi18/hapi)
+ * [**Hapi 18**](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/hapi18/hapi)
  * [Hapi 17](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/hapi17/hapi)
  * [Hapi 16](https://github.com/Contrast-Security-OSS/Hapi16TestBench)
 

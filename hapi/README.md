@@ -5,8 +5,8 @@ screener app for Hapi
 
 If you're looking for a specific version:
 
- * [Hapi 18](https://github.com/Contrast-Security-OSS/HapiTestBench/tree/hapi18)
- * [Hapi 17](https://github.com/Contrast-Security-OSS/HapiTestBench/tree/hapi17)
+ * [Hapi 18](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/hapi18/hapi)
+ * [Hapi 17](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/hapi17/hapi)
  * [Hapi 16](https://github.com/Contrast-Security-OSS/Hapi16TestBench)
 
 ## Installation

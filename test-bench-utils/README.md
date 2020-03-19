@@ -47,7 +47,7 @@ module.exports.attackXml = `
   </user>
 </users>`;
 ```
-This string is then used by the `xxe.ejs` view in `@contrast/test-bench-content`
+This string is then used by the `xxe.ejs` view in `@contrast/test-bench-utils`
 to render an input prepopulated with the attack value.
 
 ## Adding a shared view

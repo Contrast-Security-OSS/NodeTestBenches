@@ -16,6 +16,7 @@
   "main": "index.js",
   "scripts": {
     "contrast": "DEBUG=contrast:* node-contrast index.js",
+    "dev": "nodemon index.js",
     "start": "node index.js"
   },
   "dependencies": {

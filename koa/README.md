@@ -1,13 +1,13 @@
-# KoaTestBench
-Intentionally Vulnerable Koa Application
+# @contrast/koa-test-bench
+An intentionally vulnerable `koa` application.
 
 ## Running Locally
-
-Make sure you have [Node.js](http://nodejs.org/) installed or install a version of node from [nvm](https://github.com/creationix/nvm).
+Make sure you have [Node.js](http://nodejs.org/) installed or install a version
+of Node from [nvm](https://github.com/creationix/nvm).
 
 ```sh
-git clone https://github.com/Contrast-Security-OSS/KoaTestBench.git # or clone your own fork
-cd KoaTestBench
+git clone https://github.com/Contrast-Security-OSS/NodeTestBenches.git # or clone your own fork
+cd NodeTestBenches/koa
 npm install
 npm start
 ```
@@ -19,9 +19,9 @@ Your app should now be running on [localhost:3000](http://localhost:3000/).
 ### Installation
 See [our documentation](https://docs.contrastsecurity.com/installation-nodeinstall.html) for installation instructions.
 
-### Running the agent
-After installation, the agent can be run with ```npm run contrast```.
-For more information on configuration and which technologies the agent supports, see our [documentation](https://docs.contrastsecurity.com/installation-node.html#node-config).
+After installation, the agent can be run with `npm run contrast`. For more
+information on configuration and which technologies the agent supports, see our
+[documentation](https://docs.contrastsecurity.com/installation-node.html#node-config).
 
 ## Adding a shared vulnerability
 Once you have added shared functionality to
@@ -38,7 +38,7 @@ Check the documentation for `controllerFactory` under _utils/controllerFactory.j
 usage information.
 
 Add a _view/ruleName.js_ file that includes the shared
-template from `@contrast/test-bench-content`:
+template from `@contrast/test-bench-utils`:
 ```html
 <% include ../node_modules/@contrast/test-bench-utils/public/views/ruleName.ejs %>
 ```

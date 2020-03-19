@@ -1,15 +1,27 @@
-# HapiTestBench
-screener app for Hapi 17
+# @contrast/hapi-17-test-bench
+An intentionally vulnerable `hapi@17` application.
 
-## Installation
-```bash
+## Running Locally
+Make sure you have [Node.js](http://nodejs.org/) installed or install a version
+of Node from [nvm](https://github.com/creationix/nvm).
+
+```sh
+git clone https://github.com/Contrast-Security-OSS/NodeTestBenches.git # or clone your own fork
+cd NodeTestBenches/hapi17
 npm install
-node server.js
+npm start
 ```
 
-## Requirements:
-[mongodb](https://docs.mongodb.com/manual/installation/)
-[mysql](https://www.mysql.com/)
+Your app should now be running on [localhost:3000](http://localhost:3000/).
+
+## Running with Contrast
+
+### Installation
+See [our documentation](https://docs.contrastsecurity.com/installation-nodeinstall.html) for installation instructions.
+
+After installation, the agent can be run with `npm run contrast`. For more
+information on configuration and which technologies the agent supports, see our
+[documentation](https://docs.contrastsecurity.com/installation-node.html#node-config).
 
 ## Adding a shared vulnerability
 Once you have added shared functionality to
@@ -27,7 +39,7 @@ Check the documentation for `controllerFactory` under _utils/controllerFactory.j
 usage information.
 
 Add a _views/pages/ruleName.ejs_ file that includes the shared template from
-`@contrast/test-bench-content`:
+`@contrast/test-bench-utils`:
 ```html
 <% include ../../../node_modules/@contrast/test-bench-utils/public/views/ruleName.ejs %>
 ```

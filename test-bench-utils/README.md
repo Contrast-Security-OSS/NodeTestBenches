@@ -1,4 +1,4 @@
-# @contrast/test-bench-utils
+# @contrast/test-bench-utils [![npm (scoped)](https://img.shields.io/npm/v/@contrast/test-bench-utils)](https://www.npmjs.com/package/@contrast/test-bench-utils)
 Shared code for use in Contrast's Node.js test apps.
 
 ## Adding a shared sink

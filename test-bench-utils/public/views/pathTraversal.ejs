@@ -1,9 +1,3 @@
-<style>
-  form {
-    padding-bottom: 10px;
-  }
-</style>
-
 <h1 class="page-header"><%= name %></h1>
 <% include ../partials/ruleInfo.ejs %>
 <% groupedSinkData.query.forEach(function(sink, i) { %>
@@ -26,9 +20,22 @@
     </form>
     <h4 class="sub-header">Headers</h4>
     <% headerSink = groupedSinkData.headers[i] %>
-    <% ['unsafe', 'safe', 'noop'].forEach(function(safety) { %>
-    <p><pre>curl http://localhost:3000<%= headerSink.url %>/<%= safety %> -H "input: ../../../../../../../../../../../../etc/passwd"</pre></p>
-    <% }); %>
+      <% ['unsafe', 'safe', 'noop'].forEach(function(safety) { %>
+      <p><pre>curl http://localhost:3000<%= headerSink.url %>/<%= safety %> -H "input: ../../../../../../../../../../../../etc/passwd"</pre></p>
+      <% }); %>
+    <% bodySink = groupedSinkData.body[i] %>
+    <h4 class="sub-header">Body</h4>
+    <form method="<%= bodySink.method %>" action="<%= bodySink.url %>/unsafe" target="_blank">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Path</label>
+        <input
+          name="input"
+          class="form-control"
+          value="../../../../../../../../../../../../etc/passwd"
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
   </div>
 </div>
 <% }); %>

@@ -48,6 +48,10 @@ module.exports['fs.readFileSync'] = async function readFileSync(
     const result = fs.readFileSync(path).toString();
     return pre(result);
   } catch (err) {
+    // properly throw error from protect
+    if (err.type === 'contrast') {
+      throw err;
+    }
     return pre(errMsg('readFileSync', err.message, safe));
   }
 };
@@ -95,6 +99,10 @@ module.exports['fs.writeFileSync'] = async function writeFileSync(
     fs.writeFileSync(path, 'stuff');
     return `Wrote to ${path}`;
   } catch (err) {
+    // properly throw error from protect
+    if (err.type === 'contrast') {
+      throw err;
+    }
     return pre(errMsg('writeFileSync', err.message, safe));
   }
 };

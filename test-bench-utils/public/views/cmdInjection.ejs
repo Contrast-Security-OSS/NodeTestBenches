@@ -13,6 +13,8 @@
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     <% }); %>
+  </div>
+</div>
 <div class="row">
   <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
     <h4 class="sub-header">POST cookies</h4>
@@ -22,8 +24,6 @@
     <p><pre>curl http://localhost:3000<%= sink.url %>/<%= safety %> -X POST -b "input=test &whoami"</pre></p>
     <% }); %>
     <% }); %>
-  </div>
-</div>
   </div>
 </div>
 <% include ../partials/safeButtons %>

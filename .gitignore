@@ -1,4 +1,17 @@
 .vscode/
 node_modules/
+# form upload paths
+loopback/server/uploads/*
+!loopback/server/uploads/.gitkeep
+kraken/uploads/*
+express/vulnerabilities/unsafeFileUpload/uploads/
 
+# agent logs
 *.log
+
+# vim swaps
+*.swp
+*.swo
+*.swl
+*.swn
+*.swm

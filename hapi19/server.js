@@ -12,7 +12,12 @@ const manifest = {
   server: {
     debug: { request: ['error', 'uncaught'] },
     port: PORT,
-    host: HOST
+    host: HOST,
+    routes: {
+      payload: {
+        multipart: true
+      }
+    }
   },
   register: {
     plugins: [
@@ -63,10 +68,7 @@ if (isHttps) {
 
 async function start() {
   try {
-    const server = await glue.compose(
-      manifest,
-      options
-    );
+    const server = await glue.compose(manifest, options);
     server.views({
       engines: { ejs: require('ejs') },
       allowAbsolutePaths: true,

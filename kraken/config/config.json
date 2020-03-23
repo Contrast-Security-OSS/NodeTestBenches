@@ -19,6 +19,8 @@
           {
             "csrf": {
               "blacklist": [
+                "/pathTraversal/body",
+                "/xssStealthyRequire/body",
                 "/xss/body",
                 "/cmdInjection/cookies",
                 "/unsafeFileUpload/body"

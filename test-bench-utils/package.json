@@ -19,8 +19,7 @@
   ],
   "scripts": {
     "lint": "eslint --fix lib/",
-    "postversion": "npm publish",
-    "postpublish": "git push origin --all; git push origin --tags"
+    "postversion": "npm install --package-lock-only"
   },
   "engines": {
     "node": ">=10.13.0"

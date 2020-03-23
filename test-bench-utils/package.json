@@ -43,6 +43,7 @@
     "sql-template-strings": "^2.2.2",
     "stealthy-require": "^1.1.1",
     "superagent": "^5.0.5",
+    "typeorm": "^0.2.24",
     "xmldom": "^0.2.1",
     "xpath": "0.0.27"
   },

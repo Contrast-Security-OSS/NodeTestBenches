@@ -31,6 +31,7 @@ const layouts = require('express-ejs-layouts');
 const http = require('http');
 const https = require('https');
 const pem = require('pem');
+const path = require('path');
 
 const app = express();
 const { navRoutes } = require('@contrast/test-bench-utils');
@@ -39,7 +40,7 @@ const { PORT = 3000, HOST = 'localhost', SSL, CLUSTER } = process.env;
 const isHttps = SSL === '1' ? true : false;
 
 require('./vulnerabilities/static');
-app.use('/assets', express.static('public'));
+app.use('/assets', express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(bodyParser.json({ limit: '50mb', extended: true }));
 app.use(cookieParser('keyboard cat'));

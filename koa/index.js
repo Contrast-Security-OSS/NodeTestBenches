@@ -14,7 +14,7 @@ const { navRoutes } = require('@contrast/test-bench-utils');
 const { PORT = 3000, HOST = 'localhost' } = process.env;
 
 // setup static file serving
-app.use(mount('/assets', serve('./public')));
+app.use(mount('/assets', serve(`${__dirname}/public`)));
 
 // setup the ejs renderer
 render(app, {

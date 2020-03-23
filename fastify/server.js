@@ -10,7 +10,7 @@ fastify.register(require('point-of-view'), {
   engine: {
     ejs: require('ejs')
   },
-  templates: 'view',
+  templates: `${__dirname}/view`,
   includeViewExtension: true // dont want to write .ejs every time
 });
 

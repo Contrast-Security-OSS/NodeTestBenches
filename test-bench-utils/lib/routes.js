@@ -38,7 +38,7 @@ module.exports = {
     name: 'Path Traversal',
     link: 'https://www.owasp.org/index.php/pathTraversal',
     products: ['Assess', 'Protect'],
-    inputs: ['headers', 'query'],
+    inputs: ['headers', 'query', 'body'],
     sinks: sinks.pathTraversal
   },
   sqlInjection: {

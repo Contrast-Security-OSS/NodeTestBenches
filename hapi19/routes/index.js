@@ -13,7 +13,7 @@ exports.register = (server, options) => {
       method: 'GET',
       path: '/public/app.css',
       handler(request, h) {
-        return h.file('public/app.css');
+        h.file(`${__dirname}/public/app.css`);
       }
     },
     {

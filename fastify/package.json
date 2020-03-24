@@ -17,7 +17,8 @@
   "scripts": {
     "contrast": "DEBUG=contrast:* node-contrast server.js",
     "dev": "nodemon server.js | pino-pretty",
-    "start": "node server.js | pino-pretty"
+    "start": "node server.js | pino-pretty",
+    "postversion": "npm install --package-lock-only"
   },
   "dependencies": {
     "@contrast/test-bench-utils": "^3.2.0",

@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 module.exports = async function route(fastify, options) {
   fastify.get('/', async (request, reply) => {
     return reply.view('index', options);
@@ -13,34 +15,72 @@ module.exports = async function route(fastify, options) {
     }
   });
 
-  fastify.get('/xss/reply', async (request, reply) => {
-    reply.type('text/html');
-    return reply.send(request.query.input);
+  const routes = [
+    {
+      suffix: "xss/reply",
+      handler: async function handler(request, reply) {
+        reply.type("text/html");
+        return reply.send(request.query.input);
+      }
+    },
+    {
+      suffix: "xss/return",
+      handler: async function handler(request, reply) {
+        reply.type("text/html");
+        return request.query.input;
+      }
+    },
+    {
+      suffix: "xss/hookSafe/reply",
+      handler: async function handler(request, reply) {
+        reply.type("text/html");
+        return reply.send(request.query.input);
+      }
+    },
+    {
+      suffix: "xss/hookSafe/return",
+      handler: async function handler(request, reply) {
+        reply.type("text/html");
+        return request.query.input;
+      }
+    },
+    {
+      suffix: "xss/hookUnsafe/reply",
+      handler: async function handler(request, reply) {
+        reply.type("text/html");
+        return reply.send('safe');
+      }
+    },
+    {
+      suffix: "xss/hookUnsafe/return",
+      handler: async function handler(request, reply) {
+        reply.type("text/html");
+        return 'safe';
+      }
+    }
+  ]
+
+  // add fastify.get routes
+  _.each(routes, (route) => {
+    fastify.get(`/get/${route.suffix}`, route.handler);
   });
 
-  fastify.get('/xss/return', async(request, reply) => {
-    reply.type('text/html');
-    return request.query.input;
+  // add fasify.route routes with a string method
+  _.each(routes, (route) => {
+    fastify.route({
+      method: 'GET',
+      path: `/route/string/${route.suffix}`,
+      handler: route.handler
+    });
   });
 
-  fastify.get('/xss/hookSafe/return', async(request, reply) => {
-    reply.type('text/html');
-    return request.query.input;
-  });
-
-  fastify.get('/xss/hookUnsafe/return', async(request, reply) => {
-    reply.type('text/html');
-    return 'safe';
-  });
-
-  fastify.get('/xss/hookSafe/reply', async(request, reply) => {
-    reply.type('text/html');
-    return reply.send(request.query.input);
-  });
-
-  fastify.get('/xss/hookUnsafe/reply', async(request, reply) => {
-    reply.type('text/html');
-    return reply.send('safe');
+  // add fastify.route routes with an array method
+  _.each(routes, (route) => {
+    fastify.route({
+      method: ['GET'],
+      path: `/route/array/${route.suffix}`,
+      handler: route.handler
+    });
   });
 
 };

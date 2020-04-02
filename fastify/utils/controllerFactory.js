@@ -30,18 +30,21 @@ module.exports = function controllerFactory(
 
     sinkData.forEach(({ method, url, sink, key }) => {
       fastify[method](`${url}/safe`, async (request, reply) => {
+        reply.type('text/html');
         const input = utils.getInput({ locals, req: request, key });
         const result = await sink(input, { safe: true });
         return result;
       });
 
       fastify[method](`${url}/unsafe`, async (request, reply) => {
+        reply.type('text/html');
         const input = utils.getInput({ locals, req: request, key });
         const result = await sink(input);
         return result;
       });
 
       fastify[method](`${url}/noop`, async (request, reply) => {
+        reply.type('text/html');
         const input = 'NOOP';
         const result = await sink(input, { noop: true });
         return result;

@@ -1,4 +1,6 @@
 const fastify = require('fastify')({ logger: true });
+fastify.register(require('fastify-formbody'))
+
 const path = require('path');
 const { navRoutes } = require('@contrast/test-bench-utils');
 const { PORT = 3000, HOST = 'localhost' } = process.env;

@@ -26,6 +26,7 @@ module.exports = function controllerFactory(
         groupedSinkData,
         ...locals
       });
+      return reply;
     });
 
     sinkData.forEach(({ method, url, sink, key }) => {

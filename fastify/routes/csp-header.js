@@ -2,7 +2,7 @@
 /**
  * @vulnerability: csp-header-insecure
  */
-module.exports = async function (fastify, options) {
+module.exports = async function(fastify, options) {
   const unsafePolicy = [
     "default-src 'none'",
     'font-src *',
@@ -14,6 +14,7 @@ module.exports = async function (fastify, options) {
 
   fastify.get('/csp-header', (request, reply) => {
     reply.header('Content-Security-Policy', unsafePolicy);
-    return reply.view('csp-header', { ...options, policy: unsafePolicy });
+    reply.view('csp-header', { ...options, policy: unsafePolicy });
+    return reply;
   });
 };

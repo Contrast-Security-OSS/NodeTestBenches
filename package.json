@@ -1,6 +1,9 @@
 {
   "name": "@contrast/test-bench",
   "private": true,
+  "engines": {
+    "node": ">=10.13.0"
+  },
   "scripts": {
     "postinstall": "lerna bootstrap --ci --force-local"
   },

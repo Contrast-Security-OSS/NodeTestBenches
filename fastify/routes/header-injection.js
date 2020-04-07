@@ -1,6 +1,7 @@
-module.exports = async function (fastify, options) {
+module.exports = async function(fastify, options) {
   fastify.get('/header-injection', async (request, reply) => {
-    return reply.view('header-injection', options);
+    reply.view('header-injection', options);
+    return reply;
   });
 
   fastify.get('/header-injection/inject', async (request, reply) => {

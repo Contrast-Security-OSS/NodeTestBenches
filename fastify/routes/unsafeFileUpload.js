@@ -1,20 +1,17 @@
 'use strict';
-const { get } = require('lodash');
-const path = require('path');
-
 const { routes, utils } = require('@contrast/test-bench-utils');
 
-const dest = path.resolve(__dirname, '..', 'uploads');
 const sinkData = utils.getSinkData('unsafeFileUpload', 'koa');
 const routeMeta = utils.getRouteMeta('unsafeFileUpload');
 
 module.exports = async function route(fastify, options) {
   fastify.get(routes.unsafeFileUpload.base, async (request, reply) => {
-    return reply.view('unsafeFileUpload', {
+    reply.view('unsafeFileUpload', {
       ...options,
       ...routeMeta,
       sinkData
     });
+    return reply;
   });
 
   sinkData.forEach(({ method, url, sink }) => {
@@ -24,7 +21,7 @@ module.exports = async function route(fastify, options) {
         return;
       }
       let result = '';
-      function handler (field, file, filename, encoding, mimetype) { };
+      function handler(field, file, filename, encoding, mimetype) {}
 
       function onEnd(err) {
         console.log('upload completed');
@@ -33,11 +30,9 @@ module.exports = async function route(fastify, options) {
 
       const mp = request.multipart(handler, onEnd);
 
-      mp.on('field', function (key, value) {
+      mp.on('field', function(key, value) {
         result = sink(value);
       });
     });
   });
 };
-
-

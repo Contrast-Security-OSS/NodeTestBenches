@@ -14,12 +14,13 @@ const routeMeta = utils.getRouteMeta('ssrf');
  */
 module.exports = async function routes(fastify, options) {
   fastify.get(`${base}`, async (request, reply) => {
-    return reply.view('ssrf', {
+    reply.view('ssrf', {
       ...options,
       ...routeMeta,
       requestUrl: EXAMPLE_URL,
       sinkData
     });
+    return reply;
   });
 
   sinkData.forEach(({ method, name, sink, key }) => {

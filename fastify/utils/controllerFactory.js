@@ -41,7 +41,10 @@ module.exports = function controllerFactory(
         reply.type('text/html');
         const input = utils.getInput({ locals, req: request, key });
         const result = await sink(input);
-        return result;
+        // adding this in cases where the sink returns undefined
+        // fastify shits the bed in this case with a FST_ERR_PROMISE_NOT_FULLFILLED
+        // i have only really seen this in ssjs where we eval('console.log("1");');
+        return result || 'done';
       });
 
       fastify[method](`${url}/noop`, async (request, reply) => {

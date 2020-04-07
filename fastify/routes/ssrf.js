@@ -6,7 +6,7 @@ const { routes, utils } = require('@contrast/test-bench-utils');
 
 const EXAMPLE_URL = 'http://www.example.com';
 const { base } = routes.ssrf;
-const sinkData = utils.getSinkData('ssrf', 'koa');
+const sinkData = utils.getSinkData('ssrf', 'express');
 const routeMeta = utils.getRouteMeta('ssrf');
 
 /**

@@ -1,5 +1,5 @@
 const fastify = require('fastify')({ logger: true });
-fastify.register(require('fastify-formbody'))
+fastify.register(require('fastify-formbody'));
 
 const path = require('path');
 const { navRoutes } = require('@contrast/test-bench-utils');
@@ -16,7 +16,7 @@ fastify.register(require('point-of-view'), {
   includeViewExtension: true // dont want to write .ejs every time
 });
 
-fastify.register(require('fastify-multipart'));
+fastify.register(require('fastify-multipart'), { addToBody: true });
 
 // shared route information
 const context = { navRoutes, currentYear: new Date().getFullYear() };
@@ -31,7 +31,7 @@ fastify.register(require('./routes/index'), context);
 
 // register routes for each vulnerability
 navRoutes.forEach(({ base }) => {
-    fastify.register(require(`./routes/${base.substring(1)}`), context);
+  fastify.register(require(`./routes/${base.substring(1)}`), context);
 });
 
 // one off routes that are not members of navroutes

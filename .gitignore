@@ -4,6 +4,7 @@ node_modules/
 loopback/server/uploads/*
 !loopback/server/uploads/.gitkeep
 kraken/uploads/*
+fastify/uploads/*
 **/unsafeFileUpload/uploads/*
 # agent logs
 *.log

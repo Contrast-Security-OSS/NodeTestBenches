@@ -17,6 +17,7 @@ fastify.register(require('point-of-view'), {
 });
 
 fastify.register(require('fastify-multipart'), { addToBody: true });
+fastify.register(require('fastify-cookie'));
 
 // shared route information
 const context = { navRoutes, currentYear: new Date().getFullYear() };

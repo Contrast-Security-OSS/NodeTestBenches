@@ -17,7 +17,13 @@ module.exports = async function route(fastify, options) {
   sinkData.forEach(({ method, url, sink, key }) => {
     fastify[method](url, async (request, reply) => {
       const input = utils.getInput({ locals: {}, req: request, key });
-      return await sink(input);
+      // We sometimes use these routes just to test UFU and there is no input
+      // Just return 'done' in that case
+      if (input) {
+        return await sink(input);
+      } else {
+        return 'done';
+      }
     });
   });
 };

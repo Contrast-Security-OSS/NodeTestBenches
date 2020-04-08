@@ -109,7 +109,7 @@ module.exports = {
     link:
       'https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)#Stored_and_Reflected_XSS_Attacks',
     products: ['Assess', 'Protect'],
-    inputs: ['query', 'params', 'body'],
+    inputs: ['query', 'params'],
     sinks: sinks.xss
   },
   xssStealthyRequire: {
@@ -118,7 +118,7 @@ module.exports = {
     link:
       'https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)#Stored_and_Reflected_XSS_Attacks',
     products: ['Assess', 'Protect'],
-    inputs: ['query', 'params', 'body'],
+    inputs: ['query', 'params'],
     sinks: sinks.xssStealthyRequire
   },
   xxe: {

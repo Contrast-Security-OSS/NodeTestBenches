@@ -2,6 +2,22 @@
 const { routes, utils } = require('@contrast/test-bench-utils');
 
 /**
+ * Custom response functions allow you to change the functionality or return
+ * value of a sink endpoint.
+ *
+ * @callback ResponseFn
+ * @param {any} result return value of the sink method
+ * @param {express.Request} req express request object
+ * @param {express.Response} res express response object
+ * @param {express.NextFunction} next express `next`
+ */
+
+/**
+ * @type {ResponseFn}
+ */
+const defaultRespond = (result, request, reply) => reply.send(result);
+
+/**
  * Configures a route to handle sinks configured by our shared test-bench-utils
  * module.
  *
@@ -11,7 +27,7 @@ const { routes, utils } = require('@contrast/test-bench-utils');
  */
 module.exports = function controllerFactory(
   vulnerability,
-  { locals = {} } = {}
+  { locals = {}, respond = defaultRespond } = {}
 ) {
   const sinkData = utils.getSinkData(vulnerability, 'express');
   const groupedSinkData = utils.groupSinkData(sinkData);
@@ -34,7 +50,7 @@ module.exports = function controllerFactory(
         reply.type('text/html');
         const input = utils.getInput({ locals, req: request, key });
         const result = await sink(input, { safe: true });
-        return result;
+        respond(result, request, reply);
       });
 
       fastify[method](`${url}/unsafe`, async (request, reply) => {
@@ -44,14 +60,14 @@ module.exports = function controllerFactory(
         // adding this in cases where the sink returns undefined
         // fastify shits the bed in this case with a FST_ERR_PROMISE_NOT_FULLFILLED
         // i have only really seen this in ssjs where we eval('console.log("1");');
-        return result || 'done';
+        respond(result, request, reply);
       });
 
       fastify[method](`${url}/noop`, async (request, reply) => {
         reply.type('text/html');
         const input = 'NOOP';
         const result = await sink(input, { noop: true });
-        return result;
+        respond(result, request, reply);
       });
     });
   };

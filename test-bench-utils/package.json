@@ -18,8 +18,7 @@
     "public/"
   ],
   "scripts": {
-    "lint": "eslint --fix lib/",
-    "postversion": "npm install --package-lock-only"
+    "lint": "eslint --fix lib/"
   },
   "engines": {
     "node": ">=10.13.0"

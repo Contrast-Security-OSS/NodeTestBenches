@@ -5,7 +5,8 @@
     "node": ">=10.13.0"
   },
   "scripts": {
-    "postinstall": "lerna bootstrap --ci --force-local"
+    "postinstall": "lerna bootstrap --ci --force-local",
+    "postpublish": "npx lerna exec -- npm install --package-lock-only"
   },
   "devDependencies": {
     "@contrast/eslint-config": "^2.0.0",

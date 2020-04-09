@@ -17,8 +17,7 @@
   "scripts": {
     "contrast": "DEBUG=contrast:* node-contrast server.js",
     "dev": "nodemon index.js",
-    "start": "node index.js",
-    "postversion": "npm install --package-lock-only"
+    "start": "node index.js"
   },
   "dependencies": {
     "@contrast/test-bench-utils": "^3.2.2",

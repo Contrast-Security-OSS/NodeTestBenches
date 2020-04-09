@@ -63,5 +63,6 @@
   },
   "lint-staged": {
     "*.js": "eslint --fix"
-  }
+  },
+  "gitHead": "759388ff4d760014c80d60dfc97540151e18d5bd"
 }

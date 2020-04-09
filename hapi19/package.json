@@ -1,7 +1,7 @@
 {
   "name": "@contrast/hapi-19-test-bench",
   "private": true,
-  "version": "3.2.2",
+  "version": "3.2.3",
   "description": "Intentionally vulnerable Hapi application",
   "author": "Contrast Security <nodejs@contrastsecurity.com>",
   "license": "UNLICENSED",
@@ -20,7 +20,7 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "@contrast/test-bench-utils": "^3.2.2",
+    "@contrast/test-bench-utils": "^3.2.3",
     "@hapi/glue": "^7.0.0",
     "@hapi/hapi": "^19.1.1",
     "@hapi/inert": "^6.0.1",

@@ -6,10 +6,9 @@ const { routes, utils } = require('@contrast/test-bench-utils');
  * value of a sink endpoint.
  *
  * @callback ResponseFn
- * @param {any} result return value of the sink method
- * @param {express.Request} req express request object
- * @param {express.Response} res express response object
- * @param {express.NextFunction} next express `next`
+ * @param {*}                result  return value of the sink method
+ * @param {fastify.Request}  request fastify request object
+ * @param {fastify.Response} reply   fastify reply object
  */
 
 /**

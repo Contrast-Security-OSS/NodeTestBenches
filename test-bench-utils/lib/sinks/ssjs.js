@@ -15,7 +15,8 @@ module.exports.eval = async function _eval(
   if (safe) return 'SAFE';
   if (noop) return 'NOOP';
 
-  return eval(input);
+  const result = eval(input);
+  return typeof result === 'function' ? input : result;
 };
 
 /**
@@ -31,7 +32,8 @@ module.exports.Function = async function _Function(
   if (safe) return 'SAFE';
   if (noop) return 'NOOP';
 
-  return Function(`return ${input};`)();
+  const result = Function(`return ${input};`)();
+  return typeof result === 'function' ? input : result;
 };
 
 /**
@@ -50,5 +52,5 @@ module.exports['vm.runInNewContext'] = async function _runInNewContext(
 
   const sandbox = { value: '', process };
   vm.runInNewContext(`value = ${input}`, sandbox);
-  return sandbox.value;
+  return typeof sandbox.value === 'function' ? input : sandbox.value;
 };

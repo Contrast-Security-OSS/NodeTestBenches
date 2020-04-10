@@ -1,6 +1,6 @@
 {
   "name": "@contrast/test-bench-utils",
-  "version": "3.2.1",
+  "version": "3.3.1",
   "description": "Shared code to use in Contrast's web framework test apps.",
   "author": "Contrast Security <nodejs@contrastsecurity.com>",
   "license": "UNLICENSED",
@@ -18,8 +18,7 @@
     "public/"
   ],
   "scripts": {
-    "lint": "eslint --fix lib/",
-    "postversion": "npm install --package-lock-only"
+    "lint": "eslint --fix lib/"
   },
   "engines": {
     "node": ">=10.13.0"
@@ -64,5 +63,6 @@
   },
   "lint-staged": {
     "*.js": "eslint --fix"
-  }
+  },
+  "gitHead": "25b03943eabfd842661467319fea18cece7fd8de"
 }

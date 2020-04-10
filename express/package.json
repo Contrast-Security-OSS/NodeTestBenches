@@ -1,7 +1,7 @@
 {
   "name": "@contrast/express-test-bench",
   "private": true,
-  "version": "3.2.1",
+  "version": "3.3.1",
   "description": "Intentionally vulnerable Express application",
   "author": "Contrast Security <nodejs@contrastsecurity.com>",
   "license": "UNLICENSED",
@@ -17,11 +17,10 @@
   "scripts": {
     "contrast": "DEBUG=contrast:* node-contrast index.js",
     "dev": "nodemon index.js",
-    "start": "node index.js",
-    "postversion": "npm install --package-lock-only"
+    "start": "node index.js"
   },
   "dependencies": {
-    "@contrast/test-bench-utils": "^3.2.1",
+    "@contrast/test-bench-utils": "^3.3.1",
     "aws-sdk": "^2.397.0",
     "body-parser": "^1.14.2",
     "cookie-parser": "^1.4.3",

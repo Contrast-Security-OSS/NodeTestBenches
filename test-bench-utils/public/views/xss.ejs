@@ -34,29 +34,4 @@
     <% }); %>
   </div>
 </div>
-<div class="row">
-  <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
-    <h4 class="sub-header">POST Body</h4>
-    <% groupedSinkData.body.forEach(function(sink) { %>
-    <form
-      method="<%= sink.method %>"
-      action="<%= sink.url %>/unsafe"
-      target="_blank"
-    >
-      <div class="form-group">
-        <label><%= sink.key %>.input</label>
-        <input
-          name="input"
-          class="form-control"
-          value="<script>alert(1);</script>"
-        />
-      </div>
-      <% if (locals._csrf) { %>
-      <input name="_csrf" type="hidden" value="<%= _csrf %>" />
-      <% } %>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-    <% }); %>
-  </div>
-</div>
 <% include ../partials/safeButtons %>

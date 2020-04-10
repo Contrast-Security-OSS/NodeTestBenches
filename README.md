@@ -15,7 +15,7 @@ By default, when running `npm install` in the root of this repo,
 each of the specified package directories, as well as `npm link` shared
 dependencies.
 
-When bumping a package version, we will use `lerna version` instead of
+When bumping a package version, we will use `lerna publish <patch | minor | major>` instead of
 `npm version` inside _test-bench-utils_. This will keep versions in sync between
 packages.
 

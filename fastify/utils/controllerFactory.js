@@ -14,7 +14,10 @@ const { routes, utils } = require('@contrast/test-bench-utils');
 /**
  * @type {ResponseFn}
  */
-const defaultRespond = (result, request, reply) => reply.send(result);
+const defaultRespond = (result, request, reply) => {
+  reply.type('text/html');
+  reply.send(result);
+}
 
 /**
  * Configures a route to handle sinks configured by our shared test-bench-utils
@@ -46,14 +49,12 @@ module.exports = function controllerFactory(
 
     sinkData.forEach(({ method, url, sink, key }) => {
       fastify[method](`${url}/safe`, async (request, reply) => {
-        reply.type('text/html');
         const input = utils.getInput({ locals, req: request, key });
         const result = await sink(input, { safe: true });
         respond(result, request, reply);
       });
 
       fastify[method](`${url}/unsafe`, async (request, reply) => {
-        reply.type('text/html');
         const input = utils.getInput({ locals, req: request, key });
         const result = await sink(input);
         // adding this in cases where the sink returns undefined
@@ -63,7 +64,6 @@ module.exports = function controllerFactory(
       });
 
       fastify[method](`${url}/noop`, async (request, reply) => {
-        reply.type('text/html');
         const input = 'NOOP';
         const result = await sink(input, { noop: true });
         respond(result, request, reply);

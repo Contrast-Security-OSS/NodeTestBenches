@@ -15,5 +15,6 @@ module.exports = {
   xpathInjection: require('./xpathInjection'),
   xss: require('./xss'),
   xssStealthyRequire: require('./xssStealthyRequire'),
+  xssJSON: require('./xssJSON'),
   xxe: require('./xxe')
 };

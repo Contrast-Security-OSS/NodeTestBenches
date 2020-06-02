@@ -4,9 +4,4 @@ module.exports = async function(fastify, options) {
     reply.view('parampollution', options);
     return reply;
   });
-
-  fastify.post('/parampollution', async (request, reply) => {
-    reply.view('parampollution', options);
-    return reply;
-  });
 };

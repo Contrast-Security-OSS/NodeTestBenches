@@ -138,5 +138,11 @@ module.exports = {
     products: ['Protect'],
     inputs: ['input'],
     sinks: sinks.xxe
+  },
+  paramPollution: {
+    base: '/parampollution',
+    name: 'HTTP Parameter Pollution / Cache Controls Missing',
+    link: 'TODO',
+    products: ['Assess']
   }
 };

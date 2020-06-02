@@ -46,7 +46,6 @@ navRoutes.forEach(({ base }) => {
 // one offs that need to eventually be removed
 require('./routes/csp-header')({ router });
 require('./routes/header-injection')({ router });
-require('./routes/parampollution')({ router });
 
 app.use(router.routes());
 app.use(router.allowedMethods());

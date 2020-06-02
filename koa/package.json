@@ -20,7 +20,7 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "@contrast/test-bench-utils": "^3.3.1",
+    "@contrast/test-bench-utils": "^3.4.0",
     "@koa/router": "^8.0.8",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",

@@ -112,6 +112,15 @@ module.exports = {
     inputs: ['query', 'params'],
     sinks: sinks.xss
   },
+  xssJSON: {
+    base: '/xssJSON',
+    name: 'Reflected XSS JSON (Safe)',
+    link:
+      'https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)#Stored_and_Reflected_XSS_Attacks',
+    products: ['Assess', 'Protect'],
+    inputs: ['query', 'params'],
+    sinks: sinks.xssJSON
+  },
   xssStealthyRequire: {
     base: '/xssStealthyRequire',
     name: 'Reflected XSS (stealthy-require)',

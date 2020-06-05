@@ -138,5 +138,12 @@ module.exports = {
     products: ['Protect'],
     inputs: ['input'],
     sinks: sinks.xxe
+  },
+  paramPollution: {
+    base: '/parampollution',
+    name: 'HTTP Parameter Pollution / Cache Controls Missing',
+    link:
+      'https://owasp.org/www-pdf-archive/AppsecEU09_CarettoniDiPaola_v0.8.pdf',
+    products: ['Assess']
   }
 };

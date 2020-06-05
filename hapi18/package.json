@@ -20,7 +20,7 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "@contrast/test-bench-utils": "^3.4.0",
+    "@contrast/test-bench-utils": "^3.5.0",
     "@hapi/glue": "^6.2.0",
     "@hapi/hapi": "^18.4.0",
     "@hapi/hoek": "^9.0.3",

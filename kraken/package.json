@@ -20,7 +20,7 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "@contrast/test-bench-utils": "^3.4.0",
+    "@contrast/test-bench-utils": "^3.5.0",
     "ejs": "^2.7.4",
     "express": "^4.12.2",
     "express-async-errors": "^3.1.1",

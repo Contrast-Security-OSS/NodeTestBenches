@@ -19,17 +19,20 @@ function getClientParams(arg) {
   };
 }
 
-// hooker.hook(
-//   require('aws-sdk/lib/dynamodb/document_client').prototype,
-//   'makeServiceRequest',
-//   {
-//     post() {}
-//   }
-// );
+AWS.DynamoDB.DocumentClient.prototype.makeServiceRequest = function() {
+  return {};
+};
 
-// hooker.hook(require('aws-sdk/lib/dynamodb/').prototype, 'makeRequest', {
-//   post() {}
-// });
+const origDocClientScan = AWS.DynamoDB.DocumentClient.prototype.scan;
+AWS.DynamoDB.DocumentClient.prototype.scan = function overloadedDocClientScan(
+  params,
+  callback
+) {
+  origDocClientScan.call(this, params, callback);
+  return params;
+};
+
+const documentClient = new AWS.DynamoDB.DocumentClient();
 
 /**
  * @param {string} input user input string
@@ -37,25 +40,12 @@ function getClientParams(arg) {
  * @param {boolean=} opts.safe are we calling the sink safely?
  * @param {boolean=} opts.noop are we calling the sink as a noop?
  */
-AWS.DynamoDB.DocumentClient.prototype.makeServiceRequest = function() {
-  return {};
-}
-
-const origDocClientScan = AWS.DynamoDB.DocumentClient.prototype.scan;
-AWS.DynamoDB.DocumentClient.prototype.scan = function overloadedDocClientScan(params, callback) {
-  origDocClientScan.call(this, params, callback);
-  return params;
-};
-
-const documentClient = new AWS.DynamoDB.DocumentClient();
-
 module.exports[
   'aws-sdk.DynamoDB.DocumentClient.prototype.scan'
 ] = async function scan(input, { safe = false, noop = false } = {}) {
   if (noop) return 'NOOP';
 
-  // const fn = safe ? 'function() {}' : input;
-  const result = documentClient.scan(getDocClientParams(safe ? 'safe': input));
+  const result = documentClient.scan(getDocClientParams(safe ? 'safe' : input));
 
   return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
 };
@@ -72,6 +62,12 @@ AWS.DynamoDB.prototype.makeRequest = function overloadedDbScan(
 
 const db = new AWS.DynamoDB();
 
+/**
+ * @param {string} input user input string
+ * @param {Object} opts
+ * @param {boolean=} opts.safe are we calling the sink safely?
+ * @param {boolean=} opts.noop are we calling the sink as a noop?
+ */
 module.exports['aws-sdk.DynamoDB.prototype.makeRequest'] = async function scan(
   input,
   { safe = false, noop = false } = {}
@@ -82,4 +78,3 @@ module.exports['aws-sdk.DynamoDB.prototype.makeRequest'] = async function scan(
 
   return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
 };
-

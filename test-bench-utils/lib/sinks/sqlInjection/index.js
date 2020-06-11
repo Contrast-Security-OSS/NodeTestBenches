@@ -15,3 +15,5 @@ module.exports['typeorm.Repository.prototype.query'] = require('./typeorm')[
 module.exports['typeorm.Connection.prototype.query'] = require('./typeorm')[
   'typeorm.Connection.prototype.query'
 ];
+
+module.exports = { ...module.exports, ...require('./sqlite3') };

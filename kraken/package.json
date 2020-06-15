@@ -1,7 +1,7 @@
 {
   "name": "@contrast/kraken-test-bench",
   "private": true,
-  "version": "3.3.1",
+  "version": "3.6.0",
   "description": "Intentionally vulnerable Kraken application",
   "author": "Contrast Security <nodejs@contrastsecurity.com>",
   "license": "UNLICENSED",
@@ -20,7 +20,7 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "@contrast/test-bench-utils": "^3.5.0",
+    "@contrast/test-bench-utils": "^3.6.0",
     "ejs": "^2.7.4",
     "express": "^4.12.2",
     "express-async-errors": "^3.1.1",

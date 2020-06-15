@@ -1,6 +1,7 @@
 'use strict';
 
 const AWS = require('aws-sdk');
+
 function getDocClientParams(arg) {
   return {
     FilterExpression: 'id = :id',

@@ -1,7 +1,7 @@
 {
   "name": "@contrast/loopback-test-bench",
   "private": true,
-  "version": "3.3.1",
+  "version": "3.4.0",
   "description": "Intentionally vulnerable Loopback application",
   "author": "Contrast Security <nodejs@contrastsecurity.com>",
   "license": "UNLICENSED",
@@ -20,7 +20,7 @@
     "start": "node server/server.js"
   },
   "dependencies": {
-    "@contrast/test-bench-utils": "^3.5.0",
+    "@contrast/test-bench-utils": "^3.4.0",
     "body-parser": "^1.19.0",
     "compression": "^1.0.3",
     "cookie-parser": "^1.4.4",

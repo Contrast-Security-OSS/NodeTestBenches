@@ -1,4 +1,4 @@
-const { content, utils } = require('@contrast/test-bench-utils');
+const { utils } = require('@contrast/test-bench-utils');
 
 module.exports = function XmlExternalEntityModel() {
   const sinkData = utils.getSinkData('xxe', 'kraken');
@@ -6,7 +6,6 @@ module.exports = function XmlExternalEntityModel() {
 
   return {
     ...routeMeta,
-    sinkData,
-    input: content.xxe.attackXml
+    sinkData
   };
 };

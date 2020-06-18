@@ -135,8 +135,8 @@ module.exports = {
     name: 'XXE Processing',
     link:
       'https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Processing',
-    products: ['Protect'],
-    inputs: ['input'],
+    products: ['Assess', 'Protect'],
+    inputs: ['query'],
     sinks: sinks.xxe
   },
   paramPollution: {

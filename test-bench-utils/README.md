@@ -33,21 +33,29 @@ user input, and for the `/safe` and `/noop` endpoints it is called with the
 ## Front-end content
 If there is any custom data you want to provide to the test bench front end, you
 can export it from _lib/content/_. For example, we export the following XML
-string as a potential attack for the xxe rule:
+string as a potential attack for the xpath injection rule:
 
-_lib/content/xxe.js_
+_lib/content/xpathInjection.js_
 ```js
-module.exports.attackXml = `
-<!DOCTYPE read-fs [<!ELEMENT read-fs ANY >
-<!ENTITY passwd SYSTEM "file:///etc/passwd" >]>
+module.exports.xml = `
+<?xml version="1.0"?>
 <users>
   <user>
-    <read-fs>&passwd;</read-fs>
-    <name>C.K Frode</name>
+    <username>admin</username>
+    <password>admin</password>
   </user>
-</users>`;
+  <user>
+    <username>user1</username>
+    <password>123456</password>
+  </user>
+  <user>
+    <username>tony</username>
+    <password>ynot</password>
+  </user>
+</users>
+`;
 ```
-This string is then used by the `xxe.ejs` view in `@contrast/test-bench-utils`
+This string is then used by the `xpathInjection.ejs` view in `@contrast/test-bench-utils`
 to render an input prepopulated with the attack value.
 
 ## Adding a shared view
@@ -65,7 +73,7 @@ templates are rendered with the following locals provided:
 
 An endpoint may also be configured to provide additional locals to the template
 to render additional context for a rule. For example, we provide an XML string
-to the _xxe_ endpoint as a potential attack value.
+to the _xpathInjection_ endpoint as a potential attack value.
 
 ## Test Bench Applications
 Once you have configured the shared sink and view, consult the following

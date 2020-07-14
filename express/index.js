@@ -38,47 +38,7 @@ const { navRoutes } = require('@contrast/test-bench-utils');
 
 const { PORT = 3000, HOST = 'localhost', SSL, CLUSTER } = process.env;
 const isHttps = SSL === '1' ? true : false;
-
-require('./vulnerabilities/static');
-app.use('/assets', express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(bodyParser.json({ limit: '50mb', extended: true }));
-app.use(cookieParser('keyboard cat'));
-
-app.set('views', `${__dirname}/views`);
-app.set('view engine', 'ejs');
-app.use(layouts);
-
-// dynamically register routes from shared config
-navRoutes.forEach(({ base }) => {
-  app.use(base, require(`./vulnerabilities/${base.substring(1)}`));
-});
-app.use('/crypto', require('./vulnerabilities/crypto'));
-app.use('/parampollution', require('./vulnerabilities/parampollution'));
-app.use('/header-injection', require('./vulnerabilities/header-injection'));
-app.use(
-  '/csp-header-insecure',
-  require('./vulnerabilities/csp-header-insecure')
-);
-app.use('/config', require('./vulnerabilities/config'));
-app.use('/mongoose', require('./vulnerabilities/mongoose'));
-app.use('/typecheck', require('./vulnerabilities/typecheck'));
-app.use('/mongoose', require('./vulnerabilities/mongoose'));
-app.use('/express-session', require('./vulnerabilities/express-session'));
-app.use('/ddb', require('./vulnerabilities/dynamodb'));
-
-// adding current year for footer to be up to date
-app.locals.navRoutes = navRoutes;
-app.locals.currentYear = new Date().getFullYear();
-
-app.get('/', function(req, res) {
-  res.render('pages/index');
-});
-
-app.get('/quit', function(req, res) {
-  res.send('adieu, cherie');
-  process.exit(); // eslint-disable-line
-});
+require('./app').setup(app);
 
 const listener = function listener() {
   const { address, port } = this.address();

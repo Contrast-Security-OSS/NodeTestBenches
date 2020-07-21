@@ -30,7 +30,7 @@
     "fastify-formbody": "^3.1.0",
     "fastify-multipart": "^1.0.5",
     "fastify-static": "^2.6.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "point-of-view": "^3.7.1"
   },
   "devDependencies": {

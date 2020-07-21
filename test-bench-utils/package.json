@@ -31,7 +31,7 @@
     "hooker": "^0.2.3",
     "libxmljs": "^0.19.7",
     "libxmljs2": "^0.22.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "mongodb": "^3.5.2",
     "mysql": "^2.17.1",
     "node-fetch": "^2.6.0",

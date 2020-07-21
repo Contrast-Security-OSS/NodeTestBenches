@@ -1,6 +1,6 @@
 {
   "name": "@contrast/test-bench-utils",
-  "version": "3.8.0",
+  "version": "3.8.1",
   "description": "Shared code to use in Contrast's web framework test apps.",
   "author": "Contrast Security <nodejs@contrastsecurity.com>",
   "license": "UNLICENSED",
@@ -31,7 +31,7 @@
     "hooker": "^0.2.3",
     "libxmljs": "^0.19.7",
     "libxmljs2": "^0.22.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "mongodb": "^3.5.2",
     "mysql": "^2.17.1",
     "node-fetch": "^2.6.0",
@@ -66,5 +66,5 @@
   "lint-staged": {
     "*.js": "eslint --fix"
   },
-  "gitHead": "9df9d8250d3cc43678393a931c6f3f967fa0c4c4"
+  "gitHead": "7c3b6afcfc1b68797ba96bd7fda6ea764582e8eb"
 }

@@ -1,7 +1,7 @@
 {
   "name": "@contrast/express-test-bench",
   "private": true,
-  "version": "3.8.0",
+  "version": "3.8.1",
   "description": "Intentionally vulnerable Express application",
   "author": "Contrast Security <nodejs@contrastsecurity.com>",
   "license": "UNLICENSED",
@@ -22,7 +22,7 @@
     "test:jest": "jest"
   },
   "dependencies": {
-    "@contrast/test-bench-utils": "^3.8.0",
+    "@contrast/test-bench-utils": "^3.8.1",
     "aws-sdk": "^2.397.0",
     "body-parser": "^1.14.2",
     "cookie-parser": "^1.4.3",
@@ -31,7 +31,7 @@
     "express-async-errors": "^3.1.1",
     "express-ejs-layouts": "^2.5.0",
     "express-session": "^1.15.6",
-    "lodash": "^4.17.13",
+    "lodash": "^4.17.19",
     "mongoose": "^5.6.9",
     "multer": "^1.4.1",
     "newrelic": "^6.1.0",

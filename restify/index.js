@@ -1,11 +1,14 @@
 'use strict';
-
+const path = require('path');
 const os = require('os');
 const restify = require('restify');
+const { Router } = require('restify-router');
 
-const { utils, navRoutes } = require('@contrast/test-bench-utils');
+
+const { navRoutes } = require('@contrast/test-bench-utils');
 
 const server = restify.createServer({
+  ignoreTrailingSlash: true,
   formatters: {
     'application/json': restify.formatters['application/json; q=0.4'],
     'application/x-www-form-urlencoded': (req, res, data) => data,
@@ -13,44 +16,8 @@ const server = restify.createServer({
     'text/html': restify.formatters['text/plain; q=0.3']
   }
 });
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, HOST = 'localhost' } = process.env;
 
-const defaultRespond = (result, req, res, next) => res.send(result);
-function controllerFactory(
-  routeInfo,
-  { locals = {}, respond = defaultRespond } = {}
-) {
-  let sinkData;
-  const vulnerability = routeInfo.base.substr(1);
-
-  try {
-    sinkData = utils.getSinkData(vulnerability, 'restify');
-  } catch (error) {
-    return;
-  }
-
-  sinkData.forEach(({ method, uri, sink, key }) => {
-    server[method](`${routeInfo.base}${uri}/safe`, async (req, res, next) => {
-      const input = utils.getInput({ locals, req, key });
-      const result = await sink(input, { safe: true });
-      respond(result, req, res, next);
-    });
-
-    server[method](`${routeInfo.base}${uri}/unsafe`, async (req, res, next) => {
-      const input = utils.getInput({ locals, req, key });
-      const result = await sink(input);
-      respond(result, req, res, next);
-    });
-
-    server[method](`${routeInfo.base}${uri}/noop`, async (req, res, next) => {
-      const input = 'noop';
-      const result = await sink(input, { noop: true });
-      respond(result, req, res, next);
-    });
-  });
-
-  return server;
-}
 
 server.use([
   restify.plugins.queryParser(),
@@ -78,12 +45,30 @@ server.use([
     reviver: undefined,
     maxFieldsSize: 2 * 1024 * 1024
   }),
-  require('restify-cookies').parse
+  require('restify-cookies').parse,
+  require('./utils/ejs')
 ]);
 
-navRoutes.forEach((routeInfo) => {
-  controllerFactory(routeInfo);
+const router = new Router();
+navRoutes.forEach(({ base }) => {
+  router.add(base, require(`./vulnerabilities/${base.substring(1)}`));
 });
+router.applyRoutes(server);
+
+server.get('/', function(req, res) {
+  res.render(
+      path.resolve(
+        __dirname,
+        'views',
+        'pages',
+        'index.ejs'
+      ), { locals: {}}
+  );
+});
+
+server.get('/assets/*', restify.plugins.serveStatic({
+  directory: __dirname
+}));
 
 // random testing..
 server.post('/xss/params/reflectedXss/:urlparam/unsafe', (req, res, next) => {
@@ -99,6 +84,6 @@ server.get('/cookie-test', (req, res, next) => {
   });
 });
 
-server.listen(PORT, function() {
+server.listen(PORT, HOST, function() {
   console.log('%s listening at %s', server.name, server.url);
 });

@@ -31,9 +31,16 @@ module.exports = async function routes(fastify, options) {
       return data;
     });
 
-    fastify[method](`${base}/${name}/path`, async function(request, reply) {
+    fastify[method](`${base}/${name}/host`, async function(request, reply) {
       const { input } = get(request, key);
       const url = `http://${input}`;
+      const data = await sink(url);
+      return data;
+    });
+
+    fastify[method](`${base}/${name}/path`, async function(request, reply) {
+      const { input } = get(request, key);
+      const url = `${EXAMPLE_URL}/${input}`;
       const data = await sink(url);
       return data;
     });

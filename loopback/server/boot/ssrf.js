@@ -32,10 +32,21 @@ module.exports = function(server) {
       }
     });
 
-    router[method](`/${name}/path`, async (req, res, next) => {
+    router[method](`/${name}/host`, async (req, res, next) => {
       try {
         const { input } = get(req, key);
         const url = `http://${input}`;
+        const result = await sink(url);
+        res.send(result);
+      } catch (err) {
+        next(err);
+      }
+    });
+
+    router[method](`/${name}/path`, async (req, res, next) => {
+      try {
+        const { input } = get(req, key);
+        const url = `${EXAMPLE_URL}/${input}`;
         const result = await sink(url);
         res.send(result);
       } catch (err) {

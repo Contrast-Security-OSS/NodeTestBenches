@@ -18,9 +18,16 @@ module.exports = (router) => {
       res.send(result);
     });
 
-    router[method](`/${name}/path`, async (req, res) => {
+    router[method](`/${name}/host`, async (req, res) => {
       const { input } = get(req, key);
       const url = `http://${input}`;
+      const result = await sink(url);
+      res.send(result);
+    });
+
+    router[method](`/${name}/path`, async (req, res) => {
+      const { input } = get(req, key);
+      const url = `${model.requestUrl}/${input}`;
       const result = await sink(url);
       res.send(result);
     });

@@ -29,9 +29,16 @@ module.exports = ({ router }) => {
       ctx.body = data;
     });
 
-    router[method](`${base}/${name}/path`, async function(ctx, next) {
+    router[method](`${base}/${name}/host`, async function(ctx, next) {
       const { input } = get(ctx, key);
       const url = `http://${input}`;
+      const data = await sink(url);
+      ctx.body = data;
+    });
+
+    router[method](`${base}/${name}/path`, async function(ctx, next) {
+      const { input } = get(ctx, key);
+      const url = `${EXAMPLE_URL}/${input}`;
       const data = await sink(url);
       ctx.body = data;
     });

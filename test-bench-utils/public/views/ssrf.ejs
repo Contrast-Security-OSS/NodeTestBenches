@@ -43,7 +43,7 @@
     <div style="overflow:auto">
       <p>Select part of url to contain tracked data.</p>
       <ul id="url-list" class="selections">
-        <li id="path-selection">
+        <li id="host-selection">
           <button type="submit" class="btn btn-warning">host</button>
         </li>
         <li id="path-selection">
@@ -77,8 +77,9 @@
      action: '/ssrf/{lib}/{url}',
      requestUrl: '<%= requestUrl %>',
      selectedLib: 'axios',
-     selectedUrlPart: 'path'
+     selectedUrlPart: 'host'
    };
+   debugger;
 
    $('#constructed-url').text(state.requestUrl);
 

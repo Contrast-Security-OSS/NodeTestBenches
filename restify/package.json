@@ -1,0 +1,16 @@
+{
+  "name": "@contrast/restify-test-bench",
+  "version": "1.0.0",
+  "description": "Intentionally vulnerable restify application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@contrast/test-bench-utils": "^3.8.1",
+    "restify": "^7.2.1",
+    "restify-cookies": "^0.2.6"
+  }
+}

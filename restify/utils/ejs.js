@@ -2,14 +2,26 @@
 const renderFile = require('ejs-locals');
 const { navRoutes } = require('@contrast/test-bench-utils');
 
-
+/**
+ * Adds a render method to `res` so you can render ejs templates
+ * w/ layouts
+ *
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ * @param {Function} next
+ */
 module.exports = function renderEJS(req, res, next) {
-  res.render = async function(path, options) {
+  /**
+   * Renders a template
+   *
+   * @param {string} path location of .ejs
+   * @param {Object} options to pass to template
+   */
+  res.render = function(path, options) {
     try {
-      debugger;
       options.locals = {...options.locals, navRoutes, currentYear: new Date().getFullYear(), _layoutFile: '/layout' }
       options.settings = { ['view engine']: 'ejs', views: `${__dirname}/../views` };
-      renderFile(path, options, function(err, html) {
+      renderFile(`${path}.ejs`, options, function(err, html) {
         res.setHeader('content-type', 'text/html');
         res.send(html);
       });

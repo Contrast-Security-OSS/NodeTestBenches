@@ -22,28 +22,10 @@ const { PORT = 3000, HOST = 'localhost' } = process.env;
 server.use([
   restify.plugins.queryParser(),
   restify.plugins.bodyParser({
-    maxBodySize: 0,
-    mapParams: false,
-    mapFiles: false,
-    overrideParams: false,
-    multipartHandler(part) {
-      part.on('data', function(data) {
-        // do something with the multipart data
-      });
-    },
-    multipartFileHandler(part) {
-      part.on('data', function(data) {
-        // do something with the multipart file data
-      });
-    },
-    keepExtensions: false,
-    uploadDir: os.tmpdir(),
-    multiples: true,
     hash: 'sha1',
     rejectUnknown: true,
-    requestBodyOnGet: false,
-    reviver: undefined,
-    maxFieldsSize: 2 * 1024 * 1024
+    maxFieldsSize: 2 * 1024 * 1024,
+    uploadDir: path.resolve(__dirname, './vulnerabilities/unsafeFileUpload/uploads')
   }),
   require('restify-cookies').parse,
   require('./utils/ejs')
@@ -61,7 +43,7 @@ server.get('/', function(req, res) {
         __dirname,
         'views',
         'pages',
-        'index.ejs'
+        'index'
       ), { locals: {}}
   );
 });

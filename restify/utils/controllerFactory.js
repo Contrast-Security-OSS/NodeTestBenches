@@ -30,7 +30,7 @@ module.exports = function controllerFactory(
         'vulnerabilities',
         vulnerability,
         'views',
-        'index.ejs'
+        'index'
       ),
       {
         ...routeMeta,

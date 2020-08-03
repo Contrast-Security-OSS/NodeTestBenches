@@ -44,6 +44,9 @@
       <p>Select part of url to contain tracked data.</p>
       <ul id="url-list" class="selections">
         <li id="path-selection">
+          <button type="submit" class="btn btn-warning">host</button>
+        </li>
+        <li id="path-selection">
           <button type="submit" class="btn btn-warning">path</button>
         </li>
         <li id="query-selection">
@@ -103,8 +106,10 @@
 
    $('[name=input]').on('keyup', (e) => {
      const url = e.currentTarget.value
-      ? state.selectedUrlPart === 'path'
+      ? state.selectedUrlPart === 'host'
       ? `http://${e.currentTarget.value}`
+      : state.selectedUrlPart === 'path'
+      ? `${state.requestUrl}/${e.currentTarget.value}`
       : `${state.requestUrl}?input=${e.currentTarget.value}`
       : `${state.requestUrl}`
      $('#constructed-url').text(url)

@@ -1,6 +1,5 @@
 'use strict';
-const { navRoutes, utils } = require('@contrast/test-bench-utils');
-const ejs = require('ejs');
+const { utils } = require('@contrast/test-bench-utils');
 const path = require('path');
 const { Router } = require('restify-router');
 
@@ -36,13 +35,12 @@ module.exports = function controllerFactory(
         ...routeMeta,
         groupedSinkData,
         sinkData,
-        locals
+        locals,
       }
     );
   });
 
   sinkData.forEach(({ method, uri, sink, key }) => {
-
     router[method](`${uri}/safe`, async (req, res, next) => {
       const input = utils.getInput({ locals, req, key });
       const result = await sink(input, { safe: true });
@@ -63,4 +61,4 @@ module.exports = function controllerFactory(
   });
 
   return router;
-}
+};

@@ -9,10 +9,10 @@ const router = new Router();
 const sinkData = utils.getSinkData('unsafeFileUpload', 'restify');
 const routeMeta = utils.getRouteMeta('unsafeFileUpload');
 
-router.get('/', function(req, res) {
+router.get('/', function (req, res) {
   res.render(path.resolve(__dirname, 'views', 'index'), {
     ...routeMeta,
-    sinkData
+    sinkData,
   });
 });
 

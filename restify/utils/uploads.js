@@ -8,5 +8,5 @@ module.exports = {
       fs.mkdirSync(path);
     }
     return path;
-  }
+  },
 };

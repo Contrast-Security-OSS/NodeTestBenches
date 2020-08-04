@@ -11,8 +11,8 @@ const server = restify.createServer({
     'application/json': restify.formatters['application/json; q=0.4'],
     'application/x-www-form-urlencoded': (req, res, data) => data,
     'text/plain': restify.formatters['text/plain; q=0.3'],
-    'text/html': restify.formatters['text/plain; q=0.3']
-  }
+    'text/html': restify.formatters['text/plain; q=0.3'],
+  },
 });
 const { PORT = 3000, HOST = 'localhost' } = process.env;
 
@@ -26,10 +26,10 @@ server.use([
     hash: 'sha1',
     rejectUnknown: true,
     maxFieldsSize: 2 * 1024 * 1024,
-    uploadDir
+    uploadDir,
   }),
   require('restify-cookies').parse,
-  require('./utils/ejs')
+  require('./utils/ejs'),
 ]);
 
 const router = new Router();
@@ -38,9 +38,9 @@ navRoutes.forEach(({ base }) => {
 });
 router.applyRoutes(server);
 
-server.get('/', function(req, res) {
+server.get('/', function (req, res) {
   res.render(path.resolve(__dirname, 'views', 'pages', 'index'), {
-    locals: {}
+    locals: {},
   });
 });
 
@@ -56,11 +56,11 @@ server.get('/cookie-test', (req, res, next) => {
     domain: 'www.example.com',
     maxAge: 60,
     secure: false,
-    path: '/home/'
+    path: '/home/',
   });
 });
 
-server.listen(PORT, HOST, function() {
+server.listen(PORT, HOST, function () {
   // eslint-disable-next-line
   console.log('%s listening at %s', server.name, server.url);
 });

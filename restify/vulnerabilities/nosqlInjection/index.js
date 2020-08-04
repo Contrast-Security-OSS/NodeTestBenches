@@ -5,6 +5,6 @@ const controllerFactory = require('../../utils/controllerFactory');
 
 module.exports = controllerFactory('nosqlInjection', {
   locals: {
-    attackValues: content.nosqlInjection
-  }
+    attackValues: content.nosqlInjection,
+  },
 });

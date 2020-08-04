@@ -14,11 +14,11 @@ const routeMeta = utils.getRouteMeta('ssrf');
 /**
  * SSRF has different behavior, so we don't reuse the controllerFactory here.
  */
-router.get('/', function(req, res) {
+router.get('/', function (req, res) {
   res.render(path.resolve(__dirname, 'views', 'index'), {
     ...routeMeta,
     requestUrl: 'http://www.example.com',
-    sinkData
+    sinkData,
   });
 });
 

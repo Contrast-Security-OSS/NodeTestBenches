@@ -108,3 +108,7 @@ module.exports.getRouteMeta = function getRouteMeta(rule) {
 module.exports.getInput = function getInput({ locals, req, key }) {
   return locals.input || get(req, key).input;
 };
+
+module.exports.getPart = function({ req, key, part }) {
+  return get(req, key).part;
+}

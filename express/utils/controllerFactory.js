@@ -39,6 +39,7 @@ module.exports = function controllerFactory(
   const sinkData = utils.getSinkData(vulnerability, 'express');
   const groupedSinkData = utils.groupSinkData(sinkData);
   const routeMeta = utils.getRouteMeta(vulnerability);
+  const { mode } = routeMeta;
 
   router.get('/', function(req, res, next) {
     res.render(
@@ -62,13 +63,15 @@ module.exports = function controllerFactory(
   sinkData.forEach(({ method, uri, sink, key }) => {
     router[method](`${uri}/safe`, async (req, res, next) => {
       const input = utils.getInput({ locals, req, key });
-      const result = await sink(input, { safe: true });
+      const part = utils.getPart({ req, key });
+      const result = await sink(input, { safe: true, part  });
       respond(result, req, res, next);
     });
 
     router[method](`${uri}/unsafe`, async (req, res, next) => {
       const input = utils.getInput({ locals, req, key });
-      const result = await sink(input);
+      const part = utils.getPart({ req, key });
+      const result = await sink(input, { part });
       respond(result, req, res, next);
     });
 

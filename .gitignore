@@ -4,8 +4,11 @@ node_modules/
 loopback/server/uploads/*
 !loopback/server/uploads/.gitkeep
 kraken/uploads/*
+!kraken/uploads/.gitkeep
 fastify/uploads/*
+!fastify/uploads/.gitkeep
 **/unsafeFileUpload/uploads/*
+!**/unsafeFileUpload/uploads/.gitkeep
 # agent logs
 *.log
 

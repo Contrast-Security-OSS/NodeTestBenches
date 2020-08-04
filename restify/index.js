@@ -3,7 +3,6 @@ const path = require('path');
 const restify = require('restify');
 const { Router } = require('restify-router');
 const { navRoutes } = require('@contrast/test-bench-utils');
-const uploadUtils = require('./utils/uploads');
 
 const server = restify.createServer({
   ignoreTrailingSlash: true,
@@ -16,8 +15,9 @@ const server = restify.createServer({
 });
 const { PORT = 3000, HOST = 'localhost' } = process.env;
 
-const uploadDir = uploadUtils.ensureDir(
-  path.resolve(__dirname, './vulnerabilities/unsafeFileUpload/uploads')
+const uploadDir = path.resolve(
+  __dirname,
+  './vulnerabilities/unsafeFileUpload/uploads'
 );
 
 server.use([

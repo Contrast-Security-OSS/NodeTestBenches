@@ -1,11 +1,9 @@
 'use strict';
 const path = require('path');
-const os = require('os');
 const restify = require('restify');
 const { Router } = require('restify-router');
-
-
 const { navRoutes } = require('@contrast/test-bench-utils');
+const uploadUtils = require('./utils/uploads');
 
 const server = restify.createServer({
   ignoreTrailingSlash: true,
@@ -18,6 +16,9 @@ const server = restify.createServer({
 });
 const { PORT = 3000, HOST = 'localhost' } = process.env;
 
+const uploadDir = uploadUtils.ensureDir(
+  path.resolve(__dirname, './vulnerabilities/unsafeFileUpload/uploads')
+);
 
 server.use([
   restify.plugins.queryParser(),
@@ -25,7 +26,7 @@ server.use([
     hash: 'sha1',
     rejectUnknown: true,
     maxFieldsSize: 2 * 1024 * 1024,
-    uploadDir: path.resolve(__dirname, './vulnerabilities/unsafeFileUpload/uploads')
+    uploadDir
   }),
   require('restify-cookies').parse,
   require('./utils/ejs')
@@ -38,19 +39,12 @@ navRoutes.forEach(({ base }) => {
 router.applyRoutes(server);
 
 server.get('/', function(req, res) {
-  res.render(
-      path.resolve(
-        __dirname,
-        'views',
-        'pages',
-        'index'
-      ), { locals: {}}
-  );
+  res.render(path.resolve(__dirname, 'views', 'pages', 'index'), {
+    locals: {}
+  });
 });
 
-server.get('/assets/*', restify.plugins.serveStatic({
-  directory: __dirname
-}));
+server.get('/assets/*', restify.plugins.serveStatic({ directory: __dirname }));
 
 // random testing..
 server.post('/xss/params/reflectedXss/:urlparam/unsafe', (req, res, next) => {
@@ -67,5 +61,6 @@ server.get('/cookie-test', (req, res, next) => {
 });
 
 server.listen(PORT, HOST, function() {
+  // eslint-disable-next-line
   console.log('%s listening at %s', server.name, server.url);
 });

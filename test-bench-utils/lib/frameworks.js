@@ -10,6 +10,7 @@ const sharedMapping = {
 };
 
 module.exports = {
+  restify: sharedMapping,
   express: sharedMapping,
   kraken: sharedMapping,
   loopback: sharedMapping,

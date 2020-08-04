@@ -8,6 +8,7 @@
     "koa",
     "kraken",
     "loopback",
+    "restify",
     "test-bench-utils"
   ],
   "version": "3.8.2"

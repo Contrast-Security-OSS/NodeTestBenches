@@ -27,15 +27,12 @@ const express = require('express');
 require('express-async-errors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const layouts = require('express-ejs-layouts');
 const http = require('http');
 const https = require('https');
 const pem = require('pem');
 const path = require('path');
 
 const app = express();
-const { navRoutes } = require('@contrast/test-bench-utils');
-
 const { PORT = 3000, HOST = 'localhost', SSL, CLUSTER } = process.env;
 const isHttps = SSL === '1' ? true : false;
 require('./app').setup(app);

@@ -139,7 +139,7 @@ module.exports = {
     inputs: ['query'],
     sinks: sinks.xxe
   },
-  paramPollution: {
+  parampollution: {
     base: '/parampollution',
     name: 'HTTP Parameter Pollution / Cache Controls Missing',
     link:

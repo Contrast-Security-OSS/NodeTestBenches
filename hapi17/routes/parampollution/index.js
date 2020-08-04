@@ -2,5 +2,5 @@
 
 const controllerFactory = require('../../utils/controllerFactory');
 
-exports.name = 'hapitestbench.paramPollution';
-exports.register = controllerFactory('paramPollution');
+exports.name = 'hapitestbench.parampollution';
+exports.register = controllerFactory('parampollution');

@@ -1,7 +1,7 @@
 'use strict';
 
 const {
-  utils: { getInput }
+  utils: { getInput, getPart }
 } = require('@contrast/test-bench-utils');
 
 /**
@@ -46,13 +46,15 @@ module.exports = function controllerFactory(
     model.sinkData.forEach(({ method, uri, sink, key }) => {
       router[method](`${uri}/safe`, async (req, res, next) => {
         const input = getInput({ locals: model, req, key });
-        const result = await sink(input, { safe: true });
+        const part = getPart({ req, key });
+        const result = await sink(input, { safe: true, part });
         respond(result, req, res, next);
       });
 
       router[method](`${uri}/unsafe`, async (req, res, next) => {
         const input = getInput({ locals: model, req, key });
-        const result = await sink(input);
+        const part = getPart({ req, key });
+        const result = await sink(input, { part });
         respond(result, req, res, next);
       });
 

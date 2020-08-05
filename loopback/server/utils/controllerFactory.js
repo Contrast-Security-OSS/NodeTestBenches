@@ -51,7 +51,8 @@ module.exports = function controllerFactory(
       router[method](`${uri}/safe`, async (req, res, next) => {
         try {
           const input = utils.getInput({ locals, req, key });
-          const result = await sink(input, { safe: true });
+          const part = utils.getPart({ req, key });
+          const result = await sink(input, { safe: true, part });
           respond(result, req, res, next);
         } catch (err) {
           next(err);
@@ -61,7 +62,8 @@ module.exports = function controllerFactory(
       router[method](`${uri}/unsafe`, async (req, res, next) => {
         try {
           const input = utils.getInput({ locals, req, key });
-          const result = await sink(input);
+          const part = utils.getPart({ req, key });
+          const result = await sink(input, { part });
           respond(result, req, res, next);
         } catch (err) {
           next(err);

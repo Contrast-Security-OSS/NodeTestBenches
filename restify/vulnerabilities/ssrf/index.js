@@ -1,48 +1,10 @@
 'use strict';
 
-const { get } = require('lodash');
-const { Router } = require('restify-router');
-const path = require('path');
+const { content } = require('@contrast/test-bench-utils');
+const controllerFactory = require('../../utils/controllerFactory');
 
-const { utils } = require('@contrast/test-bench-utils');
-
-const EXAMPLE_URL = 'http://www.example.com';
-const router = new Router();
-const sinkData = utils.getSinkData('ssrf', 'restify');
-const routeMeta = utils.getRouteMeta('ssrf');
-
-/**
- * SSRF has different behavior, so we don't reuse the controllerFactory here.
- */
-router.get('/', function (req, res) {
-  res.render(path.resolve(__dirname, 'views', 'index'), {
-    ...routeMeta,
-    requestUrl: 'http://www.example.com',
-    sinkData,
-  });
+module.exports = controllerFactory('ssrf', {
+  locals: {
+    requestUrl: content.ssrf.url,
+  },
 });
-
-sinkData.forEach(({ method, sink, name, key }) => {
-  router[method](`/${name}/query`, async (req, res) => {
-    const { input } = get(req, key);
-    const url = `${EXAMPLE_URL}?q=${input}`;
-    const result = await sink(url);
-    res.send(result);
-  });
-
-  router[method](`/${name}/host`, async (req, res) => {
-    const { input } = get(req, key);
-    const url = `http://${input}`;
-    const result = await sink(url);
-    res.send(result);
-  });
-
-  router[method](`/${name}/path`, async (req, res) => {
-    const { input } = get(req, key);
-    const url = `http://${input}`;
-    const result = await sink(url);
-    res.send(result);
-  });
-});
-
-module.exports = router;

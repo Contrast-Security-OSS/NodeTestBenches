@@ -50,13 +50,15 @@ module.exports = function controllerFactory(
     sinkData.forEach(({ method, url, sink, key }) => {
       fastify[method](`${url}/safe`, async (request, reply) => {
         const input = utils.getInput({ locals, req: request, key });
-        const result = await sink(input, { safe: true });
+        const part = utils.getPart({ req: request, key });
+        const result = await sink(input, { safe: true, part });
         respond(result, request, reply);
       });
 
       fastify[method](`${url}/unsafe`, async (request, reply) => {
         const input = utils.getInput({ locals, req: request, key });
-        const result = await sink(input);
+        const part = utils.getPart({ req: request, key });
+        const result = await sink(input, { part });
         // adding this in cases where the sink returns undefined
         // fastify shits the bed in this case with a FST_ERR_PROMISE_NOT_FULLFILLED
         // i have only really seen this in ssjs where we eval('console.log("1");');

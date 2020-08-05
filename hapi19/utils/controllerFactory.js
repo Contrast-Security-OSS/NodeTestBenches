@@ -53,7 +53,8 @@ module.exports = function controllerFactory(
           method: [method],
           handler: async (request, h) => {
             const input = utils.getInput({ locals, req: request, key });
-            const result = await sink(input, { safe: true });
+            const part = utils.getPart({ req: request, key });
+            const result = await sink(input, { safe: true, part });
             return respond(result, request, h);
           }
         },
@@ -62,7 +63,8 @@ module.exports = function controllerFactory(
           method: [method],
           handler: async (request, h) => {
             const input = utils.getInput({ locals, req: request, key });
-            const result = await sink(input);
+            const part = utils.getPart({ req: request, key });
+            const result = await sink(input, { part });
             return respond(result, request, h);
           }
         },

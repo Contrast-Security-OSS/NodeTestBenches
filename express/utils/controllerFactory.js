@@ -39,7 +39,6 @@ module.exports = function controllerFactory(
   const sinkData = utils.getSinkData(vulnerability, 'express');
   const groupedSinkData = utils.groupSinkData(sinkData);
   const routeMeta = utils.getRouteMeta(vulnerability);
-  const { mode } = routeMeta;
 
   router.get('/', function(req, res, next) {
     res.render(

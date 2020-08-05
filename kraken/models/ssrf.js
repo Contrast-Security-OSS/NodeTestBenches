@@ -1,14 +1,14 @@
-const { utils } = require('@contrast/test-bench-utils');
-
-const EXAMPLE_URL = 'http://www.example.com';
+const { utils, content } = require('@contrast/test-bench-utils');
 
 module.exports = function ServerSideRequestForgeryModel() {
   const sinkData = utils.getSinkData('ssrf', 'kraken');
   const routeMeta = utils.getRouteMeta('ssrf');
+  const groupedSinkData = utils.groupSinkData(sinkData);
 
   return {
     ...routeMeta,
-    requestUrl: EXAMPLE_URL,
-    sinkData
+    requestUrl: content.ssrf.url,
+    sinkData,
+    groupedSinkData
   };
 };

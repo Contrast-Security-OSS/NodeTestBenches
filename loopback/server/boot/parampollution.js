@@ -1,11 +1,6 @@
 'use strict';
 
-module.exports = function(server) {
-  const router = server.loopback.Router();
+const controllerFactory = require('../utils/controllerFactory');
 
-  router.get('/', function(req, res, next) {
-    res.render('pages/parampollution', {});
-  });
+module.exports = controllerFactory('parampollution');
 
-  server.use('/parampollution', router);
-}

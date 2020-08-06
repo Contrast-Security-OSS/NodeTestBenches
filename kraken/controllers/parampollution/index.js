@@ -1,12 +1,5 @@
 'use strict';
-const { get } = require('lodash');
 
-//const SSRFModel = require('../../models/ssrf');
+const controllerFactory = require('../../utils/controllerFactory');
 
-module.exports = (router) => {
-  //const model = new SSRFModel();
-
-  router.get('/', (req, res) => {
-    res.render('parampollution', {});
-  });
-};
+module.exports = controllerFactory('parampollution');

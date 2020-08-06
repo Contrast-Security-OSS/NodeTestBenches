@@ -27,7 +27,6 @@ module.exports.setup = function(app) {
   );
   app.use('/typecheck', require('./vulnerabilities/typecheck'));
   app.use('/express-session', require('./vulnerabilities/express-session'));
-  app.use('/ddb', require('./vulnerabilities/dynamodb'));
 
   // adding current year for footer to be up to date
   app.locals.navRoutes = navRoutes;

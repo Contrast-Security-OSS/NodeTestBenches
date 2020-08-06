@@ -2,7 +2,6 @@
   "packages": [
     "express",
     "fastify",
-    "hapi17",
     "hapi18",
     "hapi19",
     "koa",

@@ -1,16 +1,4 @@
-const express = require('express');
+'use strict';
+const controllerFactory = require('../../utils/controllerFactory');
 
-module.exports = (function() {
-  'use strict';
-  const api = express.Router();
-
-  api.all('/', function(req, res) {
-    res.render('../vulnerabilities/parampollution/views/index');
-  });
-
-  api.all('/hpp', function(req, res) {
-    res.render('../vulnerabilities/parampollution/views/index');
-  });
-
-  return api;
-})();
+module.exports = controllerFactory('parampollution');

@@ -1,36 +1,19 @@
+<h1 class="page-header"><%= name %></h1>
+<% include ../partials/ruleInfo.ejs %>
+<div class="row">
+	<div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+    <div class="alert alert-info">
+      <p>Note: This form does nothing, the act of rendering this page will report <code>parameter-pollution</code> finding</p>
 
-
-		 <h1 class="page-header">HTTP Parameter Pollution and Cache Control Headers missing</h1>
-
-		  <div class="row" style="min-height: 200px;">
-			<div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
-
-			 <h4 class="sub-header">Parameter Pollution</h4>
-
-			<form method="POST">
-			  <div class="form-group">
-			    <label for="exampleInputEmail1">Email address</label>
-			    <input name="email" class="form-control" id="exampleInputEmail1" placeholder="Email" value="">
-			  </div>
-			  <button type="submit" class="btn btn-default">Submit</button>
-			</form>
-
-		  	</div>
-
-	  	  </div>
-		  <div class="row" style="min-height: 200px;">
-		<div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
-
-		 <h4 class="sub-header">Cache Controls Missing</h4>
-
-		<form method="POST" action="/http/">
-		  <div class="form-group">
-		    <label for="exampleInputEmail1">Email address</label>
-		    <input name="email" class="form-control" id="exampleInputEmail1" placeholder="Email" value="">
-		  </div>
-		  <button type="submit" class="btn btn-default">Submit</button>
+    </div>
+		<form method="POST">
+			<div class="form-group">
+				<label for="exampleInputEmail1">Email address</label>
+				<input name="email" class="form-control" id="exampleInputEmail1" placeholder="Email" value="">
+			</div>
+			<button type="submit" class="btn btn-default">Submit</button>
 		</form>
+	</div>
+</div>
 
-	  	</div>
-		  </div>
 

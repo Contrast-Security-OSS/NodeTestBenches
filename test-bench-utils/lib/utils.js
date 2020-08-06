@@ -109,6 +109,16 @@ module.exports.getInput = function getInput({ locals, req, key }) {
   return locals.input || get(req, key).input;
 };
 
-module.exports.getPart = function({ req, key, part }) {
+/**
+ * Gets value of part from request.
+ * Note: This is currently only used in ssrf to indicate which part of a URL
+ * to affect
+ *
+ * @param {Object} params
+ * @param {Object} params.req IncomingMessage
+ * @param {string} params.key key on request to get input from
+ *
+ */
+module.exports.getPart = function({ req, key }) {
   return get(req, key).part;
 }

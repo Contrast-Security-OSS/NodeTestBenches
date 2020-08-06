@@ -7,6 +7,12 @@ const request = require('request');
 const superagent = require('superagent');
 const { url: EXAMPLE_URL } = require('../content/ssrf');
 
+/**
+ * Constructs a url based on input and a part field
+ * @param {string} input
+ * @param {string} part which part to place input
+ * @return {string} fully constructed url
+ */
 function formatUrl(input, part) {
   let url;
   switch(part) {

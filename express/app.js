@@ -20,7 +20,6 @@ module.exports.setup = function(app) {
   navRoutes.forEach(({ base }) => {
     app.use(base, require(`./vulnerabilities/${base.substring(1)}`));
   });
-  app.use('/crypto', require('./vulnerabilities/crypto'));
   app.use('/header-injection', require('./vulnerabilities/header-injection'));
   app.use(
     '/csp-header-insecure',

@@ -21,6 +21,9 @@
     "test:mocha": "mocha test/index.mocha.js",
     "test:jest": "jest"
   },
+  "engines": {
+    "node": ">=10.13.0"
+  },
   "dependencies": {
     "@contrast/test-bench-utils": "^3.9.0",
     "aws-sdk": "^2.397.0",

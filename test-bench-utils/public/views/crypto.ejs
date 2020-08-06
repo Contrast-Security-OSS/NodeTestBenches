@@ -1,0 +1,18 @@
+<h1 class="page-header"><%= name %></h1>
+<% include ../partials/ruleInfo.ejs %>
+<% sinkData.forEach(function(sink) { %>
+<div class="row" style="min-height: 200px;">
+  <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+    <h4 class="sub-header">
+      <code><%= sink.name %></code>
+    </h4>
+    <form method="<%= sink.method %>" action="<%= sink.url %>/unsafe" target="_blank">
+      <div class="form-group">
+      <p>Click submit to test <%= sink.name %></p>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+<% }); %>
+<% include ../partials/safeButtons %>

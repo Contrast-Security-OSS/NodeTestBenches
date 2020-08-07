@@ -15,9 +15,9 @@ const { url: EXAMPLE_URL } = require('../content/ssrf');
  */
 function formatUrl(input, part) {
   let url;
-  switch(part) {
+  switch (part) {
     case 'query':
-      url =  `${EXAMPLE_URL}?q=${input}`;
+      url = `${EXAMPLE_URL}?q=${input}`;
       break;
     case 'path':
       url = `${EXAMPLE_URL}/${input}`;
@@ -35,22 +35,22 @@ function formatUrl(input, part) {
  * custom route handlers.
  */
 
-exports.axios = async function makeAxiosRequest(input, { part }) {
+exports.axios = async function makeAxiosRequest([input, part]) {
   const url = formatUrl(input, part);
   return axios.get(url).then((response) => response.data);
 };
 
-exports.bent = async function makeBentRequest(input, { part }) {
+exports.bent = async function makeBentRequest([input, part]) {
   const url = formatUrl(input, part);
   return bent(url, 'GET', 'string', 200)('/');
 };
 
-exports.fetch = async function makeFetchRequest(input, { part }) {
+exports.fetch = async function makeFetchRequest([input, part]) {
   const url = formatUrl(input, part);
   return fetch(url).then((res) => res.text());
 };
 
-exports.request = async function makeRequestRequest(input, { part }) {
+exports.request = async function makeRequestRequest([input, part]) {
   const url = formatUrl(input, part);
   return new Promise((resolve, reject) => {
     request(url, (err, response, body) => {
@@ -60,7 +60,7 @@ exports.request = async function makeRequestRequest(input, { part }) {
   });
 };
 
-exports.superagent = async function makeSuperagentRequest(input, { part }) {
+exports.superagent = async function makeSuperagentRequest([input, part]) {
   const url = formatUrl(input, part);
   return superagent.get(url).then((res) => res.text);
 };

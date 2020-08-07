@@ -121,4 +121,4 @@ module.exports.getInput = function getInput({ locals, req, key }) {
  */
 module.exports.getPart = function({ req, key }) {
   return get(req, key).part;
-}
+};

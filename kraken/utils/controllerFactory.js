@@ -1,8 +1,6 @@
 'use strict';
 
-const {
-  utils: { getInput, getPart }
-} = require('@contrast/test-bench-utils');
+const { utils } = require('@contrast/test-bench-utils');
 
 /**
  * Custom response functions allow you to change the functionality or return
@@ -30,7 +28,7 @@ const defaultRespond = (result, req, res, next) => res.send(result);
  */
 module.exports = function controllerFactory(
   vulnerability,
-  { respond = defaultRespond } = {}
+  { respond = defaultRespond, getInput = utils.getInput } = {}
 ) {
   const Model = require(`../models/${vulnerability}`);
 
@@ -46,15 +44,13 @@ module.exports = function controllerFactory(
     model.sinkData.forEach(({ method, uri, sink, key }) => {
       router[method](`${uri}/safe`, async (req, res, next) => {
         const input = getInput({ locals: model, req, key });
-        const part = getPart({ req, key });
-        const result = await sink(input, { safe: true, part });
+        const result = await sink(input, { safe: true });
         respond(result, req, res, next);
       });
 
       router[method](`${uri}/unsafe`, async (req, res, next) => {
         const input = getInput({ locals: model, req, key });
-        const part = getPart({ req, key });
-        const result = await sink(input, { part });
+        const result = await sink(input);
         respond(result, req, res, next);
       });
 

@@ -27,7 +27,7 @@ const defaultRespond = (result, request, h) => result;
  */
 module.exports = function controllerFactory(
   vulnerability,
-  { locals = {}, respond = defaultRespond } = {}
+  { locals = {}, respond = defaultRespond, getInput = utils.getInput } = {}
 ) {
   return (server, options) => {
     const sinkData = utils.getSinkData(vulnerability, 'hapi');
@@ -52,9 +52,8 @@ module.exports = function controllerFactory(
           path: `${uri}/safe`,
           method: [method],
           handler: async (request, h) => {
-            const input = utils.getInput({ locals, req: request, key });
-            const part = utils.getPart({ req: request, key });
-            const result = await sink(input, { safe: true, part });
+            const input = getInput({ locals, req: request, key });
+            const result = await sink(input, { safe: true });
             return respond(result, request, h);
           }
         },
@@ -62,9 +61,8 @@ module.exports = function controllerFactory(
           path: `${uri}/unsafe`,
           method: [method],
           handler: async (request, h) => {
-            const input = utils.getInput({ locals, req: request, key });
-            const part = utils.getPart({ req: request, key });
-            const result = await sink(input, { part });
+            const input = getInput({ locals, req: request, key });
+            const result = await sink(input);
             return respond(result, request, h);
           }
         },

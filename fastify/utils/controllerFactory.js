@@ -29,7 +29,7 @@ const defaultRespond = (result, request, reply) => {
  */
 module.exports = function controllerFactory(
   vulnerability,
-  { locals = {}, respond = defaultRespond } = {}
+  { locals = {}, respond = defaultRespond, getInput = utils.getInput } = {}
 ) {
   const sinkData = utils.getSinkData(vulnerability, 'express');
   const groupedSinkData = utils.groupSinkData(sinkData);
@@ -49,16 +49,14 @@ module.exports = function controllerFactory(
 
     sinkData.forEach(({ method, url, sink, key }) => {
       fastify[method](`${url}/safe`, async (request, reply) => {
-        const input = utils.getInput({ locals, req: request, key });
-        const part = utils.getPart({ req: request, key });
-        const result = await sink(input, { safe: true, part });
+        const input = getInput({ locals, req: request, key });
+        const result = await sink(input, { safe: true });
         respond(result, request, reply);
       });
 
       fastify[method](`${url}/unsafe`, async (request, reply) => {
-        const input = utils.getInput({ locals, req: request, key });
-        const part = utils.getPart({ req: request, key });
-        const result = await sink(input, { part });
+        const input = getInput({ locals, req: request, key });
+        const result = await sink(input);
         // adding this in cases where the sink returns undefined
         // fastify shits the bed in this case with a FST_ERR_PROMISE_NOT_FULLFILLED
         // i have only really seen this in ssjs where we eval('console.log("1");');

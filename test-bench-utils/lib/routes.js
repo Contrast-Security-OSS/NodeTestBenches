@@ -142,9 +142,17 @@ module.exports = {
   },
   parampollution: {
     base: '/parampollution',
-    name: 'HTTP Parameter Pollution / Cache Controls Missing',
+    name: 'HTTP Parameter Pollution',
     link:
       'https://owasp.org/www-pdf-archive/AppsecEU09_CarettoniDiPaola_v0.8.pdf',
     products: ['Assess']
+  },
+  crypto: {
+    base: '/crypto',
+    name: 'Crypto Rules',
+    link: 'https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure',
+    products: ['Assess'],
+    inputs: ['query'],
+    sinks: sinks.crypto
   }
 };

@@ -1,6 +1,4 @@
 'use strict';
 
 const controllerFactory = require('../utils/controllerFactory');
-
-module.exports = controllerFactory('parampollution');
-
+module.exports = controllerFactory('crypto');

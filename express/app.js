@@ -1,4 +1,3 @@
-
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const layouts = require('express-ejs-layouts');
@@ -21,19 +20,13 @@ module.exports.setup = function(app) {
   navRoutes.forEach(({ base }) => {
     app.use(base, require(`./vulnerabilities/${base.substring(1)}`));
   });
-  app.use('/crypto', require('./vulnerabilities/crypto'));
-  app.use('/parampollution', require('./vulnerabilities/parampollution'));
   app.use('/header-injection', require('./vulnerabilities/header-injection'));
   app.use(
     '/csp-header-insecure',
     require('./vulnerabilities/csp-header-insecure')
   );
-  app.use('/config', require('./vulnerabilities/config'));
-  app.use('/mongoose', require('./vulnerabilities/mongoose'));
   app.use('/typecheck', require('./vulnerabilities/typecheck'));
-  app.use('/mongoose', require('./vulnerabilities/mongoose'));
   app.use('/express-session', require('./vulnerabilities/express-session'));
-  app.use('/ddb', require('./vulnerabilities/dynamodb'));
 
   // adding current year for footer to be up to date
   app.locals.navRoutes = navRoutes;
@@ -47,5 +40,4 @@ module.exports.setup = function(app) {
     res.send('adieu, cherie');
     process.exit(); // eslint-disable-line
   });
-
 };

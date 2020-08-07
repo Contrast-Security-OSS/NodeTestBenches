@@ -1,4 +1,8 @@
 'use strict';
-module.exports = ({ router }) => {
-  router.all('/parampollution', (ctx, next) => ctx.render('parampollution'));
-};
+
+const controllerFactory = require('../utils/controllerFactory');
+
+/**
+ * @vulnerability: parameter-pollution
+ */
+module.exports = controllerFactory('parampollution');

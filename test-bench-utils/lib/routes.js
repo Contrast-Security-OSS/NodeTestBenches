@@ -64,6 +64,7 @@ module.exports = {
     link: 'https://www.owasp.org/index.php/Server_Side_Request_Forgery',
     products: ['Assess'],
     inputs: ['query'],
+    parts: ['host', 'path', 'query'],
     // these are not sinks but the ssrf sinks file has helpers to make a request for each
     sinks: sinks.ssrf
   },

@@ -22,46 +22,38 @@
     <div style="overflow:auto">
       <p>Select library to use when performing the server-side request.</p>
       <ul id="libs-list" class="selections">
-        <li id="axios-selection">
-          <button type="submit" class="btn btn-warning">axios</button>
+      <% groupedSinkData.query.forEach(function(sink) { %>
+        <li id="<%= sink.name %>-selection">
+          <button type="submit" class="btn btn-warning"><%= sink.name %></button>
         </li>
-        <li id="bent-selection">
-          <button type="submit" class="btn btn-warning">bent</button>
-        </li>
-        <li id="fetch-selection">
-          <button type="submit" class="btn btn-warning">fetch</button>
-        </li>
-        <li id="request-selection">
-          <button type="submit" class="btn btn-warning">request</button>
-        </li>
-        <li id="superagent-selection">
-          <button type="submit" class="btn btn-warning">superagent</button>
-        </li>
+      <% }); %>
       </ul>
     </div>
 
     <div style="overflow:auto">
       <p>Select part of url to contain tracked data.</p>
       <ul id="url-list" class="selections">
-        <li id="path-selection">
-          <button type="submit" class="btn btn-warning">path</button>
+        <% parts.forEach(function(part) { %>
+        <li id="<%= part %>-selection">
+          <button type="submit" class="btn btn-warning"><%= part %></button>
         </li>
-        <li id="query-selection">
-          <button type="submit" class="btn btn-warning">query</button>
-        </li>
+        <% }); %>
       </ul>
     </div>
     <br>
 
     <div>
       <form action="/ssrf" method="GET" target="test-bench-ssrf">
-        <p>The server will make a request to the following URL using the selected Node.js package.</p>
-        <pre id="constructed-url"></pre>
-        <br>
-        <label>Input Value</label>
-        <br>
-        <input name="input" class="form-control">
-        <br>
+        <div class="form-group">
+          <p>The server will make a request to the following URL using the selected Node.js package.</p>
+          <pre id="constructed-url"></pre>
+          <br>
+          <label>Input Value</label>
+          <br>
+          <input name="input" class="form-control">
+          <br>
+          <input name="part" type="hidden">
+        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
@@ -71,10 +63,10 @@
 <script type="text/javascript">
  $(() => {
    const state = {
-     action: '/ssrf/{lib}/{url}',
+     action: '/ssrf/query/{lib}/unsafe',
      requestUrl: '<%= requestUrl %>',
      selectedLib: 'axios',
-     selectedUrlPart: 'path'
+     selectedUrlPart: 'host'
    };
 
    $('#constructed-url').text(state.requestUrl);
@@ -103,8 +95,10 @@
 
    $('[name=input]').on('keyup', (e) => {
      const url = e.currentTarget.value
-      ? state.selectedUrlPart === 'path'
+      ? state.selectedUrlPart === 'host'
       ? `http://${e.currentTarget.value}`
+      : state.selectedUrlPart === 'path'
+      ? `${state.requestUrl}/${e.currentTarget.value}`
       : `${state.requestUrl}?input=${e.currentTarget.value}`
       : `${state.requestUrl}`
      $('#constructed-url').text(url)
@@ -115,9 +109,9 @@
    function setAction() {
      const action = state
        .action
-       .replace('{lib}', state.selectedLib)
-       .replace('{url}', state.selectedUrlPart);
+       .replace('{lib}', state.selectedLib);
 
+     $('[name=part]').val(state.selectedUrlPart);
      $('form').attr('action', action);
    }
 

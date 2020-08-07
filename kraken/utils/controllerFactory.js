@@ -1,8 +1,6 @@
 'use strict';
 
-const {
-  utils: { getInput }
-} = require('@contrast/test-bench-utils');
+const { utils } = require('@contrast/test-bench-utils');
 
 /**
  * Custom response functions allow you to change the functionality or return
@@ -30,7 +28,7 @@ const defaultRespond = (result, req, res, next) => res.send(result);
  */
 module.exports = function controllerFactory(
   vulnerability,
-  { respond = defaultRespond } = {}
+  { respond = defaultRespond, getInput = utils.getInput } = {}
 ) {
   const Model = require(`../models/${vulnerability}`);
 

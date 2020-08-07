@@ -1,53 +1,15 @@
 'use strict';
-
-const Hoek = require('@hapi/hoek');
-
-const { utils } = require('@contrast/test-bench-utils');
-
-const EXAMPLE_URL = 'http://www.example.com';
+const { content } = require('@contrast/test-bench-utils');
+const controllerFactory = require('../../utils/controllerFactory');
+const { get } = require('lodash');
 
 exports.name = 'hapitestbench.ssrf';
-exports.register = function(server, options) {
-  const sinkData = utils.getSinkData('ssrf', 'hapi');
-  const routeMeta = utils.getRouteMeta('ssrf');
-
-  server.route({
-    method: 'GET',
-    path: '/',
-    handler: {
-      view: {
-        template: 'ssrf',
-        context: {
-          ...routeMeta,
-          requestUrl: EXAMPLE_URL,
-          sinkData
-        }
-      }
-    }
-  });
-
-  sinkData.forEach(({ name, method, sink, key }) => {
-    server.route([
-      {
-        path: `/${name}/query`,
-        method,
-        handler: async (request, h) => {
-          const { input } = Hoek.reach(request, key);
-          const url = `${EXAMPLE_URL}?q=${input}`;
-          const data = await sink(url);
-          return data;
-        }
-      },
-      {
-        path: `/${name}/path`,
-        method,
-        handler: async (request, h) => {
-          const { input } = Hoek.reach(request, key);
-          const url = `https://${input}`;
-          const data = await sink(url);
-          return data;
-        }
-      }
-    ]);
-  });
-};
+exports.register = controllerFactory('ssrf', {
+  getInput({ req, key }) {
+    const { input, part } = get(req, key);
+    return [input, part];
+  },
+  locals: {
+    requestUrl: content.ssrf.url
+  }
+});

@@ -1,5 +1,6 @@
 {
   "name": "@contrast/restify-test-bench",
+  "private": true,
   "version": "3.10.1",
   "description": "Intentionally vulnerable restify application",
   "main": "index.js",
@@ -38,6 +39,5 @@
   },
   "lint-staged": {
     "*.js": "eslint --fix"
-  },
-  "gitHead": "24f86bfcba94fcf3ca7e46c4bb9e58fe28ca533b"
+  }
 }

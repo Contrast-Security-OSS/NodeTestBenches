@@ -3,13 +3,14 @@ const vm = require('vm');
 
 /**
  * eval tests the CODE_STRING sink type
- * @param {string} input user input string
+ * @param {Object} params
+ * @param {string} params.input user input string
  * @param {Object} opts
  * @param {boolean=} opts.safe are we calling the sink safely?
  * @param {boolean=} opts.noop are we calling the sink as a noop?
  */
 module.exports.eval = async function _eval(
-  input,
+  { input },
   { safe = false, noop = false } = {}
 ) {
   if (safe) return 'SAFE';
@@ -20,13 +21,14 @@ module.exports.eval = async function _eval(
 };
 
 /**
- * @param {string} input user input string
+ * @param {Object} params
+ * @param {string} params.input user input string
  * @param {Object} opts
  * @param {boolean=} opts.safe are we calling the sink safely?
  * @param {boolean=} opts.noop are we calling the sink as a noop?
  */
 module.exports.Function = async function _Function(
-  input,
+  { input },
   { safe = false, noop = false } = {}
 ) {
   if (safe) return 'SAFE';
@@ -38,13 +40,14 @@ module.exports.Function = async function _Function(
 
 /**
  * runInNewContext tests CODE_ENV sink type
- * @param {string} input user input string
+ * @param {Object} params
+ * @param {string} params.input user input string
  * @param {Object} opts
  * @param {boolean=} opts.safe are we calling the sink safely?
  * @param {boolean=} opts.noop are we calling the sink as a noop?
  */
 module.exports['vm.runInNewContext'] = async function _runInNewContext(
-  input,
+  { input },
   { safe = false, noop = false } = {}
 ) {
   if (safe) return 'SAFE';

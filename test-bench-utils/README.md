@@ -18,12 +18,13 @@ Then create a file under _lib/sinks/_ that exports functions with a consistent
 signature:
 ```js
   /**
-   * @param {string} input user input string
+   * @param {Object} params
+   * @param {string} params.input user input string
    * @param {Object} opts
    * @param {boolean=} opts.safe are we calling the sink safely?
    * @param {boolean=} opts.noop are we calling the sink as a noop?
    */
-  module.exports['sinkName'] = async function sink(input, { safe = false, noop = false } = {}) {};
+  module.exports['sinkName'] = async function sink({ input }, { safe = false, noop = false } = {}) {};
 ```
 The sink function will be called by the endpoint handler appropriately by each
 framework. By default, for the `/unsafe` endpoint the function is called with

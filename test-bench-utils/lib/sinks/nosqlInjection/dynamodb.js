@@ -36,14 +36,15 @@ AWS.DynamoDB.DocumentClient.prototype.scan = function overloadedDocClientScan(
 const documentClient = new AWS.DynamoDB.DocumentClient();
 
 /**
- * @param {string} input user input string
+ * @param {Object} params
+ * @param {string} params.input user input string
  * @param {Object} opts
  * @param {boolean=} opts.safe are we calling the sink safely?
  * @param {boolean=} opts.noop are we calling the sink as a noop?
  */
 module.exports[
   'aws-sdk.DynamoDB.DocumentClient.prototype.scan'
-] = async function scan(input, { safe = false, noop = false } = {}) {
+] = async function scan({ input }, { safe = false, noop = false } = {}) {
   if (noop) return 'NOOP';
 
   const result = documentClient.scan(getDocClientParams(safe ? 'safe' : input));
@@ -64,13 +65,14 @@ AWS.DynamoDB.prototype.makeRequest = function overloadedDbScan(
 const db = new AWS.DynamoDB();
 
 /**
- * @param {string} input user input string
+ * @param {Object} params
+ * @param {string} params.input user input string
  * @param {Object} opts
  * @param {boolean=} opts.safe are we calling the sink safely?
  * @param {boolean=} opts.noop are we calling the sink as a noop?
  */
 module.exports['aws-sdk.DynamoDB.prototype.makeRequest'] = async function scan(
-  input,
+  { input },
   { safe = false, noop = false } = {}
 ) {
   if (noop) return 'NOOP';

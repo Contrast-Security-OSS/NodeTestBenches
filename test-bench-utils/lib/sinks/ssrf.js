@@ -35,22 +35,42 @@ function formatUrl(input, part) {
  * custom route handlers.
  */
 
-exports.axios = async function makeAxiosRequest([input, part]) {
+/**
+ * @param {Object} params
+ * @param {string} params.input user input url
+ * @param {string} params.part user input part of the url to insert
+ */
+exports.axios = async function makeAxiosRequest({ input, part }) {
   const url = formatUrl(input, part);
   return axios.get(url).then((response) => response.data);
 };
 
-exports.bent = async function makeBentRequest([input, part]) {
+/**
+ * @param {Object} params
+ * @param {string} params.input user input url
+ * @param {string} params.part user input part of the url to insert
+ */
+exports.bent = async function makeBentRequest({ input, part }) {
   const url = formatUrl(input, part);
   return bent(url, 'GET', 'string', 200)('/');
 };
 
-exports.fetch = async function makeFetchRequest([input, part]) {
+/**
+ * @param {Object} params
+ * @param {string} params.input user input url
+ * @param {string} params.part user input part of the url to insert
+ */
+exports.fetch = async function makeFetchRequest({ input, part }) {
   const url = formatUrl(input, part);
   return fetch(url).then((res) => res.text());
 };
 
-exports.request = async function makeRequestRequest([input, part]) {
+/**
+ * @param {Object} params
+ * @param {string} params.input user input url
+ * @param {string} params.part user input part of the url to insert
+ */
+exports.request = async function makeRequestRequest({ input, part }) {
   const url = formatUrl(input, part);
   return new Promise((resolve, reject) => {
     request(url, (err, response, body) => {
@@ -60,7 +80,12 @@ exports.request = async function makeRequestRequest([input, part]) {
   });
 };
 
-exports.superagent = async function makeSuperagentRequest([input, part]) {
+/**
+ * @param {Object} params
+ * @param {string} params.input user input url
+ * @param {string} params.part user input part of the url to insert
+ */
+exports.superagent = async function makeSuperagentRequest({ input, part }) {
   const url = formatUrl(input, part);
   return superagent.get(url).then((res) => res.text);
 };

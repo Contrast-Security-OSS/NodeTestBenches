@@ -6,8 +6,15 @@ const { SQL } = require('sql-template-strings');
 const db = new sqlite3.Database(':memory:');
 
 ['all', 'run', 'get', 'each', 'exec', 'prepare'].forEach((func) => {
+  /**
+   * @param {Object} params
+   * @param {string} params.input user input string
+   * @param {Object} opts
+   * @param {boolean=} opts.safe are we calling the sink safely?
+   * @param {boolean=} opts.noop are we calling the sink as a noop?
+   */
   module.exports[`sqlite3.${func}`] = async function sink(
-    input,
+    { input },
     { safe = false, noop = false } = {}
   ) {
     if (noop) {

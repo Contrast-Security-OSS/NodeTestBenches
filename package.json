@@ -8,8 +8,11 @@
     "postinstall": "lerna bootstrap --ci --force-local",
     "postpublish": "lerna exec -- npm install --package-lock-only && git commit -a -m 'Bump package-lock' && git push"
   },
-  "devDependencies": {},
   "dependencies": {
     "lerna": "^3.22.1"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "arrowParens": "always"
   }
 }

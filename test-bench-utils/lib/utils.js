@@ -1,5 +1,13 @@
 'use strict';
-const { camelCase, groupBy, map, reduce, get } = require('lodash');
+const {
+  camelCase,
+  get,
+  groupBy,
+  isEmpty,
+  map,
+  pick,
+  reduce
+} = require('lodash');
 
 const frameworks = require('./frameworks');
 const routes = require('./routes');
@@ -10,10 +18,10 @@ const routes = require('./routes');
  * @property {string} key key under which user input lies
  * @property {string} method http method
  * @property {string} name the name of the sink
+ * @property {Function} sink sink function
  * @property {string} uri relative url
  * @property {string} url fully qualified url
  * @property {string} urlWithoutParams url without parameter variable
- * @property {string|Function} sink name of the function/sink OR the sink itself
  */
 
 /**
@@ -25,10 +33,19 @@ const routes = require('./routes');
  * @param {string} opts.key relevant key on req object
  * @param {string} opts.method the method being handled
  * @param {string} opts.param the framework-specific paramter string for path parameters
- * @param {Object<string, Function>} opts.sinks
+ * @param {string[]} opts.params input parameters to provide to sink functions
+ * @param {Object<string, Function>} opts.sinks object containing all sink methods
  * @return {SinkData[]}
  */
-function sinkData({ base, input, key, method, param, sinks }) {
+const sinkData = function sinkData({
+  base,
+  input,
+  key,
+  method,
+  param,
+  params,
+  sinks
+}) {
   return map(sinks, (sink, name) => {
     const prettyName = camelCase(name);
     const uriWithoutParams = `/${input}/${prettyName}`;
@@ -40,6 +57,7 @@ function sinkData({ base, input, key, method, param, sinks }) {
     return {
       input,
       key,
+      params,
       method,
       name,
       sink,
@@ -48,7 +66,7 @@ function sinkData({ base, input, key, method, param, sinks }) {
       urlWithoutParams
     };
   });
-}
+};
 
 /**
  * Generates sink data for a given rule and framework.
@@ -58,7 +76,7 @@ function sinkData({ base, input, key, method, param, sinks }) {
  * @return {SinkData[]}
  */
 module.exports.getSinkData = function getSinkData(rule, framework) {
-  const { base, inputs, sinks } = routes[rule];
+  const { base, inputs, params, sinks } = routes[rule];
 
   return reduce(
     inputs,
@@ -72,6 +90,7 @@ module.exports.getSinkData = function getSinkData(rule, framework) {
           key,
           method,
           param,
+          params,
           sinks
         })
       ];
@@ -99,26 +118,16 @@ module.exports.getRouteMeta = function getRouteMeta(rule) {
 };
 
 /**
- * Gets the proper input from either req or from model
- * @param {Object} params
- * @param {Object} params.locals local model object
- * @param {Object} params.req IncomingMessage
- * @param {string} params.key key on request to get input from
+ * Gets the proper input(s) from either req or from model
+ * @param {Object} opts
+ * @param {Object=} opts.locals local model object
+ * @param {string[]} opts.params parameters to extract from the req or model
+ * @param {Object} opts.req IncomingMessage
+ * @param {string} opts.key key on request to get input from
+ * @returns {{ [param: string]: any}}
  */
-module.exports.getInput = function getInput({ locals, req, key }) {
-  return locals.input || get(req, key).input;
-};
+module.exports.getInput = function getInput({ locals = {}, params, req, key }) {
+  const localInputs = pick(locals, params);
 
-/**
- * Gets value of part from request.
- * Note: This is currently only used in ssrf to indicate which part of a URL
- * to affect
- *
- * @param {Object} params
- * @param {Object} params.req IncomingMessage
- * @param {string} params.key key on request to get input from
- *
- */
-module.exports.getPart = function({ req, key }) {
-  return get(req, key).part;
+  return isEmpty(localInputs) ? pick(get(req, key), params) : localInputs;
 };

@@ -7,6 +7,7 @@ module.exports = {
     link: 'https://www.owasp.org/index.php/Command_Injection',
     products: ['Assess', 'Protect'],
     inputs: ['query', 'cookies'],
+    params: ['input'],
     sinks: sinks.cmdInjection
   },
   cmdInjectionSemanticChainedCommands: {
@@ -15,6 +16,7 @@ module.exports = {
     link: 'https://www.owasp.org/index.php/Command_Injection',
     products: ['Protect'],
     inputs: ['query'],
+    params: ['input'],
     sinks: sinks.cmdInjectionSemanticChainedCommands
   },
   cmdInjectionSemanticDangerousPaths: {
@@ -23,6 +25,7 @@ module.exports = {
     link: 'https://www.owasp.org/index.php/Command_Injection',
     products: ['Protect'],
     inputs: ['query'],
+    params: ['input'],
     sinks: sinks.cmdInjectionSemanticDangerousPaths
   },
   nosqlInjection: {
@@ -31,6 +34,7 @@ module.exports = {
     link: 'https://www.owasp.org/index.php/Testing_for_NoSQL_injection',
     products: ['Assess', 'Protect'],
     inputs: ['query'], // default
+    params: ['input'],
     sinks: sinks.nosqlInjection
   },
   pathTraversal: {
@@ -39,6 +43,7 @@ module.exports = {
     link: 'https://www.owasp.org/index.php/pathTraversal',
     products: ['Assess', 'Protect'],
     inputs: ['headers', 'query', 'body'],
+    params: ['input'],
     sinks: sinks.pathTraversal
   },
   sqlInjection: {
@@ -47,6 +52,7 @@ module.exports = {
     link: 'https://www.owasp.org/index.php/SQL_Injection',
     products: ['Assess', 'Protect'],
     inputs: ['query'], // default,
+    params: ['input'],
     sinks: sinks.sqlInjection
   },
   ssjs: {
@@ -56,6 +62,7 @@ module.exports = {
       'https://ckarande.gitbooks.io/owasp-nodegoat-tutorial/content/tutorial/a1_-_server_side_js_injection.html',
     products: ['Protect'],
     inputs: ['query'],
+    params: ['input'],
     sinks: sinks.ssjs
   },
   ssrf: {
@@ -64,6 +71,7 @@ module.exports = {
     link: 'https://www.owasp.org/index.php/Server_Side_Request_Forgery',
     products: ['Assess'],
     inputs: ['query'],
+    params: ['input', 'part'],
     parts: ['host', 'path', 'query'],
     // these are not sinks but the ssrf sinks file has helpers to make a request for each
     sinks: sinks.ssrf
@@ -74,6 +82,7 @@ module.exports = {
     link: 'https://www.owasp.org/index.php/Unrestricted_File_Upload',
     products: ['Protect'],
     inputs: ['body'],
+    params: ['input'],
     // This rule is specific for each framework, no sinks will be abstracted
     sinks: sinks.unsafeFileUpload
   },
@@ -84,6 +93,7 @@ module.exports = {
       'https://owasp.org/www-community/vulnerabilities/Deserialization_of_untrusted_data',
     products: ['Protect'],
     inputs: ['query'],
+    params: ['input'],
     sinks: sinks.untrustedDeserialization
   },
   unvalidatedRedirect: {
@@ -93,6 +103,7 @@ module.exports = {
       'https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html',
     products: ['Assess'],
     inputs: ['query'],
+    params: ['input'],
     // This rule is specific for each framework
     sinks: sinks.unvalidatedRedirect
   },
@@ -102,6 +113,7 @@ module.exports = {
     link: 'https://owasp.org/www-community/attacks/XPATH_Injection',
     products: ['Assess'],
     inputs: ['query'],
+    params: ['input'],
     sinks: sinks.xpathInjection
   },
   xss: {
@@ -111,6 +123,7 @@ module.exports = {
       'https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)#Stored_and_Reflected_XSS_Attacks',
     products: ['Assess', 'Protect'],
     inputs: ['query', 'params'],
+    params: ['input'],
     sinks: sinks.xss
   },
   xssJSON: {
@@ -120,6 +133,7 @@ module.exports = {
       'https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)#Stored_and_Reflected_XSS_Attacks',
     products: ['Assess', 'Protect'],
     inputs: ['query', 'params'],
+    params: ['input'],
     sinks: sinks.xssJSON
   },
   xssStealthyRequire: {
@@ -129,6 +143,7 @@ module.exports = {
       'https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)#Stored_and_Reflected_XSS_Attacks',
     products: ['Assess', 'Protect'],
     inputs: ['query', 'params'],
+    params: ['input'],
     sinks: sinks.xssStealthyRequire
   },
   xxe: {
@@ -138,6 +153,7 @@ module.exports = {
       'https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Processing',
     products: ['Assess', 'Protect'],
     inputs: ['query'],
+    params: ['input'],
     sinks: sinks.xxe
   },
   parampollution: {
@@ -150,9 +166,11 @@ module.exports = {
   crypto: {
     base: '/crypto',
     name: 'Crypto Rules',
-    link: 'https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure',
+    link:
+      'https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure',
     products: ['Assess'],
     inputs: ['query'],
+    params: ['input'],
     sinks: sinks.crypto
   }
 };

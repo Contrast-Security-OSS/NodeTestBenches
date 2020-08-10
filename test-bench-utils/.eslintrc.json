@@ -1,3 +1,9 @@
 {
-  "extends": "@contrast"
+  "extends": "@contrast",
+  "overrides": [
+    {
+      "files": ["*.test.js"],
+      "env": { "jest": true }
+    }
+  ]
 }

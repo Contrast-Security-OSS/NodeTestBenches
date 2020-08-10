@@ -1,4 +1,5 @@
 .vscode/
+coverage/
 node_modules/
 # form upload paths
 loopback/server/uploads/*

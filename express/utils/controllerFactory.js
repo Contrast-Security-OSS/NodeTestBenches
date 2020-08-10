@@ -1,17 +1,10 @@
 'use strict';
 
 const express = require('express');
+const { fromPairs } = require('lodash');
 const path = require('path');
 
 const { utils } = require('@contrast/test-bench-utils');
-
-/**
- * @callback GetInputFn
- * @param {Object} params
- * @param {Object} params.locals local model object
- * @param {Object} params.req IncomingMessage
- * @param {string} params.key key on request to get input from
- */
 
 /**
  * Custom response functions allow you to change the functionality or return
@@ -35,7 +28,6 @@ const defaultRespond = (result, req, res, next) => res.send(result);
  *
  * @param {string} vulnerability the vulnerability or rule being tested
  * @param {Object} opts
- * @param {GetInputFn} opts.getInput if provided, a custom getInput function
  * @param {Object} opts.locals additional locals to provide to EJS
  * @param {ResponseFn} opts.respond if provided, a custom return or response
  * @param {express.Router} opts.router if provided, an express router
@@ -43,12 +35,7 @@ const defaultRespond = (result, req, res, next) => res.send(result);
  */
 module.exports = function controllerFactory(
   vulnerability,
-  {
-    getInput = utils.getInput,
-    locals = {},
-    respond = defaultRespond,
-    router = express.Router()
-  } = {}
+  { locals = {}, respond = defaultRespond, router = express.Router() } = {}
 ) {
   const sinkData = utils.getSinkData(vulnerability, 'express');
   const groupedSinkData = utils.groupSinkData(sinkData);
@@ -73,22 +60,22 @@ module.exports = function controllerFactory(
     );
   });
 
-  sinkData.forEach(({ method, uri, sink, key }) => {
+  sinkData.forEach(({ method, params, uri, sink, key }) => {
     router[method](`${uri}/safe`, async (req, res, next) => {
-      const input = getInput({ locals, req, key });
-      const result = await sink(input, { safe: true });
+      const inputs = utils.getInput({ locals, params, req, key });
+      const result = await sink(inputs, { safe: true });
       respond(result, req, res, next);
     });
 
     router[method](`${uri}/unsafe`, async (req, res, next) => {
-      const input = getInput({ locals, req, key });
-      const result = await sink(input);
+      const inputs = utils.getInput({ locals, params, req, key });
+      const result = await sink(inputs);
       respond(result, req, res, next);
     });
 
     router[method](`${uri}/noop`, async (req, res, next) => {
-      const input = 'noop';
-      const result = await sink(input, { noop: true });
+      const inputs = fromPairs(params.map((param) => [param, 'noop']));
+      const result = await sink(inputs, { noop: true });
       respond(result, req, res, next);
     });
   });

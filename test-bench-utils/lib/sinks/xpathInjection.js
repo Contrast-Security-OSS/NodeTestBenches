@@ -1,4 +1,5 @@
 'use strict';
+
 const xpath = require('xpath');
 const { DOMParser } = require('xmldom');
 const { xml } = require('../content/xpathInjection');

@@ -63,10 +63,7 @@ if (isHttps) {
 
 async function start() {
   try {
-    const server = await glue.compose(
-      manifest,
-      options
-    );
+    const server = await glue.compose(manifest, options);
     server.views({
       engines: { ejs: require('ejs') },
       allowAbsolutePaths: true,

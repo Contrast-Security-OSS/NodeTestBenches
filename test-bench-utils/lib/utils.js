@@ -1,4 +1,5 @@
 'use strict';
+
 const {
   camelCase,
   get,
@@ -18,6 +19,7 @@ const routes = require('./routes');
  * @property {string} key key under which user input lies
  * @property {string} method http method
  * @property {string} name the name of the sink
+ * @property {string[]} params input parameters exposed to the sink
  * @property {Function} sink sink function
  * @property {string} uri relative url
  * @property {string} url fully qualified url
@@ -57,9 +59,9 @@ const sinkData = function sinkData({
     return {
       input,
       key,
-      params,
       method,
       name,
+      params,
       sink,
       uri,
       url,

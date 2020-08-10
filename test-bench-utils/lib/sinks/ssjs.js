@@ -1,4 +1,5 @@
 'use strict';
+
 const vm = require('vm');
 
 /**

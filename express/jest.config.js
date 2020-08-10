@@ -1,4 +1,4 @@
 module.exports = {
-  testMatch: ["**/*.jest.js"],
+  testMatch: ['**/*.jest.test.js'],
   forceExit: true
-}
+};

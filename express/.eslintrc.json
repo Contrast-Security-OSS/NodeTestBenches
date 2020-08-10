@@ -1,3 +1,9 @@
 {
-  "extends": "@contrast"
+  "extends": "@contrast",
+  "overrides": [{
+    "files": ["*.test.js"],
+    "rules": {
+      "node/no-unpublished-require": "off"
+    }
+  }]
 }

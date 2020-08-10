@@ -17,7 +17,11 @@
   "scripts": {
     "contrast": "DEBUG=contrast:* node-contrast index.js",
     "dev": "nodemon index.js",
+    "lint": "eslint --fix .",
     "start": "node index.js"
+  },
+  "engines": {
+    "node": ">=10.13.0"
   },
   "dependencies": {
     "@contrast/test-bench-utils": "^3.10.1",

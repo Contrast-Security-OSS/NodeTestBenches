@@ -17,15 +17,21 @@
   "scripts": {
     "contrast": "DEBUG=contrast:* node-contrast server.js",
     "dev": "nodemon server.js",
+    "lint": "eslint --fix .",
     "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=10.13.0"
   },
   "dependencies": {
     "@contrast/test-bench-utils": "^3.10.1",
     "@hapi/glue": "^7.0.0",
     "@hapi/hapi": "^19.1.1",
+    "@hapi/hoek": "^9.0.4",
     "@hapi/inert": "^6.0.1",
     "@hapi/vision": "^6.0.0",
     "ejs": "^2.5.7",
+    "lodash": "^4.17.19",
     "mongodb": "^3.0.1",
     "pem": "^1.14.2"
   },

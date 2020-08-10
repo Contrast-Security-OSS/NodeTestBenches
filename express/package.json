@@ -17,8 +17,9 @@
   "scripts": {
     "contrast": "DEBUG=contrast:* node-contrast index.js",
     "dev": "nodemon index.js",
+    "lint": "eslint --fix .",
     "start": "node index.js",
-    "test:mocha": "mocha test/index.mocha.js",
+    "test:mocha": "mocha test/index.mocha.test.js",
     "test:jest": "jest"
   },
   "engines": {

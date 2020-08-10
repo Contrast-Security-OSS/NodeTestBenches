@@ -1,4 +1,6 @@
 'use strict';
+
+const { fromPairs } = require('lodash');
 const { routes, utils } = require('@contrast/test-bench-utils');
 
 /**
@@ -17,7 +19,7 @@ const { routes, utils } = require('@contrast/test-bench-utils');
 const defaultRespond = (result, request, reply) => {
   reply.type('text/html');
   reply.send(result);
-}
+};
 
 /**
  * Configures a route to handle sinks configured by our shared test-bench-utils
@@ -29,7 +31,7 @@ const defaultRespond = (result, request, reply) => {
  */
 module.exports = function controllerFactory(
   vulnerability,
-  { locals = {}, respond = defaultRespond, getInput = utils.getInput } = {}
+  { locals = {}, respond = defaultRespond } = {}
 ) {
   const sinkData = utils.getSinkData(vulnerability, 'express');
   const groupedSinkData = utils.groupSinkData(sinkData);
@@ -47,16 +49,16 @@ module.exports = function controllerFactory(
       return reply;
     });
 
-    sinkData.forEach(({ method, url, sink, key }) => {
+    sinkData.forEach(({ method, params, url, sink, key }) => {
       fastify[method](`${url}/safe`, async (request, reply) => {
-        const input = getInput({ locals, req: request, key });
-        const result = await sink(input, { safe: true });
+        const inputs = utils.getInput({ locals, params, req: request, key });
+        const result = await sink(inputs, { safe: true });
         respond(result, request, reply);
       });
 
       fastify[method](`${url}/unsafe`, async (request, reply) => {
-        const input = getInput({ locals, req: request, key });
-        const result = await sink(input);
+        const inputs = utils.getInput({ locals, params, req: request, key });
+        const result = await sink(inputs);
         // adding this in cases where the sink returns undefined
         // fastify shits the bed in this case with a FST_ERR_PROMISE_NOT_FULLFILLED
         // i have only really seen this in ssjs where we eval('console.log("1");');
@@ -64,8 +66,8 @@ module.exports = function controllerFactory(
       });
 
       fastify[method](`${url}/noop`, async (request, reply) => {
-        const input = 'NOOP';
-        const result = await sink(input, { noop: true });
+        const inputs = fromPairs(params.map((param) => [param, 'noop']));
+        const result = await sink(inputs, { noop: true });
         respond(result, request, reply);
       });
     });

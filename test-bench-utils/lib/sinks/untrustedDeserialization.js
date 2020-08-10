@@ -1,4 +1,5 @@
 'use strict';
+
 const { unserialize } = require('node-serialize');
 
 const pre = (str) => `<pre>${str}</pre>`;

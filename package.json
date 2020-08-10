@@ -11,6 +11,15 @@
   "dependencies": {
     "lerna": "^3.22.1"
   },
+  "devDependencies": {
+    "@contrast/eslint-config": "^2.0.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-mocha": "^6.3.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "^2.0.5"
+  },
   "prettier": {
     "singleQuote": true,
     "arrowParens": "always"

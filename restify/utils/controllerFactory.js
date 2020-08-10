@@ -1,5 +1,7 @@
 'use strict';
+
 const { utils } = require('@contrast/test-bench-utils');
+const { fromPairs } = require('lodash');
 const path = require('path');
 const { Router } = require('restify-router');
 
@@ -15,7 +17,7 @@ const defaultRespond = (result, req, res, next) => res.send(result);
  */
 module.exports = function controllerFactory(
   vulnerability,
-  { locals = {}, respond = defaultRespond, router = new Router(), getInput = utils.getInput } = {}
+  { locals = {}, respond = defaultRespond, router = new Router() } = {}
 ) {
   const sinkData = utils.getSinkData(vulnerability, 'restify');
   const groupedSinkData = utils.groupSinkData(sinkData);
@@ -40,22 +42,22 @@ module.exports = function controllerFactory(
     );
   });
 
-  sinkData.forEach(({ method, uri, sink, key }) => {
+  sinkData.forEach(({ method, params, uri, sink, key }) => {
     router[method](`${uri}/safe`, async (req, res, next) => {
-      const input = getInput({ locals, req, key });
-      const result = await sink(input, { safe: true });
+      const inputs = utils.getInput({ locals, params, req, key });
+      const result = await sink(inputs, { safe: true });
       respond(result, req, res, next);
     });
 
     router[method](`${uri}/unsafe`, async (req, res, next) => {
-      const input = getInput({ locals, req, key });
-      const result = await sink(input);
+      const inputs = utils.getInput({ locals, params, req, key });
+      const result = await sink(inputs);
       respond(result, req, res, next);
     });
 
     router[method](`${uri}/noop`, async (req, res, next) => {
-      const input = 'noop';
-      const result = await sink(input, { noop: true });
+      const inputs = fromPairs(params.map((param) => [param, 'noop']));
+      const result = await sink(inputs, { noop: true });
       respond(result, req, res, next);
     });
   });

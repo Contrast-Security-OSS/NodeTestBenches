@@ -1,4 +1,5 @@
 'use strict';
+
 const express = require('express');
 const stream = require('stream');
 
@@ -56,6 +57,7 @@ transform.get('/write', write.bind(this, T));
 
 module.exports = (function() {
   'use strict';
+
   const api = express.Router();
 
   api.get('/', function(req, res) {

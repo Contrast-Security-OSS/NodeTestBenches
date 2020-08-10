@@ -1,4 +1,5 @@
 'use strict';
+
 const sqlite3 = require('sqlite3');
 const express = require('express');
 const db = new sqlite3.Database(':memory:');
@@ -6,6 +7,7 @@ const db = new sqlite3.Database(':memory:');
 let tableExists = false;
 module.exports = (function() {
   'use strict';
+
   const api = express.Router();
   api.get('/', (req, res) => {
     res.render(`${__dirname}/../views/sqlite3.ejs`);

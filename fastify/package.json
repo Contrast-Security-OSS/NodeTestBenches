@@ -20,6 +20,7 @@
   "scripts": {
     "contrast": "DEBUG=contrast:* node-contrast server.js",
     "dev": "nodemon server.js | pino-pretty",
+    "lint": "eslint --fix .",
     "start": "node server.js | pino-pretty"
   },
   "dependencies": {

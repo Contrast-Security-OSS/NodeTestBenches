@@ -60,6 +60,7 @@ describe('getRouteMeta', () => {
 });
 
 describe('getInput', () => {
+  const key = 'body';
   const params = ['input', 'arg'];
   let req;
 
@@ -74,7 +75,7 @@ describe('getInput', () => {
   });
 
   it('returns the appropriate object keyed by expected parameters', () => {
-    const result = utils.getInput({ params, req, key: 'body' });
+    const result = utils.getInput(req, key, params);
     expect(result).toEqual({
       input: 'foo',
       arg: 'bar'
@@ -83,10 +84,18 @@ describe('getInput', () => {
 
   it('returns parameters from the locals object when passed with input params', () => {
     const locals = { input: 'FOO', arg: 'BAZ', attackValues: 'bad string!' };
-    const result = utils.getInput({ locals, params, req, key: 'body' });
+    const result = utils.getInput(req, key, params, { locals });
     expect(result).toEqual({
       input: 'FOO',
       arg: 'BAZ'
+    });
+  });
+
+  it('returns hard-coded values when provided', () => {
+    const result = utils.getInput(req, key, params, { noop: true });
+    expect(result).toEqual({
+      input: 'noop',
+      arg: 'noop'
     });
   });
 });

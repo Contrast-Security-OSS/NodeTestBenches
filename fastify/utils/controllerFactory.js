@@ -1,6 +1,5 @@
 'use strict';
 
-const { fromPairs } = require('lodash');
 const { routes, utils } = require('@contrast/test-bench-utils');
 
 /**
@@ -51,13 +50,13 @@ module.exports = function controllerFactory(
 
     sinkData.forEach(({ method, params, url, sink, key }) => {
       fastify[method](`${url}/safe`, async (request, reply) => {
-        const inputs = utils.getInput({ locals, params, req: request, key });
+        const inputs = utils.getInput(request, key, params, { locals });
         const result = await sink(inputs, { safe: true });
         respond(result, request, reply);
       });
 
       fastify[method](`${url}/unsafe`, async (request, reply) => {
-        const inputs = utils.getInput({ locals, params, req: request, key });
+        const inputs = utils.getInput(request, key, params, { locals });
         const result = await sink(inputs);
         // adding this in cases where the sink returns undefined
         // fastify shits the bed in this case with a FST_ERR_PROMISE_NOT_FULLFILLED
@@ -66,7 +65,7 @@ module.exports = function controllerFactory(
       });
 
       fastify[method](`${url}/noop`, async (request, reply) => {
-        const inputs = fromPairs(params.map((param) => [param, 'noop']));
+        const inputs = utils.getInput(request, key, params, { noop: true });
         const result = await sink(inputs, { noop: true });
         respond(result, request, reply);
       });

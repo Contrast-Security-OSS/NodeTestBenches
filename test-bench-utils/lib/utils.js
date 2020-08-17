@@ -2,6 +2,7 @@
 
 const {
   camelCase,
+  fromPairs,
   get,
   groupBy,
   isEmpty,
@@ -121,15 +122,23 @@ module.exports.getRouteMeta = function getRouteMeta(rule) {
 
 /**
  * Gets the proper input(s) from either req or from model
- * @param {Object} opts
- * @param {Object=} opts.locals local model object
- * @param {string[]} opts.params parameters to extract from the req or model
- * @param {Object} opts.req IncomingMessage
- * @param {string} opts.key key on request to get input from
+ * @param {Object} request IncomingMessage
+ * @param {string} key key on request to get input from
+ * @param {string[]} params parameters to extract from the req or model
+ * @param {Object} opts additional object
+ * @param {Object} opts.locals local model object which may contain values
+ * @param {boolean} opts.noop when true, return hard-coded 'noop' values for each param
  * @returns {{ [param: string]: any}}
  */
-module.exports.getInput = function getInput({ locals = {}, params, req, key }) {
+module.exports.getInput = function getInput(
+  request,
+  key,
+  params,
+  { locals = {}, noop } = {}
+) {
+  if (noop) return fromPairs(map(params, (param) => [param, 'noop']));
+
   const localInputs = pick(locals, params);
 
-  return isEmpty(localInputs) ? pick(get(req, key), params) : localInputs;
+  return isEmpty(localInputs) ? pick(get(request, key), params) : localInputs;
 };

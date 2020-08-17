@@ -1,6 +1,5 @@
 'use strict';
 
-const { fromPairs } = require('lodash');
 const { utils } = require('@contrast/test-bench-utils');
 
 /**
@@ -54,12 +53,7 @@ module.exports = function controllerFactory(
           path: `${uri}/safe`,
           method: [method],
           handler: async (request, h) => {
-            const inputs = utils.getInput({
-              locals,
-              params,
-              req: request,
-              key
-            });
+            const inputs = utils.getInput(request, key, params, { locals });
             const result = await sink(inputs, { safe: true });
             return respond(result, request, h);
           }
@@ -68,12 +62,7 @@ module.exports = function controllerFactory(
           path: `${uri}/unsafe`,
           method: [method],
           handler: async (request, h) => {
-            const inputs = utils.getInput({
-              locals,
-              params,
-              req: request,
-              key
-            });
+            const inputs = utils.getInput(request, key, params, { locals });
             const result = await sink(inputs);
             return respond(result, request, h);
           }
@@ -82,7 +71,7 @@ module.exports = function controllerFactory(
           path: `${uri}/noop`,
           method: [method],
           handler: async (request, h) => {
-            const inputs = fromPairs(params.map((param) => [param, 'noop']));
+            const inputs = utils.getInput(request, key, params, { noop: true });
             const result = await sink(inputs, { noop: true });
             return respond(result, request, h);
           }

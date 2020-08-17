@@ -1,6 +1,5 @@
 'use strict';
 
-const { fromPairs } = require('lodash');
 const { routes, utils } = require('@contrast/test-bench-utils');
 
 /**
@@ -49,19 +48,19 @@ module.exports = function controllerFactory(
 
     sinkData.forEach(({ method, params, url, sink, key }) => {
       router[method](`${url}/safe`, async (ctx, next) => {
-        const inputs = utils.getInput({ locals, params, req: ctx, key });
+        const inputs = utils.getInput(ctx, key, params, { locals });
         const result = await sink(inputs, { safe: true });
         respond(result, ctx, next);
       });
 
       router[method](`${url}/unsafe`, async (ctx, next) => {
-        const inputs = utils.getInput({ locals, params, req: ctx, key });
+        const inputs = utils.getInput(ctx, key, params, { locals });
         const result = await sink(inputs);
         respond(result, ctx, next);
       });
 
       router[method](`${url}/noop`, async (ctx, next) => {
-        const inputs = fromPairs(params.map((param) => [param, 'noop']));
+        const inputs = utils.getInput(ctx, key, params, { noop: true });
         const result = await sink(inputs, { noop: true });
         respond(result, ctx, next);
       });

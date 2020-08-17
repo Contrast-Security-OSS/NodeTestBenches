@@ -1,4 +1,5 @@
 'use strict';
+
 const Hoek = require('@hapi/hoek');
 const fs = require('fs');
 const path = require('path');

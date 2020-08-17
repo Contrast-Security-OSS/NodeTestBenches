@@ -1,4 +1,5 @@
 'use strict';
+
 const { utils } = require('@contrast/test-bench-utils');
 
 /**
@@ -27,7 +28,7 @@ const defaultRespond = (result, request, h) => result;
  */
 module.exports = function controllerFactory(
   vulnerability,
-  { locals = {}, respond = defaultRespond, getInput = utils.getInput } = {}
+  { locals = {}, respond = defaultRespond } = {}
 ) {
   return (server, options) => {
     const sinkData = utils.getSinkData(vulnerability, 'hapi');
@@ -46,14 +47,14 @@ module.exports = function controllerFactory(
         })
     });
 
-    sinkData.forEach(({ uri, method, sink, key }) => {
+    sinkData.forEach(({ uri, method, params, sink, key }) => {
       server.route([
         {
           path: `${uri}/safe`,
           method: [method],
           handler: async (request, h) => {
-            const input = getInput({ locals, req: request, key });
-            const result = await sink(input, { safe: true });
+            const inputs = utils.getInput(request, key, params, { locals });
+            const result = await sink(inputs, { safe: true });
             return respond(result, request, h);
           }
         },
@@ -61,8 +62,8 @@ module.exports = function controllerFactory(
           path: `${uri}/unsafe`,
           method: [method],
           handler: async (request, h) => {
-            const input = getInput({ locals, req: request, key });
-            const result = await sink(input);
+            const inputs = utils.getInput(request, key, params, { locals });
+            const result = await sink(inputs);
             return respond(result, request, h);
           }
         },
@@ -70,8 +71,8 @@ module.exports = function controllerFactory(
           path: `${uri}/noop`,
           method: [method],
           handler: async (request, h) => {
-            const input = 'NOOP';
-            const result = await sink(input, { noop: true });
+            const inputs = utils.getInput(request, key, params, { noop: true });
+            const result = await sink(inputs, { noop: true });
             return respond(result, request, h);
           }
         }

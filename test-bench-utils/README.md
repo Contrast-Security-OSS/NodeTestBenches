@@ -8,8 +8,9 @@ Under _lib/routes.js_, create a sink definition with the following form:
     base: string,                    // '/cmdInjection',
     name: string,                    // 'Command Injection',
     link: string,                    // 'https://www.owasp.org/index.php/Command_Injection',
-    products: string[],              // ['Assess', 'Protect']
+    products: string[],              // ['Assess', 'Protect'],
     inputs: string[],                // ['query'],
+    params: string[],                // ['input'],
     sinks: Object<string, Function>, // sinks.commmandInjection
   }
 ```
@@ -18,12 +19,14 @@ Then create a file under _lib/sinks/_ that exports functions with a consistent
 signature:
 ```js
   /**
-   * @param {string} input user input string
+   * @param {Object} params the parameter object including provided user inputs.
+   *   The `params` key from _routes.js_ determines which parameters will be
+   *   extracted from the request object.
    * @param {Object} opts
    * @param {boolean=} opts.safe are we calling the sink safely?
    * @param {boolean=} opts.noop are we calling the sink as a noop?
    */
-  module.exports['sinkName'] = async function sink(input, { safe = false, noop = false } = {}) {};
+  module.exports['sinkName'] = async function sink({ input }, { safe = false, noop = false } = {}) {};
 ```
 The sink function will be called by the endpoint handler appropriately by each
 framework. By default, for the `/unsafe` endpoint the function is called with

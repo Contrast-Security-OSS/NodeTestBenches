@@ -1,4 +1,5 @@
 'use strict';
+
 const renderFile = require('ejs-locals');
 const { navRoutes } = require('@contrast/test-bench-utils');
 

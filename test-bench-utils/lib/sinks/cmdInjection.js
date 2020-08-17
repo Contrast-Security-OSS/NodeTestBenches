@@ -1,16 +1,18 @@
 'use strict';
+
 const cp = require('child_process');
 
 const pre = (str) => `<pre>${str}</pre>`;
 
 /**
- * @param {string} input user input string
+ * @param {Object} params
+ * @param {string} params.input user input string
  * @param {Object} opts
  * @param {boolean=} opts.safe are we calling the sink safely?
  * @param {boolean=} opts.noop are we calling the sink as a noop?
  */
 module.exports['child_process.exec'] = async function exec(
-  input,
+  { input },
   { safe = false, noop = false } = {}
 ) {
   if (safe) return 'SAFE';
@@ -27,13 +29,14 @@ module.exports['child_process.exec'] = async function exec(
 };
 
 /**
- * @param {string} input user input string
+ * @param {Object} params
+ * @param {string} params.input user input string
  * @param {Object} opts
  * @param {boolean=} opts.safe are we calling the sink safely?
  * @param {boolean=} opts.noop are we calling the sink as a noop?
  */
 module.exports['child_process.execSync'] = async function execSync(
-  input,
+  { input },
   { safe = false, noop = false } = {}
 ) {
   if (safe) return 'SAFE';
@@ -43,13 +46,14 @@ module.exports['child_process.execSync'] = async function execSync(
 };
 
 /**
- * @param {string} input user input string
+ * @param {Object} params
+ * @param {string} params.input user input string
  * @param {Object} opts
  * @param {boolean=} opts.safe are we calling the sink safely?
  * @param {boolean=} opts.noop are we calling the sink as a noop?
  */
 module.exports['child_process.spawn'] = async function spawn(
-  input,
+  { input },
   { safe = false, noop = false } = {}
 ) {
   if (safe) return 'SAFE';
@@ -69,13 +73,14 @@ module.exports['child_process.spawn'] = async function spawn(
 };
 
 /**
- * @param {string} input user input string
+ * @param {Object} params
+ * @param {string} params.input user input string
  * @param {Object} opts
  * @param {boolean=} opts.safe are we calling the sink safely?
  * @param {boolean=} opts.noop are we calling the sink as a noop?
  */
 module.exports['child_process.spawnSync'] = async function spawn(
-  input,
+  { input },
   { safe = false, noop = false } = {}
 ) {
   if (safe) return 'SAFE';

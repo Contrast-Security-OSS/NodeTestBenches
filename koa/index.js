@@ -1,7 +1,9 @@
 const path = require('path');
 
 const Koa = require('koa');
-const Router = process.env.LEGACY_ROUTER ? require('koa-router') : require('@koa/router');
+const Router = process.env.LEGACY_ROUTER
+  ? require('koa-router')
+  : require('@koa/router');
 const app = new Koa();
 const router = new Router();
 const render = require('koa-ejs');

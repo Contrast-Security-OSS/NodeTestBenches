@@ -1,7 +1,12 @@
 const session = require('express-session');
 const api = require('express').Router();
 
-api.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000, httpOnly: false, secure: false }}));
+api.use(
+  session({
+    secret: 'keyboard cat',
+    cookie: { maxAge: 60000, httpOnly: false, secure: false }
+  })
+);
 
 api.get('/', (req, res) => {
   req.session._canary = '__@CONTRAST@__';

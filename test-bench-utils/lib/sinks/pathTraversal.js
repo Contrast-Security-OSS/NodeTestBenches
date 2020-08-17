@@ -1,4 +1,5 @@
 'use strict';
+
 const fs = require('fs');
 
 const errMsg = (method, msg, safe) =>
@@ -6,13 +7,14 @@ const errMsg = (method, msg, safe) =>
 const pre = (str) => `<pre>${str}</pre>`;
 
 /**
- * @param {string} input user input string
+ * @param {Object} params
+ * @param {string} params.input user input string
  * @param {Object} opts
  * @param {boolean=} opts.safe are we calling the sink safely?
  * @param {boolean=} opts.noop are we calling the sink as a noop?
  */
 module.exports['fs.readFile'] = async function readFile(
-  input,
+  { input },
   { safe = false, noop = false } = {}
 ) {
   if (noop) return 'NOOP';
@@ -31,13 +33,14 @@ module.exports['fs.readFile'] = async function readFile(
 };
 
 /**
- * @param {string} input user input string
+ * @param {Object} params
+ * @param {string} params.input user input string
  * @param {Object} opts
  * @param {boolean=} opts.safe are we calling the sink safely?
  * @param {boolean=} opts.noop are we calling the sink as a noop?
  */
 module.exports['fs.readFileSync'] = async function readFileSync(
-  input,
+  { input },
   { safe = false, noop = false } = {}
 ) {
   if (noop) return 'NOOP';
@@ -57,13 +60,14 @@ module.exports['fs.readFileSync'] = async function readFileSync(
 };
 
 /**
- * @param {string} input user input string
+ * @param {Object} params
+ * @param {string} params.input user input string
  * @param {Object} opts
  * @param {boolean=} opts.safe are we calling the sink safely?
  * @param {boolean=} opts.noop are we calling the sink as a noop?
  */
 module.exports['fs.writeFile'] = async function writeFile(
-  input,
+  { input },
   { safe = false, noop = false } = {}
 ) {
   if (noop) return 'NOOP';
@@ -82,13 +86,14 @@ module.exports['fs.writeFile'] = async function writeFile(
 };
 
 /**
- * @param {string} input user input string
+ * @param {Object} params
+ * @param {string} params.input user input string
  * @param {Object} opts
  * @param {boolean=} opts.safe are we calling the sink safely?
  * @param {boolean=} opts.noop are we calling the sink as a noop?
  */
 module.exports['fs.writeFileSync'] = async function writeFileSync(
-  input,
+  { input },
   { safe = false, noop = false } = {}
 ) {
   if (noop) return 'NOOP';

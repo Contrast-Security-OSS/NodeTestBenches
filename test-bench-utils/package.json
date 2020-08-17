@@ -18,7 +18,8 @@
     "public/"
   ],
   "scripts": {
-    "lint": "eslint --fix lib/"
+    "lint": "eslint --fix lib/",
+    "test": "jest --coverage"
   },
   "engines": {
     "node": ">=10.13.0"
@@ -29,6 +30,7 @@
     "bent": "^1.5.13",
     "escape-html": "^1.0.3",
     "hooker": "^0.2.3",
+    "jest": "^26.3.0",
     "libxmljs": "^0.19.7",
     "libxmljs2": "^0.26.0",
     "lodash": "^4.17.19",

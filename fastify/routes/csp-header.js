@@ -1,4 +1,5 @@
 'use strict';
+
 /**
  * @vulnerability: csp-header-insecure
  */

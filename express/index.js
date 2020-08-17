@@ -1,4 +1,5 @@
 'use strict';
+
 if (process.env.CONTRAST_NEW_RELIC_KEY) {
   require('newrelic');
 }
@@ -25,12 +26,9 @@ const express = require('express');
  *
  */
 require('express-async-errors');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
 const http = require('http');
 const https = require('https');
 const pem = require('pem');
-const path = require('path');
 
 const app = express();
 const { PORT = 3000, HOST = 'localhost', SSL, CLUSTER } = process.env;

@@ -29,7 +29,7 @@ const defaultRespond = (result, req, res, next) => res.send(result);
  */
 module.exports = function controllerFactory(
   vulnerability,
-  { locals = {}, respond = defaultRespond, getInput = utils.getInput } = {}
+  { locals = {}, respond = defaultRespond } = {}
 ) {
   const sinkData = utils.getSinkData(vulnerability, 'loopback');
   const groupedSinkData = utils.groupSinkData(sinkData);
@@ -47,11 +47,11 @@ module.exports = function controllerFactory(
       });
     });
 
-    sinkData.forEach(({ method, uri, sink, key }) => {
+    sinkData.forEach(({ method, params, uri, sink, key }) => {
       router[method](`${uri}/safe`, async (req, res, next) => {
         try {
-          const input = getInput({ locals, req, key });
-          const result = await sink(input, { safe: true });
+          const inputs = utils.getInput(req, key, params, { locals });
+          const result = await sink(inputs, { safe: true });
           respond(result, req, res, next);
         } catch (err) {
           next(err);
@@ -60,8 +60,8 @@ module.exports = function controllerFactory(
 
       router[method](`${uri}/unsafe`, async (req, res, next) => {
         try {
-          const input = getInput({ locals, req, key });
-          const result = await sink(input);
+          const inputs = utils.getInput(req, key, params, { locals });
+          const result = await sink(inputs);
           respond(result, req, res, next);
         } catch (err) {
           next(err);
@@ -70,8 +70,8 @@ module.exports = function controllerFactory(
 
       router[method](`${uri}/noop`, async (req, res, next) => {
         try {
-          const input = 'noop';
-          const result = await sink(input, { noop: true });
+          const inputs = utils.getInput(req, key, params, { noop: true });
+          const result = await sink(inputs, { noop: true });
           respond(result, req, res, next);
         } catch (err) {
           next(err);

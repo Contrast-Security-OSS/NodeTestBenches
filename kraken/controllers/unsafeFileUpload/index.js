@@ -1,7 +1,6 @@
 'use strict';
 
-const { get } = require('lodash');
-
+const { utils } = require('@contrast/test-bench-utils');
 const Model = require('../../models/unsafeFileUpload');
 
 module.exports = (router) => {
@@ -12,10 +11,10 @@ module.exports = (router) => {
     res.render('unsafeFileUpload', model);
   });
 
-  model.sinkData.forEach(({ method, uri, sink, key }) => {
+  model.sinkData.forEach(({ method, uri, sink, key, params }) => {
     router[method](uri, async (req, res) => {
-      const { input } = get(req, key);
-      const result = await sink(input); // doesn't really do anything
+      const inputs = utils.getInput(req, key, params);
+      const result = await sink(inputs); // doesn't really do anything
       res.send(result);
     });
   });

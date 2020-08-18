@@ -6,8 +6,9 @@
  */
 
 /**
- * @param {string} input user input string
+ * @param {Object} params
+ * @param {string} params.input user input string
  */
-module.exports.upload = async function upload(input) {
+module.exports.upload = async function upload({ input }) {
   return input;
 };

@@ -20,10 +20,10 @@ router.get('/', function(req, res) {
   });
 });
 
-sinkData.forEach(({ method, uri, sink, key }) => {
+sinkData.forEach(({ method, params, uri, sink, key }) => {
   router[method](uri, upload.single('file'), async (req, res) => {
-    const { input } = get(req, key);
-    const result = await sink(input); // doesn't really do anything
+    const inputs = utils.getInput(req, key, params);
+    const result = await sink(inputs); // doesn't really do anything
     res.send(result);
   });
 });

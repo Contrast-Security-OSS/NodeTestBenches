@@ -4,6 +4,18 @@ const { utils } = require('@contrast/test-bench-utils');
 const path = require('path');
 const { Router } = require('restify-router');
 
+/**
+ * Wraps the async handlers in a promise chain to properly send errors
+ * to next
+ *
+ * @param {Function} handler
+ */
+function wrapHandler(handler) {
+  return (req, res, next) => {
+    Promise.resolve(handler(req, res, next)).catch(next);
+  };
+}
+
 const defaultRespond = (result, req, res, next) => res.send(result);
 /**
  * Configures a route to handle sinks configured by our shared test-bench-utils
@@ -42,23 +54,32 @@ module.exports = function controllerFactory(
   });
 
   sinkData.forEach(({ method, params, uri, sink, key }) => {
-    router[method](`${uri}/safe`, async (req, res, next) => {
-      const inputs = utils.getInput(req, key, params, { locals });
-      const result = await sink(inputs, { safe: true });
-      respond(result, req, res, next);
-    });
+    router[method](
+      `${uri}/safe`,
+      wrapHandler(async (req, res, next) => {
+        const inputs = utils.getInput(req, key, params, { locals });
+        const result = await sink(inputs, { safe: true });
+        respond(result, req, res, next);
+      })
+    );
 
-    router[method](`${uri}/unsafe`, async (req, res, next) => {
-      const inputs = utils.getInput(req, key, params, { locals });
-      const result = await sink(inputs);
-      respond(result, req, res, next);
-    });
+    router[method](
+      `${uri}/unsafe`,
+      wrapHandler(async (req, res, next) => {
+        const inputs = utils.getInput(req, key, params, { locals });
+        const result = await sink(inputs);
+        respond(result, req, res, next);
+      })
+    );
 
-    router[method](`${uri}/noop`, async (req, res, next) => {
-      const inputs = utils.getInput(req, key, params, { noop: true });
-      const result = await sink(inputs, { noop: true });
-      respond(result, req, res, next);
-    });
+    router[method](
+      `${uri}/noop`,
+      wrapHandler(async (req, res, next) => {
+        const inputs = utils.getInput(req, key, params, { noop: true });
+        const result = await sink(inputs, { noop: true });
+        respond(result, req, res, next);
+      })
+    );
   });
 
   return router;

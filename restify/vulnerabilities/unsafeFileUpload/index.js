@@ -2,6 +2,7 @@
 
 const { Router } = require('restify-router');
 const path = require('path');
+const wrapHandler = require('../../utils/wrapHandler');
 
 const { utils } = require('@contrast/test-bench-utils');
 
@@ -17,11 +18,14 @@ router.get('/', function (req, res) {
 });
 
 sinkData.forEach(({ method, params, uri, sink, key }) => {
-  router[method](uri, async (req, res) => {
-    const inputs = utils.getInput(req, key, params);
-    const result = await sink(inputs); // doesn't really do anything
-    res.send(result);
-  });
+  router[method](
+    uri,
+    wrapHandler(async (req, res) => {
+      const inputs = utils.getInput(req, key, params);
+      const result = await sink(inputs); // doesn't really do anything
+      res.send(result);
+    })
+  );
 });
 
 module.exports = router;

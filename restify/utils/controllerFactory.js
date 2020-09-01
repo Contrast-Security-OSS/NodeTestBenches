@@ -3,18 +3,7 @@
 const { utils } = require('@contrast/test-bench-utils');
 const path = require('path');
 const { Router } = require('restify-router');
-
-/**
- * Wraps the async handlers in a promise chain to properly send errors
- * to next
- *
- * @param {Function} handler
- */
-function wrapHandler(handler) {
-  return (req, res, next) => {
-    Promise.resolve(handler(req, res, next)).catch(next);
-  };
-}
+const wrapHandler = require('./wrapHandler');
 
 const defaultRespond = (result, req, res, next) => res.send(result);
 /**

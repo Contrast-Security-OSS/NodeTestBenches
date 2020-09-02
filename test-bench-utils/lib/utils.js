@@ -1,5 +1,7 @@
 'use strict';
 
+const path = require('path');
+
 const {
   camelCase,
   fromPairs,
@@ -13,6 +15,7 @@ const {
 
 const frameworks = require('./frameworks');
 const routes = require('./routes');
+const responsePreparers = require('./response-preparers');
 
 /**
  * @typedef {Object} SinkData
@@ -141,4 +144,8 @@ module.exports.getInput = function getInput(
   const localInputs = pick(locals, params);
 
   return isEmpty(localInputs) ? pick(get(request, key), params) : localInputs;
+};
+
+module.exports.getResponsePreparer = function(rule) {
+  return responsePreparers[rule] || null;
 };

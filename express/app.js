@@ -21,10 +21,6 @@ module.exports.setup = function(app) {
     app.use(base, require(`./vulnerabilities/${base.substring(1)}`));
   });
   app.use('/header-injection', require('./vulnerabilities/header-injection'));
-  app.use(
-    '/csp-header-insecure',
-    require('./vulnerabilities/csp-header-insecure')
-  );
   app.use('/typecheck', require('./vulnerabilities/typecheck'));
   app.use('/express-session', require('./vulnerabilities/express-session'));
 

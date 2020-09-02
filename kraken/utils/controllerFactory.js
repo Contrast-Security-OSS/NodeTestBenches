@@ -38,8 +38,15 @@ module.exports = function controllerFactory(
     router.get('/', (req, res) => {
       // Not putting this in the model because req is not in context yet
       req._csrf = req.csrfToken();
-      res.render(vulnerability, model);
+      if (model.responsePreparer) {
+        model.responsePreparer(res);
+      }
+      res.render(vulnerability, { ...model, res });
     });
+
+    if (model.type === 'response-scanning') {
+      return;
+    }
 
     model.sinkData.forEach(({ method, params, uri, sink, key }) => {
       router[method](`${uri}/safe`, async (req, res, next) => {

@@ -34,18 +34,29 @@ module.exports = function controllerFactory(
   const sinkData = utils.getSinkData(vulnerability, 'loopback');
   const groupedSinkData = utils.groupSinkData(sinkData);
   const routeMeta = utils.getRouteMeta(vulnerability);
+  const responsePreparer = utils.getResponsePreparer(vulnerability);
 
   return function(server) {
     const router = server.loopback.Router();
+    server.use(`/${vulnerability}`, router);
 
     router.get('/', function(req, res, next) {
+      if (responsePreparer) {
+        responsePreparer(res);
+      }
+
       res.render(`pages/${vulnerability}`, {
         ...routeMeta,
         groupedSinkData,
         sinkData,
-        ...locals
+        ...locals,
+        res
       });
     });
+
+    if (routeMeta.type === 'response-scanning') {
+      return;
+    }
 
     sinkData.forEach(({ method, params, uri, sink, key }) => {
       router[method](`${uri}/safe`, async (req, res, next) => {
@@ -78,7 +89,5 @@ module.exports = function controllerFactory(
         }
       });
     });
-
-    server.use(`/${vulnerability}`, router);
   };
 };

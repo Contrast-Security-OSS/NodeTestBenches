@@ -35,16 +35,29 @@ module.exports = function controllerFactory(
   const sinkData = utils.getSinkData(vulnerability, 'koa');
   const groupedSinkData = utils.groupSinkData(sinkData);
   const routeMeta = utils.getRouteMeta(vulnerability);
+  const responsePreparer = utils.getResponsePreparer(vulnerability);
 
   return ({ router }) => {
-    router.get(routes[vulnerability].base, (ctx, next) =>
-      ctx.render(vulnerability, {
+    router.get(routes[vulnerability].base, (ctx, next) => {
+      const {
+        request: { res }
+      } = ctx;
+      if (responsePreparer) {
+        responsePreparer(res);
+      }
+
+      return ctx.render(vulnerability, {
         ...routeMeta,
         sinkData,
         groupedSinkData,
+        res,
         ...locals
-      })
-    );
+      });
+    });
+
+    if (routeMeta.type === 'response-scanning') {
+      return;
+    }
 
     sinkData.forEach(({ method, params, url, sink, key }) => {
       router[method](`${url}/safe`, async (ctx, next) => {

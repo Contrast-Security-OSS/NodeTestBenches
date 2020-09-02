@@ -21,8 +21,13 @@ module.exports = function controllerFactory(
   const sinkData = utils.getSinkData(vulnerability, 'restify');
   const groupedSinkData = utils.groupSinkData(sinkData);
   const routeMeta = utils.getRouteMeta(vulnerability);
+  const responsePreparer = utils.getResponsePreparer(vulnerability);
 
   router.get('/', (req, res, next) => {
+    if (responsePreparer) {
+      responsePreparer(res);
+    }
+
     res.render(
       path.resolve(
         __dirname,
@@ -37,6 +42,7 @@ module.exports = function controllerFactory(
         groupedSinkData,
         sinkData,
         locals,
+        res,
       }
     );
   });

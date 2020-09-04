@@ -20,10 +20,10 @@ module.exports = ({ router }) => {
     })
   );
 
-  sinkData.forEach(({ method, url, sink }) => {
+  sinkData.forEach(({ method, params, url, sink }) => {
     router[method](url, upload.single('file'), async (ctx, next) => {
-      const { input } = get(ctx, 'req.body'); // multer puts it on `req`, elsewhere it's `request`
-      const result = await sink(input); // doesn't really do anything
+      const inputs = utils.getInput(ctx, 'req.body', params); // multer puts it on `req`, elsewhere it's `request`
+      const result = await sink(inputs); // doesn't really do anything
       ctx.body = result;
     });
   });

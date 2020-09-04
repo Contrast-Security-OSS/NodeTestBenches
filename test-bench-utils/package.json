@@ -1,6 +1,6 @@
 {
   "name": "@contrast/test-bench-utils",
-  "version": "3.11.0",
+  "version": "3.12.1",
   "description": "Shared code to use in Contrast's web framework test apps.",
   "author": "Contrast Security <nodejs@contrastsecurity.com>",
   "license": "UNLICENSED",
@@ -68,5 +68,5 @@
   "lint-staged": {
     "*.js": "eslint --fix"
   },
-  "gitHead": "f4f2df0776f444726cdf6758009da902d72a6365"
+  "gitHead": "f6f1d193f2f9f377544a1686d028a3202e8cb61e"
 }

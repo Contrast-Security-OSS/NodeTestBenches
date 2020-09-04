@@ -161,7 +161,8 @@ module.exports = {
     name: 'HTTP Parameter Pollution',
     link:
       'https://owasp.org/www-pdf-archive/AppsecEU09_CarettoniDiPaola_v0.8.pdf',
-    products: ['Assess']
+    products: ['Assess'],
+    type: 'response-scanning'
   },
   crypto: {
     base: '/crypto',

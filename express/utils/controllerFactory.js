@@ -36,9 +36,30 @@ module.exports = function controllerFactory(
   vulnerability,
   { locals = {}, respond = defaultRespond, router = express.Router() } = {}
 ) {
+  const routeMeta = utils.getRouteMeta(vulnerability);
+
+  if (routeMeta.type === 'response-scanning') {
+    router.get('/', (req, res, next) => {
+      const prep = utils.getResponsePreparer(vulnerability);
+      if (prep) {
+        prep(res);
+      }
+
+      return res.render(
+        path.resolve(
+          __dirname,
+          '..',
+          'vulnerabilities',
+          vulnerability,
+          'views',
+          'index'
+        ),
+        { ...routeMeta, res }
+      );
+    });
+  }
   const sinkData = utils.getSinkData(vulnerability, 'express');
   const groupedSinkData = utils.groupSinkData(sinkData);
-  const routeMeta = utils.getRouteMeta(vulnerability);
 
   router.get('/', function(req, res, next) {
     res.render(

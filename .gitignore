@@ -13,6 +13,7 @@ fastify/uploads/*
 # agent logs
 *.log
 
+*~
 # vim swaps
 *.swp
 *.swo

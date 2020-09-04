@@ -1,0 +1,20 @@
+<h1 class="page-header"><%= name %></h1>
+<% include ../partials/ruleInfo.ejs %>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+    <div class="alert alert-info">
+      <p>Note: This form does nothing, the act of rendering this page will report <code>autocomplete-missing</code> finding</p>
+    </div>
+
+    <form method="post" action="/form" autocomplete="foo">
+      <div>
+        <label for="cc">Credit card:</label>
+        <input type="text" id="cc" name="cc" autocomplete="foo">
+      </div>
+    </form> 
+
+  </div>
+</div>
+
+This form has input elements without <code>autocomplete</code> attribute set.

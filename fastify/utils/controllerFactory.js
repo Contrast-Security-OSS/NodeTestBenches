@@ -35,18 +35,30 @@ module.exports = function controllerFactory(
   const sinkData = utils.getSinkData(vulnerability, 'express');
   const groupedSinkData = utils.groupSinkData(sinkData);
   const routeMeta = utils.getRouteMeta(vulnerability);
+  const responsePreparer = utils.getResponsePreparer(vulnerability);
 
   return async function route(fastify, options) {
     fastify.get(routes[vulnerability].base, async (request, reply) => {
+      let { res } = reply;
+
+      if (responsePreparer) {
+        responsePreparer(res);
+      }
+
       reply.view(vulnerability, {
         ...options,
         ...routeMeta,
         sinkData,
         groupedSinkData,
+        res,
         ...locals
       });
       return reply;
     });
+
+    if (routeMeta.type === 'response-scanning') {
+      return;
+    }
 
     sinkData.forEach(({ method, params, url, sink, key }) => {
       fastify[method](`${url}/safe`, async (request, reply) => {

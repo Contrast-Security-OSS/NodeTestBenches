@@ -34,18 +34,33 @@ module.exports = function controllerFactory(
     const sinkData = utils.getSinkData(vulnerability, 'hapi');
     const groupedSinkData = utils.groupSinkData(sinkData);
     const routeMeta = utils.getRouteMeta(vulnerability);
+    const responsePreparer = utils.getResponsePreparer(vulnerability);
 
     server.route({
       method: 'GET',
       path: '/',
-      handler: (request, h) =>
-        h.view(vulnerability, {
+      handler: (request, h) => {
+        const {
+          raw: { res }
+        } = request;
+
+        if (responsePreparer) {
+          responsePreparer(res);
+        }
+
+        return h.view(vulnerability, {
           ...routeMeta,
           groupedSinkData,
           sinkData,
+          res,
           ...locals
-        })
+        });
+      }
     });
+
+    if (routeMeta.type === 'response-scanning') {
+      return;
+    }
 
     sinkData.forEach(({ uri, method, params, sink, key }) => {
       server.route([

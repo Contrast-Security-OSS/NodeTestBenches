@@ -37,6 +37,8 @@ const router = new Router();
 navRoutes.forEach(({ base }) => {
   router.add(base, require(`./vulnerabilities/${base.substring(1)}`));
 });
+// misc routes
+router.add('/cookies', require('./vulnerabilities/cookies'));
 router.applyRoutes(server);
 
 server.get('/', function (req, res) {
@@ -50,15 +52,6 @@ server.get('/assets/*', restify.plugins.serveStatic({ directory: __dirname }));
 // random testing..
 server.post('/xss/params/reflectedXss/:urlparam/unsafe', (req, res, next) => {
   res.send(req.params.urlparam);
-});
-server.get('/cookie-test', (req, res, next) => {
-  res.setCookie('foo', 'BAR', {
-    httpOnly: false,
-    domain: 'www.example.com',
-    maxAge: 60,
-    secure: false,
-    path: '/home/',
-  });
 });
 
 server.listen(PORT, HOST, function () {

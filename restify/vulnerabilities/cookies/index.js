@@ -9,6 +9,16 @@ router.get('/', (req, res) => {
   res.render(path.resolve(__dirname, 'views', 'index'), {});
 });
 
+router.get('/safe', (req, res) => {
+  const options = {
+    path: req.getPath(),
+    maxAge: 60,
+    secure: true,
+  };
+  res.setCookie('acceptable', Date.now(), options);
+  res.send({ key: 'acceptable', options });
+});
+
 router.get('/httponly', (req, res) => {
   const options = {
     path: req.getPath(),
@@ -24,7 +34,6 @@ router.get('/secureFlagMissing', (req, res) => {
   const options = {
     path: req.getPath(),
     maxAge: 60,
-    httpOnly: true,
     secure: false,
   };
   res.setCookie('secure-flag-missing', Date.now(), options);

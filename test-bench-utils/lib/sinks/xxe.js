@@ -27,6 +27,16 @@ if (libxmljs) {
     const result = libxmljs.parseXmlString(input, { noent: !safe });
     return pre(result);
   };
+} else {
+  module.exports['libxmljs2.parseXmlString'] = async function parseXmlString(
+    { input },
+    { safe = false, noop = false } = {}
+  ) {
+    if (noop) return 'NOOP';
+
+    const result = libxmljs2.parseXmlString(input, { noent: !safe });
+    return pre(result);
+  };
 }
 
 module.exports['libxmljs2.parseXml'] = async function parseXml(

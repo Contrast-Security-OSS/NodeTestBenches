@@ -1,6 +1,10 @@
 'use strict';
-
-const libxmljs = require('libxmljs');
+let libxmljs;
+try {
+  libxmljs = require('libxmljs');
+} catch (err) {
+  libxmljs = null;
+}
 const libxmljs2 = require('libxmljs2');
 
 const pre = (str) => `<pre>${str}</pre>`;
@@ -12,15 +16,18 @@ const pre = (str) => `<pre>${str}</pre>`;
  * @param {boolean=} opts.safe are we calling the sink safely?
  * @param {boolean=} opts.noop are we calling the sink as a noop?
  */
-module.exports['libxmljs.parseXmlString'] = async function parseXmlString(
-  { input },
-  { safe = false, noop = false } = {}
-) {
-  if (noop) return 'NOOP';
 
-  const result = libxmljs.parseXmlString(input, { noent: !safe });
-  return pre(result);
-};
+if (libxmljs) {
+  module.exports['libxmljs.parseXmlString'] = async function parseXmlString(
+    { input },
+    { safe = false, noop = false } = {}
+  ) {
+    if (noop) return 'NOOP';
+
+    const result = libxmljs.parseXmlString(input, { noent: !safe });
+    return pre(result);
+  };
+}
 
 module.exports['libxmljs2.parseXml'] = async function parseXml(
   { input },

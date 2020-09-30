@@ -17,27 +17,20 @@ const pre = (str) => `<pre>${str}</pre>`;
  * @param {boolean=} opts.noop are we calling the sink as a noop?
  */
 
-if (libxmljs) {
-  module.exports['libxmljs.parseXmlString'] = async function parseXmlString(
-    { input },
-    { safe = false, noop = false } = {}
-  ) {
-    if (noop) return 'NOOP';
+module.exports['libxmljs.parseXmlString'] = async function parseXmlString(
+  { input },
+  { safe = false, noop = false } = {}
+) {
+  if (noop) return 'NOOP';
 
-    const result = libxmljs.parseXmlString(input, { noent: !safe });
-    return pre(result);
-  };
-} else {
-  module.exports['libxmljs.parseXmlString'] = async function parseXmlString(
-    { input },
-    { safe = false, noop = false } = {}
-  ) {
-    if (noop) return 'NOOP';
-
-    const result = libxmljs2.parseXmlString(input, { noent: !safe });
-    return pre(result);
-  };
-}
+  let result;
+  if (libxmljs) {
+    result = libxmljs.parseXmlString(input, { noent: !safe });
+  } else {
+    result = libxmljs2.parseXmlString(input, { noenet: !safe });
+  }
+  return pre(result);
+};
 
 module.exports['libxmljs2.parseXml'] = async function parseXml(
   { input },

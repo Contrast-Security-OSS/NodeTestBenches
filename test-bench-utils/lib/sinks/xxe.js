@@ -27,7 +27,7 @@ module.exports['libxmljs.parseXmlString'] = async function parseXmlString(
   if (libxmljs) {
     result = libxmljs.parseXmlString(input, { noent: !safe });
   } else {
-    result = libxmljs2.parseXmlString(input, { noenet: !safe });
+    result = libxmljs.parseXmlString(input, { noent: !safe });
   }
   return pre(result);
 };

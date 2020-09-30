@@ -1,6 +1,10 @@
 'use strict';
-
-const libxmljs = require('libxmljs');
+let libxmljs;
+try {
+  libxmljs = require('libxmljs');
+} catch (err) {
+  libxmljs = null;
+}
 const libxmljs2 = require('libxmljs2');
 
 const pre = (str) => `<pre>${str}</pre>`;
@@ -18,7 +22,13 @@ module.exports['libxmljs.parseXmlString'] = async function parseXmlString(
 ) {
   if (noop) return 'NOOP';
 
-  const result = libxmljs.parseXmlString(input, { noent: !safe });
+  let result;
+  if (libxmljs) {
+    result = libxmljs.parseXmlString(input, { noent: !safe });
+  } else {
+    // Workaround for Node 14 (See NODE-1062: https://contrast.atlassian.net/browse/NODE-1062)
+    result = libxmljs2.parseXmlString(input, { noent: !safe });
+  }
   return pre(result);
 };
 

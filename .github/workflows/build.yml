@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        # not all apps support node versions below, but at the very
+        # least they all build
         apps: [express,fastify,hapi18,hapi19,koa,kraken,loopback,restify]
         version: [10, 12, 14]
     steps:

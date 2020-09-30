@@ -10,9 +10,6 @@
 # 3: agent-less
 #  - only env var needed is `CONFIG`
 
-
-aws s3 cp "s3://node-agent-configs/$CONFIG" contrast_security.yaml
-
 if [[ -n "$AGENT" ]];
 then
   echo "Downloading Node Agent: $AGENT from s3://node-agents"
@@ -41,6 +38,7 @@ if [[ -n "$AGENT_LESS" ]];
 then
   HOST=0.0.0.0 node index.js
 else
+  aws s3 cp "s3://node-agent-configs/$CONFIG" contrast_security.yaml
   npm install node-agent.tgz
   HOST=0.0.0.0 DEBUG="contrast:*" node -r node_contrast/bootstrap index.js
 fi

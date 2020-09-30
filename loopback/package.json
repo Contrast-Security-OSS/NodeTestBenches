@@ -18,7 +18,8 @@
     "contrast": "DEBUG=contrast:* node-contrast server/server.js",
     "dev": "nodemon server/server.js",
     "lint": "eslint --fix .",
-    "start": "node server/server.js"
+    "start": "node server/server.js",
+    "test": "echo 'hello'"
   },
   "engines": {
     "node": ">=10.13.0"
@@ -47,18 +48,8 @@
     "eslint-plugin-mocha": "^6.3.0",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-prettier": "^3.1.2",
-    "husky": "^4.2.3",
-    "lint-staged": "^10.0.8",
     "loopback-cli": "^5.0.3",
     "nodemon": "^2.0.4",
     "prettier": "^1.19.1"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.js": "eslint --fix"
   }
 }

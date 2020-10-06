@@ -31,7 +31,6 @@
     "escape-html": "^1.0.3",
     "hooker": "^0.2.3",
     "jest": "^26.3.0",
-    "libxmljs": "^0.19.7",
     "libxmljs2": "^0.26.0",
     "lodash": "^4.17.19",
     "mongodb": "^3.5.2",
@@ -42,7 +41,7 @@
     "request": "^2.88.0",
     "sequelize": "^5.21.1",
     "sql-template-strings": "^2.2.2",
-    "sqlite3": "^4.2.0",
+    "sqlite3": "^5.0.0",
     "stealthy-require": "^1.1.1",
     "superagent": "^5.0.5",
     "typeorm": "^0.2.24",
@@ -57,6 +56,9 @@
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-prettier": "^3.1.2",
     "prettier": "^1.19.1"
+  },
+  "optionalDependencies": {
+    "libxmljs": "^0.19.7"
   },
   "gitHead": "aeaa0fd50c164dc710402520792d757235b06ff6"
 }

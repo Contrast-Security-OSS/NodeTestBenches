@@ -1,6 +1,8 @@
 'use strict';
-
-const libxmljs = require('libxmljs');
+let libxmljs;
+try {
+  libxmljs = require('libxmljs');
+} catch {}
 const libxmljs2 = require('libxmljs2');
 
 const pre = (str) => `<pre>${str}</pre>`;
@@ -18,6 +20,10 @@ module.exports['libxmljs.parseXmlString'] = async function parseXmlString(
 ) {
   if (noop) return 'NOOP';
 
+  // Documented failure for Express on Node-14 alpine 
+  // See NODE-1062: https://contrast.atlassian.net/browse/NODE-1062
+  if (!libxmljs) return '';
+  
   const result = libxmljs.parseXmlString(input, { noent: !safe });
   return pre(result);
 };

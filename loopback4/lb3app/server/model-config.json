@@ -1,0 +1,120 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "autocompleteMissing": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "cacheControlsMissing": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "clickjackingControlsMissing": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "cmdInjection": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "cmdInjectionSemanticChainedCommands": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "cmdInjectionSemanticDangerousPaths": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "crypto": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "cspHeaderInsecure": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "cspHeaderMissing": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "hstsHeaderMissing": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "nosqlInjection": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "parampollution": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "pathTraversal": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "sqlInjection": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "ssjs": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "ssrf": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "unsafeFileUpload": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "untrustedDeserialization": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "untrustedRedirect": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "xContentTypeHeaderMissing": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "xpathInjection": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "xss": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "xssJSON": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "xssProtectionHeaderDisabled": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "xssStealthyRequire": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "xxe": {
+    "dataSource": "storage",
+    "public": true
+  }
+}

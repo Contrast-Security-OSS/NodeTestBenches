@@ -1,5 +1,5 @@
 <h1 class="page-header"><%= name %></h1>
-<% include ../partials/ruleInfo.ejs %>
+<% include ('../partials/ruleInfo.ejs') %>
 <% groupedSinkData.query.forEach(function(sink, i) { %>
 <div class="row">
   <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
@@ -39,4 +39,4 @@
   </div>
 </div>
 <% }); %>
-<% include ../partials/safeButtons %>
+<% include ('../partials/safeButtons') %>

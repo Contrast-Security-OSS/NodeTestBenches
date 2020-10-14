@@ -1,6 +1,7 @@
 'use strict';
 
 const { utils } = require('@contrast/test-bench-utils');
+const { isEmpty } = require('lodash');
 
 /**
  * Custom response functions allow you to change the functionality or return
@@ -72,7 +73,10 @@ module.exports = function controllerFactory(
       router[method](`${uri}/unsafe`, async (req, res, next) => {
         try {
           const inputs = utils.getInput(req, key, params, { locals });
-          const result = await sink(inputs);
+          let result = "";
+          if (!isEmpty(inputs)) {
+            result = await sink(inputs);
+          }
           respond(result, req, res, next);
         } catch (err) {
           next(err);

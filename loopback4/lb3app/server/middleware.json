@@ -5,5 +5,13 @@
         "${restApiRoot}"
       ]
     }
+  },
+  "files": {
+    "loopback#static": {
+      "paths": [
+        "/assets"
+      ],
+      "params": "$!../client"
+    }
   }
 }

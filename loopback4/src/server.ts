@@ -38,11 +38,7 @@ export class ExpressServer {
     this.app.use(cookieParser());
     this.app.use(bodyParser.urlencoded());
     this.app.use(bodyParser.json());
-
-    this.app.set('view engine', 'ejs');
-    this.app.set('views', path.resolve(__dirname, 'views'));
-    this.app.use(layouts);
-
+    
     // Mount the LB4 REST API
     this.app.use('/', this.lbApp.requestHandler);
 

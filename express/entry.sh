@@ -29,6 +29,9 @@ then
     echo "Unable to download node agent - response code: $responseCode"
     exit 1
   fi
+elif [[ -n "$AGENT_LOCAL" ]]
+then
+  cp /opt/contrast/node_contrast*.tgz .
 else
   echo "Running app in agent-less mode"
   AGENT_LESS=true

@@ -1,8 +1,0 @@
-{
-  "storage": {
-    "name": "storage",
-    "connector": "loopback-component-storage",
-    "provider": "filesystem",
-    "root": "./lb3app/server/uploads"
-  }
-}

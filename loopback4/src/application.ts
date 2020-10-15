@@ -44,7 +44,7 @@ export class Loopback4Application extends BootMixin(
         nested: true,
       },
       lb3app: {
-        mode: 'fullApp',
+        path: '../../loopback/server/server',
       },
     };
   }

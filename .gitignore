@@ -3,6 +3,7 @@ coverage/
 node_modules/
 # form upload paths
 loopback/server/uploads/*
+loopback4/server/uploads/*
 !loopback/server/uploads/.gitkeep
 !loopback4/server/uploads/.gitkeep
 kraken/uploads/*

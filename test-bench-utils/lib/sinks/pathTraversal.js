@@ -18,7 +18,7 @@ module.exports['fs.readFile'] = async function readFile(
   { safe = false, noop = false } = {}
 ) {
   if (noop) return 'NOOP';
-  if (!input) input = "input";
+
   const path = safe ? encodeURIComponent(input) : input;
 
   return new Promise((resolve) => {

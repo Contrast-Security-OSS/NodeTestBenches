@@ -17,6 +17,7 @@ module.exports['child_process.exec'] = async function exec(
 ) {
   if (safe) return 'SAFE';
   if (noop) return 'NOOP';
+
   return new Promise((resolve) => {
     cp.exec(input, (err, data) => {
       if (err) {

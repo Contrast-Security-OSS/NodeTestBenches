@@ -1,5 +1,5 @@
 <h1 class="page-header"><%= name %></h1>
-<%- include ('../partials/ruleInfo.ejs') %>
+<% include ../partials/ruleInfo.ejs %>
 <% sinkData.forEach(function(sink) { %>
 <div class="row">
   <div class="col-sm-10 col-sm-8" style="padding-bottom: 30px;">
@@ -16,4 +16,4 @@
   </div>
 </div>
 <% }); %>
-<%- include ('../partials/safeButtons') %>
+<% include ../partials/safeButtons %>

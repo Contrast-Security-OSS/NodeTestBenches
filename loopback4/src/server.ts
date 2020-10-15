@@ -1,4 +1,5 @@
 import {ApplicationConfig} from '@loopback/core';
+import bodyParser from 'body-parser';
 import {once} from 'events';
 import express, {Request, Response} from 'express';
 import * as http from 'http';
@@ -11,7 +12,7 @@ const compression = require('compression');
 const cors = require('cors');
 const helmet = require('helmet');
 const layouts = require('express-ejs-layouts');
-
+const cookieParser = require('cookie-parser');
 
 export class ExpressServer {
   private app: express.Application;
@@ -34,15 +35,16 @@ export class ExpressServer {
     this.app.use(helmet.ieNoOpen());
     this.app.use(helmet.noSniff());
     this.app.use(helmet.noCache());
+    this.app.use(cookieParser());
+    this.app.use(bodyParser.urlencoded());
+    this.app.use(bodyParser.json());
 
     this.app.set('view engine', 'ejs');
     this.app.set('views', path.resolve(__dirname, 'views'));
     this.app.use(layouts);
 
-
-
     // Mount the LB4 REST API
-    this.app.use('/api', this.lbApp.requestHandler);
+    this.app.use('/', this.lbApp.requestHandler);
 
     // Custom Express routes
     this.app.get('/ping', function (_req: Request, res: Response) {

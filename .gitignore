@@ -4,6 +4,7 @@ node_modules/
 # form upload paths
 loopback/server/uploads/*
 !loopback/server/uploads/.gitkeep
+!loopback4/server/uploads/.gitkeep
 kraken/uploads/*
 !kraken/uploads/.gitkeep
 fastify/uploads/*

@@ -11,8 +11,8 @@ const loopback = require('loopback');
 const compression = require('compression');
 const cors = require('cors');
 const helmet = require('helmet');
-const layouts = require('express-ejs-layouts');
 const cookieParser = require('cookie-parser');
+const noCache = require('nocache')
 
 export class ExpressServer {
   private app: express.Application;
@@ -34,11 +34,11 @@ export class ExpressServer {
     this.app.use(helmet.hidePoweredBy());
     this.app.use(helmet.ieNoOpen());
     this.app.use(helmet.noSniff());
-    this.app.use(helmet.noCache());
+    this.app.use(noCache());
     this.app.use(cookieParser());
-    this.app.use(bodyParser.urlencoded());
+    this.app.use(bodyParser.urlencoded({ extended: true }));
     this.app.use(bodyParser.json());
-    
+
     // Mount the LB4 REST API
     this.app.use('/', this.lbApp.requestHandler);
 

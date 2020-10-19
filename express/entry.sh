@@ -1,14 +1,17 @@
 #! /bin/bash -e
 # `CONFIG` - name of configuration file in s3
 #
-# 3 modes:
+# 4 modes:
 # 1: agent from artifactory
+#  - `CONFIG` - which config from s3://node-agent-configs to use
 #  - `AGENT_VERSION` - e.g. 2.11.0
 #  - `AGENT_HASH` e.g. 20200220-2232.9aa9d178
 # 2: agent from s3 bucket:
+#  - `CONFIG` - which config from s3://node-agent-configs to use
 #  - `AGENT` - name of .tgz in s3://node-agents
-# 3: agent-less
-#  - only env var needed is `CONFIG`
+# 3: agent from mounted volume
+#  - `AGENT_LOCAL` - boolean, will mount a dir to `/opt/contrast` to copy agent
+# 4: agent-less
 
 if [[ -n "$AGENT" ]];
 then
@@ -31,7 +34,7 @@ then
   fi
 elif [[ -n "$AGENT_LOCAL" ]]
 then
-  cp /opt/contrast/node_contrast*.tgz .
+  cp /opt/contrast/node_contrast*.tgz ./node-agent.tgz
 else
   echo "Running app in agent-less mode"
   AGENT_LESS=true

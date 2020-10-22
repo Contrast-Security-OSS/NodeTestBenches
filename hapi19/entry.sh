@@ -6,10 +6,9 @@
 
 if [[ -f "/opt/contrast/node-agent.tgz" ]];
 then
-  cp /opt/contrast/node-agent.tgz ./node-agent.tgz
+  pushd /opt/contrast && tar xzf ./node-agent.tgz && popd
   aws s3 cp "s3://node-agent-configs/$CONFIG" contrast_security.yaml
-  npm install node-agent.tgz
-  HOST=0.0.0.0 DEBUG="contrast:*" node -r node_contrast/bootstrap server.js
+  HOST=0.0.0.0 DEBUG="contrast:*" node -r /opt/contrast/package/bootstrap server.js
 else
   echo "Running app in agent-less mode"
   HOST=0.0.0.0 node server.js

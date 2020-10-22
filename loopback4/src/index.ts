@@ -1,13 +1,17 @@
-import {ApplicationConfig} from '@loopback/core';
-import {ExpressServer} from './server';
+import {ApplicationConfig, Loopback4Application} from './application';
+
 export * from './application';
-export {ApplicationConfig, ExpressServer};
 
 export async function main(options: ApplicationConfig = {}) {
-  const server = new ExpressServer(options);
-  await server.boot();
-  await server.start();
-  console.log(`Server is running at ${server.url}`);
+  const app = new Loopback4Application(options);
+  await app.boot();
+  await app.start();
+
+  const url = app.restServer.url;
+  console.log(`Server is running at ${url}`);
+  console.log(`Try ${url}/ping`);
+
+  return app;
 }
 
 if (require.main === module) {
@@ -26,7 +30,6 @@ if (require.main === module) {
         // useful when used with OpenAPI-to-GraphQL to locate your application
         setServersFromRequest: true,
       },
-      listenOnStart: false
     },
   };
   main(config).catch(err => {

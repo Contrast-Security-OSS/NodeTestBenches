@@ -35,14 +35,7 @@ export class Loopback4Application extends BootMixin(
 
 
     this.projectRoot = __dirname;
-    // Customize @loopback/boot Booter Conventions here
     this.bootOptions = {
-      controllers: {
-        // Customize ControllerBooter Conventions here
-        dirs: ['controllers'],
-        extensions: ['.controller.js'],
-        nested: true,
-      },
       lb3app: {
         path: '../../loopback/server/server',
       },

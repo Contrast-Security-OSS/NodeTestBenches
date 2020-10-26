@@ -37,7 +37,7 @@ export class Loopback4Application extends BootMixin(
     this.projectRoot = __dirname;
     this.bootOptions = {
       lb3app: {
-        path: '../../loopback/server/server',
+        mode: 'fullApp'
       },
     };
   }

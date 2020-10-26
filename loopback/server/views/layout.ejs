@@ -2,17 +2,17 @@
 <html>
 
 <head>
-  <% include ./partials/head %>
+  <%- include ('./partials/head') %>
 </head>
 
 <body>
-  <% include ./partials/header %>
+  <%- include ('./partials/header') %>
   <div class="container-fluid">
     <div class="row">
-      <% include ./partials/nav %>
+      <%- include ('./partials/nav') %>
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <%- body %>
-        <% include ./partials/footer %>
+        <%- include ('./partials/footer') %>
       </div>
     </div>
   </div>

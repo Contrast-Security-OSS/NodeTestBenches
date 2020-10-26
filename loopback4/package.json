@@ -47,7 +47,7 @@
     "!*/__tests__"
   ],
   "dependencies": {
-    "@contrast/test-bench-utils": "^3.15.0",
+    "@contrast/test-bench-utils": "file://../test-bench-utils",
     "@loopback/boot": "^3.0.2",
     "@loopback/booter-lb3app": "^2.2.12",
     "@loopback/core": "^2.11.0",
@@ -71,13 +71,12 @@
     "uuid": "^3.4.0"
   },
   "devDependencies": {
+    "@contrast/eslint-config": "^2.0.0",
     "@loopback/build": "^6.2.5",
-    "source-map-support": "^0.5.19",
+    "@loopback/eslint-config": "^10.0.1",
     "@loopback/testlab": "^3.2.7",
     "@types/node": "^10.17.37",
-    "@loopback/eslint-config": "^10.0.1",
-    "typescript": "~4.0.3",
-    "@contrast/eslint-config": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.5.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-mocha": "^6.3.0",
@@ -85,6 +84,8 @@
     "eslint-plugin-prettier": "^3.1.2",
     "loopback-cli": "^5.0.3",
     "nodemon": "^2.0.4",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "source-map-support": "^0.5.19",
+    "typescript": "^4.0.3"
   }
 }

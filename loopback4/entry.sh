@@ -8,9 +8,9 @@ if [[ -f "/opt/contrast/node-agent.tgz" ]];
 then
   pushd /opt/contrast && tar xzf ./node-agent.tgz && popd
   aws s3 cp "s3://node-agent-configs/$CONFIG" contrast_security.yaml
-  HOST=0.0.0.0 DEBUG="contrast:*" node -r /opt/contrast/package/bootstrap lb3app/server/server.js
+  HOST=0.0.0.0 DEBUG="contrast:*" node -r /opt/contrast/package/bootstrap .
 else
   echo "Running app in agent-less mode"
-  HOST=0.0.0.0 node lb3app/server/server.js
+  HOST=0.0.0.0 node .
 fi
 

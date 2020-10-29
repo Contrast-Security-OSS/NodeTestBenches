@@ -4,6 +4,7 @@
 // License text available at https://opensource.org/licenses/MIT
 
 'use strict';
+/*eslint-env es6*/
 
 const layouts = require('express-ejs-layouts');
 const loopback = require('loopback');

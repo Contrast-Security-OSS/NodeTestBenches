@@ -1,0 +1,86 @@
+{
+  "name": "@contrast/loopback4",
+  "version": "3.15.0",
+  "description": "loopback4-test-bench",
+  "keywords": [
+    "loopback-application",
+    "loopback"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=10.16"
+  },
+  "scripts": {
+    "build": "lb-tsc",
+    "build:watch": "lb-tsc --watch",
+    "lint": "eslint --fix .",
+    "pretest": "npm run clean && npm run build",
+    "test": "echo 'hello'",
+    "posttest": "npm run lint",
+    "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && npm run posttest",
+    "docker:build": "docker build -t loopback4 .",
+    "docker:run": "docker run -p 3000:3000 -d loopback4",
+    "premigrate": "npm run build",
+    "migrate": "node ./dist/migrate",
+    "preopenapi-spec": "npm run build",
+    "openapi-spec": "node ./dist/openapi-spec",
+    "prestart": "npm run build",
+    "start": "node .",
+    "clean": "lb-clean dist *.tsbuildinfo .eslintcache"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "author": "jcolekaplan <jacob.kaplan@contrastsecurity.com>",
+  "license": "",
+  "files": [
+    "README.md",
+    "dist",
+    "src",
+    "!*/__tests__"
+  ],
+  "dependencies": {
+    "@contrast/test-bench-utils": "3.15.0",
+    "@loopback/boot": "^3.0.2",
+    "@loopback/booter-lb3app": "^2.2.12",
+    "@loopback/core": "^2.11.0",
+    "@loopback/repository": "^3.1.0",
+    "@loopback/rest": "^8.0.0",
+    "@loopback/rest-explorer": "^3.0.2",
+    "@loopback/service-proxy": "^3.0.2",
+    "body-parser": "^1.19.0",
+    "compression": "^1.0.3",
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.5.2",
+    "ejs": "^2.7.4",
+    "express-ejs-layouts": "^2.5.0",
+    "helmet": "^3.10.0",
+    "lodash": "^4.17.19",
+    "loopback": "^3.22.0",
+    "loopback-boot": "^2.6.5",
+    "loopback-component-explorer": "^6.2.0",
+    "loopback-component-storage": "^3.6.3",
+    "serve-favicon": "^2.0.1",
+    "tslib": "^2.0.0",
+    "uuid": "^3.4.0"
+  },
+  "devDependencies": {
+    "@contrast/eslint-config": "^2.0.0",
+    "@loopback/build": "^6.2.5",
+    "@loopback/eslint-config": "^10.0.1",
+    "@loopback/testlab": "^3.2.7",
+    "@types/node": "^10.17.37",
+    "@typescript-eslint/eslint-plugin": "^4.5.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-mocha": "^6.3.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "loopback-cli": "^5.0.3",
+    "nodemon": "^2.0.4",
+    "prettier": "^1.19.1",
+    "source-map-support": "^0.5.19",
+    "typescript": "^4.0.3"
+  }
+}

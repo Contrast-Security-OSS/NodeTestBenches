@@ -4,12 +4,15 @@ node_modules/
 # form upload paths
 loopback/server/uploads/*
 !loopback/server/uploads/.gitkeep
+loopback4/server/uploads/*
+!loopback4/server/uploads/.gitkeep
 kraken/uploads/*
 !kraken/uploads/.gitkeep
 fastify/uploads/*
 !fastify/uploads/.gitkeep
 **/unsafeFileUpload/uploads/*
 !**/unsafeFileUpload/uploads/.gitkeep
+**/contrast_security.y*ml
 # agent logs
 *.log
 

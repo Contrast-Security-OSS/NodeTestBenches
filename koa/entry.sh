@@ -6,7 +6,7 @@
 
 if [[ -f "/opt/contrast/node-agent.tgz" ]];
 then
-  cp /opt/contrast/node-agent.tgz ./node-agent.tgz
+  pushd /opt/contrast && tar xzf ./node-agent.tgz && popd
   aws s3 cp "s3://node-agent-configs/$CONFIG" contrast_security.yaml
   HOST=0.0.0.0 DEBUG="contrast:*" node -r /opt/contrast/package/bootstrap index.js
 else

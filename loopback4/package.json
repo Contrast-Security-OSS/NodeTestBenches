@@ -42,6 +42,7 @@
   ],
   "dependencies": {
     "@contrast/test-bench-utils": "3.15.0",
+    "@contrast/loopback-test-bench": "3.15.0",
     "@loopback/boot": "^3.0.2",
     "@loopback/booter-lb3app": "^2.2.12",
     "@loopback/core": "^2.11.0",

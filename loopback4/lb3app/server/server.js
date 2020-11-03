@@ -35,7 +35,7 @@ app.start = function() {
 
 // Bootstrap the application, configure models, datasources and middleware.
 // Sub-apps like REST API are mounted via boot scripts.
-const bootDir = path.join(__dirname, '../../../loopback/server');
+const bootDir = path.join(__dirname, '../../node_modules/@contrast/loopback-test-bench/server');
 boot(app, bootDir, function(err) {
   if (err) throw err;
 

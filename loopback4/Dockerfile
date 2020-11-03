@@ -8,6 +8,6 @@ RUN pip install awscli
 
 WORKDIR /app
 COPY . .
-RUN npm ci --production
+RUN npm install --unsafe-perm
 RUN npm run build
 CMD ./entry.sh

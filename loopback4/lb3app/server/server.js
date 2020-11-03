@@ -14,7 +14,7 @@ const {navRoutes} = require('@contrast/test-bench-utils');
 const app = (module.exports = loopback());
 
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '../../../loopback/server/views'));
+app.set('views', path.join(__dirname, '../../node_modules/@contrast/loopback-test-bench/server/views'));
 app.use(layouts);
 
 app.locals.currentYear = new Date().getFullYear();

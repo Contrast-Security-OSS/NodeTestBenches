@@ -25,6 +25,7 @@
     "migrate": "node ./dist/migrate",
     "preopenapi-spec": "npm run build",
     "openapi-spec": "node ./dist/openapi-spec",
+    "postinstall": "cd node_modules/@contrast/loopback-test-bench && npm install && cd ../../..",
     "prestart": "npm run build",
     "start": "node .",
     "clean": "lb-clean dist *.tsbuildinfo .eslintcache"

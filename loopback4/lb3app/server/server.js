@@ -9,12 +9,20 @@ const layouts = require('express-ejs-layouts');
 const loopback = require('loopback');
 const boot = require('loopback-boot');
 const path = require('path');
-const {navRoutes} = require('@contrast/test-bench-utils');
+const {
+  navRoutes,
+} = require('@contrast/loopback-test-bench/node_modules/@contrast/test-bench-utils');
 
 const app = (module.exports = loopback());
 
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '../../node_modules/@contrast/loopback-test-bench/server/views'));
+app.set(
+  'views',
+  path.join(
+    __dirname,
+    '../../node_modules/@contrast/loopback-test-bench/server/views',
+  ),
+);
 app.use(layouts);
 
 app.locals.currentYear = new Date().getFullYear();
@@ -35,7 +43,10 @@ app.start = function() {
 
 // Bootstrap the application, configure models, datasources and middleware.
 // Sub-apps like REST API are mounted via boot scripts.
-const bootDir = path.join(__dirname, '../../node_modules/@contrast/loopback-test-bench/server');
+const bootDir = path.join(
+  __dirname,
+  '../../node_modules/@contrast/loopback-test-bench/server',
+);
 boot(app, bootDir, function(err) {
   if (err) throw err;
 

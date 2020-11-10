@@ -25,7 +25,7 @@ information on configuration and which technologies the agent supports, see our
 
 ## Adding a shared vulnerability
 Once you have added shared functionality to
-[`@contrast/test-bench-utils`](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/master/test-bench-utils),
+[`@contrast/test-bench-utils`](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/test-bench-utils),
 you are ready to add an endpoint in the test bench application.
 
 Create a _routes/ruleName.js_ file and call the `controllerFactory` method:

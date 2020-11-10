@@ -12,7 +12,7 @@
   "bugs": {
     "url": "https://github.com/Contrast-Security-OSS/NodeTestBenches/issues"
   },
-  "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/master/koa#readme",
+  "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/koa#readme",
   "main": "index.js",
   "scripts": {
     "contrast": "DEBUG=contrast:* node-contrast index.js",

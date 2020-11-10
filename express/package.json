@@ -12,7 +12,7 @@
   "bugs": {
     "url": "https://github.com/Contrast-Security-OSS/NodeTestBenches/issues"
   },
-  "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/master/express#readme",
+  "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/express#readme",
   "main": "index.js",
   "scripts": {
     "contrast": "DEBUG=contrast:* node-contrast index.js",

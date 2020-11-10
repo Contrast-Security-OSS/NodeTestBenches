@@ -82,9 +82,9 @@ to the _xpathInjection_ endpoint as a potential attack value.
 Once you have configured the shared sink and view, consult the following
 instructions for including the shared functionality in each test bench app:
 
-- [express](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/master/express#adding-a-shared-vulnerability)
-- [fastify](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/master/fastify#adding-a-shared-vulnerability)
-- [hapi](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/master/hapi#adding-a-shared-vulnerability)
-- [koa](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/master/koa#adding-a-shared-vulnerability)
-- [kraken](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/master/kraken#adding-a-shared-vulnerability)
-- [loopback](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/master/loopback#adding-a-shared-vulnerability)
+- [express](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/express#adding-a-shared-vulnerability)
+- [fastify](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/fastify#adding-a-shared-vulnerability)
+- [hapi](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/hapi#adding-a-shared-vulnerability)
+- [koa](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/koa#adding-a-shared-vulnerability)
+- [kraken](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/kraken#adding-a-shared-vulnerability)
+- [loopback](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/loopback#adding-a-shared-vulnerability)

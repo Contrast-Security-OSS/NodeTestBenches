@@ -3,7 +3,7 @@ name: ECR Push
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   build-and-push:
     runs-on: ubuntu-latest

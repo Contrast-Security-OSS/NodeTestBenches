@@ -6,7 +6,8 @@
     "hapi19",
     "koa",
     "kraken",
-    "loopback",
+    "loopback@3",
+    "loopback@4",
     "loopback4",
     "restify",
     "test-bench-utils"

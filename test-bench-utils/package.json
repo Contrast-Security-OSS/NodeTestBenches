@@ -13,9 +13,11 @@
   },
   "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/test-bench-utils#readme",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "files": [
     "lib/",
-    "public/"
+    "public/",
+    "!**/*.test.*"
   ],
   "scripts": {
     "lint": "eslint --fix lib/",

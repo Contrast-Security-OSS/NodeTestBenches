@@ -26,3 +26,4 @@ Outside of these two commands, development on each application or the
  * Add folder name in `lerna.json` and re-run `lerna bootstrap`
  * Add the app(folder name) to `jobs.build-and-push.strategy.matrix.apps` .github/workflows/build.yml
  * Add repository into ecr `aws ecr create-repository --repository-name <app>`
+

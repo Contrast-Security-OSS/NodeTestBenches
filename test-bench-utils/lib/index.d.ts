@@ -58,7 +58,7 @@ declare namespace TestBenchUtils {
   }
 
   interface Sink {
-    (params: SinkParams, opts: SinkOpts): any;
+    (params: SinkParams, opts?: SinkOpts): any;
   }
 
   interface SinkData {
@@ -66,7 +66,7 @@ declare namespace TestBenchUtils {
     key: string;
     method: string;
     name: string;
-    params: readonly Param[];
+    params: Param[];
     sink: Sink;
     uri: string;
     url: string;
@@ -77,10 +77,10 @@ declare namespace TestBenchUtils {
     base: string;
     name: string;
     link: string;
-    products: readonly Product[];
+    products: Product[];
     type?: string;
-    inputs?: readonly Input[];
-    params?: readonly Param[];
+    inputs?: Input[];
+    params?: Param[];
     sinks?: { [name: string]: Sink };
   }
 

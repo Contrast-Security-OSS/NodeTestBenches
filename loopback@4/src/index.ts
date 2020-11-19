@@ -1,4 +1,6 @@
+import {utils} from '@contrast/test-bench-utils';
 import {ApplicationConfig, Loopback4TestBenchApplication} from './application';
+import {controllerFactory} from './controllers/controllerFactory';
 
 export * from './application';
 
@@ -32,8 +34,18 @@ if (require.main === module) {
       },
     },
   };
-  main(config).catch(err => {
-    console.error('Cannot start the application.', err);
-    process.exit(1);
-  });
+  main(config)
+    .then(app => {
+      // Configure our routes!
+      utils.getRules().forEach(rule => {
+        const controllers = controllerFactory(rule, {});
+        controllers.forEach(controller => {
+          app.controller(controller);
+        });
+      });
+    })
+    .catch(err => {
+      console.error('Cannot start the application.', err);
+      process.exit(1);
+    });
 }

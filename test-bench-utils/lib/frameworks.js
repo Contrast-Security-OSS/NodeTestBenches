@@ -14,6 +14,10 @@ module.exports = {
   express: sharedMapping,
   kraken: sharedMapping,
   loopback: sharedMapping,
+  'loopback@4': {
+    ...sharedMapping,
+    params: { method: 'get', key: 'params', param: '{input}' }
+  },
   koa: {
     ...sharedMapping,
     body: { method: 'post', key: 'request.body' },

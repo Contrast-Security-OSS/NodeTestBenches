@@ -113,6 +113,11 @@ module.exports.groupSinkData = function groupSinkData(sinkData) {
   return groupBy(sinkData, 'input');
 };
 
+/** Return all configured rules with defined routes. */
+module.exports.getRules = function getRoutes() {
+  return Object.keys(routes);
+};
+
 /**
  * @param {string} rule
  * @return {Object} route metadata for a given rule

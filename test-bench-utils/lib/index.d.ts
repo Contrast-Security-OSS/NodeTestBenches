@@ -39,6 +39,7 @@ declare namespace TestBenchUtils {
     | 'express'
     | 'kraken'
     | 'loopback'
+    | 'loopback@4'
     | 'koa'
     | 'hapi';
 
@@ -96,6 +97,9 @@ declare namespace TestBenchUtils {
     function groupSinkData(
       sinkData: SinkData[]
     ): { [input: string]: SinkData[] };
+
+    /** Return all configured routes */
+    function getRules(): Rule[];
 
     /** Returns route metadata for a given rule */
     function getRouteMeta(rule: Rule): Route;

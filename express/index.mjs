@@ -1,5 +1,11 @@
 'use strict';
 import { createRequire } from 'module';
+import http from 'http';
+import https from 'https';
+import pem from 'pem';
+import cluster from 'cluster';
+import os from 'os';
+import express from 'express';
 const require = createRequire(import.meta.url);
 
 if (process.env.CONTRAST_NEW_RELIC_KEY) {
@@ -7,7 +13,6 @@ if (process.env.CONTRAST_NEW_RELIC_KEY) {
 }
 
 const start = Date.now();
-const express = require('express');
 /**
  * This allows use to naively handle
  * async controller requests without
@@ -28,10 +33,6 @@ const express = require('express');
  *
  */
 require('express-async-errors');
-const http = require('http');
-const https = require('https');
-const pem = require('pem');
-
 const app = express();
 const { PORT = 3000, HOST = 'localhost', SSL, CLUSTER } = process.env;
 const isHttps = SSL === '1' ? true : false;
@@ -62,8 +63,7 @@ function createServer() {
 }
 
 if (CLUSTER) {
-  const cluster = require('cluster');
-  const numCPUs = require('os').cpus().length;
+  const numCPUs = os.cpus().length;
 
   if (cluster.isMaster) {
     console.log(`Master ${process.pid} is running`);

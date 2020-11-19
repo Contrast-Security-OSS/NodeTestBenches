@@ -1,16 +1,16 @@
 import { createRequire } from 'module';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import layouts from 'express-ejs-layouts';
+import path from 'path';
+import tbu from '@contrast/test-bench-utils';
+import express from 'express'
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const require = createRequire(import.meta.url);
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const layouts = require('express-ejs-layouts');
-const path = require('path');
-const { navRoutes } = require('@contrast/test-bench-utils');
-const express = require('express');
+const { navRoutes } = tbu;
 
 export function setup(app) {
   require('./vulnerabilities/static');

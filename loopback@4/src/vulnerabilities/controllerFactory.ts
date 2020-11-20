@@ -1,5 +1,5 @@
 import {Route, Rule, utils} from '@contrast/test-bench-utils';
-import {inject} from '@loopback/core';
+import {ControllerClass, inject} from '@loopback/core';
 import {
   api,
   get,
@@ -12,9 +12,7 @@ import {
 } from '@loopback/rest';
 import {pascalCase} from 'pascal-case';
 
-export class VulnerabilityController {
-  constructor() {}
-}
+export abstract class VulnerabilityController {}
 
 export interface Options {
   locals?: {};
@@ -30,7 +28,7 @@ function staticVulnerabilityControllerFactory(
   route: Route,
 ) {
   @api({basePath: route.base})
-  class Controller implements VulnerabilityController {
+  class Controller extends VulnerabilityController {
     @get('/')
     index(@inject(RestBindings.Http.RESPONSE) res: Response) {
       const preparer = utils.getResponsePreparer(vulnerability);
@@ -59,7 +57,7 @@ function vulnerabilityControllerFactory(
   const groupedSinkData = utils.groupSinkData(sinkData);
 
   @api({basePath: route.base})
-  class IndexController implements VulnerabilityController {
+  class IndexController extends VulnerabilityController {
     @get('/')
     index() {
       // TODO: render EJS template.
@@ -91,7 +89,7 @@ function vulnerabilityControllerFactory(
       };
 
       @api({basePath: `${route.base}${uri}`})
-      class Controller implements VulnerabilityController {
+      class Controller extends VulnerabilityController {
         @operation(method, '/safe', spec)
         async safe(
           @inject(RestBindings.Http.REQUEST) req: Request,
@@ -137,7 +135,7 @@ function vulnerabilityControllerFactory(
 export function controllerFactory(
   vulnerability: Rule,
   {locals = {}, respond = defaultRespond}: Options,
-): typeof VulnerabilityController[] {
+): ControllerClass<VulnerabilityController>[] {
   const route = utils.getRouteMeta(vulnerability);
 
   if (route.type === 'response-scanning') {

@@ -6,7 +6,7 @@
     "hapi19",
     "koa",
     "kraken",
-    "loopback@3",
+    "loopback",
     "loopback@4",
     "loopback4",
     "restify",

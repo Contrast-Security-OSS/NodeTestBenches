@@ -1,6 +1,5 @@
-import {utils} from '@contrast/test-bench-utils';
 import {ApplicationConfig, Loopback4TestBenchApplication} from './application';
-import {controllerFactory} from './controllers/controllerFactory';
+import {configureVulnerableRoutes} from './vulnerabilities';
 
 export * from './application';
 
@@ -37,12 +36,7 @@ if (require.main === module) {
   main(config)
     .then(app => {
       // Configure our routes!
-      utils.getRules().forEach(rule => {
-        const controllers = controllerFactory(rule, {});
-        controllers.forEach(controller => {
-          app.controller(controller);
-        });
-      });
+      configureVulnerableRoutes(app);
     })
     .catch(err => {
       console.error('Cannot start the application.', err);

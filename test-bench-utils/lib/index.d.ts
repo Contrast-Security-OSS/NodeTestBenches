@@ -98,8 +98,11 @@ declare namespace TestBenchUtils {
       sinkData: SinkData[]
     ): { [input: string]: SinkData[] };
 
+    /** Returns the `content` included for a given rule. */
+    function getContent(rule: Rule): any;
+
     /** Return all configured routes */
-    function getRules(): Rule[];
+    function getAllRules(): Rule[];
 
     /** Returns route metadata for a given rule */
     function getRouteMeta(rule: Rule): Route;

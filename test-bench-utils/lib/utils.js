@@ -11,6 +11,7 @@ const {
   reduce
 } = require('lodash');
 
+const content = require('./content');
 const frameworks = require('./frameworks');
 const routes = require('./routes');
 const responsePreparers = require('./response-preparers');
@@ -113,8 +114,17 @@ module.exports.groupSinkData = function groupSinkData(sinkData) {
   return groupBy(sinkData, 'input');
 };
 
+/**
+ * Returns the `content` included for a given rule.
+ * @param {string} rule
+ * @return {any}
+ */
+module.exports.getContent = function getContent(rule) {
+  return content[rule];
+};
+
 /** Return all configured rules with defined routes. */
-module.exports.getRules = function getRoutes() {
+module.exports.getAllRules = function getRoutes() {
   return Object.keys(routes);
 };
 

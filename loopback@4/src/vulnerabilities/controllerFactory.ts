@@ -17,11 +17,12 @@ export class VulnerabilityController {
 }
 
 export interface Options {
-  locals?: object;
+  locals?: {};
   respond?: typeof defaultRespond;
 }
 
-export const defaultRespond = <T>(result: T, req: Request, res: Response): T =>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const defaultRespond = (result: any, req: Request, res: Response): any =>
   result;
 
 function staticVulnerabilityControllerFactory(
@@ -35,6 +36,8 @@ function staticVulnerabilityControllerFactory(
       const preparer = utils.getResponsePreparer(vulnerability);
       if (preparer) preparer(res);
 
+      // TODO: render EJS template.
+      // for the time being API explorer should get the job done.
       return {vulnerability, route};
     }
   }
@@ -49,7 +52,7 @@ function staticVulnerabilityControllerFactory(
 function vulnerabilityControllerFactory(
   vulnerability: Rule,
   route: Route,
-  locals: object,
+  locals: {},
   respond: typeof defaultRespond,
 ) {
   const sinkData = utils.getSinkData(vulnerability, 'loopback@4');
@@ -58,7 +61,9 @@ function vulnerabilityControllerFactory(
   @api({basePath: route.base})
   class IndexController implements VulnerabilityController {
     @get('/')
-    renderRoot() {
+    index() {
+      // TODO: render EJS template.
+      // for the time being API explorer should get the job done.
       return {route, sinkData, groupedSinkData, ...locals};
     }
   }
@@ -76,13 +81,13 @@ function vulnerabilityControllerFactory(
             schema: {type: 'string'},
             in: input,
             required: true,
-            // TODO examples: {} ??
+            examples: {}, // TODO
           } as ParameterObject),
       );
 
       const spec: OperationObject = {
         parameters,
-        responses: {}, // todo?
+        responses: {}, // TODO
       };
 
       @api({basePath: `${route.base}${uri}`})
@@ -119,7 +124,7 @@ function vulnerabilityControllerFactory(
       }
 
       Object.defineProperty(Controller, 'name', {
-        value: pascalCase(`${vulnerability} ${input} Controller`),
+        value: pascalCase(`${vulnerability} ${uri} Controller`),
       });
 
       return Controller;

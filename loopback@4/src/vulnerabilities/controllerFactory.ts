@@ -8,6 +8,7 @@ import {
   ParameterObject,
   Request,
   Response,
+  ResponseObject,
   RestBindings,
 } from '@loopback/rest';
 import {pascalCase} from 'pascal-case';
@@ -17,6 +18,7 @@ export abstract class VulnerabilityController {}
 export interface Options {
   locals?: {};
   respond?: typeof defaultRespond;
+  response?: ResponseObject;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -50,8 +52,7 @@ function staticVulnerabilityControllerFactory(
 function vulnerabilityControllerFactory(
   vulnerability: Rule,
   route: Route,
-  locals: {},
-  respond: typeof defaultRespond,
+  {locals, respond = defaultRespond, response}: Options,
 ) {
   const sinkData = utils.getSinkData(vulnerability, 'loopback@4');
   const groupedSinkData = utils.groupSinkData(sinkData);
@@ -83,9 +84,20 @@ function vulnerabilityControllerFactory(
           } as ParameterObject),
       );
 
+      const defaultResponse: ResponseObject = {
+        description: `${vulnerability} return value`,
+        content: {
+          'text/plain': {
+            schema: {type: 'string'},
+          },
+        },
+      };
+
       const spec: OperationObject = {
         parameters,
-        responses: {}, // TODO
+        responses: {
+          '200': response ?? defaultResponse,
+        },
       };
 
       @api({basePath: `${route.base}${uri}`})
@@ -122,7 +134,7 @@ function vulnerabilityControllerFactory(
       }
 
       Object.defineProperty(Controller, 'name', {
-        value: pascalCase(`${vulnerability} ${uri} Controller`),
+        value: `${pascalCase(`${vulnerability} ${uri}`)}Controller`,
       });
 
       return Controller;
@@ -134,7 +146,7 @@ function vulnerabilityControllerFactory(
 
 export function controllerFactory(
   vulnerability: Rule,
-  {locals = {}, respond = defaultRespond}: Options,
+  {locals = {}, respond, response}: Options,
 ): ControllerClass<VulnerabilityController>[] {
   const route = utils.getRouteMeta(vulnerability);
 
@@ -142,5 +154,9 @@ export function controllerFactory(
     return staticVulnerabilityControllerFactory(vulnerability, route);
   }
 
-  return vulnerabilityControllerFactory(vulnerability, route, locals, respond);
+  return vulnerabilityControllerFactory(vulnerability, route, {
+    locals,
+    respond,
+    response,
+  });
 }

@@ -1,64 +1,62 @@
 {
-  "name": "@contrast/test-bench-utils",
-  "version": "3.15.0",
-  "description": "Shared code to use in Contrast's web framework test apps.",
-  "author": "Contrast Security <nodejs@contrastsecurity.com>",
-  "license": "UNLICENSED",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Contrast-Security-OSS/NodeTestBenches.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Contrast-Security-OSS/NodeTestBenches/issues"
-  },
-  "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/test-bench-utils#readme",
-  "main": "lib/index.js",
-  "files": [
-    "lib/",
-    "public/"
-  ],
-  "scripts": {
-    "lint": "eslint --fix lib/",
-    "test": "jest --coverage"
-  },
-  "engines": {
-    "node": ">=10.13.0"
-  },
-  "dependencies": {
-    "aws-sdk": "^2.693.0",
-    "axios": "^0.19.0",
-    "bent": "^1.5.13",
-    "escape-html": "^1.0.3",
-    "hooker": "^0.2.3",
-    "jest": "^26.3.0",
-    "libxmljs2": "^0.26.0",
-    "lodash": "^4.17.19",
-    "mongodb": "^3.5.2",
-    "mysql": "^2.17.1",
-    "node-fetch": "^2.6.0",
-    "node-serialize": "0.0.4",
-    "pg": "^7.12.0",
-    "request": "^2.88.0",
-    "sequelize": "^5.21.1",
-    "sql-template-strings": "^2.2.2",
-    "sqlite3": "^5.0.0",
-    "stealthy-require": "^1.1.1",
-    "superagent": "^5.0.5",
-    "typeorm": "^0.2.24",
-    "xmldom": "^0.2.1",
-    "xpath": "0.0.27"
-  },
-  "devDependencies": {
-    "@contrast/eslint-config": "^2.0.0",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-mocha": "^6.3.0",
-    "eslint-plugin-node": "^11.0.0",
-    "eslint-plugin-prettier": "^3.1.2",
-    "prettier": "^1.19.1"
-  },
-  "optionalDependencies": {
-    "libxmljs": "^0.19.7"
-  },
-  "gitHead": "aeaa0fd50c164dc710402520792d757235b06ff6"
+	"name": "@contrast/test-bench-utils",
+	"version": "3.15.0",
+	"description": "Shared code to use in Contrast's web framework test apps.",
+	"author": "Contrast Security <nodejs@contrastsecurity.com>",
+	"license": "UNLICENSED",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Contrast-Security-OSS/NodeTestBenches.git"
+	},
+	"bugs": {
+		"url": "https://github.com/Contrast-Security-OSS/NodeTestBenches/issues"
+	},
+	"homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/test-bench-utils#readme",
+	"main": "lib/index.js",
+	"types": "lib/index.d.ts",
+	"files": [
+		"lib/",
+		"public/",
+		"!**/*.test.*"
+	],
+	"engines": {
+		"node": ">=10.13.0"
+	},
+	"dependencies": {
+		"aws-sdk": "^2.693.0",
+		"axios": "^0.19.0",
+		"bent": "^1.5.13",
+		"escape-html": "^1.0.3",
+		"hooker": "^0.2.3",
+		"jest": "^26.3.0",
+		"libxmljs2": "^0.26.0",
+		"lodash": "^4.17.19",
+		"mongodb": "^3.5.2",
+		"mysql": "^2.17.1",
+		"node-fetch": "^2.6.0",
+		"node-serialize": "0.0.4",
+		"pg": "^7.12.0",
+		"request": "^2.88.0",
+		"sequelize": "^5.21.1",
+		"sql-template-strings": "^2.2.2",
+		"sqlite3": "^5.0.0",
+		"stealthy-require": "^1.1.1",
+		"superagent": "^5.0.5",
+		"typeorm": "^0.2.24",
+		"xmldom": "^0.2.1",
+		"xpath": "0.0.27"
+	},
+	"devDependencies": {
+		"@contrast/eslint-config": "^2.0.0",
+		"eslint": "^6.8.0",
+		"eslint-config-prettier": "^6.10.0",
+		"eslint-plugin-mocha": "^6.3.0",
+		"eslint-plugin-node": "^11.0.0",
+		"eslint-plugin-prettier": "^3.1.2",
+		"prettier": "^1.19.1"
+	},
+	"optionalDependencies": {
+		"libxmljs": "^0.19.7"
+	},
+	"gitHead": "aeaa0fd50c164dc710402520792d757235b06ff6"
 }

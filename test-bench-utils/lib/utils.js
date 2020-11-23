@@ -1,7 +1,5 @@
 'use strict';
 
-const path = require('path');
-
 const {
   camelCase,
   fromPairs,
@@ -13,6 +11,7 @@ const {
   reduce
 } = require('lodash');
 
+const content = require('./content');
 const frameworks = require('./frameworks');
 const routes = require('./routes');
 const responsePreparers = require('./response-preparers');
@@ -40,7 +39,7 @@ const responsePreparers = require('./response-preparers');
  * @param {string} opts.method the method being handled
  * @param {string} opts.param the framework-specific paramter string for path parameters
  * @param {string[]} opts.params input parameters to provide to sink functions
- * @param {Object<string, Function>} opts.sinks object containing all sink methods
+ * @param {{ [name: string]: Function }} opts.sinks object containing all sink methods
  * @return {SinkData[]}
  */
 const sinkData = function sinkData({
@@ -116,6 +115,20 @@ module.exports.groupSinkData = function groupSinkData(sinkData) {
 };
 
 /**
+ * Returns the `content` included for a given rule.
+ * @param {string} rule
+ * @return {any}
+ */
+module.exports.getContent = function getContent(rule) {
+  return content[rule];
+};
+
+/** Return all configured rules with defined routes. */
+module.exports.getAllRules = function getRoutes() {
+  return Object.keys(routes);
+};
+
+/**
  * @param {string} rule
  * @return {Object} route metadata for a given rule
  */
@@ -131,7 +144,7 @@ module.exports.getRouteMeta = function getRouteMeta(rule) {
  * @param {Object} opts additional object
  * @param {Object} opts.locals local model object which may contain values
  * @param {boolean} opts.noop when true, return hard-coded 'noop' values for each param
- * @returns {{ [param: string]: any}}
+ * @returns {{ [param: string]: string}}
  */
 module.exports.getInput = function getInput(
   request,
@@ -146,6 +159,11 @@ module.exports.getInput = function getInput(
   return isEmpty(localInputs) ? pick(get(request, key), params) : localInputs;
 };
 
+/**
+ * Returns the Response preparing function for a given rule
+ * @param {string} rule
+ * @returns {Function|null}
+ */
 module.exports.getResponsePreparer = function(rule) {
   return responsePreparers[rule] || null;
 };

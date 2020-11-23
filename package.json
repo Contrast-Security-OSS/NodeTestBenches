@@ -14,6 +14,8 @@
   },
   "devDependencies": {
     "@contrast/eslint-config": "^2.0.0",
+    "@loopback/build": "^6.2.7",
+    "@loopback/cli": "^2.17.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-mocha": "^6.3.0",

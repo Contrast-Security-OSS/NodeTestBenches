@@ -1,0 +1,75 @@
+{
+  "name": "@contrast/loopback-4-test-bench",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Intentionally vulnerable Loopback application",
+  "keywords": [
+    "loopback-application",
+    "loopback"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=10.16"
+  },
+  "scripts": {
+    "build": "lb-tsc",
+    "build:watch": "lb-tsc --watch",
+    "lint": "npm run prettier:check && npm run eslint",
+    "lint:fix": "npm run eslint:fix && npm run prettier:fix",
+    "prettier:cli": "lb-prettier \"**/*.ts\" \"**/*.js\"",
+    "prettier:check": "npm run prettier:cli -- -l",
+    "prettier:fix": "npm run prettier:cli -- --write",
+    "eslint": "lb-eslint --report-unused-disable-directives .",
+    "eslint:fix": "npm run eslint -- --fix",
+    "pretest": "npm run rebuild",
+    "test": "lb-mocha --allow-console-logs \"dist/__tests__\"",
+    "posttest": "npm run lint",
+    "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && npm run posttest",
+    "docker:build": "docker build -t @contrast/loopback-4-test-bench .",
+    "docker:run": "docker run -p 3000:3000 -d @contrast/loopback-4-test-bench",
+    "premigrate": "npm run build",
+    "migrate": "node ./dist/migrate",
+    "preopenapi-spec": "npm run build",
+    "openapi-spec": "node ./dist/openapi-spec",
+    "rebuild": "npm run clean && npm run build",
+    "prestart": "npm run rebuild",
+    "start": "node -r source-map-support/register .",
+    "start:contrast": "node -r $CONTRAST_PATH .",
+    "clean": "lb-clean dist *.tsbuildinfo .eslintcache"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "author": "Griffin Yourick <gryphon92@gmail.com>",
+  "license": "",
+  "files": [
+    "README.md",
+    "dist",
+    "src",
+    "!*/__tests__"
+  ],
+  "dependencies": {
+    "@contrast/test-bench-utils": "^3.15.0",
+    "@loopback/boot": "^3.1.0",
+    "@loopback/core": "^2.12.0",
+    "@loopback/repository": "^3.2.0",
+    "@loopback/rest": "^9.0.0",
+    "@loopback/rest-explorer": "^3.0.3",
+    "@loopback/service-proxy": "^3.0.3",
+    "ejs": "^3.1.5",
+    "lodash": "^4.17.20",
+    "pascal-case": "^3.1.1",
+    "tslib": "^2.0.0"
+  },
+  "devDependencies": {
+    "@loopback/build": "^6.2.6",
+    "@loopback/eslint-config": "^10.0.2",
+    "@loopback/testlab": "^3.2.8",
+    "@types/lodash": "^4.14.165",
+    "@types/node": "^10.17.44",
+    "eslint": "^7.12.1",
+    "source-map-support": "^0.5.19",
+    "typescript": "~4.0.5"
+  }
+}

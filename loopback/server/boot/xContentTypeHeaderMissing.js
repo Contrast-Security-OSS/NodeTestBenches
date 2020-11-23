@@ -1,2 +1,4 @@
 'use strict';
-module.exports = require('../utils/controllerFactory')('xContentTypeHeaderMissing');
+module.exports = require('../utils/controllerFactory')(
+  'xContentTypeHeaderMissing'
+);

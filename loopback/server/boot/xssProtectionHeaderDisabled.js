@@ -1,2 +1,4 @@
 'use strict';
-module.exports = require('../utils/controllerFactory')('xssProtectionHeaderDisabled');
+module.exports = require('../utils/controllerFactory')(
+  'xssProtectionHeaderDisabled'
+);

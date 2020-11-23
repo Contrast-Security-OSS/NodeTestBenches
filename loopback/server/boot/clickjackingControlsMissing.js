@@ -1,2 +1,4 @@
 'use strict';
-module.exports = require('../utils/controllerFactory')('clickjackingControlsMissing');
+module.exports = require('../utils/controllerFactory')(
+  'clickjackingControlsMissing'
+);

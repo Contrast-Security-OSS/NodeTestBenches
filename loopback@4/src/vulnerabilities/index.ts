@@ -25,7 +25,7 @@ export function configureVulnerableRoutes(app: Loopback4TestBenchApplication) {
     'xpathInjection',
     'xssJSON',
   ).forEach(rule => {
-    const controllers = controllerFactory(rule, {});
+    const controllers = controllerFactory(rule);
     controllers.forEach(c => app.controller(c));
   });
 }

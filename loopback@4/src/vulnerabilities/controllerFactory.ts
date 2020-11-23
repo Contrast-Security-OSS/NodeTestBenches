@@ -43,7 +43,7 @@ function staticVulnerabilityControllerFactory(
   }
 
   Object.defineProperty(Controller, 'name', {
-    value: pascalCase(`${vulnerability} Controller`),
+    value: `${pascalCase(vulnerability)}Controller`,
   });
 
   return [Controller];
@@ -68,7 +68,7 @@ function vulnerabilityControllerFactory(
   }
 
   Object.defineProperty(IndexController, 'name', {
-    value: pascalCase(`${vulnerability} Index Controller`),
+    value: `${pascalCase(vulnerability)}IndexController`,
   });
 
   const controllers = sinkData.map(
@@ -146,7 +146,7 @@ function vulnerabilityControllerFactory(
 
 export function controllerFactory(
   vulnerability: Rule,
-  {locals = {}, respond, response}: Options,
+  {locals = {}, respond, response}: Options = {},
 ): ControllerClass<VulnerabilityController>[] {
   const route = utils.getRouteMeta(vulnerability);
 

@@ -1,6 +1,6 @@
 {
   "name": "@contrast/loopback4",
-  "version": "3.15.0",
+  "version": "3.16.0",
   "description": "loopback4-test-bench",
   "keywords": [
     "loopback-application",
@@ -42,7 +42,7 @@
     "!*/__tests__"
   ],
   "dependencies": {
-    "@contrast/loopback-test-bench": "3.15.0",
+    "@contrast/loopback-test-bench": "^3.16.0",
     "@loopback/boot": "^3.0.2",
     "@loopback/booter-lb3app": "^2.2.12",
     "@loopback/build": "^6.2.5",

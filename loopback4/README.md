@@ -1,4 +1,4 @@
-# loopback4
+# @contrast/loopback-4-test-bench
 
 This application is generated using [LoopBack 4 CLI](https://loopback.io/doc/en/lb4/Command-line-interface.html) with the
 [initial project layout](https://loopback.io/doc/en/lb4/Loopback-application-layout.html).
@@ -32,13 +32,13 @@ Open http://127.0.0.1:3000 in your browser.
 
 To incrementally build the project:
 
-```
+```sh
 npm run build
 ```
 
 To force a full build by cleaning up cached artifacts:
 
-```
+```sh
 npm run clean
 npm run build
 ```

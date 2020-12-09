@@ -1,13 +1,18 @@
-import {ApplicationConfig} from '@loopback/core';
-import {ExpressServer} from './server';
+import {ApplicationConfig, Loopback4TestBenchApplication} from './application';
+import {configureVulnerableRoutes} from './vulnerabilities';
+
 export * from './application';
-export {ApplicationConfig, ExpressServer};
 
 export async function main(options: ApplicationConfig = {}) {
-  const server = new ExpressServer(options);
-  await server.boot();
-  await server.start();
-  console.log(`Server is running at ${server.url}`);
+  const app = new Loopback4TestBenchApplication(options);
+  await app.boot();
+  await app.start();
+
+  const url = app.restServer.url;
+  console.log(`Server is running at ${url}`);
+  console.log(`Try ${url}/ping`);
+
+  return app;
 }
 
 if (require.main === module) {
@@ -26,11 +31,15 @@ if (require.main === module) {
         // useful when used with OpenAPI-to-GraphQL to locate your application
         setServersFromRequest: true,
       },
-      listenOnStart: false
     },
   };
-  main(config).catch(err => {
-    console.error('Cannot start the application.', err);
-    process.exit(1);
-  });
+  main(config)
+    .then(app => {
+      // Configure our routes!
+      configureVulnerableRoutes(app);
+    })
+    .catch(err => {
+      console.error('Cannot start the application.', err);
+      process.exit(1);
+    });
 }

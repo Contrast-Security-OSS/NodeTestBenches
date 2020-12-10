@@ -1,20 +1,18 @@
 import {BootMixin} from '@loopback/boot';
-import {Lb3AppBooterComponent} from '@loopback/booter-lb3app';
 import {ApplicationConfig} from '@loopback/core';
-import {RepositoryMixin} from '@loopback/repository';
-import {RestApplication} from '@loopback/rest';
 import {
   RestExplorerBindings,
-  RestExplorerComponent
+  RestExplorerComponent,
 } from '@loopback/rest-explorer';
+import {RepositoryMixin} from '@loopback/repository';
+import {RestApplication} from '@loopback/rest';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
 import {MySequence} from './sequence';
 
-
 export {ApplicationConfig};
 
-export class Loopback4Application extends BootMixin(
+export class Loopback4TestBenchApplication extends BootMixin(
   ServiceMixin(RepositoryMixin(RestApplication)),
 ) {
   constructor(options: ApplicationConfig = {}) {
@@ -31,13 +29,15 @@ export class Loopback4Application extends BootMixin(
       path: '/explorer',
     });
     this.component(RestExplorerComponent);
-    this.component(Lb3AppBooterComponent);
-
 
     this.projectRoot = __dirname;
+    // Customize @loopback/boot Booter Conventions here
     this.bootOptions = {
-      lb3app: {
-        mode: 'fullApp'
+      controllers: {
+        // Customize ControllerBooter Conventions here
+        dirs: ['controllers'],
+        extensions: ['.controller.js'],
+        nested: true,
       },
     };
   }

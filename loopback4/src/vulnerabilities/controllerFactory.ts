@@ -78,7 +78,7 @@ function vulnerabilityControllerFactory(
           ({
             name: param,
             schema: {type: 'string'},
-            in: input,
+            in: input === 'headers' ? 'header' : input,
             required: true,
             examples: {}, // TODO
           } as ParameterObject),

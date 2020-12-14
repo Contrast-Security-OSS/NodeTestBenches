@@ -13,4 +13,3 @@ else
   echo "Running app in agent-less mode"
   HOST=0.0.0.0 node .
 fi
-

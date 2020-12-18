@@ -9,4 +9,5 @@ RUN pip install awscli
 WORKDIR /app
 COPY . .
 RUN npm ci --production
+RUN chmod +x entry.sh
 CMD ./entry.sh

@@ -1,4 +1,4 @@
-import {Route, Rule, utils} from '@contrast/test-bench-utils';
+import {Route, Rule, Param, utils} from '@contrast/test-bench-utils';
 import {ControllerClass, inject} from '@loopback/core';
 import {
   api,
@@ -12,6 +12,7 @@ import {
   RestBindings,
 } from '@loopback/rest';
 import {pascalCase} from 'pascal-case';
+import * as _ from "lodash";
 
 export abstract class VulnerabilityController {}
 
@@ -24,6 +25,7 @@ export interface Options {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const defaultRespond = (result: any, req: Request, res: Response): any =>
   result;
+
 
 function staticVulnerabilityControllerFactory(
   vulnerability: Rule,
@@ -47,6 +49,62 @@ function staticVulnerabilityControllerFactory(
   });
 
   return [Controller];
+}
+
+function formatParameterSpecs(input: string, params: Param[]) : ParameterObject[] {
+  if (input === 'body') {
+    return [];
+  }
+
+  // mapping of test-bench-utils parameter types
+  // to lb4 parameter types
+  const paramMapping: any = {
+    'headers': 'header',
+    'params': 'path'
+  };
+
+  return params.map(
+    param =>
+      ({
+        name: param,
+        schema: {type: 'string'},
+        in: paramMapping[input] ? paramMapping[input] : input,
+        required: true,
+        examples: {}, // TODO
+      } as ParameterObject),
+  );
+}
+
+function formatBodySpec() {
+
+}
+
+function getInputs(
+	args: any,
+	inputType: string,
+	params: Param[],
+	opts?: {
+          locals?: Object;
+          noop?: boolean;
+	}
+       ): any {
+  if (opts && opts.noop) return _.fromPairs(_.map(params, (param) => [param, 'noop']));
+
+  if (opts && !_.isEmpty(opts.locals)) {
+    return _.pick(opts.locals, params);
+  }
+
+  // args inputs are offset by 2 b/c we inject the
+  // request and response as the first two args
+  if (inputType == 'body') {
+    return { 'input': args[2].input };
+  }
+
+  const result : any = {}; 
+  params.map((param, index) => {
+    result[param] = args[index + 2];
+  });
+  return result;
 }
 
 function vulnerabilityControllerFactory(
@@ -73,16 +131,7 @@ function vulnerabilityControllerFactory(
 
   const controllers = sinkData.map(
     ({input, method, params, uri, sink, key}) => {
-      const parameters = params.map(
-        param =>
-          ({
-            name: param,
-            schema: {type: 'string'},
-            in: input === 'headers' ? 'header' : input,
-            required: true,
-            examples: {}, // TODO
-          } as ParameterObject),
-      );
+      const parameters: ParameterObject[] = formatParameterSpecs(input, params);
 
       const defaultResponse: ResponseObject = {
         description: `${vulnerability} return value`,
@@ -106,8 +155,8 @@ function vulnerabilityControllerFactory(
         async safe(
           @inject(RestBindings.Http.REQUEST) req: Request,
           @inject(RestBindings.Http.RESPONSE) res: Response,
-        ) {
-          const inputs = utils.getInput(req, key, params, {locals});
+	) {
+          const inputs = getInputs(arguments, input, params, {locals}); 
           const result = await sink(inputs, {safe: true});
           return respond(result, req, res);
         }
@@ -116,8 +165,9 @@ function vulnerabilityControllerFactory(
         async unsafe(
           @inject(RestBindings.Http.REQUEST) req: Request,
           @inject(RestBindings.Http.RESPONSE) res: Response,
-        ) {
-          const inputs = utils.getInput(req, key, params, {locals});
+	) {
+          debugger;
+          const inputs = getInputs(arguments, input, params, {locals});
           const result = await sink(inputs);
           return respond(result, req, res);
         }
@@ -127,7 +177,7 @@ function vulnerabilityControllerFactory(
           @inject(RestBindings.Http.REQUEST) req: Request,
           @inject(RestBindings.Http.RESPONSE) res: Response,
         ) {
-          const inputs = utils.getInput(req, key, params, {locals});
+          const inputs = getInputs(arguments, input, params, {locals, noop:true});
           const result = await sink(inputs, {noop: true});
           return respond(result, req, res);
         }

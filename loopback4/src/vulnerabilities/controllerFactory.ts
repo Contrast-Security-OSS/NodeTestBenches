@@ -6,6 +6,7 @@ import {
   operation,
   OperationObject,
   ParameterObject,
+  RequestBodyObject,
   Request,
   Response,
   ResponseObject,
@@ -75,8 +76,35 @@ function formatParameterSpecs(input: string, params: Param[]) : ParameterObject[
   );
 }
 
-function formatBodySpec() {
-
+function formatBodySpec() : RequestBodyObject {
+  const requestBodySpec : RequestBodyObject = {
+    description: 'user input',
+    required: false,
+    content: {
+      'application/json': {
+        schema: {
+          type: 'object',
+	  required: ['input'],
+	  properties: {
+            input: {
+              type: 'string' 
+	    }
+	  }
+        }
+      },
+      'application/x-www-form-urlencoded': {
+        schema: {
+          type: 'object',
+	  properties: {
+            input: {
+              type: 'string' 
+	    }
+	  }
+        }
+      }
+    } 
+  }
+  return requestBodySpec;
 }
 
 function getInputs(
@@ -132,6 +160,7 @@ function vulnerabilityControllerFactory(
   const controllers = sinkData.map(
     ({input, method, params, uri, sink, key}) => {
       const parameters: ParameterObject[] = formatParameterSpecs(input, params);
+      const bodySpec: RequestBodyObject = formatBodySpec();
 
       const defaultResponse: ResponseObject = {
         description: `${vulnerability} return value`,
@@ -147,6 +176,7 @@ function vulnerabilityControllerFactory(
         responses: {
           '200': response ?? defaultResponse,
         },
+	requestBody: bodySpec
       };
 
       @api({basePath: `${route.base}${uri}`})

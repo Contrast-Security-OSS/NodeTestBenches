@@ -13,7 +13,7 @@ import {
   RestBindings,
 } from '@loopback/rest';
 import {pascalCase} from 'pascal-case';
-import * as _ from "lodash";
+import * as _ from 'lodash';
 
 export abstract class VulnerabilityController {}
 
@@ -26,7 +26,6 @@ export interface Options {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const defaultRespond = (result: any, req: Request, res: Response): any =>
   result;
-
 
 function staticVulnerabilityControllerFactory(
   vulnerability: Rule,
@@ -52,7 +51,10 @@ function staticVulnerabilityControllerFactory(
   return [Controller];
 }
 
-function formatParameterSpecs(input: string, params: Param[]) : ParameterObject[] {
+function formatParameterSpecs(
+  input: string,
+  params: Param[],
+): ParameterObject[] {
   if (input === 'body') {
     return [];
   }
@@ -60,8 +62,8 @@ function formatParameterSpecs(input: string, params: Param[]) : ParameterObject[
   // mapping of test-bench-utils parameter types
   // to lb4 parameter types
   const paramMapping: any = {
-    'headers': 'header',
-    'params': 'path'
+    headers: 'header',
+    params: 'path',
   };
 
   return params.map(
@@ -76,53 +78,54 @@ function formatParameterSpecs(input: string, params: Param[]) : ParameterObject[
   );
 }
 
-function formatBodySpec() : RequestBodyObject {
-  const requestBodySpec : RequestBodyObject = {
+function formatBodySpec(): RequestBodyObject {
+  const requestBodySpec: RequestBodyObject = {
     description: 'user input',
     required: false,
     content: {
       'application/json': {
         schema: {
           type: 'object',
-	  required: ['input'],
-	  properties: {
+          required: ['input'],
+          properties: {
             input: {
-              type: 'string'
-	    }
-	  }
-        }
+              type: 'string',
+            },
+          },
+        },
       },
       'application/x-www-form-urlencoded': {
         schema: {
           type: 'object',
-	  properties: {
+          properties: {
             input: {
-              type: 'string'
-	    }
-	  }
-        }
-      }
-    }
-  }
+              type: 'string',
+            },
+          },
+        },
+      },
+    },
+  };
   return requestBodySpec;
 }
 
 function getInputs(
-	args: any,
-	inputType: string,
-	params: Param[],
-	opts?: {
-          locals?: Object;
-          noop?: boolean;
-	}
-       ): any {
-  if (opts && opts.noop) return _.fromPairs(_.map(params, (param) => [param, 'noop']));
+  args: any,
+  inputType: string,
+  params: Param[],
+  opts?: {
+    locals?: Object;
+    noop?: boolean;
+  },
+): any {
+  if (opts && opts.noop)
+    return _.fromPairs(_.map(params, param => [param, 'noop']));
 
   if (inputType === 'body') {
-    return { 'input': args[0].input };
+    return {input: args[0].input};
   }
 
-  const result : any = {};
+  const result: any = {};
   params.map((param, index) => {
     result[param] = args[index];
   });
@@ -169,7 +172,7 @@ function vulnerabilityControllerFactory(
         responses: {
           '200': response ?? defaultResponse,
         },
-	requestBody: input === 'body' ? formatBodySpec() : undefined
+        requestBody: input === 'body' ? formatBodySpec() : undefined,
       };
 
       @api({basePath: `${route.base}${uri}`})
@@ -178,8 +181,8 @@ function vulnerabilityControllerFactory(
         async safe(
           @inject(RestBindings.Http.REQUEST) req: Request,
           @inject(RestBindings.Http.RESPONSE) res: Response,
-	  ...args: any[]
-	) {
+          ...args: any[]
+        ) {
           const inputs = getInputs(args, input, params, {locals});
           const result = await sink(inputs, {safe: true});
           return respond(result, req, res);
@@ -189,8 +192,8 @@ function vulnerabilityControllerFactory(
         async unsafe(
           @inject(RestBindings.Http.REQUEST) req: Request,
           @inject(RestBindings.Http.RESPONSE) res: Response,
-	  ...args: any[]
-	) {
+          ...args: any[]
+        ) {
           const inputs = getInputs(args, input, params, {locals});
           const result = await sink(inputs);
           return respond(result, req, res);
@@ -200,9 +203,9 @@ function vulnerabilityControllerFactory(
         async noop(
           @inject(RestBindings.Http.REQUEST) req: Request,
           @inject(RestBindings.Http.RESPONSE) res: Response,
-	  ...args: any[]
+          ...args: any[]
         ) {
-          const inputs = getInputs(args, input, params, {locals, noop:true});
+          const inputs = getInputs(args, input, params, {locals, noop: true});
           const result = await sink(inputs, {noop: true});
           return respond(result, req, res);
         }

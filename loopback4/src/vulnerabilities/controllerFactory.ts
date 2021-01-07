@@ -87,7 +87,7 @@ function formatBodySpec() : RequestBodyObject {
 	  required: ['input'],
 	  properties: {
             input: {
-              type: 'string' 
+              type: 'string'
 	    }
 	  }
         }
@@ -97,12 +97,12 @@ function formatBodySpec() : RequestBodyObject {
           type: 'object',
 	  properties: {
             input: {
-              type: 'string' 
+              type: 'string'
 	    }
 	  }
         }
       }
-    } 
+    }
   }
   return requestBodySpec;
 }
@@ -122,7 +122,7 @@ function getInputs(
     return { 'input': args[0].input };
   }
 
-  const result : any = {}; 
+  const result : any = {};
   params.map((param, index) => {
     result[param] = args[index];
   });

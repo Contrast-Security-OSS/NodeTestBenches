@@ -118,19 +118,13 @@ function getInputs(
        ): any {
   if (opts && opts.noop) return _.fromPairs(_.map(params, (param) => [param, 'noop']));
 
-  if (opts && !_.isEmpty(opts.locals)) {
-    return _.pick(opts.locals, params);
-  }
-
-  // args inputs are offset by 2 b/c we inject the
-  // request and response as the first two args
-  if (inputType == 'body') {
-    return { 'input': args[2].input };
+  if (inputType === 'body') {
+    return { 'input': args[0].input };
   }
 
   const result : any = {}; 
   params.map((param, index) => {
-    result[param] = args[index + 2];
+    result[param] = args[index];
   });
   return result;
 }
@@ -160,7 +154,6 @@ function vulnerabilityControllerFactory(
   const controllers = sinkData.map(
     ({input, method, params, uri, sink, key}) => {
       const parameters: ParameterObject[] = formatParameterSpecs(input, params);
-      const bodySpec: RequestBodyObject = formatBodySpec();
 
       const defaultResponse: ResponseObject = {
         description: `${vulnerability} return value`,
@@ -176,7 +169,7 @@ function vulnerabilityControllerFactory(
         responses: {
           '200': response ?? defaultResponse,
         },
-	requestBody: bodySpec
+	requestBody: input === 'body' ? formatBodySpec() : undefined
       };
 
       @api({basePath: `${route.base}${uri}`})
@@ -185,8 +178,9 @@ function vulnerabilityControllerFactory(
         async safe(
           @inject(RestBindings.Http.REQUEST) req: Request,
           @inject(RestBindings.Http.RESPONSE) res: Response,
+	  ...args: any[]
 	) {
-          const inputs = getInputs(arguments, input, params, {locals}); 
+          const inputs = getInputs(args, input, params, {locals});
           const result = await sink(inputs, {safe: true});
           return respond(result, req, res);
         }
@@ -195,9 +189,9 @@ function vulnerabilityControllerFactory(
         async unsafe(
           @inject(RestBindings.Http.REQUEST) req: Request,
           @inject(RestBindings.Http.RESPONSE) res: Response,
+	  ...args: any[]
 	) {
-          debugger;
-          const inputs = getInputs(arguments, input, params, {locals});
+          const inputs = getInputs(args, input, params, {locals});
           const result = await sink(inputs);
           return respond(result, req, res);
         }
@@ -206,8 +200,9 @@ function vulnerabilityControllerFactory(
         async noop(
           @inject(RestBindings.Http.REQUEST) req: Request,
           @inject(RestBindings.Http.RESPONSE) res: Response,
+	  ...args: any[]
         ) {
-          const inputs = getInputs(arguments, input, params, {locals, noop:true});
+          const inputs = getInputs(args, input, params, {locals, noop:true});
           const result = await sink(inputs, {noop: true});
           return respond(result, req, res);
         }

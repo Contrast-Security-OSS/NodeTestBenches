@@ -120,8 +120,7 @@ function getInputs(
     noop?: boolean;
   },
 ): any {
-  if (opts?.noop)
-    return _.fromPairs(_.map(params, param => [param, 'noop']));
+  if (opts?.noop) return _.fromPairs(_.map(params, param => [param, 'noop']));
 
   if (inputType === 'body') {
     return {input: args[0].input};

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {Route, Rule, Param, utils} from '@contrast/test-bench-utils';
 import {ControllerClass, inject} from '@loopback/core';
 import {
@@ -23,7 +24,6 @@ export interface Options {
   response?: ResponseObject;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const defaultRespond = (result: any, req: Request, res: Response): any =>
   result;
 
@@ -40,6 +40,8 @@ function staticVulnerabilityControllerFactory(
 
       // TODO: render EJS template.
       // for the time being API explorer should get the job done.
+      console.log('here');
+      console.log({vulnerability, route});
       return {vulnerability, route};
     }
   }
@@ -61,7 +63,6 @@ function formatParameterSpecs(
 
   // mapping of test-bench-utils parameter types
   // to lb4 parameter types
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const paramMapping: any = {
     headers: 'header',
     params: 'path',
@@ -110,7 +111,6 @@ function formatBodySpec(): RequestBodyObject {
   return requestBodySpec;
 }
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 function getInputs(
   args: any,
   inputType: string,
@@ -132,7 +132,6 @@ function getInputs(
   });
   return result;
 }
-/* eslint-enable @typescript-eslint/no-explicit-any */
 
 function vulnerabilityControllerFactory(
   vulnerability: Rule,
@@ -183,7 +182,6 @@ function vulnerabilityControllerFactory(
         async safe(
           @inject(RestBindings.Http.REQUEST) req: Request,
           @inject(RestBindings.Http.RESPONSE) res: Response,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           ...args: any[]
         ) {
           const inputs = getInputs(args, input, params, {locals});
@@ -195,7 +193,6 @@ function vulnerabilityControllerFactory(
         async unsafe(
           @inject(RestBindings.Http.REQUEST) req: Request,
           @inject(RestBindings.Http.RESPONSE) res: Response,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           ...args: any[]
         ) {
           const inputs = getInputs(args, input, params, {locals});
@@ -207,7 +204,6 @@ function vulnerabilityControllerFactory(
         async noop(
           @inject(RestBindings.Http.REQUEST) req: Request,
           @inject(RestBindings.Http.RESPONSE) res: Response,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           ...args: any[]
         ) {
           const inputs = getInputs(args, input, params, {locals, noop: true});

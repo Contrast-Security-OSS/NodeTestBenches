@@ -1,0 +1,48 @@
+{
+  "name": "@contrast/fastify3-test-bench",
+  "private": true,
+  "version": "3.16.0",
+  "description": "Intentionally vulnerable Fastify3 application",
+  "author": "Contrast Security <nodejs@contrastsecurity.com>",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Contrast-Security-OSS/NodeTestBenches.git"
+  },
+  "engines": {
+    "node": ">=10.13.0"
+  },
+  "bugs": {
+    "url": "https://github.com/Contrast-Security-OSS/NodeTestBenches/issues"
+  },
+  "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/fastify3#readme",
+  "main": "server.js",
+  "scripts": {
+    "contrast": "DEBUG=contrast:* node-contrast server.js",
+    "dev": "nodemon server.js | pino-pretty",
+    "lint": "eslint --fix .",
+    "start": "node server.js | pino-pretty"
+  },
+  "dependencies": {
+    "@contrast/test-bench-utils": "^3.16.0",
+    "ejs": "2.6.1",
+    "fastify": "^3.9.2",
+    "fastify-cookie": "^3.6.0",
+    "fastify-formbody": "^5.0.0",
+    "fastify-multipart": "^3.3.1",
+    "fastify-static": "^3.3.1",
+    "lodash": "^4.17.19",
+    "point-of-view": "^4.8.0"
+  },
+  "devDependencies": {
+    "@contrast/eslint-config": "^2.0.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-mocha": "^6.3.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "nodemon": "^2.0.4",
+    "pino-pretty": "^3.6.1",
+    "prettier": "^1.19.1"
+  }
+}

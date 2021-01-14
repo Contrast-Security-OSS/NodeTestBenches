@@ -1,1 +1,2 @@
-module.exports.url = 'http://www.example.com';
+const port = process.env.PORT || 3000;
+module.exports.url = `http://localhost:${port}`;

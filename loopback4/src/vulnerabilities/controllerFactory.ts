@@ -15,6 +15,8 @@ import {
 } from '@loopback/rest';
 import {pascalCase} from 'pascal-case';
 import * as _ from 'lodash';
+import * as ejs from 'ejs';
+import { resolve } from 'path';
 
 export abstract class VulnerabilityController {}
 
@@ -38,11 +40,20 @@ function staticVulnerabilityControllerFactory(
       const preparer = utils.getResponsePreparer(vulnerability);
       if (preparer) preparer(res);
 
-      // TODO: render EJS template.
-      // for the time being API explorer should get the job done.
-      console.log('here');
-      console.log({vulnerability, route});
-      return {vulnerability, route};
+      return ejs.renderFile(
+        resolve(
+          __dirname,
+          '..',
+          '..',
+          'node_modules',
+          '@contrast',
+          'test-bench-utils',
+          'public',
+          'views',
+          `${vulnerability}.ejs`
+        ), 
+        { vulnerability, ...route }
+      );
     }
   }
 

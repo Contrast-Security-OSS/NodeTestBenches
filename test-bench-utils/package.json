@@ -24,7 +24,7 @@
 	},
 	"dependencies": {
 		"aws-sdk": "^2.693.0",
-		"axios": "^0.19.0",
+		"axios": "^0.21.1",
 		"bent": "^1.5.13",
 		"escape-html": "^1.0.3",
 		"hooker": "^0.2.3",

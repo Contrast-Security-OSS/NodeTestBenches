@@ -16,7 +16,7 @@ import {
 import {pascalCase} from 'pascal-case';
 import * as _ from 'lodash';
 import * as ejs from 'ejs';
-import { resolve } from 'path';
+import {resolve} from 'path';
 
 export abstract class VulnerabilityController {}
 
@@ -50,9 +50,9 @@ function staticVulnerabilityControllerFactory(
           'test-bench-utils',
           'public',
           'views',
-          `${vulnerability}.ejs`
-        ), 
-        { vulnerability, ...route }
+          `${vulnerability}.ejs`,
+        ),
+        {vulnerability, ...route},
       );
     }
   }

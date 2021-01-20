@@ -57,7 +57,8 @@
     "@loopback/rest": "^9.0.0",
     "@loopback/rest-explorer": "^3.0.3",
     "@loopback/service-proxy": "^3.0.3",
-    "ejs": "^3.1.5",
+    "@types/ejs": "^3.0.5",
+    "ejs": "^2.6.1",
     "lodash": "^4.17.20",
     "pascal-case": "^3.1.1",
     "tslib": "^2.0.0"

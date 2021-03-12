@@ -1,8 +1,9 @@
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const layouts = require('express-ejs-layouts');
 const path = require('path');
-const { navRoutes } = require('@contrast/test-bench-utils');
+const { navRoutes, routes } = require('@contrast/test-bench-utils');
 const express = require('express');
 
 module.exports.setup = function(app) {
@@ -15,6 +16,11 @@ module.exports.setup = function(app) {
   app.set('views', `${__dirname}/views`);
   app.set('view engine', 'ejs');
   app.use(layouts);
+  app.use(
+    cors({
+      origin: /^https?:\/\/(localhost|127\.0\.0\.1):\d+/
+    })
+  );
 
   // dynamically register routes from shared config
   navRoutes.forEach(({ base }) => {
@@ -30,6 +36,9 @@ module.exports.setup = function(app) {
 
   app.get('/', function(req, res) {
     res.render('pages/index');
+  });
+  app.get('/routes', function(req, res) {
+    res.json({ routes });
   });
 
   app.get('/quit', function(req, res) {

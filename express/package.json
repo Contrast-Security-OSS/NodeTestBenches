@@ -15,7 +15,7 @@
   "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/express#readme",
   "main": "index.js",
   "scripts": {
-    "contrast": "DEBUG=contrast:* node-contrast index.js",
+    "contrast": "DEBUG=contrast:* node -r $CONTRAST_PATH index.js",
     "dev": "nodemon index.js",
     "lint": "eslint --fix .",
     "start": "node index.js",
@@ -30,6 +30,7 @@
     "aws-sdk": "^2.397.0",
     "body-parser": "^1.14.2",
     "cookie-parser": "^1.4.3",
+    "cors": "^2.8.5",
     "ejs": "^2.7.4",
     "express": "^4.13.3",
     "express-async-errors": "^3.1.1",

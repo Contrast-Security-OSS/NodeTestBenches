@@ -37,8 +37,11 @@ module.exports.setup = function(app) {
   app.get('/', function(req, res) {
     res.render('pages/index');
   });
-  app.get('/routes', function(req, res) {
-    res.json({ routes });
+  app.get('/info', function(req, res) {
+    res.json({
+      framework: 'Express',
+      routes
+    });
   });
 
   app.get('/quit', function(req, res) {

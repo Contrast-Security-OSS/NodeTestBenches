@@ -40,7 +40,10 @@ module.exports.setup = function(app) {
   app.get('/info', function(req, res) {
     res.json({
       framework: 'Express',
-      routes
+      routes: Object.values(routes).map((route) => ({
+        ...route,
+        sinks: route.sinks ? Object.keys(route.sinks) : []
+      }))
     });
   });
 

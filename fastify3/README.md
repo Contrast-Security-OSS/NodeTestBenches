@@ -8,6 +8,7 @@ of Node from [nvm](https://github.com/creationix/nvm).
 ```sh
 git clone https://github.com/Contrast-Security-OSS/NodeTestBenches.git # or clone your own fork
 cd NodeTestBenches/fastify3
+../scripts/copy_scripts.sh
 npm install
 npm start
 ```

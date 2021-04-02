@@ -55,14 +55,6 @@
     };
 
     $(`li[id='${state.selectedLib}-selection'] button`).toggleClass('active');
-    $(`li[id='${state.selectedUrlPart}-selection'] button`).toggleClass('active');
-
-    $('#url-list button')
-      .on('click', (e) => {
-        state.selectedUrlPart = $(e.target).text();
-        toggleActiveSelection(e);
-        setAction();
-      });
 
     $('#libs-list button')
       .on('click', (e) => {
@@ -78,7 +70,6 @@
         .action
         .replace('{lib}', state.selectedLib);
 
-      $('[name=part]').val(state.selectedUrlPart);
       $('form').attr('action', action);
     }
 

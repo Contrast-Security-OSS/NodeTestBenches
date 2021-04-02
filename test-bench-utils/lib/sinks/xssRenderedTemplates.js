@@ -18,7 +18,6 @@ module.exports.pug = async function pug(
   if (noop) return 'NOOP';
 
   const template = safe ? `p='${input}'` : `p!='${input}'`;
-
   return Pug.compile(template)();
 };
 

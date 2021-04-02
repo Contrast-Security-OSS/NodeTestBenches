@@ -30,15 +30,17 @@
     "aws-sdk": "^2.397.0",
     "body-parser": "^1.14.2",
     "cookie-parser": "^1.4.3",
-    "ejs": "^2.3.4",
+    "ejs": "^2.7.4",
     "express": "^4.13.3",
     "express-async-errors": "^3.1.1",
     "express-ejs-layouts": "^2.5.0",
     "express-session": "^1.15.6",
+    "handlebars": "^4.7.7",
     "lodash": "^4.17.19",
     "multer": "^1.4.1",
     "newrelic": "^6.1.0",
     "pem": "^1.14.2",
+    "pug": "^3.0.2",
     "sqlite3": "^5.0.0"
   },
   "devDependencies": {

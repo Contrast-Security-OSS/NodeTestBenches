@@ -126,6 +126,16 @@ module.exports = {
     params: ['input'],
     sinks: sinks.xss
   },
+  xssRenderedTemplates: {
+    base: '/xssRenderedTemplates',
+    name: 'Reflected XSS Template Engines',
+    link:
+      'https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)#Stored_and_Reflected_XSS_Attacks',
+    products: ['Assess', 'Protect'],
+    inputs: ['query', 'params'],
+    params: ['input'],
+    sinks: sinks.xssRenderedTemplates
+  },
   xssJSON: {
     base: '/xssJSON',
     name: 'Reflected XSS JSON (Safe)',

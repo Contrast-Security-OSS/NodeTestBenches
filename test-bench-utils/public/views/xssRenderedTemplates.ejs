@@ -1,0 +1,95 @@
+<style type="text/css">
+    .btn.active:focus {
+        outline: none;
+    }
+    ul.selections {
+        font-family: monospace;
+        overflow: auto;
+        list-style-type: none;
+        padding: 0;
+    }
+    li[id*=-selection] {
+        margin: 2px 2px 5px;
+        float: left;
+        clear: none;
+    }
+</style>
+
+<h1 class="page-header"><%= name %></h1>
+<% include ../partials/ruleInfo.ejs %>
+<div class="row">
+    <div id="xssStored" class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+        <div style="overflow:auto">
+            <p>Select template engine to use when performing the server-side request.</p>
+            <ul id="libs-list" class="selections">
+                <% groupedSinkData.query.forEach(function(sink) { %>
+                    <li id="<%= sink.name %>-selection">
+                        <button type="submit" class="btn btn-warning"><%= sink.name %></button>
+                    </li>
+                <% }); %>
+            </ul>
+        </div>
+
+        <br>
+
+        <div>
+            <form action="/xssRenderedTemplates" method="GET" target="test-bench-xssRenderedTemplates">
+                <div class="form-group">
+                    <label>Input Value</label>
+                    <br>
+                    <input name="input" class="form-control" value='<script>alert("Exploited!")</script>'>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+            <% include ../partials/safeButtons %>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+  $(() => {
+    const state = {
+      action: '/xssRenderedTemplates/query/{lib}/unsafe',
+      selectedLib: 'pug'
+    };
+
+    $(`li[id='${state.selectedLib}-selection'] button`).toggleClass('active');
+    $(`li[id='${state.selectedUrlPart}-selection'] button`).toggleClass('active');
+
+    $('#url-list button')
+      .on('click', (e) => {
+        state.selectedUrlPart = $(e.target).text();
+        toggleActiveSelection(e);
+        setAction();
+      });
+
+    $('#libs-list button')
+      .on('click', (e) => {
+        state.selectedLib = $(e.target).text();
+        toggleActiveSelection(e);
+        setAction();
+      });
+
+    setAction();
+
+    function setAction() {
+      const action = state
+        .action
+        .replace('{lib}', state.selectedLib);
+
+      $('[name=part]').val(state.selectedUrlPart);
+      $('form').attr('action', action);
+    }
+
+    function toggleActiveSelection(e) {
+      const target = $(e.target);
+      target.addClass('active');
+      target
+        .parent()
+        .siblings()
+        .children('button')
+        .removeClass('active')
+    }
+  });
+</script>

@@ -15,6 +15,7 @@ module.exports = {
   unvalidatedRedirect: require('./unvalidatedRedirect'),
   xpathInjection: require('./xpathInjection'),
   xss: require('./xss'),
+  xssRenderedTemplates: require('./xssRenderedTemplates'),
   xssStealthyRequire: require('./xssStealthyRequire'),
   xssJSON: require('./xssJSON'),
   xxe: require('./xxe')

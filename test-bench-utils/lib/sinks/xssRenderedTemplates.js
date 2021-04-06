@@ -17,8 +17,8 @@ module.exports.pug = async function pug(
 ) {
   if (noop) return 'NOOP';
 
-  const template = safe ? `p='${input}'` : `p!='${input}'`;
-  return Pug.compile(template)();
+  const template = safe ? 'p #{input}' : 'p !{input}';
+  return Pug.compile(template)({ input });
 };
 
 /**
@@ -34,7 +34,7 @@ module.exports.ejs = async function ejs(
 ) {
   if (noop) return 'NOOP';
 
-  const template = safe ? `<p><%=input%></p>` : `<p><%-input%></p>`;
+  const template = safe ? '<p><%=input%></p>' : '<p><%-input%></p>';
   return Ejs.render(template, { input });
 };
 
@@ -51,6 +51,6 @@ module.exports.handlebars = async function handlebars(
 ) {
   if (noop) return 'NOOP';
 
-  const template = safe ? `<p>{{input}}</p>` : `<p>{{{input}}}</p>`;
+  const template = safe ? '<p>{{input}}</p>' : '<p>{{{input}}}</p>';
   return Handlebars.compile(template)({ input });
 };

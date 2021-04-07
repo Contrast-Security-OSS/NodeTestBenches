@@ -24,7 +24,7 @@
     "node": ">=10.13.0"
   },
   "dependencies": {
-    "@contrast/test-bench-utils": "^3.17.0",
+    "@contrast/test-bench-utils": "^3.18.0",
     "@hapi/glue": "^7.0.0",
     "@hapi/hapi": "^19.1.1",
     "@hapi/hoek": "^9.0.4",

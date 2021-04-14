@@ -1,3 +1,8 @@
+/** @typedef {import("http").ServerResponse} ServerResponse */
+
+/** @typedef {(res: ServerResponse) => ServerResponse} ResponsePreparer */
+
+/** @type {{ [vulnerability: string]: ResponsePreparer }} */
 module.exports = {
   cacheControlsMissing: require('./cacheControlsMissing'),
   clickjackingControlsMissing: require('./clickjackingControlsMissing'),

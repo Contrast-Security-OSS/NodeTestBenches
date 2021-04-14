@@ -1,5 +1,24 @@
 'use strict';
 
+/**
+ * @typedef {Object} SinkParams
+ * @property {string=} input
+ * @property {string=} part
+ */
+
+/**
+ * @typedef {Object} SinkOpts
+ * @property {safe=} boolean
+ * @property {noop=} boolean
+ */
+
+/** @typedef {(params: SinkParams, opts?: SinkOpts) => any} SinkFn */
+
+/** @typedef {{ [safety: string]: (params: SinkParams) => any}} SinkObj */
+
+/** @typedef {SinkFn | SinkObj} Sink */
+
+/** @type {{ [vulnerability: string]: { [name: string]: Sink }}} */
 module.exports = {
   cmdInjection: require('./cmdInjection'),
   cmdInjectionSemanticChainedCommands: require('./cmdInjectionSemanticChainedCommands'),

@@ -13,7 +13,7 @@
 	},
 	"homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/test-bench-utils#readme",
 	"main": "lib/index.js",
-	"types": "lib/index.d.ts",
+	"types": "types/index.d.ts",
 	"files": [
 		"lib/",
 		"public/",
@@ -21,6 +21,10 @@
 	],
 	"engines": {
 		"node": ">=10.13.0"
+	},
+	"scripts": {
+		"test": "jest --coverage",
+		"generate-types": "tsc"
 	},
 	"dependencies": {
 		"aws-sdk": "^2.693.0",
@@ -51,12 +55,14 @@
 	},
 	"devDependencies": {
 		"@contrast/eslint-config": "^2.0.0",
+		"@types/lodash": "^4.14.168",
 		"eslint": "^6.8.0",
 		"eslint-config-prettier": "^6.10.0",
 		"eslint-plugin-mocha": "^6.3.0",
 		"eslint-plugin-node": "^11.0.0",
 		"eslint-plugin-prettier": "^3.1.2",
-		"prettier": "^1.19.1"
+		"prettier": "^1.19.1",
+		"typescript": "^4.2.4"
 	},
 	"optionalDependencies": {
 		"libxmljs": "^0.19.7"

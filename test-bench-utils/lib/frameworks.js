@@ -1,5 +1,22 @@
 'use strict';
 
+/**
+ * @typedef {Object} InputMap
+ * @property {string} method
+ * @property {string=} key
+ * @property {string=} param
+ */
+
+/**
+ * @typedef {Object} FrameworkMap
+ * @property {InputMap} query
+ * @property {InputMap} params
+ * @property {InputMap} headers
+ * @property {InputMap} body
+ * @property {InputMap} cookies
+ * @property {InputMap} input
+ */
+
 const sharedMapping = {
   query: { method: 'get', key: 'query' },
   params: { method: 'get', key: 'params', param: ':input' },
@@ -9,6 +26,7 @@ const sharedMapping = {
   input: { method: 'get' }
 };
 
+/** @type {{ [framework: string]: FrameworkMap }} */
 module.exports = {
   restify: sharedMapping,
   express: sharedMapping,

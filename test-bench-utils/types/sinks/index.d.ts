@@ -8,6 +8,7 @@ export type SinkParams = {
     input?: string | undefined;
     part?: string | undefined;
 };
+export type Param = 'input' | 'part';
 export type SinkOpts = {
     boolean?: any;
 };

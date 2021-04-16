@@ -6,6 +6,8 @@
  * @property {string=} part
  */
 
+/** @typedef {'input' | 'part'} Param */
+
 /**
  * @typedef {Object} SinkOpts
  * @property {safe=} boolean

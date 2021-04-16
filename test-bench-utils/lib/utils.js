@@ -17,8 +17,10 @@ const routes = require('./routes');
 const responsePreparers = require('./response-preparers');
 
 /** @typedef {import("http").IncomingMessage} IncomingMessage */
+/** @typedef {import("./routes").Input} Input */
 /** @typedef {import("./routes").Route} Route */
 /** @typedef {import("./response-preparers").ResponsePreparer} ResponsePreparer */
+/** @typedef {import("./sinks").Param} Param */
 /** @typedef {import("./sinks").SinkFn} SinkFn */
 /** @typedef {import("./sinks").SinkObj} SinkObj */
 /** @typedef {import("./sinks").Sink} Sink */
@@ -26,11 +28,11 @@ const responsePreparers = require('./response-preparers');
 
 /**
  * @typedef {Object} SinkData
- * @property {string} input unmapped input key under which user input lies
+ * @property {Input} input unmapped input key under which user input lies
  * @property {string} key key under which user input lies
  * @property {string} method http method
  * @property {string} name the name of the sink
- * @property {string[]} params input parameters exposed to the sink
+ * @property {Param[]} params input parameters exposed to the sink
  * @property {SinkObj} sinks sink object containing methods which call the sink safely, dangerously, etc.
  * @property {string} uri relative url
  * @property {string} url fully qualified url
@@ -52,11 +54,11 @@ const createSinkObj = (sink) => ({
  *
  * @param {Object} opts
  * @param {string} opts.base the base URI to use when constructing urls
- * @param {string} opts.input the input method being exercised (query, params, etc)
+ * @param {Input} opts.input the input method being exercised (query, params, etc)
  * @param {string} opts.key relevant key on req object
  * @param {string} opts.method the method being handled
  * @param {string} opts.param the framework-specific paramter string for path parameters
- * @param {string[]} opts.params input parameters to provide to sink functions
+ * @param {Param[]} opts.params input parameters to provide to sink functions
  * @param {{ [name: string]: Sink }} opts.sinks object containing all sink objects and methods
  * @return {SinkData[]}
  */
@@ -155,7 +157,7 @@ module.exports.getRouteMeta = function getRouteMeta(rule) {
  * Gets the proper input(s) from either req or from model
  * @param {IncomingMessage} request IncomingMessage
  * @param {string} key key on request to get input from
- * @param {string[]} params parameters to extract from the req or model
+ * @param {Param[]} params parameters to extract from the req or model
  * @param {Object} opts additional object
  * @param {Object} opts.locals local model object which may contain values
  * @param {boolean} opts.noop when true, return hard-coded 'noop' values for each param

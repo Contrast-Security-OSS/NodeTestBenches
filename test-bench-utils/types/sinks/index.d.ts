@@ -4,11 +4,11 @@ declare const _exports: {
     };
 };
 export = _exports;
-export type SinkParams = {
-    input?: string | undefined;
-    part?: string | undefined;
-};
 export type Param = 'input' | 'part';
+export type SinkParams = {
+    input?: string;
+    part?: string;
+};
 export type SinkOpts = {
     boolean?: any;
 };

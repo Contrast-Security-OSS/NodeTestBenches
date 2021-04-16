@@ -5,8 +5,8 @@ const crypto = require('crypto');
 /**
  * @param {Object} _inputs not used but need to keep signature for abstracted helpers
  * @param {Object} opts
- * @param {boolean=} opts.safe are we calling the sink safely?
- * @param {boolean=} opts.noop are we calling the sink as a noop?
+ * @param {boolean} [opts.safe] are we calling the sink safely?
+ * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
 module.exports['crypto-bad-mac'] = async function exec(
   _inputs,
@@ -25,8 +25,8 @@ module.exports['crypto-bad-mac'] = async function exec(
 /**
  * @param {Object} _inputs not used but need to keep signature for abstracted helpers
  * @param {Object} opts
- * @param {boolean=} opts.safe are we calling the sink safely?
- * @param {boolean=} opts.noop are we calling the sink as a noop?
+ * @param {boolean} [opts.safe] are we calling the sink safely?
+ * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
 module.exports['crypto-bad-ciphers'] = async function exec(
   _inputs,
@@ -48,8 +48,8 @@ module.exports['crypto-bad-ciphers'] = async function exec(
 /**
  * @param {Object} _inputs not used but need to keep signature for abstracted helpers
  * @param {Object} opts
- * @param {boolean=} opts.safe are we calling the sink safely?
- * @param {boolean=} opts.noop are we calling the sink as a noop?
+ * @param {boolean} [opts.safe] are we calling the sink safely?
+ * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
 module.exports['crypto-weak-randomness'] = async function exec(
   _inputs,

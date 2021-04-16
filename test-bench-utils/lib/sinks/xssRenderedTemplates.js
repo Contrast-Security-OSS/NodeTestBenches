@@ -8,8 +8,8 @@ const Handlebars = require('handlebars');
  * @param {Object} params
  * @param {string} params.input user input string
  * @param {Object} opts
- * @param {boolean=} opts.safe are we calling the sink safely?
- * @param {boolean=} opts.noop are we calling the sink as a noop?
+ * @param {boolean} [opts.safe] are we calling the sink safely?
+ * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
 module.exports.pug = async function pug(
   { input },
@@ -25,8 +25,8 @@ module.exports.pug = async function pug(
  * @param {Object} params
  * @param {string} params.input user input string
  * @param {Object} opts
- * @param {boolean=} opts.safe are we calling the sink safely?
- * @param {boolean=} opts.noop are we calling the sink as a noop?
+ * @param {boolean} [opts.safe] are we calling the sink safely?
+ * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
 module.exports.ejs = async function ejs(
   { input },
@@ -42,8 +42,8 @@ module.exports.ejs = async function ejs(
  * @param {Object} params
  * @param {string} params.input user input string
  * @param {Object} opts
- * @param {boolean=} opts.safe are we calling the sink safely?
- * @param {boolean=} opts.noop are we calling the sink as a noop?
+ * @param {boolean} [opts.safe] are we calling the sink safely?
+ * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
 module.exports.handlebars = async function handlebars(
   { input },

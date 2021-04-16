@@ -23,8 +23,8 @@ signature:
    *   The `params` key from _routes.js_ determines which parameters will be
    *   extracted from the request object.
    * @param {Object} opts
-   * @param {boolean=} opts.safe are we calling the sink safely?
-   * @param {boolean=} opts.noop are we calling the sink as a noop?
+   * @param {boolean} [opts.safe] are we calling the sink safely?
+   * @param {boolean} [opts.noop] are we calling the sink as a noop?
    */
   module.exports['sinkName'] = async function sink({ input }, { safe = false, noop = false } = {}) {};
 ```

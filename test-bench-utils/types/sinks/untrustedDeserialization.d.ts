@@ -1,6 +1,6 @@
 export function untrustedDeserialization({ input }: {
     input: string;
 }, { safe, noop }?: {
-    safe?: boolean | undefined;
-    noop?: boolean | undefined;
+    safe?: boolean;
+    noop?: boolean;
 }): Promise<string>;

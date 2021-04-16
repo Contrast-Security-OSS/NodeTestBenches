@@ -12,13 +12,13 @@ const sinks = require('./sinks');
  * @property {string} name
  * @property {string} link
  * @property {Product[]} products
- * @property {string=} type
- * @property {Input[]=} inputs
- * @property {Param[]=} params
- * @property {{ [name: string]: Sink }=} sinks
+ * @property {string} [type]
+ * @property {Input[]} [inputs]
+ * @property {Param[]} [params]
+ * @property {{ [name: string]: Sink }} [sinks]
  */
 
-/** @type {{[route: string]: Route}} */
+/** @type {{ [route: string]: Route }} */
 module.exports = {
   cmdInjection: {
     base: '/cmdInjection',

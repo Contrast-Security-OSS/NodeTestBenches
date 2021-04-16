@@ -13,8 +13,8 @@ const conn = new Connection({ type: 'mysql', isConnected: true });
  * @param {Object} params
  * @param {string} params.input user input string
  * @param {Object} opts
- * @param {boolean=} opts.safe are we calling the sink safely?
- * @param {boolean=} opts.noop are we calling the sink as a noop?
+ * @param {boolean} [opts.safe] are we calling the sink safely?
+ * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
 module.exports['typeorm.Repository.prototype.query'] = async function repoQuery(
   { input },
@@ -31,8 +31,8 @@ module.exports['typeorm.Repository.prototype.query'] = async function repoQuery(
  * @param {Object} params
  * @param {string} params.input user input string
  * @param {Object} opts
- * @param {boolean=} opts.safe are we calling the sink safely?
- * @param {boolean=} opts.noop are we calling the sink as a noop?
+ * @param {boolean} [opts.safe] are we calling the sink safely?
+ * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
 module.exports[
   'typeorm.Connection.prototype.query'

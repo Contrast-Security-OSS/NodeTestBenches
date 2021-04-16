@@ -4,8 +4,8 @@ declare const _exports: {
 export = _exports;
 export type InputMap = {
     method: string;
-    key?: string | undefined;
-    param?: string | undefined;
+    key?: string;
+    param?: string;
 };
 export type FrameworkMap = {
     query: InputMap;

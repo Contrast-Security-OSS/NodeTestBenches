@@ -11,9 +11,9 @@ export type Route = {
     name: string;
     link: string;
     products: Product[];
-    type?: string | undefined;
-    inputs?: Input[] | undefined;
-    params?: Param[] | undefined;
+    type?: string;
+    inputs?: Input[];
+    params?: Param[];
     sinks?: {
         [name: string]: sinks.Sink;
     };

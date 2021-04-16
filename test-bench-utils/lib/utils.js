@@ -122,7 +122,7 @@ module.exports.getSinkData = function getSinkData(rule, framework) {
  * Groups sink data arrays by input type (query, body, etc).
  *
  * @param {SinkData[]} sinkData
- * @return {{[input: string]: SinkData[]}}
+ * @return {{ [input in Input]: SinkData[] }}
  */
 module.exports.groupSinkData = function groupSinkData(sinkData) {
   return groupBy(sinkData, 'input');
@@ -179,8 +179,8 @@ module.exports.getInput = function getInput(
 /**
  * Returns the Response preparing function for a given rule
  * @param {string} rule
- * @returns {ResponsePreparer|null}
+ * @returns {ResponsePreparer | null}
  */
-module.exports.getResponsePreparer = function(rule) {
+module.exports.getResponsePreparer = function getResponsePreparer(rule) {
   return responsePreparers[rule] || null;
 };

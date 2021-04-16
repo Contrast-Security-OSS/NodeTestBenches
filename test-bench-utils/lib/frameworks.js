@@ -3,8 +3,8 @@
 /**
  * @typedef {Object} InputMap
  * @property {string} method
- * @property {string=} key
- * @property {string=} param
+ * @property {string} [key]
+ * @property {string} [param]
  */
 
 /**

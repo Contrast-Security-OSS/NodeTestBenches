@@ -1,12 +1,7 @@
 'use strict';
 
-/**
- * @typedef {Object} SinkParams
- * @property {string=} input
- * @property {string=} part
- */
-
 /** @typedef {'input' | 'part'} Param */
+/** @typedef {{ [param in Param]?: string }} SinkParams */
 
 /**
  * @typedef {Object} SinkOpts

@@ -39,8 +39,8 @@ const documentClient = new AWS.DynamoDB.DocumentClient();
  * @param {Object} params
  * @param {string} params.input user input string
  * @param {Object} opts
- * @param {boolean=} opts.safe are we calling the sink safely?
- * @param {boolean=} opts.noop are we calling the sink as a noop?
+ * @param {boolean} [opts.safe] are we calling the sink safely?
+ * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
 module.exports[
   'aws-sdk.DynamoDB.DocumentClient.prototype.scan'
@@ -68,8 +68,8 @@ const db = new AWS.DynamoDB();
  * @param {Object} params
  * @param {string} params.input user input string
  * @param {Object} opts
- * @param {boolean=} opts.safe are we calling the sink safely?
- * @param {boolean=} opts.noop are we calling the sink as a noop?
+ * @param {boolean} [opts.safe] are we calling the sink safely?
+ * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
 module.exports['aws-sdk.DynamoDB.prototype.makeRequest'] = async function scan(
   { input },

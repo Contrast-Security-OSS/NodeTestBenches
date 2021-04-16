@@ -2,7 +2,6 @@
 
 const {
   camelCase,
-  flatMap,
   fromPairs,
   get,
   groupBy,
@@ -20,6 +19,8 @@ const responsePreparers = require('./response-preparers');
 /** @typedef {import("http").IncomingMessage} IncomingMessage */
 /** @typedef {import("./routes").Route} Route */
 /** @typedef {import("./response-preparers").ResponsePreparer} ResponsePreparer */
+/** @typedef {import("./sinks").SinkFn} SinkFn */
+/** @typedef {import("./sinks").SinkObj} SinkObj */
 /** @typedef {import("./sinks").Sink} Sink */
 /** @typedef {import("./sinks").SinkParams} SinkParams */
 
@@ -30,12 +31,21 @@ const responsePreparers = require('./response-preparers');
  * @property {string} method http method
  * @property {string} name the name of the sink
  * @property {string[]} params input parameters exposed to the sink
- * @property {string} safety pattern we're calling the sink, i.e. safe or unsafe
- * @property {Sink} sink sink function
+ * @property {SinkObj} sinks sink object containing methods which call the sink safely, dangerously, etc.
  * @property {string} uri relative url
  * @property {string} url fully qualified url
  * @property {string} urlWithoutParams url without parameter variable
  */
+
+/**
+ * @param {SinkFn} sink
+ * @returns {SinkObj}
+ */
+const createSinkObj = (sink) => ({
+  safe: (args) => sink(args, { safe: true }),
+  unsafe: (args) => sink(args),
+  noop: (args) => sink(args, { noop: true })
+});
 
 /**
  * Builds out the urls/view data for a given rule and input source.
@@ -47,53 +57,33 @@ const responsePreparers = require('./response-preparers');
  * @param {string} opts.method the method being handled
  * @param {string} opts.param the framework-specific paramter string for path parameters
  * @param {string[]} opts.params input parameters to provide to sink functions
- * @param {{ [name: string]: Sink }} opts.sinks object containing all sink methods
+ * @param {{ [name: string]: Sink }} opts.sinks object containing all sink objects and methods
  * @return {SinkData[]}
  */
-const sinkData = function sinkData({
-  base,
-  input,
-  key,
-  method,
-  param,
-  params,
-  sinks
-}) {
-  return flatMap(sinks, (sink, name) => {
-    let sinkObj = sink;
+const sinkData = ({ base, input, key, method, param, params, sinks }) =>
+  map(sinks, (sink, name) => {
+    const prettyName = camelCase(name);
+    const uriWithoutParams = `/${input}/${prettyName}`;
+    const uri =
+      key === 'params' ? `${uriWithoutParams}/${param}` : uriWithoutParams;
+    const url = `${base}${uri}`;
+    const urlWithoutParams = `${base}${uriWithoutParams}`;
 
-    if (typeof sink === 'function') {
-      sinkObj = {
-        safe: (args) => sink(args, { safe: true }),
-        unsafe: (args) => sink(args),
-        noop: (args) => sink(args, { noop: true })
-      };
-    }
+    // If the sink is a single function, coerce it to a sink object.
+    const sinkObj = typeof sink === 'function' ? createSinkObj(sink) : sink;
 
-    return map(sinkObj, (sink, safety) => {
-      const prettyName = camelCase(name);
-      const uriWithoutParams = `/${input}/${prettyName}`;
-      const uriWithoutSafety =
-        key === 'params' ? `${uriWithoutParams}/${param}` : uriWithoutParams;
-      const uri = `${uriWithoutSafety}/${safety}`;
-      const url = `${base}${uri}`;
-      const urlWithoutParams = `${base}${uriWithoutParams}`;
-
-      return {
-        input,
-        key,
-        method,
-        name,
-        params,
-        safety,
-        sink,
-        uri,
-        url,
-        urlWithoutParams
-      };
-    });
+    return {
+      input,
+      key,
+      method,
+      name,
+      params,
+      sinks: sinkObj,
+      uri,
+      url,
+      urlWithoutParams
+    };
   });
-};
 
 /**
  * Generates sink data for a given rule and framework.

@@ -1,4 +1,3 @@
-const { find } = require('lodash');
 const utils = require('./utils');
 
 jest.mock('./frameworks', () => ({
@@ -51,16 +50,13 @@ describe('getSinkData', () => {
 
     const mockSink = require('./routes').rule.sinks.rule;
 
-    const safe = find(result, { safety: 'safe' }).sink;
-    safe({ input: 'foo' });
+    result[0].sinks.safe({ input: 'foo' });
     expect(mockSink).toHaveBeenCalledWith({ input: 'foo' }, { safe: true });
 
-    const unsafe = find(result, { safety: 'unsafe' }).sink;
-    unsafe({ input: 'bar' });
+    result[1].sinks.unsafe({ input: 'bar' });
     expect(mockSink).toHaveBeenCalledWith({ input: 'bar' });
 
-    const noop = find(result, { safety: 'noop' }).sink;
-    noop({ input: 'baz' });
+    result[2].sinks.noop({ input: 'baz' });
     expect(mockSink).toHaveBeenCalledWith({ input: 'baz' }, { noop: true });
   });
 
@@ -70,20 +66,16 @@ describe('getSinkData', () => {
 
     const mockSinks = require('./routes').rule2.sinks.rule2;
 
-    const safe = find(result, { safety: 'safe' }).sink;
-    safe({ input: 'foo' });
+    result[0].sinks.safe({ input: 'foo' });
     expect(mockSinks.safe).toHaveBeenCalledWith({ input: 'foo' });
 
-    const safe2 = find(result, { safety: 'safe2' }).sink;
-    safe2({ input: 'fooo' });
+    result[1].sinks.safe2({ input: 'fooo' });
     expect(mockSinks.safe2).toHaveBeenCalledWith({ input: 'fooo' });
 
-    const unsafe = find(result, { safety: 'unsafe' }).sink;
-    unsafe({ input: 'bar' });
+    result[2].sinks.unsafe({ input: 'bar' });
     expect(mockSinks.unsafe).toHaveBeenCalledWith({ input: 'bar' });
 
-    const noop = find(result, { safety: 'noop' }).sink;
-    noop({ input: 'baz' });
+    result[0].sinks.noop({ input: 'baz' });
     expect(mockSinks.noop).toHaveBeenCalledWith({ input: 'baz' });
   });
 });

@@ -13,6 +13,8 @@ export function getResponsePreparer(rule: string): ResponsePreparer | null;
 export type IncomingMessage = import("http").IncomingMessage;
 export type Route = import("./routes").Route;
 export type ResponsePreparer = import("./response-preparers").ResponsePreparer;
+export type SinkFn = import("./sinks").SinkFn;
+export type SinkObj = import("./sinks").SinkObj;
 export type Sink = import("./sinks").Sink;
 export type SinkParams = import("./sinks").SinkParams;
 export type SinkData = {
@@ -37,13 +39,9 @@ export type SinkData = {
      */
     params: string[];
     /**
-     * pattern we're calling the sink, i.e. safe or unsafe
+     * sink object containing methods which call the sink safely, dangerously, etc.
      */
-    safety: string;
-    /**
-     * sink function
-     */
-    sink: Sink;
+    sinks: SinkObj;
     /**
      * relative url
      */

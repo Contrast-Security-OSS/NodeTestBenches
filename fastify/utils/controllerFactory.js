@@ -1,6 +1,7 @@
 'use strict';
 
 const { routes, utils } = require('@contrast/test-bench-utils');
+const { forEach } = require('lodash');
 
 /**
  * Custom response functions allow you to change the functionality or return
@@ -39,7 +40,7 @@ module.exports = function controllerFactory(
 
   return async function route(fastify, options) {
     fastify.get(routes[vulnerability].base, async (request, reply) => {
-      let { res } = reply;
+      const { res } = reply;
 
       if (responsePreparer) {
         responsePreparer(res);
@@ -60,26 +61,13 @@ module.exports = function controllerFactory(
       return;
     }
 
-    sinkData.forEach(({ method, params, url, sink, key }) => {
-      fastify[method](`${url}/safe`, async (request, reply) => {
-        const inputs = utils.getInput(request, key, params, { locals });
-        const result = await sink(inputs, { safe: true });
-        respond(result, request, reply);
-      });
-
-      fastify[method](`${url}/unsafe`, async (request, reply) => {
-        const inputs = utils.getInput(request, key, params, { locals });
-        const result = await sink(inputs);
-        // adding this in cases where the sink returns undefined
-        // fastify shits the bed in this case with a FST_ERR_PROMISE_NOT_FULLFILLED
-        // i have only really seen this in ssjs where we eval('console.log("1");');
-        respond(result, request, reply);
-      });
-
-      fastify[method](`${url}/noop`, async (request, reply) => {
-        const inputs = utils.getInput(request, key, params, { noop: true });
-        const result = await sink(inputs, { noop: true });
-        respond(result, request, reply);
+    sinkData.forEach(({ method, params, url, sinks, key }) => {
+      forEach(sinks, (sink, type) => {
+        fastify[method](`${url}/${type}`, async (request, reply) => {
+          const inputs = utils.getInput(request, key, params, { locals });
+          const result = await sink(inputs);
+          respond(result, request, reply);
+        });
       });
     });
   };

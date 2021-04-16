@@ -1,9 +1,9 @@
 'use strict';
 
-const express = require('express');
-const path = require('path');
-
 const { utils } = require('@contrast/test-bench-utils');
+const express = require('express');
+const { forEach } = require('lodash');
+const path = require('path');
 
 /**
  * Custom response functions allow you to change the functionality or return
@@ -80,23 +80,13 @@ module.exports = function controllerFactory(
     );
   });
 
-  sinkData.forEach(({ method, params, uri, sink, key }) => {
-    router[method](`${uri}/safe`, async (req, res, next) => {
-      const inputs = utils.getInput(req, key, params, { locals });
-      const result = await sink(inputs, { safe: true });
-      respond(result, req, res, next);
-    });
-
-    router[method](`${uri}/unsafe`, async (req, res, next) => {
-      const inputs = utils.getInput(req, key, params, { locals });
-      const result = await sink(inputs);
-      respond(result, req, res, next);
-    });
-
-    router[method](`${uri}/noop`, async (req, res, next) => {
-      const inputs = utils.getInput(req, key, params, { noop: true });
-      const result = await sink(inputs, { noop: true });
-      respond(result, req, res, next);
+  sinkData.forEach(({ method, params, uri, sinks, key }) => {
+    forEach(sinks, (sink, type) => {
+      router[method](`${uri}/${type}`, async (req, res, next) => {
+        const inputs = utils.getInput(req, key, params, { locals });
+        const result = await sink(inputs);
+        respond(result, req, res, next);
+      });
     });
   });
 

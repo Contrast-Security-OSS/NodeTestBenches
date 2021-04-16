@@ -10,12 +10,10 @@
  */
 
 /** @typedef {(params: SinkParams, opts?: SinkOpts) => any} SinkFn */
-
 /** @typedef {{ [safety: string]: (params: SinkParams) => any}} SinkObj */
-
 /** @typedef {SinkFn | SinkObj} Sink */
 
-/** @type {{ [vulnerability: string]: { [name: string]: Sink }}} */
+/** @type {{ [rule: string]: { [name: string]: Sink }}} */
 module.exports = {
   cmdInjection: require('./cmdInjection'),
   cmdInjectionSemanticChainedCommands: require('./cmdInjectionSemanticChainedCommands'),

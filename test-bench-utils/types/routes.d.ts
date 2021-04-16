@@ -1,5 +1,5 @@
 declare const _exports: {
-    [route: string]: Route;
+    [rule: string]: Route;
 };
 export = _exports;
 export type Param = import("./sinks").Param;

@@ -1,11 +1,11 @@
 export function getSinkData(rule: string, framework: string): SinkData[];
 export function groupSinkData(sinkData: SinkData[]): {
+    input: SinkData[];
     query: SinkData[];
     params: SinkData[];
-    headers: SinkData[];
     body: SinkData[];
+    headers: SinkData[];
     cookies: SinkData[];
-    input: SinkData[];
 };
 export function getContent(rule: string): string;
 export function getAllRules(): string[];

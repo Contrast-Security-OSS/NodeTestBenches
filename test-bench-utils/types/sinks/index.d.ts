@@ -1,5 +1,5 @@
 declare const _exports: {
-    [vulnerability: string]: {
+    [rule: string]: {
         [name: string]: Sink;
     };
 };

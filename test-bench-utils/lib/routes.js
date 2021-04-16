@@ -18,7 +18,7 @@ const sinks = require('./sinks');
  * @property {{ [name: string]: Sink }} [sinks]
  */
 
-/** @type {{ [route: string]: Route }} */
+/** @type {{ [rule: string]: Route }} */
 module.exports = {
   cmdInjection: {
     base: '/cmdInjection',

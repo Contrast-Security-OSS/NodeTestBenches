@@ -1,3 +1,4 @@
-export const nosqlInjection: typeof import("./nosqlInjection");
-export const xpathInjection: typeof import("./xpathInjection");
-export const ssrf: typeof import("./ssrf");
+declare const _exports: {
+    [rule: string]: string;
+};
+export = _exports;

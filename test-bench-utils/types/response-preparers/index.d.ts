@@ -1,5 +1,5 @@
 declare const _exports: {
-    [vulnerability: string]: ResponsePreparer;
+    [rule: string]: ResponsePreparer;
 };
 export = _exports;
 export type ServerResponse = import("http").ServerResponse;

@@ -1,6 +1,6 @@
 const sinks = require('./sinks');
 
-/** @typedef {import("./sinks").Param} Param*/
+/** @typedef {import("./sinks").Param} Param */
 /** @typedef {import("./sinks").Sink} Sink */
 
 /** @typedef {'Assess' | 'Protect'} Product */

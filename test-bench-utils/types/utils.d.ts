@@ -1,13 +1,15 @@
 export function getSinkData(rule: string, framework: string): SinkData[];
 export function groupSinkData(sinkData: SinkData[]): {
-    body: SinkData[];
-    input: SinkData[];
     query: SinkData[];
     params: SinkData[];
+    body: SinkData[];
     headers: SinkData[];
     cookies: SinkData[];
+    input: SinkData[];
 };
-export function getContent(rule: string): string;
+export function getContent(rule: string): {
+    [key: string]: string;
+};
 export function getAllRules(): string[];
 export function getRouteMeta(rule: string): Route;
 export function getInput(request: IncomingMessage, key: string, params: Param[], { locals, noop }?: {

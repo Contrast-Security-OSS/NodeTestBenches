@@ -1,4 +1,6 @@
 declare const _exports: {
-    [rule: string]: string;
+    [rule: string]: {
+        [key: string]: string;
+    };
 };
 export = _exports;

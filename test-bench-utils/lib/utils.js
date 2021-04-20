@@ -131,7 +131,7 @@ module.exports.groupSinkData = function groupSinkData(sinkData) {
 /**
  * Returns the `content` included for a given rule.
  * @param {string} rule
- * @return {string}
+ * @return {{ [key: string]: string }}
  */
 module.exports.getContent = function getContent(rule) {
   return content[rule];

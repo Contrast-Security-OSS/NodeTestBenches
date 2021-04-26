@@ -16,7 +16,7 @@ const cookieParser = require('koa-cookie');
 const { navRoutes } = require('@contrast/test-bench-utils');
 
 const { PORT = 3000, HOST = 'localhost', HTTP2 } = process.env;
-const isHttp2 = HTTP2 === 'true' ? true : false;
+const isHttp2 = HTTP2 === '1' ? true : false;
 // setup static file serving
 app.use(mount('/assets', serve(`${__dirname}/public`)));
 
@@ -57,24 +57,18 @@ function listener() {
   console.log('Server listening on %s://%s:%d', protocol, address, port);
 };
 
-function server(options) {
-  let server;
-  if (isHttp2) {
-    server = http2.createSecureServer(options, app.callback());
-  } else {
-    server = app;
-  }
-  return server
-}
-
 function createServer() {
-  pem.createCertificate({ days : 1, selfSigned : true }, (err, keys) => {
-    if (err) {
-      throw err;
-    }
-    const options = { key: keys.serviceKey, cert: keys.certificate }
-    server(options).listen(PORT, HOST, listener);
-  })
+  if (!isHttp2) {
+    app.listen(PORT, HOST, listener);
+  } else {
+    pem.createCertificate({ days : 1, selfSigned : true }, (err, keys) => {
+      if (err) {
+        throw err;
+      }
+      const options = { key: keys.serviceKey, cert: keys.certificate }
+      http2.createSecureServer(options, app.callback()).listen(PORT, HOST, listener);
+    })
+  }
 }
 
 createServer();

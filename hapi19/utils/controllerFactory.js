@@ -1,6 +1,7 @@
 'use strict';
 
 const { utils } = require('@contrast/test-bench-utils');
+const { map } = require('lodash');
 
 /**
  * Custom response functions allow you to change the functionality or return
@@ -62,36 +63,18 @@ module.exports = function controllerFactory(
       return;
     }
 
-    sinkData.forEach(({ uri, method, params, sink, key }) => {
-      server.route([
-        {
-          path: `${uri}/safe`,
-          method: [method],
-          handler: async (request, h) => {
-            const inputs = utils.getInput(request, key, params, { locals });
-            const result = await sink(inputs, { safe: true });
-            return respond(result, request, h);
-          }
-        },
-        {
-          path: `${uri}/unsafe`,
+    sinkData.forEach(({ uri, method, params, sinks, key }) => {
+      server.route(
+        map(sinks, (sink, type) => ({
+          path: `${uri}/${type}`,
           method: [method],
           handler: async (request, h) => {
             const inputs = utils.getInput(request, key, params, { locals });
             const result = await sink(inputs);
             return respond(result, request, h);
           }
-        },
-        {
-          path: `${uri}/noop`,
-          method: [method],
-          handler: async (request, h) => {
-            const inputs = utils.getInput(request, key, params, { noop: true });
-            const result = await sink(inputs, { noop: true });
-            return respond(result, request, h);
-          }
-        }
-      ]);
+        }))
+      );
     });
   };
 };

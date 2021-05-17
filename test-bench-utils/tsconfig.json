@@ -1,0 +1,13 @@
+{
+  "include": [
+    "lib/"
+  ],
+  "compilerOptions": {
+    "allowJs": true,
+    "declaration": true,
+    "declarationDir": "./types/",
+    "removeComments": true,
+    "emitDeclarationOnly": true,
+    "incremental": true,
+  }
+}

@@ -23,15 +23,32 @@ signature:
    *   The `params` key from _routes.js_ determines which parameters will be
    *   extracted from the request object.
    * @param {Object} opts
-   * @param {boolean=} opts.safe are we calling the sink safely?
-   * @param {boolean=} opts.noop are we calling the sink as a noop?
+   * @param {boolean} [opts.safe] are we calling the sink safely?
+   * @param {boolean} [opts.noop] are we calling the sink as a noop?
    */
-  module.exports['sinkName'] = async function sink({ input }, { safe = false, noop = false } = {}) {};
+  module.exports['sinkName'] = async function sink({ input }, { safe = false, noop = false } = {}) { /* ... */ };
 ```
 The sink function will be called by the endpoint handler appropriately by each
 framework. By default, for the `/unsafe` endpoint the function is called with
 user input, and for the `/safe` and `/noop` endpoints it is called with the
 `safe` and `noop` options set to true, respectively.
+
+If providing more than one "safe" or "unsafe" pattern, you can export an object
+rather than a single function. This is done using the following pattern:
+```js
+  module.exports['sinkName'] = {
+    async safeOne({ input }) { /* ... */ },
+    async safeTwo({ input }) { /* ... */ },
+    async unsafeOne({ input }) { /* ... */ },
+    async unsafeTwo({ input }) { /* ... */ },
+    async noop() { return 'NOOP' },
+  }
+```
+There's nothing tying you to the existing `safe` and `unsafe` method names when
+providing an object, so please provide meaningful function names. Routes will
+be generated with the function name as the last part of the path. Existing views
+assume the methods are `safe`, `unsafe`, and `noop`, but accounting for
+additional endpoints will require changes to views for the time being.
 
 ## Front-end content
 If there is any custom data you want to provide to the test bench front end, you

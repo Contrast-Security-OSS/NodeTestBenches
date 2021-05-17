@@ -11,7 +11,11 @@ Array [
       "input",
       "second_input",
     ],
-    "sink": [MockFunction],
+    "sinks": Object {
+      "noop": [Function],
+      "safe": [Function],
+      "unsafe": [Function],
+    },
     "uri": "/query/rule",
     "url": "/rule/query/rule",
     "urlWithoutParams": "/rule/query/rule",
@@ -25,7 +29,11 @@ Array [
       "input",
       "second_input",
     ],
-    "sink": [MockFunction],
+    "sinks": Object {
+      "noop": [Function],
+      "safe": [Function],
+      "unsafe": [Function],
+    },
     "uri": "/params/rule/:input",
     "url": "/rule/params/rule/:input",
     "urlWithoutParams": "/rule/params/rule",
@@ -39,10 +47,76 @@ Array [
       "input",
       "second_input",
     ],
-    "sink": [MockFunction],
+    "sinks": Object {
+      "noop": [Function],
+      "safe": [Function],
+      "unsafe": [Function],
+    },
     "uri": "/body/rule",
     "url": "/rule/body/rule",
     "urlWithoutParams": "/rule/body/rule",
+  },
+]
+`;
+
+exports[`getSinkData returns the expected array of SinkData objects for each sink 1`] = `
+Array [
+  Object {
+    "input": "query",
+    "key": "query",
+    "method": "get",
+    "name": "rule2",
+    "params": Array [
+      "input",
+      "second_input",
+    ],
+    "sinks": Object {
+      "noop": [MockFunction],
+      "safe": [MockFunction],
+      "safe2": [MockFunction],
+      "unsafe": [MockFunction],
+    },
+    "uri": "/query/rule2",
+    "url": "/rule2/query/rule2",
+    "urlWithoutParams": "/rule2/query/rule2",
+  },
+  Object {
+    "input": "params",
+    "key": "params",
+    "method": "get",
+    "name": "rule2",
+    "params": Array [
+      "input",
+      "second_input",
+    ],
+    "sinks": Object {
+      "noop": [MockFunction],
+      "safe": [MockFunction],
+      "safe2": [MockFunction],
+      "unsafe": [MockFunction],
+    },
+    "uri": "/params/rule2/:input",
+    "url": "/rule2/params/rule2/:input",
+    "urlWithoutParams": "/rule2/params/rule2",
+  },
+  Object {
+    "input": "body",
+    "key": "body",
+    "method": "post",
+    "name": "rule2",
+    "params": Array [
+      "input",
+      "second_input",
+    ],
+    "sinks": Object {
+      "noop": [MockFunction],
+      "safe": [MockFunction],
+      "safe2": [MockFunction],
+      "unsafe": [MockFunction],
+    },
+    "uri": "/body/rule2",
+    "url": "/rule2/body/rule2",
+    "urlWithoutParams": "/rule2/body/rule2",
   },
 ]
 `;
@@ -59,7 +133,11 @@ Object {
         "input",
         "second_input",
       ],
-      "sink": [MockFunction],
+      "sinks": Object {
+        "noop": [Function],
+        "safe": [Function],
+        "unsafe": [Function],
+      },
       "uri": "/body/rule",
       "url": "/rule/body/rule",
       "urlWithoutParams": "/rule/body/rule",
@@ -75,7 +153,11 @@ Object {
         "input",
         "second_input",
       ],
-      "sink": [MockFunction],
+      "sinks": Object {
+        "noop": [Function],
+        "safe": [Function],
+        "unsafe": [Function],
+      },
       "uri": "/params/rule/:input",
       "url": "/rule/params/rule/:input",
       "urlWithoutParams": "/rule/params/rule",
@@ -91,7 +173,11 @@ Object {
         "input",
         "second_input",
       ],
-      "sink": [MockFunction],
+      "sinks": Object {
+        "noop": [Function],
+        "safe": [Function],
+        "unsafe": [Function],
+      },
       "uri": "/query/rule",
       "url": "/rule/query/rule",
       "urlWithoutParams": "/rule/query/rule",

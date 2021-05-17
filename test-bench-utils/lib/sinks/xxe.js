@@ -2,7 +2,9 @@
 let libxmljs;
 try {
   libxmljs = require('libxmljs');
-} catch {}
+} catch (err) {
+  /* swallow errors */
+}
 const libxmljs2 = require('libxmljs2');
 
 const pre = (str) => `<pre>${str}</pre>`;
@@ -11,8 +13,8 @@ const pre = (str) => `<pre>${str}</pre>`;
  * @param {Object} params
  * @param {string} params.input user input string
  * @param {Object} opts
- * @param {boolean=} opts.safe are we calling the sink safely?
- * @param {boolean=} opts.noop are we calling the sink as a noop?
+ * @param {boolean} [opts.safe] are we calling the sink safely?
+ * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
 module.exports['libxmljs.parseXmlString'] = async function parseXmlString(
   { input },
@@ -20,10 +22,10 @@ module.exports['libxmljs.parseXmlString'] = async function parseXmlString(
 ) {
   if (noop) return 'NOOP';
 
-  // Documented failure for Express on Node-14 alpine 
+  // Documented failure for Express on Node-14 alpine
   // See NODE-1062: https://contrast.atlassian.net/browse/NODE-1062
   if (!libxmljs) return '';
-  
+
   const result = libxmljs.parseXmlString(input, { noent: !safe });
   return pre(result);
 };

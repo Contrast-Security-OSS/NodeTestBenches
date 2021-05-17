@@ -1,5 +1,24 @@
 const sinks = require('./sinks');
 
+/** @typedef {import("./sinks").Param} Param */
+/** @typedef {import("./sinks").Sink} Sink */
+
+/** @typedef {'Assess' | 'Protect'} Product */
+/** @typedef {'query' | 'params' | 'headers' | 'body' | 'cookies' | 'input'} Input */
+
+/**
+ * @typedef {Object} Route
+ * @property {string} base
+ * @property {string} name
+ * @property {string} link
+ * @property {Product[]} products
+ * @property {string} [type]
+ * @property {Input[]} [inputs]
+ * @property {Param[]} [params]
+ * @property {{ [name: string]: Sink }} [sinks]
+ */
+
+/** @type {{ [rule: string]: Route }} */
 module.exports = {
   cmdInjection: {
     base: '/cmdInjection',

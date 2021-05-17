@@ -55,8 +55,8 @@ Collection.prototype.rename = async function overloadedRename(
  * @param {Object} params
  * @param {string} params.input user input string
  * @param {Object} opts
- * @param {boolean=} opts.safe are we calling the sink safely?
- * @param {boolean=} opts.noop are we calling the sink as a noop?
+ * @param {boolean} [opts.safe] are we calling the sink safely?
+ * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
 module.exports['mongodb.Db.prototype.eval'] = async function _eval(
   { input },
@@ -74,8 +74,8 @@ module.exports['mongodb.Db.prototype.eval'] = async function _eval(
  * @param {Object} params
  * @param {string} params.input user input string
  * @param {Object} opts
- * @param {boolean=} opts.safe are we calling the sink safely?
- * @param {boolean=} opts.noop are we calling the sink as a noop?
+ * @param {boolean} [opts.safe] are we calling the sink safely?
+ * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
 module.exports['mongodb.Collection.prototype.rename'] = async function rename(
   { input },

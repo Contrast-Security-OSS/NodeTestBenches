@@ -7,8 +7,8 @@ const vm = require('vm');
  * @param {Object} params
  * @param {string} params.input user input string
  * @param {Object} opts
- * @param {boolean=} opts.safe are we calling the sink safely?
- * @param {boolean=} opts.noop are we calling the sink as a noop?
+ * @param {boolean} [opts.safe] are we calling the sink safely?
+ * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
 module.exports.eval = async function _eval(
   { input },
@@ -25,8 +25,8 @@ module.exports.eval = async function _eval(
  * @param {Object} params
  * @param {string} params.input user input string
  * @param {Object} opts
- * @param {boolean=} opts.safe are we calling the sink safely?
- * @param {boolean=} opts.noop are we calling the sink as a noop?
+ * @param {boolean} [opts.safe] are we calling the sink safely?
+ * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
 module.exports.Function = async function _Function(
   { input },
@@ -44,8 +44,8 @@ module.exports.Function = async function _Function(
  * @param {Object} params
  * @param {string} params.input user input string
  * @param {Object} opts
- * @param {boolean=} opts.safe are we calling the sink safely?
- * @param {boolean=} opts.noop are we calling the sink as a noop?
+ * @param {boolean} [opts.safe] are we calling the sink safely?
+ * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
 module.exports['vm.runInNewContext'] = async function _runInNewContext(
   { input },

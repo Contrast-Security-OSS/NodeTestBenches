@@ -1,6 +1,7 @@
 'use strict';
 
 const { utils } = require('@contrast/test-bench-utils');
+const { forEach } = require('lodash');
 const path = require('path');
 const { Router } = require('restify-router');
 const wrapHandler = require('./wrapHandler');
@@ -43,38 +44,22 @@ module.exports = function controllerFactory(
         groupedSinkData,
         sinkData,
         locals,
-        res,
+        res
       }
     );
   });
 
-  sinkData.forEach(({ method, params, uri, sink, key }) => {
-    router[method](
-      `${uri}/safe`,
-      wrapHandler(async (req, res, next) => {
-        const inputs = utils.getInput(req, key, params, { locals });
-        const result = await sink(inputs, { safe: true });
-        respond(result, req, res, next);
-      })
-    );
-
-    router[method](
-      `${uri}/unsafe`,
-      wrapHandler(async (req, res, next) => {
-        const inputs = utils.getInput(req, key, params, { locals });
-        const result = await sink(inputs);
-        respond(result, req, res, next);
-      })
-    );
-
-    router[method](
-      `${uri}/noop`,
-      wrapHandler(async (req, res, next) => {
-        const inputs = utils.getInput(req, key, params, { noop: true });
-        const result = await sink(inputs, { noop: true });
-        respond(result, req, res, next);
-      })
-    );
+  sinkData.forEach(({ method, params, uri, sinks, key }) => {
+    forEach(sinks, (sink, type) => {
+      router[method](
+        `${uri}/${type}`,
+        wrapHandler(async (req, res, next) => {
+          const inputs = utils.getInput(req, key, params, { locals });
+          const result = await sink(inputs);
+          respond(result, req, res, next);
+        })
+      );
+    });
   });
 
   return router;

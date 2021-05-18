@@ -23,6 +23,7 @@
     "eslint-plugin-prettier": "^3.1.2",
     "husky": "^4.3.0",
     "lint-staged": "^10.4.0",
+    "npm": "^7.13.0",
     "prettier": "^1.19.1",
     "shellcheck": "^0.4.4"
   },

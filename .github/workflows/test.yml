@@ -28,7 +28,7 @@ jobs:
           node-version: ${{ matrix.version }}
       - name: Install dependencies
         shell: bash
-        run: npm ci --ignore-scripts && npm run postinstall
+        run: npm install -g npm@7 && npm ci --ignore-scripts && npm run postinstall
       - name: Run tests
         shell: bash
         run: npm test

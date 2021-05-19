@@ -1,0 +1,10 @@
+public/
+routes/
+uploads/
+utils/
+view/
+!view/partials/head.ejs
+!view/partials/header.ejs
+!view/index.ejs
+.eslintrc.json
+server.js

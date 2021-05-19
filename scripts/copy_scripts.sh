@@ -1,4 +1,4 @@
-#! /bin/bash -e
+#!/usr/bin/env bash
 cp ../scripts/entry.sh .
 
 if [[ ! -f "Dockerfile" ]]; then
@@ -6,10 +6,10 @@ if [[ ! -f "Dockerfile" ]]; then
   cp ../scripts/docker-compose.yml .
 fi
 
-folders=("public" "routes" "uploads" "utils" "view")
 if [[ ${PWD##*/} == "fastify3" ]]; then
+  FOLDERS=("public" "routes" "uploads" "utils" "view")
   cp ../fastify/server.js .
-  for folder in "${folders[@]}"; do
+  for folder in "${FOLDERS[@]}"; do
     cp -R -n "../fastify/$folder" .
   done
 fi

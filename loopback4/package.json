@@ -13,6 +13,8 @@
     "node": ">=10.16"
   },
   "scripts": {
+    "precontrast": "npm run prestart",
+    "contrast": "DEBUG=\"contrast:*\" node -r \"$CONTRAST_AGENT\" .",
     "build": "lb-tsc",
     "build:watch": "lb-tsc --watch",
     "lint": "npm run prettier:check && npm run eslint",
@@ -35,7 +37,6 @@
     "rebuild": "npm run clean && npm run build",
     "prestart": "npm run rebuild",
     "start": "node -r source-map-support/register .",
-    "start:contrast": "node -r $CONTRAST_PATH .",
     "clean": "lb-clean dist *.tsbuildinfo .eslintcache"
   },
   "repository": {

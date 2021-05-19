@@ -18,10 +18,10 @@
   "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/fastify3#readme",
   "main": "server.js",
   "scripts": {
-    "contrast": "DEBUG=contrast:* node-contrast server.js",
-    "dev": "nodemon server.js | pino-pretty",
+    "contrast": "DEBUG=\"contrast:*\" node -r \"$CONTRAST_AGENT\" . | pino-pretty",
+    "dev": "nodemon . | pino-pretty",
     "lint": "eslint --fix .",
-    "start": "node server.js | pino-pretty"
+    "start": "node . | pino-pretty"
   },
   "dependencies": {
     "@contrast/test-bench-utils": "^3.21.3",

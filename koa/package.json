@@ -15,10 +15,10 @@
   "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/koa#readme",
   "main": "index.js",
   "scripts": {
-    "contrast": "DEBUG=contrast:* node-contrast index.js",
-    "dev": "nodemon index.js",
+    "contrast": "DEBUG=\"contrast:*\" node -r \"$CONTRAST_AGENT\" .",
+    "dev": "nodemon .",
     "lint": "eslint --fix .",
-    "start": "node index.js"
+    "start": "node ."
   },
   "engines": {
     "node": ">=10.13.0"

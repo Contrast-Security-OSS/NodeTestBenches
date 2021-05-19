@@ -5,9 +5,9 @@
   "description": "Intentionally vulnerable restify application",
   "main": "index.js",
   "scripts": {
+    "contrast": "DEBUG=\"contrast:*\" node -r \"$CONTRAST_AGENT\" .",
     "lint": "eslint --fix .",
-    "start": "node index.js",
-    "contrast": "node -r $CONTRAST_PATH index.js"
+    "start": "node ."
   },
   "author": "",
   "license": "ISC",

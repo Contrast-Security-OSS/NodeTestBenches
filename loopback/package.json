@@ -15,11 +15,10 @@
   "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/loopback#readme",
   "main": "server/server.js",
   "scripts": {
-    "contrast": "DEBUG=contrast:* node-contrast server/server.js",
-    "dev": "nodemon server/server.js",
+    "contrast": "DEBUG=\"contrast:*\" node -r \"$CONTRAST_AGENT\" .",
+    "dev": "nodemon .",
     "lint": "eslint --fix .",
-    "start": "node server/server.js",
-    "test": "echo 'hello'"
+    "start": "node ."
   },
   "engines": {
     "node": ">=10.13.0"

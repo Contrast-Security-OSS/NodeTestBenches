@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "contrast": "DEBUG=\"contrast:*\" node -r \"$CONTRAST_AGENT\" .",
+    "contrast:env": "DEBUG=\"contrast:*\" NODE_OPTIONS=\"-r $CONTRAST_AGENT\" node .",
     "lint": "eslint --fix .",
     "start": "node ."
   },

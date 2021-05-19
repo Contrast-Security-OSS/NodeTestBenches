@@ -15,6 +15,7 @@
   "scripts": {
     "precontrast": "npm run prestart",
     "contrast": "DEBUG=\"contrast:*\" node -r \"$CONTRAST_AGENT\" .",
+    "contrast:env": "DEBUG=\"contrast:*\" NODE_OPTIONS=\"-r $CONTRAST_AGENT\" node .",
     "build": "lb-tsc",
     "build:watch": "lb-tsc --watch",
     "lint": "npm run prettier:check && npm run eslint",

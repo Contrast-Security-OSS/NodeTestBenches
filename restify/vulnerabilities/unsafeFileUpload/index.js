@@ -10,19 +10,19 @@ const router = new Router();
 const sinkData = utils.getSinkData('unsafeFileUpload', 'restify');
 const routeMeta = utils.getRouteMeta('unsafeFileUpload');
 
-router.get('/', function (req, res) {
+router.get('/', function(req, res) {
   res.render(path.resolve(__dirname, 'views', 'index'), {
     ...routeMeta,
-    sinkData,
+    sinkData
   });
 });
 
-sinkData.forEach(({ method, params, uri, sink, key }) => {
+sinkData.forEach(({ method, params, uri, sinks, key }) => {
   router[method](
     uri,
     wrapHandler(async (req, res) => {
       const inputs = utils.getInput(req, key, params);
-      const result = await sink(inputs); // doesn't really do anything
+      const result = await sinks.unsafe(inputs); // doesn't really do anything
       res.send(result);
     })
   );

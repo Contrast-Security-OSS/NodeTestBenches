@@ -1,7 +1,6 @@
 'use strict';
 
 const express = require('express');
-const { get } = require('lodash');
 const path = require('path');
 const multer = require('multer');
 
@@ -20,10 +19,10 @@ router.get('/', function(req, res) {
   });
 });
 
-sinkData.forEach(({ method, params, uri, sink, key }) => {
+sinkData.forEach(({ method, params, uri, sinks, key }) => {
   router[method](uri, upload.single('file'), async (req, res) => {
     const inputs = utils.getInput(req, key, params);
-    const result = await sink(inputs); // doesn't really do anything
+    const result = await sinks.unsafe(inputs); // doesn't really do anything
     res.send(result);
   });
 });

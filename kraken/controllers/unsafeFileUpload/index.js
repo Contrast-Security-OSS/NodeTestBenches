@@ -11,10 +11,10 @@ module.exports = (router) => {
     res.render('unsafeFileUpload', model);
   });
 
-  model.sinkData.forEach(({ method, uri, sink, key, params }) => {
+  model.sinkData.forEach(({ method, uri, sinks, key, params }) => {
     router[method](uri, async (req, res) => {
       const inputs = utils.getInput(req, key, params);
-      const result = await sink(inputs); // doesn't really do anything
+      const result = await sinks.unsafe(inputs); // doesn't really do anything
       res.send(result);
     });
   });

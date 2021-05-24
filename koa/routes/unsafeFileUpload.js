@@ -1,5 +1,4 @@
 const multer = require('koa-multer');
-const { get } = require('lodash');
 const path = require('path');
 
 const { routes, utils } = require('@contrast/test-bench-utils');
@@ -20,10 +19,10 @@ module.exports = ({ router }) => {
     })
   );
 
-  sinkData.forEach(({ method, params, url, sink }) => {
+  sinkData.forEach(({ method, params, url, sinks }) => {
     router[method](url, upload.single('file'), async (ctx, next) => {
       const inputs = utils.getInput(ctx, 'req.body', params); // multer puts it on `req`, elsewhere it's `request`
-      const result = await sink(inputs); // doesn't really do anything
+      const result = await sinks.unsafe(inputs); // doesn't really do anything
       ctx.body = result;
     });
   });

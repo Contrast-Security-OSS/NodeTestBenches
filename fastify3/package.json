@@ -19,7 +19,7 @@
   "main": "server.js",
   "scripts": {
     "precontrast": "npm run prestart",
-    "contrast": "DEBUG=\"contrast:*\" node -r \"$CONTRAST_AGENT\" . | pino-pretty",
+    "contrast": "cross-env DEBUG=\"contrast:*\" node -r \"$CONTRAST_AGENT\" server.js | pino-pretty",
     "dev": "nodemon . | pino-pretty",
     "lint": "eslint --fix .",
     "prestart": "./scripts/link.sh",
@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@contrast/test-bench-utils": "^3.21.3",
+    "cross-env": "^7.0.3",
     "ejs": "^2.7.4",
     "fastify": "^3.9.2",
     "fastify-cookie": "^5.1.0",

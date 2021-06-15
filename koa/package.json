@@ -15,8 +15,8 @@
   "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/koa#readme",
   "main": "index.js",
   "scripts": {
-    "contrast": "DEBUG=\"contrast:*\" node -r \"$CONTRAST_AGENT\" .",
-    "contrast:env": "DEBUG=\"contrast:*\" NODE_OPTIONS=\"-r $CONTRAST_AGENT\" node .",
+    "contrast": "cross-env DEBUG=\"contrast:*\" node -r \"$CONTRAST_AGENT\" index.js",
+    "contrast:env": "cross-env DEBUG=\"contrast:*\" NODE_OPTIONS=\"-r $CONTRAST_AGENT\" node index.js",
     "dev": "nodemon .",
     "lint": "eslint --fix .",
     "start": "node ."
@@ -27,6 +27,7 @@
   "dependencies": {
     "@contrast/test-bench-utils": "^3.21.3",
     "@koa/router": "^8.0.8",
+    "cross-env": "^7.0.3",
     "koa": "^2.12.0",
     "koa-bodyparser": "^4.2.1",
     "koa-cookie": "^1.0.0",

@@ -14,8 +14,8 @@
   },
   "scripts": {
     "precontrast": "npm run prestart",
-    "contrast": "DEBUG=\"contrast:*\" node -r \"$CONTRAST_AGENT\" .",
-    "contrast:env": "DEBUG=\"contrast:*\" NODE_OPTIONS=\"-r $CONTRAST_AGENT\" node .",
+    "contrast": "cross-env DEBUG=\"contrast:*\" node -r \"$CONTRAST_AGENT\" dist/index.js",
+    "contrast:env": "cross-env DEBUG=\"contrast:*\" NODE_OPTIONS=\"-r $CONTRAST_AGENT\" node dist/index.js",
     "build": "lb-tsc",
     "build:watch": "lb-tsc --watch",
     "lint": "npm run prettier:check && npm run eslint",
@@ -60,6 +60,7 @@
     "@loopback/rest-explorer": "^3.0.3",
     "@loopback/service-proxy": "^3.0.3",
     "@types/ejs": "^3.0.5",
+    "cross-env": "^7.0.3",
     "ejs": "^2.7.4",
     "lodash": "^4.17.20",
     "pascal-case": "^3.1.1",

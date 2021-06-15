@@ -15,8 +15,8 @@
   "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/loopback#readme",
   "main": "server/server.js",
   "scripts": {
-    "contrast": "DEBUG=\"contrast:*\" node -r \"$CONTRAST_AGENT\" .",
-    "contrast:env": "DEBUG=\"contrast:*\" NODE_OPTIONS=\"-r $CONTRAST_AGENT\" node .",
+    "contrast": "cross-env DEBUG=\"contrast:*\" node -r \"$CONTRAST_AGENT\" server/server.js",
+    "contrast:env": "cross-env DEBUG=\"contrast:*\" NODE_OPTIONS=\"-r $CONTRAST_AGENT\" node server/server.js",
     "dev": "nodemon .",
     "lint": "eslint --fix .",
     "start": "node ."
@@ -30,6 +30,7 @@
     "compression": "^1.0.3",
     "cookie-parser": "^1.4.4",
     "cors": "^2.5.2",
+    "cross-env": "^7.0.3",
     "express-ejs-layouts": "^2.5.0",
     "helmet": "^3.10.0",
     "lodash": "^4.17.19",

@@ -15,8 +15,8 @@
   "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/kraken#readme",
   "main": "server.js",
   "scripts": {
-    "contrast": "DEBUG=\"contrast:*\" node -r \"$CONTRAST_AGENT\" .",
-    "contrast:env": "DEBUG=\"contrast:*\" NODE_OPTIONS=\"-r $CONTRAST_AGENT\" node .",
+    "contrast": "cross-env DEBUG=\"contrast:*\" node -r \"$CONTRAST_AGENT\" server.js",
+    "contrast:env": "cross-env DEBUG=\"contrast:*\" NODE_OPTIONS=\"-r $CONTRAST_AGENT\" node server.js",
     "dev": "nodemon .",
     "lint": "eslint --fix .",
     "start": "node ."
@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@contrast/test-bench-utils": "^3.21.3",
+    "cross-env": "^7.0.3",
     "ejs": "^2.7.4",
     "express": "^4.12.2",
     "express-async-errors": "^3.1.1",

@@ -15,8 +15,8 @@
   "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/hapi#readme",
   "main": "server.js",
   "scripts": {
-    "contrast": "DEBUG=\"contrast:*\" node -r \"$CONTRAST_AGENT\" .",
-    "contrast:env": "DEBUG=\"contrast:*\" NODE_OPTIONS=\"-r $CONTRAST_AGENT\" node .",
+    "contrast": "cross-env DEBUG=\"contrast:*\" node -r \"$CONTRAST_AGENT\" server.js",
+    "contrast:env": "cross-env DEBUG=\"contrast:*\" NODE_OPTIONS=\"-r $CONTRAST_AGENT\" node server.js",
     "dev": "nodemon .",
     "lint": "eslint --fix .",
     "start": "node ."
@@ -31,6 +31,7 @@
     "@hapi/hoek": "^9.0.3",
     "@hapi/inert": "^5.2.2",
     "@hapi/vision": "^6.0.0",
+    "cross-env": "^7.0.3",
     "ejs": "^2.7.4",
     "lodash": "^4.17.19",
     "mongodb": "^3.0.1",

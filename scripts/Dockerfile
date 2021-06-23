@@ -3,6 +3,6 @@ FROM node:$node_version
 
 WORKDIR /app
 COPY . .
-RUN npm ci --production
+RUN npm ci
 RUN chmod +x entry.sh
 CMD ./entry.sh

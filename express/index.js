@@ -39,7 +39,7 @@ require('./app').setup(app);
 
 const listener = function listener() {
   const { address, port } = this.address();
-  const protocol = (isHttps || isHttp2) ? 'https' : 'http';
+  const protocol = isHttps || isHttp2 ? 'https' : 'http';
   const stop = Date.now();
   /* eslint-disable no-console */
   console.log(`startup time: ${stop - start}`);
@@ -50,31 +50,32 @@ function createServer() {
   if (!isHttps && !isHttp2) {
     http.createServer(app).listen(PORT, HOST, listener);
   } else {
-    pem.createCertificate({ days : 1, selfSigned : true }, (err, keys) => {
+    pem.createCertificate({ days: 1, selfSigned: true }, (err, keys) => {
       let server;
       if (err) {
         throw err;
       }
-      const options = { key: keys.serviceKey, cert: keys.certificate }
+      const options = { key: keys.serviceKey, cert: keys.certificate };
       if (isHttps) {
         server = https.createServer(options, app);
       } else if (isHttp2) {
         server = http2.createServer(options, app);
       }
       server.listen(PORT, HOST, listener);
-    })
+    });
   }
 }
 
 if (CLUSTER) {
   const cluster = require('cluster');
   const numCPUs = require('os').cpus().length;
+  const forkCount = Number(process.env.CLUSTER_FORK_COUNT || numCPUs);
 
   if (cluster.isMaster) {
     console.log(`Master ${process.pid} is running`);
 
     // Fork workers.
-    for (let i = 0; i < numCPUs; i++) {
+    for (let i = 0; i < forkCount; i++) {
       cluster.fork();
     }
 

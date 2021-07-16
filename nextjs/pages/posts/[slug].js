@@ -1,3 +1,8 @@
+/**
+ * Exposes a statically built dynamic route page. Depends on external data to
+ * build at build time a list of possible routes.
+ */
+
 import { Layout } from '../../components';
 import { listPosts, getPostBySlug } from '../../data/posts';
 
@@ -12,6 +17,9 @@ const Post = ({ post }) => {
   )
 };
 
+/**
+ * A getStaticPaths factory. Receives a listing function as an argument.
+ */
 const createGetStaticPaths = (listFn) => {
   return async () => {
     const { posts } = await listFn();
@@ -25,6 +33,10 @@ const createGetStaticPaths = (listFn) => {
   }
 };
 
+/**
+ * A getStaticProps factory. Receives a function for getting a post by an
+ * identifier.
+ */
 const createGetStaticProps = (getFn) => {
   return async ({ params }) => {
     const post = await getFn(params.slug);

@@ -1,5 +1,9 @@
+/**
+ * Exposes a server side rendered page. The page can receive a query parameter
+ * which can be used for querying an external service.
+ */
+
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 import { Layout, PostList } from '../components';
 import { searchPostsByTitle } from '../data/posts';
@@ -33,6 +37,9 @@ const Blog = ({ searchTitle, posts }) => {
   );
 };
 
+/**
+ * A getServerSideProps factory. Receives a search function as an argument.
+ */
 const createGetServerSideProps = (searchFn) => {
   return async (context) => {
     const searchTitle = context?.query?.title;

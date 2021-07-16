@@ -1,3 +1,8 @@
+/**
+ * Exposes functions which simulate fetching remote data. The functions are
+ * used within the components' callbacks required by Next.js.
+ */
+
 const posts = [{
   slug: 'first-post',
   title: 'My first post!',

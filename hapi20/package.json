@@ -1,0 +1,48 @@
+{
+  "name": "@contrast/hapi-20-test-bench",
+  "private": true,
+  "version": "3.20.0",
+  "description": "Intentionally vulnerable Hapi application",
+  "author": "Contrast Security <nodejs@contrastsecurity.com>",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Contrast-Security-OSS/NodeTestBenches.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Contrast-Security-OSS/NodeTestBenches/issues"
+  },
+  "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/hapi#readme",
+  "main": "server.js",
+  "scripts": {
+    "contrast": "DEBUG=contrast:* node-contrast server.js",
+    "dev": "nodemon server.js",
+    "lint": "eslint --fix .",
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=10.13.0"
+  },
+  "dependencies": {
+    "@contrast/test-bench-utils": "^3.20.0",
+    "@hapi/glue": "^8.0.0",
+    "@hapi/hapi": "^20.1.5",
+    "@hapi/hoek": "^9.0.4",
+    "@hapi/inert": "^6.0.1",
+    "@hapi/vision": "^6.0.0",
+    "ejs": "^2.5.7",
+    "lodash": "^4.17.19",
+    "mongodb": "^3.0.1",
+    "pem": "^1.14.2"
+  },
+  "devDependencies": {
+    "@contrast/eslint-config": "^2.0.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-mocha": "^6.3.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "nodemon": "^2.0.4",
+    "prettier": "^1.19.1"
+  }
+}

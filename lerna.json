@@ -5,6 +5,7 @@
     "fastify3",
     "hapi18",
     "hapi19",
+    "hapi20",
     "koa",
     "kraken",
     "loopback",

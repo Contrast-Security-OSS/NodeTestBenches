@@ -30,7 +30,7 @@
     "express-async-errors": "^3.1.1",
     "express-ejs-layouts": "^2.5.0",
     "kraken-js": "^2.3.0",
-    "lodash": "^4.17.19"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@contrast/eslint-config": "^2.0.0",

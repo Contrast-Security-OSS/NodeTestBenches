@@ -23,6 +23,10 @@ const initDb = async () => {
   );
 
   await db.createCollection(MONGO_COLLECTION);
+  await db.collection(MONGO_COLLECTION).insertOne({
+    hello: 'world'
+  });
+
   return db;
 };
 
@@ -61,8 +65,10 @@ module.exports['mongodb.Collection.prototype.rename'] = async function rename(
 
   const newName = safe ? 'newName' : input;
   const db = await initDb();
-  const collection = db.collection(MONGO_COLLECTION);
-  const result = await collection.rename(newName).catch((err) => {});
+  const result = await db
+    .collection(MONGO_COLLECTION)
+    .rename(newName)
+    .catch((err) => {});
 
-  return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
+  return `<pre>${escape(JSON.stringify(result.collectionName, null, 2))}</pre>`;
 };

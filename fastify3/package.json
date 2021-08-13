@@ -20,10 +20,10 @@
   "scripts": {
     "precontrast": "npm run prestart",
     "contrast": "cross-env DEBUG=\"contrast:*\" node -r \"$CONTRAST_AGENT\" server.js | pino-pretty",
-    "dev": "nodemon . | pino-pretty",
+    "dev": "nodemon server.js | pino-pretty",
     "lint": "eslint --fix .",
     "prestart": "./scripts/link.sh",
-    "start": "node . | pino-pretty"
+    "start": "node server.js | pino-pretty"
   },
   "dependencies": {
     "@contrast/test-bench-utils": "^3.21.3",

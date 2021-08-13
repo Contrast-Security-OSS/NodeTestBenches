@@ -17,9 +17,9 @@
   "scripts": {
     "contrast": "cross-env DEBUG=\"contrast:*\" node -r \"$CONTRAST_AGENT\" server.js",
     "contrast:env": "cross-env DEBUG=\"contrast:*\" NODE_OPTIONS=\"-r $CONTRAST_AGENT\" node server.js",
-    "dev": "nodemon .",
+    "dev": "nodemon server.js",
     "lint": "eslint --fix .",
-    "start": "node ."
+    "start": "node server.js"
   },
   "engines": {
     "node": ">=10.13.0"

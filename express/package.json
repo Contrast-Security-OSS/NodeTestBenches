@@ -17,9 +17,9 @@
   "scripts": {
     "contrast": "cross-env DEBUG=\"contrast:*\" node -r \"$CONTRAST_AGENT\" index.js",
     "contrast:env": "cross-env DEBUG=\"contrast:*\" NODE_OPTIONS=\"-r $CONTRAST_AGENT\" node index.js",
-    "dev": "nodemon .",
+    "dev": "nodemon index.js",
     "lint": "eslint --fix .",
-    "start": "node .",
+    "start": "node index.js",
     "test:mocha": "mocha test/index.mocha.test.js",
     "test:jest": "jest"
   },

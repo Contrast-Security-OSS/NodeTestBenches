@@ -18,11 +18,14 @@ const initDb = async () => {
   const collections = await db.collections();
   await Promise.all(
     collections.map((collection) =>
-      db.dropCollection(collection.collectionName)
+      db.dropCollection(collection.collectionName).catch((err) => {
+        // this handles a race condition that can occur where we try to drop a
+        // collection after it has already been dropped
+        if (!err.codeName || err.codeName !== 'NamespaceNotFound') throw err;
+      })
     )
   );
 
-  await db.createCollection(MONGO_COLLECTION);
   await db.collection(MONGO_COLLECTION).insertOne({
     hello: 'world'
   });

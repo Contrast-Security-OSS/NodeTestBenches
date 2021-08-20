@@ -1,54 +1,36 @@
 'use strict';
 
-const { EventEmitter } = require('events');
-const { Db, Collection } = require('mongodb');
 const escape = require('escape-html');
+const { MongoClient } = require('mongodb');
 
-const origEval = Db.prototype.eval;
-Db.prototype.eval = async function overloadedEval(code, params, opts) {
-  // Stubbing as much as possible to avoid executing real command
-  this.s.topology.s = { promiseLibrary: this.s.promiseLibrary };
-  this.s.topology.command = function() {
-    return false;
-  };
-  this.s.topology.hasSessionSupport = function() {
-    return false;
-  };
-  this.s.topology.isDestroyed = function() {
-    return false;
-  };
+const {
+  MONGO_COLLECTION = 'documents',
+  MONGO_DB = 'testbench',
+  MONGO_URL = 'mongodb://localhost:27017'
+} = process.env;
 
-  origEval.call(this, code, params, opts);
-  return { code };
-};
+const client = new MongoClient(MONGO_URL);
 
-const origRename = Collection.prototype.rename;
-const topology = new EventEmitter();
-const db = new Db('testbench', topology, {});
-const collection = new Collection(
-  db,
-  topology,
-  'testbench',
-  'collection',
-  null,
-  {}
-);
-Collection.prototype.rename = async function overloadedRename(
-  name,
-  options,
-  callback
-) {
-  // Stubbing as much as possible to avoid executing real command
-  this.s.topology.s = { promiseLibrary: this.s.promiseLibrary };
-  this.s.topology.command = function() {
-    return false;
-  };
-  this.s.topology.hasSessionSupport = function() {
-    return false;
-  };
+const initDb = async () => {
+  await client.connect();
+  const db = client.db(MONGO_DB);
 
-  origRename.call(this, name, options, callback);
-  return { name };
+  const collections = await db.collections();
+  await Promise.all(
+    collections.map((collection) =>
+      db.dropCollection(collection.collectionName).catch((err) => {
+        // this handles a race condition that can occur where we try to drop a
+        // collection after it has already been dropped
+        if (!err.codeName || err.codeName !== 'NamespaceNotFound') throw err;
+      })
+    )
+  );
+
+  await db.collection(MONGO_COLLECTION).insertOne({
+    hello: 'world'
+  });
+
+  return db;
 };
 
 /**
@@ -65,6 +47,7 @@ module.exports['mongodb.Db.prototype.eval'] = async function _eval(
   if (noop) return 'NOOP';
 
   const fn = safe ? 'function() {}' : input;
+  const db = await initDb();
   const result = await db.eval(fn);
 
   return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
@@ -84,7 +67,11 @@ module.exports['mongodb.Collection.prototype.rename'] = async function rename(
   if (noop) return 'NOOP';
 
   const newName = safe ? 'newName' : input;
-  const result = await collection.rename(newName).catch((err) => {});
+  const db = await initDb();
+  const result = await db
+    .collection(MONGO_COLLECTION)
+    .rename(newName)
+    .catch((err) => {});
 
-  return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
+  return `<pre>${escape(JSON.stringify(result.collectionName, null, 2))}</pre>`;
 };

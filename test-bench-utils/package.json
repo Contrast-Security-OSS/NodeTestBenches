@@ -40,6 +40,7 @@
     "libxmljs2": "^0.28.0",
     "lodash": "^4.17.19",
     "mongodb": "^3.5.2",
+    "mustache": "^4.2.0",
     "mysql": "^2.17.1",
     "node-fetch": "^2.6.0",
     "node-serialize": "0.0.4",

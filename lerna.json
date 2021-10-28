@@ -9,7 +9,6 @@
     "koa",
     "kraken",
     "loopback",
-    "loopback@4",
     "loopback4",
     "restify",
     "test-bench-utils"

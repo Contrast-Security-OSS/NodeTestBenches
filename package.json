@@ -6,29 +6,32 @@
   },
   "scripts": {
     "test": "lerna run test",
-    "postinstall": "lerna bootstrap --ci --force-local",
+    "prepare": "husky install && lerna bootstrap --ci --force-local",
     "postpublish": "lerna exec -- npm install --package-lock-only && git commit -a -m 'Bump package-lock' && git push"
   },
   "dependencies": {
-    "lerna": "^3.22.1"
+    "lerna": "^4.0.0"
   },
   "devDependencies": {
-    "@contrast/eslint-config": "^2.0.0",
-    "@loopback/build": "^6.2.7",
-    "@loopback/cli": "^2.17.0",
+    "@contrast/eslint-config": "^2.0.1",
+    "@loopback/build": "^6.4.1",
+    "@loopback/cli": "^2.22.1",
     "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.0",
+    "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-mocha": "^6.3.0",
-    "eslint-plugin-node": "^11.0.0",
-    "eslint-plugin-prettier": "^3.1.2",
-    "husky": "^4.3.0",
-    "lint-staged": "^10.4.0",
-    "npm": "^7.13.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.4.1",
+    "husky": "^7.0.4",
+    "lint-staged": "^11.2.6",
     "prettier": "^1.19.1",
-    "shellcheck": "^0.4.4"
+    "shellcheck": "^1.0.0"
   },
   "prettier": {
     "singleQuote": true,
     "arrowParens": "always"
+  },
+  "lint-staged": {
+    "!(loopback@4)/**/*.js": "eslint --fix",
+    "*.sh": "shellcheck"
   }
 }

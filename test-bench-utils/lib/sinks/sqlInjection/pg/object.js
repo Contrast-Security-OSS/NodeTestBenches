@@ -7,9 +7,7 @@ const initDb = async () => {
     await client.connect();
   }
   client.query('DROP TABLE IF EXISTS students');
-  client.query(
-    'CREATE TABLE IF NOT EXISTS students(firstName text, lastName text)'
-  );
+  client.query('CREATE TABLE IF NOT EXISTS students()');
 
   return client;
 };

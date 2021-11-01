@@ -3,9 +3,9 @@
 const pg = require('pg');
 
 const client = new pg.Client({
-  user: process.env.USER || 'contrast',
+  user: process.env.USER,
   host: 'localhost',
-  database: process.env.USER || 'contrast',
+  database: process.env.USER,
   password: null,
   port: 5432
 });

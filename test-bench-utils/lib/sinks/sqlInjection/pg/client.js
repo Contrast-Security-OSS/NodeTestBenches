@@ -2,19 +2,19 @@
 
 const pg = require('pg');
 const {
-  PSQL_USER = 'postgres',
-  PSQL_HOST = 'localhost',
-  PSQL_DATABASE = 'testdb',
-  PSQL_PASSWORD = 'password',
-  PSQL_PORT = 5432
+  PGUSER = 'postgres',
+  PGHOST = 'localhost',
+  PGDATABASE = 'testdb',
+  PGPASSWORD = 'password',
+  PGPORT = 5432
 } = process.env;
 
 const client = new pg.Client({
-  user: PSQL_USER,
-  host: PSQL_HOST,
-  database: PSQL_DATABASE,
-  password: PSQL_PASSWORD,
-  port: PSQL_PORT
+  user: PGUSER,
+  host: PGHOST,
+  database: PGDATABASE,
+  password: PGPASSWORD,
+  port: PGPORT
 });
 
 module.exports = client;

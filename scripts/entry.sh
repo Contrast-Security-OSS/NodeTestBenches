@@ -1,7 +1,16 @@
 #! /bin/bash -e
 
+PSQL_USER=${PSQL_USER:-"postgres"}
+PSQL_DATABASE=${PSQL_DATABASE:-"testdb"}
+PSQL_PASSWORD=${PSQL_PASSWORD:-"password"}
+
 service postgresql start
 pg_lsclusters
+if [ "${PSQL_USER}" != "postgres" ]; then
+  sudo -u postgres psql createuser "${PSQL_USER}"
+fi
+sudo -u postgres psql -U postgres -d postgres -c "alter user \"${PSQL_USER}\" with password '\"${PSQL_PASSWORD}\"';"
+sudo -u postgres createdb "${PSQL_DATABASE}"
 
 if [[ -f "/opt/contrast/node-agent.tgz" ]];
 then

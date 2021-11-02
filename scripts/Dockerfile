@@ -1,11 +1,12 @@
 ARG node_version=12
 FROM node:${node_version}-stretch
 
-# Create the file repository configuration, import the repository signing key and install PostgreSQL
+# Create the file repository configuration, import the repository signing key and install PostgreSQL & sudo
 RUN echo "deb [arch=amd64] http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 RUN curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 RUN apt update
 RUN apt install -y postgresql-10 postgresql-contrib-10 postgresql-client-10
+RUN apt-get -y install sudo
 
 # Adjust PostgreSQL configuration so that remote connections to the
 # database are possible.
@@ -22,5 +23,4 @@ WORKDIR /app
 COPY . .
 RUN npm ci
 RUN chmod +x entry.sh
-CMD ["/usr/lib/postgresql/10/bin/postgres", "postgres", "-D", "/var/lib/postgresql/9.6/main", "-c", "config_file=/etc/postgresql/9.6/main/postgresql.conf"]
 CMD ./entry.sh

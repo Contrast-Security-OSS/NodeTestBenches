@@ -14,5 +14,5 @@
     "restify",
     "test-bench-utils"
   ],
-  "version": "3.21.3"
+  "version": "3.22.0"
 }

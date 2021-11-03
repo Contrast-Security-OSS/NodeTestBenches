@@ -4,12 +4,14 @@ PGUSER=${PGUSER:-"postgres"}
 PGDATABASE=${PGDATABASE:-"testdb"}
 PGPASSWORD=${PGPASSWORD:-"password"}
 
+
+
 service postgresql start
 pg_lsclusters
 if [ "${PGUSER}" != "postgres" ]; then
   sudo -u postgres psql createuser "${PGUSER}"
 fi
-sudo -u postgres psql -U postgres -d postgres -c "alter user \"${PGUSER}\" with password '\"${PGPASSWORD}\"';"
+sudo -u postgres psql -U postgres -d postgres -c "alter user ${PGUSER} with password '${PGPASSWORD}';"
 sudo -u postgres createdb "${PGDATABASE}"
 
 if [[ -f "/opt/contrast/node-agent.tgz" ]];

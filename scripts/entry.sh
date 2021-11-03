@@ -4,8 +4,6 @@ PGUSER=${PGUSER:-"postgres"}
 PGDATABASE=${PGDATABASE:-"testdb"}
 PGPASSWORD=${PGPASSWORD:-"password"}
 
-
-
 service postgresql start
 pg_lsclusters
 if [ "${PGUSER}" != "postgres" ]; then

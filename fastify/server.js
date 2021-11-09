@@ -1,50 +1,76 @@
-const fastify = require('fastify')({ logger: true });
-fastify.register(require('fastify-formbody'));
-
-const path = require('path');
 const { navRoutes } = require('@contrast/test-bench-utils');
-const { PORT = 3000, HOST = 'localhost' } = process.env;
+const fastify = require('fastify');
+const path = require('path');
+const pem = require('pem');
 
-// setup ejs renderer
-// god damn point-of-view doesnt support layouts like every other
-// view front-end in node.
-fastify.register(require('point-of-view'), {
-  engine: {
-    ejs: require('ejs')
-  },
-  templates: `${__dirname}/view`,
-  includeViewExtension: true // dont want to write .ejs every time
-});
+const { PORT = 3000, HOST = 'localhost', SSL, HTTP2 } = process.env;
+const isHttps = SSL === '1' ? true : false;
+const isHttp2 = HTTP2 === '1' ? true : false;
 
-fastify.register(require('fastify-multipart'), { addToBody: true });
-fastify.register(require('fastify-cookie'));
+const createServer = async () => {
+  const opts = { logger: true };
 
-// shared route information
-const context = { navRoutes, currentYear: new Date().getFullYear() };
+  if (!isHttps && !isHttp2) return fastify(opts);
 
-// setup public assets
-fastify.register(require('fastify-static'), {
-  root: path.join(__dirname, 'public'),
-  prefix: '/assets/'
-});
+  return new Promise((resolve, reject) => {
+    pem.createCertificate({ days: 1, selfSigned: true }, (err, result) => {
+      if (err) return reject(err);
 
-fastify.register(require('./routes/index'), context);
+      opts.http2 = isHttp2;
+      opts.https = {
+        key: result.serviceKey,
+        cert: result.certificate
+      };
 
-// register routes for each vulnerability
-navRoutes.forEach(({ base }) => {
-  fastify.register(require(`./routes/${base.substring(1)}`), context);
-});
+      return resolve(fastify(opts));
+    });
+  });
+};
 
-// one off routes that are not members of navroutes
-fastify.register(require('./routes/header-injection'), context);
-fastify.register(require('./routes/csp-header'), context);
-
-const start = async () => {
+const main = async () => {
   try {
-    await fastify.listen(PORT, HOST);
+    const app = await createServer();
+
+    app.register(require('fastify-formbody'));
+
+    // setup ejs renderer
+    // god damn point-of-view doesnt support layouts like every other
+    // view front-end in node.
+    app.register(require('point-of-view'), {
+      engine: {
+        ejs: require('ejs')
+      },
+      templates: `${__dirname}/view`,
+      includeViewExtension: true // dont want to write .ejs every time
+    });
+
+    app.register(require('fastify-multipart'), { addToBody: true });
+    app.register(require('fastify-cookie'));
+
+    // shared route information
+    const context = { navRoutes, currentYear: new Date().getFullYear() };
+
+    // setup public assets
+    app.register(require('fastify-static'), {
+      root: path.join(__dirname, 'public'),
+      prefix: '/assets/'
+    });
+
+    app.register(require('./routes/index'), context);
+
+    // register routes for each vulnerability
+    navRoutes.forEach(({ base }) => {
+      app.register(require(`./routes/${base.substring(1)}`), context);
+    });
+
+    // one off routes that are not members of navroutes
+    app.register(require('./routes/header-injection'), context);
+    app.register(require('./routes/csp-header'), context);
+
+    await app.listen(PORT, HOST);
   } catch (err) {
     console.log(err);
   }
 };
 
-start();
+main();

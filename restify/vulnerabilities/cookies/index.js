@@ -11,9 +11,8 @@ router.get('/', (req, res) => {
 
 router.get('/safe', (req, res) => {
   const options = {
-    path: req.getPath(),
-    maxAge: 60,
-    secure: true,
+    httpOnly: true,
+    secure: true
   };
   res.setCookie('acceptable', Date.now(), options);
   res.send({ key: 'acceptable', options });
@@ -21,10 +20,8 @@ router.get('/safe', (req, res) => {
 
 router.get('/httponly', (req, res) => {
   const options = {
-    path: req.getPath(),
-    maxAge: 60,
     httpOnly: false,
-    secure: true,
+    secure: true
   };
   res.setCookie('httponly', Date.now(), options);
   res.send({ key: 'httponly', options });
@@ -32,9 +29,7 @@ router.get('/httponly', (req, res) => {
 
 router.get('/secureFlagMissing', (req, res) => {
   const options = {
-    path: req.getPath(),
-    maxAge: 60,
-    secure: false,
+    secure: false
   };
   res.setCookie('secure-flag-missing', Date.now(), options);
   res.send({ key: 'secure-flag-missing', options });

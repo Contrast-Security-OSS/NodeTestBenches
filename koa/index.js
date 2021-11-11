@@ -41,6 +41,7 @@ app.use(bodyParser());
 app.use(cookieParser.default());
 
 require('./routes/index')({ router });
+require('./routes/cookies')({ router });
 
 // dynamically register routes from shared config
 navRoutes.forEach(({ base }) => {
@@ -55,19 +56,21 @@ function listener() {
   const protocol = isHttp2 ? 'https' : 'http';
   // eslint-disable-next-line no-console
   console.log('Server listening on %s://%s:%d', protocol, address, port);
-};
+}
 
 function createServer() {
   if (!isHttp2) {
     app.listen(PORT, HOST, listener);
   } else {
-    pem.createCertificate({ days : 1, selfSigned : true }, (err, keys) => {
+    pem.createCertificate({ days: 1, selfSigned: true }, (err, keys) => {
       if (err) {
         throw err;
       }
-      const options = { key: keys.serviceKey, cert: keys.certificate }
-      http2.createSecureServer(options, app.callback()).listen(PORT, HOST, listener);
-    })
+      const options = { key: keys.serviceKey, cert: keys.certificate };
+      http2
+        .createSecureServer(options, app.callback())
+        .listen(PORT, HOST, listener);
+    });
   }
 }
 

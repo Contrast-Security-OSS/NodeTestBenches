@@ -66,6 +66,7 @@ const main = async () => {
     // one off routes that are not members of navroutes
     app.register(require('./routes/header-injection'), context);
     app.register(require('./routes/csp-header'), context);
+    app.register(require('./routes/cookies'), context);
 
     await app.listen(PORT, HOST);
   } catch (err) {

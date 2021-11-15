@@ -22,7 +22,7 @@ module.exports.setup = function(app) {
   });
   app.use('/header-injection', require('./vulnerabilities/header-injection'));
   app.use('/typecheck', require('./vulnerabilities/typecheck'));
-  app.use('/express-session', require('./vulnerabilities/express-session'));
+  app.use('/cookies', require('./vulnerabilities/cookies'));
 
   // adding current year for footer to be up to date
   app.locals.navRoutes = navRoutes;

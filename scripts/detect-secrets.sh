@@ -33,3 +33,7 @@ then
 fi
 
 echo "[INFO] If you encounter any issues with detect-secrets, please refer to https://github.com/Contrast-Labs/detect-secrets"
+
+pre-commit run
+
+exit 0

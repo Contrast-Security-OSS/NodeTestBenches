@@ -1,5 +1,5 @@
 ARG node_version=12
-FROM node:$node_version
+FROM node:${node_version}-stretch
 
 # Create the file repository configuration, import the repository signing key and install PostgreSQL & sudo
 RUN echo "deb [arch=amd64] http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" > /etc/apt/sources.list.d/pgdg.list

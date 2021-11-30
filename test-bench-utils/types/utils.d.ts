@@ -4,8 +4,8 @@ export function groupSinkData(sinkData: SinkData[]): {
     params: SinkData[];
     body: SinkData[];
     headers: SinkData[];
-    cookies: SinkData[];
     input: SinkData[];
+    cookies: SinkData[];
 };
 export function getContent(rule: string): {
     [key: string]: string;

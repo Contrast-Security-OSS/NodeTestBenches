@@ -21,4 +21,4 @@ export function mustache({ input }: {
 }, { safe, noop }?: {
     safe?: boolean;
     noop?: boolean;
-}): Promise<string>;
+}): Promise<any>;

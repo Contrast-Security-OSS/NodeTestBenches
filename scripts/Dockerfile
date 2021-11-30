@@ -19,7 +19,7 @@ EXPOSE 5432
 # Add VOLUMEs to allow backup of config, logs and databases
 VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 
-# TESTING RETHINK DB
+# Install RethinkDB
 RUN echo "deb https://download.rethinkdb.com/repository/debian-stretch stretch main" > /etc/apt/sources.list.d/rethinkdb.list
 RUN wget -qO- https://download.rethinkdb.com/repository/raw/pubkey.gpg | sudo apt-key add -v - && apt-get update && apt-get install -y rethinkdb
 RUN rm -rf /var/lib/apt/lists/*

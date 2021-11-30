@@ -1,6 +1,6 @@
 'use strict';
 
-const { r, dbInit, connectionParams } = require('./dbInitiation');
+const { r, dbInit, connectionParams } = require('./dbInit');
 
 /**
  * @param {Object} params

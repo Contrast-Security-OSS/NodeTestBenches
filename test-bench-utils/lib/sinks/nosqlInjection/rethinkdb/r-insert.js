@@ -1,6 +1,6 @@
 'use strict';
 
-const { r, dbInit, connectionParams } = require('./dbInitiation');
+const { r, dbInit, connectionParams } = require('./dbInit');
 
 /**
  * @param {Object} params
@@ -21,7 +21,7 @@ module.exports = function reDbQuery(
             resolve('NOOP');
           }
           if (safe) {
-            resolve('For now no safe option possible');
+            resolve('TBD a safe way to use it');
           } else {
             r.table('users')
               .insert(JSON.parse(input))

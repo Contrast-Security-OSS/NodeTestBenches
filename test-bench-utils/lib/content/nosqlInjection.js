@@ -14,4 +14,4 @@ module.exports['r.filter'] = JSON.stringify({
   secret: 'somethingsecret'
 });
 module.exports['r.match'] = 'Iv|^';
-module.exports['r.js'] = '""; while(true) {}';
+module.exports['r.js'] = '30';

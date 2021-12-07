@@ -12,6 +12,8 @@ fi
 sudo -u postgres psql -U postgres -d postgres -c "alter user ${PGUSER} with password '${PGPASSWORD}';"
 sudo -u postgres createdb "${PGDATABASE}"
 
+rethinkdb --daemon
+
 if [[ -f "/opt/contrast/node-agent.tgz" ]];
 then
   npm config set offline

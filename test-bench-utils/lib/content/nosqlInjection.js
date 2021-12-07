@@ -1,1 +1,17 @@
 module.exports['mongodb.Db.prototype.eval'] = 'function() { return "hi"; }';
+module.exports['r.insert'] = JSON.stringify({
+  addresses: ['Blagoevgrad', 'Plovdiv'],
+  age: 22,
+  name: 'Daniel',
+  phone: '3453453453',
+  secret: 'somethingsecret-daniel'
+});
+module.exports['r.update'] = JSON.stringify({
+  toBeUpdated: { name: 'Ivaylo' },
+  updatedValues: { phone: '000000000' }
+});
+module.exports['r.filter'] = JSON.stringify({
+  secret: 'somethingsecret'
+});
+module.exports['r.match'] = 'Iv|^';
+module.exports['r.js'] = '30';

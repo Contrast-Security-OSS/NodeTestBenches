@@ -27,6 +27,16 @@ VOLUME  ["/etc/rethinkdb", "/var/log/rethinkdb", "/var/lib/rethinkdb"]
 
 EXPOSE 28015
 
+# Install MySQL Database
+ENV DEBIAN_FRONTEND="noninteractive"
+RUN wget http://repo.mysql.com/mysql-apt-config_0.8.13-1_all.deb
+RUN apt update
+RUN apt install lsb-base lsb-release ./mysql-apt-config_0.8.13-1_all.deb
+RUN apt install mysql-server mysql-client -y
+VOLUME ["/etc/mysql", "/var/lib/mysql"]
+
+EXPOSE 3306
+
 WORKDIR /app
 COPY . .
 RUN npm ci --unsafe-perm

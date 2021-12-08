@@ -37,6 +37,10 @@ VOLUME ["/etc/mysql", "/var/lib/mysql"]
 
 EXPOSE 3306
 
+# Install SQLite DB
+RUN apt install sqlite3
+RUN sqlite3 --version
+
 WORKDIR /app
 COPY . .
 RUN npm ci --unsafe-perm

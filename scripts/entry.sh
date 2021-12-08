@@ -18,10 +18,11 @@ rethinkdb --daemon
 
 # Run MySQL (MariaDB)
 /etc/init.d/mysql start
-MYSQLPASS=${MYSQLPASS:-"password"}
-mysql -e "UPDATE mysql.user SET Password = PASSWORD('${MYSQLPASS}') WHERE User = 'root'"
+MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-"password"}
+mysql -e "UPDATE mysql.user SET Password = PASSWORD('${MYSQL_ROOT_PASSWORD}') WHERE User = 'root'"
+mysql -e "CREATE mysql.user SET Password = PASSWORD('${MYSQL_ROOT_PASSWORD}') WHERE User = 'test'"
 mysql -e "FLUSH PRIVILEGES"
-echo -e "\ny\ny\n${MYSQLPASS}\${MYSQLPASS}\ny\ny\ny\ny" | mysql_secure_installation
+echo -e "\ny\ny\n${MYSQL_ROOT_PASSWORD}\${MYSQL_ROOT_PASSWORD}\ny\ny\ny\ny" | mysql_secure_installation
 
 if [[ -f "/opt/contrast/node-agent.tgz" ]];
 then

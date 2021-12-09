@@ -3,7 +3,7 @@
 const sqlite3 = require('sqlite3');
 const { SQL } = require('sql-template-strings');
 
-const db = new sqlite3.Database(':memory:');
+const db = new sqlite3.Database('db.sqlite3');
 
 ['all', 'run', 'get', 'each', 'exec', 'prepare'].forEach((func) => {
   /**

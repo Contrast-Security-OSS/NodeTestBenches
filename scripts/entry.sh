@@ -1,5 +1,6 @@
 #! /bin/bash -e
 
+# Run PostgreSQL
 PGUSER=${PGUSER:-"postgres"}
 PGDATABASE=${PGDATABASE:-"testdb"}
 PGPASSWORD=${PGPASSWORD:-"password"}
@@ -12,7 +13,16 @@ fi
 sudo -u postgres psql -U postgres -d postgres -c "alter user ${PGUSER} with password '${PGPASSWORD}';"
 sudo -u postgres createdb "${PGDATABASE}"
 
+# Run RethinkDB
 rethinkdb --daemon
+
+# Run MySQL (MariaDB)
+/etc/init.d/mysql start
+MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-"password"}
+mysql -e "UPDATE mysql.user SET Password = PASSWORD('${MYSQL_ROOT_PASSWORD}') WHERE User = 'root'"
+mysql -e "CREATE mysql.user SET Password = PASSWORD('${MYSQL_ROOT_PASSWORD}') WHERE User = 'test'"
+mysql -e "FLUSH PRIVILEGES"
+echo -e "\ny\ny\n${MYSQL_ROOT_PASSWORD}\${MYSQL_ROOT_PASSWORD}\ny\ny\ny\ny" | mysql_secure_installation
 
 if [[ -f "/opt/contrast/node-agent.tgz" ]];
 then

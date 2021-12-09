@@ -20,7 +20,6 @@ rethinkdb --daemon
 /etc/init.d/mysql start
 MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-"password"}
 mysql -e "UPDATE mysql.user SET Password = PASSWORD('${MYSQL_ROOT_PASSWORD}') WHERE User = 'root'"
-mysql -e "CREATE mysql.user SET Password = PASSWORD('${MYSQL_ROOT_PASSWORD}') WHERE User = 'test'"
 mysql -e "FLUSH PRIVILEGES"
 echo -e "\ny\ny\n${MYSQL_ROOT_PASSWORD}\${MYSQL_ROOT_PASSWORD}\ny\ny\ny\ny" | mysql_secure_installation
 

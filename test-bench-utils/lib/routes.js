@@ -56,6 +56,15 @@ module.exports = {
     params: ['input'],
     sinks: sinks.nosqlInjection
   },
+  nosqlExpansion: {
+    base: '/nosqlExpansion',
+    name: 'NoSQL Expansion',
+    link: 'https://www.owasp.org/index.php/Testing_for_NoSQL_injection',
+    products: ['Protect'],
+    inputs: ['query'], // default,
+    params: ['hello'],
+    sinks: sinks.nosqlExpansion
+  },
   pathTraversal: {
     base: '/pathTraversal',
     name: 'Path Traversal',

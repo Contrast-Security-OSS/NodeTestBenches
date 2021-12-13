@@ -20,6 +20,7 @@ module.exports = {
   cmdInjectionSemanticDangerousPaths: require('./cmdInjectionSemanticDangerousPaths'),
   crypto: require('./crypto'),
   nosqlInjection: require('./nosqlInjection'),
+  nosqlExpansion: require('./nosqlExpansion'),
   pathTraversal: require('./pathTraversal'),
   sqlInjection: require('./sqlInjection'),
   ssjs: require('./ssjs'),

@@ -50,14 +50,36 @@ module.exports[
   'mongodb.Db.prototype.find (Expansion Query)'
 ] = async function _eval(input, { safe = false, noop = false } = {}) {
   if (noop) return 'NOOP';
-  // const query = safe ? `${input}` : input;
   const db = await initDb();
 
   const result = await db
     .collection(MONGO_COLLECTION)
     .find(input)
     .toArray();
-  // let result = await db.collection(MONGO_COLLECTION).find({hello: input}).toArray();
 
   return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
+};
+
+module.exports[
+  'mongodb.Db.prototype.delete (Expansion Query)'
+] = async function _eval(input, { safe = false, noop = false } = {}) {
+  if (noop) return 'NOOP';
+  const db = await initDb();
+
+  const result = await db
+    .collection(MONGO_COLLECTION)
+    .deleteMany(input);
+  return `<pre>${result.result.n} documents deleted</pre>`;
+};
+
+module.exports[
+  'mongodb.Db.prototype.update (Expansion Query)'
+] = async function _eval(input, { safe = false, noop = false } = {}) {
+  if (noop) return 'NOOP';
+  const db = await initDb();
+
+  const result = await db
+    .collection(MONGO_COLLECTION)
+    .updateMany(input, { $set: { hello: '' }})
+  return `<pre>${result.result.n} documents updated</pre>`;
 };

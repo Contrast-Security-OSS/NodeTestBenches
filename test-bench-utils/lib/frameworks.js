@@ -46,5 +46,6 @@ module.exports = {
     params: { method: 'get', key: 'params', param: '{input}' },
     body: { method: 'post', key: 'payload' },
     cookies: { method: 'post', key: 'state' }
-  }
+  },
+  sails: sharedMapping,
 };

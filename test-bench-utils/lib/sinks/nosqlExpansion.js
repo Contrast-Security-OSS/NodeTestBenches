@@ -48,7 +48,7 @@ const initDb = async () => {
  */
 module.exports[
   'mongodb.Db.prototype.find (Expansion Query)'
-] = async function _eval(input, { safe = false, noop = false } = {}) {
+] = async function _eval({ input }, { safe = false, noop = false } = {}) {
   if (noop) return 'NOOP';
   const db = await initDb();
 
@@ -62,7 +62,7 @@ module.exports[
 
 module.exports[
   'mongodb.Db.prototype.delete (Expansion Query)'
-] = async function _eval(input, { safe = false, noop = false } = {}) {
+] = async function _eval({ input }, { safe = false, noop = false } = {}) {
   if (noop) return 'NOOP';
   const db = await initDb();
 
@@ -74,7 +74,7 @@ module.exports[
 
 module.exports[
   'mongodb.Db.prototype.update (Expansion Query)'
-] = async function _eval(input, { safe = false, noop = false } = {}) {
+] = async function _eval({ input }, { safe = false, noop = false } = {}) {
   if (noop) return 'NOOP';
   const db = await initDb();
 

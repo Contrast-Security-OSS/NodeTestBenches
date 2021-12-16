@@ -62,7 +62,7 @@ module.exports = {
     link: 'https://www.owasp.org/index.php/Testing_for_NoSQL_injection',
     products: ['Protect'],
     inputs: ['query'], // default,
-    params: ['hello'],
+    params: ['input'],
     sinks: sinks.nosqlExpansion
   },
   pathTraversal: {

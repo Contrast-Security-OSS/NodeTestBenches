@@ -9,7 +9,7 @@ export var _mysql_lib_Connection_query: ({ input }: {
 }, { safe, noop }?: {
     safe?: boolean;
     noop?: boolean;
-}) => Promise<any>;
+}) => Promise<string>;
 export var _pg_Connection_prototype_query__String_: ({ input }: {
     input: string;
 }, { safe, noop }?: {

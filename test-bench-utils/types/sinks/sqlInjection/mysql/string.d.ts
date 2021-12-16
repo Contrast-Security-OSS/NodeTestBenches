@@ -3,5 +3,5 @@ declare function _exports({ input }: {
 }, { safe, noop }?: {
     safe?: boolean;
     noop?: boolean;
-}): Promise<any>;
+}): Promise<string>;
 export = _exports;

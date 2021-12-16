@@ -1,0 +1,36 @@
+{
+  "name": "@contrast/sails-test-bench",
+  "private": true,
+  "version": "3.24.0",
+  "description": "Intentionally vulnerable sails application",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint --fix .",
+    "start": "node index.js",
+    "contrast": "node -r $CONTRAST_PATH index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=10.13.0"
+  },
+  "dependencies": {
+    "@contrast/agent": "^4.7.0",
+    "@contrast/test-bench-utils": "^3.24.0",
+    "grunt": "1.0.4",
+    "pem": "^1.14.2",
+    "sails": "^1.5.0",
+    "sails-hook-grunt": "^5.0.0",
+    "skipper": "^0.9.1",
+    "spdy": "^4.0.2"
+  },
+  "devDependencies": {
+    "@contrast/eslint-config": "^2.0.1",
+    "eslint": "^7.6.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-mocha": "^7.0.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.0.5"
+  }
+}

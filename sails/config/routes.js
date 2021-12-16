@@ -1,4 +1,6 @@
 const { navRoutes } = require('@contrast/test-bench-utils');
+const serveStatic = require('serve-static');
+
 const locals = {
   navRoutes,
   currentYear: new Date().getFullYear()
@@ -14,6 +16,10 @@ const flattened = routes.reduce(function(flattened, current) {
 }, {});
 
 module.exports.routes = {
+  'GET /assets/*' : {
+    skipAssets: false,
+    fn: serveStatic(require('path').resolve('__dirname', '../', 'public'))
+  },
   'GET /': { view: 'index', locals },
   'GET /typecheck': 'typecheck',
   'GET /header-injection': { view: 'header-injection', locals },

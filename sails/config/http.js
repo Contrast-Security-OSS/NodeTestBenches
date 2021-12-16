@@ -1,4 +1,5 @@
 const { navRoutes } = require('@contrast/test-bench-utils');
+const serveStatic = require('serve-static');
 
 module.exports.http = {
   middleware: {
@@ -21,8 +22,6 @@ module.exports.http = {
     requestLogger: (function (req, res, next) {
       console.log("Requested :: ", req.method, req.url);
       return next();
-    }),
-    // TODO: Figure out if there is a way to re-wire the www middleware to
-    // serve "assets" or "public" without the use of Grunt
+    })
   }
 }

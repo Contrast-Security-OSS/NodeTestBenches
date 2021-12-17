@@ -12,6 +12,7 @@
     "loopback@4",
     "loopback4",
     "restify",
+    "sails",
     "test-bench-utils"
   ],
   "version": "3.26.0"

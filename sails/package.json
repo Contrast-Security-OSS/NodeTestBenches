@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@contrast/agent": "^4.7.0",
-    "@contrast/test-bench-utils": "^3.25.1",
+    "@contrast/test-bench-utils": "^3.26.0",
     "grunt": "1.0.4",
     "pem": "^1.14.2",
     "sails": "^1.5.0",

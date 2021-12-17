@@ -1,0 +1,26 @@
+<h1 class="page-header"><%= name %></h1>
+<% include ../partials/ruleInfo.ejs %>
+<h4>Unsafe:</h4>
+<% sinkData.forEach(function(sink) { %>
+<div class="row">
+
+  <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+    <h4 class="sub-header">
+      <code><%= sink.name %></code>
+    </h4>
+
+    <% ['unsafe', 'safe', 'noop'].forEach(function(safety) { %>
+    <p>
+      <a
+        target="_blank"
+        href="<%= sink.url %>/<%= safety %>?input[hello][$ne]=0"
+      >
+        <%= sink.url %>/<%= safety %>?input[hello][$ne]=0
+      </a>
+    </p>
+    <% }); %>
+  </div>
+</div>
+
+<% }); %>
+<% include ../partials/safeButtons %>

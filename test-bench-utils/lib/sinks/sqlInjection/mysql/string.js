@@ -1,24 +1,28 @@
 'use strict';
 
-const config = require('./config');
-const mysql = require('mysql2/promise');
+const con = require('./config');
 const { SQL } = require('sql-template-strings');
-let conn;
 
-const initDb = async () => {
-  try {
-    if (!conn || !conn.state === 'disconnected') {
-      conn = await mysql.createConnection(config);
-    }
-
-    await conn.query('DROP TABLE IF EXISTS students');
-    await conn.query('CREATE TABLE IF NOT EXISTS students (id INT)');
-
-  } catch (err) {
-    console.log('MySQL DB Initial Connection Error', err);
-    conn = { query() { return null }};
+const initDb = new Promise((resolve, reject) => {
+  if (con.state === 'disconnected') {
+    con.connect(function(err) {
+      if (err) {
+        console.log('MySQL DB Initial Connection Error', err);
+        reject();
+      }
+      resolve();
+    });
   }
-};
+});
+
+const resetDb = new Promise((resolve, reject) => {
+  con.query('DROP TABLE IF EXISTS Students', function(err, result) {
+    if (err) console.log('MySQL DB Error', err);
+    con.query('CREATE TABLE IF NOT EXISTS Students (id INT)', (err, result) => {
+      resolve(result);
+    });
+  });
+});
 
 /**
  * @param {Object} params
@@ -31,20 +35,26 @@ module.exports = async function mysqlQuery(
   { input },
   { safe = false, noop = false } = {}
 ) {
-  try {
-    await initDb();
-
-    if (noop) {
-      return 'NOOP';
-    }
-
-    const sql = safe
-      ? SQL`SELECT ${input} as "test"`
-      : `SELECT "${input}" as "test";`;
-
-    const result = await conn.query(sql);
-    return escape(JSON.stringify(result));
-  } catch (err) {
-    console.log('Error executing MySQL DB Query', err);
+  if (noop) {
+    return 'NOOP';
   }
+
+  const sql = safe ? SQL`SELECT ${input} as "test"` : `${input}`;
+
+  try {
+    await initDb;
+    await resetDb;
+  } catch (err) {
+    console.log('MySQL DB Init Error', err);
+  }
+
+  return new Promise((resolve, reject) => {
+    con.query(sql, (err, result) => {
+      if (err) {
+        console.log('Error executing MySQL DB Query', err);
+        reject();
+      }
+      return resolve(escape(JSON.stringify(result)));
+    });
+  });
 };

@@ -41,8 +41,12 @@ module.exports = async function mysqlQuery(
 
   const sql = safe ? SQL`SELECT ${input} as "test"` : `${input}`;
 
-  await initDb;
-  await resetDb;
+  try {
+    await initDb;
+    await resetDb;
+  } catch (err) {
+    console.log('MySQL DB Init Error', err);
+  }
 
   return new Promise((resolve, reject) => {
     con.query(sql, (err, result) => {

@@ -5,7 +5,8 @@ const {
   RDBHOST = 'localhost',
   RDBDATABASE = 'test',
   RDBPASSWORD = 'contrast',
-  RDBPORT = 28015
+  RDBPORT = 28015,
+  RDBTIMEOUT = 60
 } = process.env;
 
 const seedData = [
@@ -60,59 +61,66 @@ const seedData = [
 ];
 
 const dbInit = new Promise((resolve, reject) => {
-  r.connect({ host: RDBHOST, port: RDBPORT, db: RDBDATABASE }).then((conn) => {
-    r.tableList()
-      .run(conn)
-      .then((res) => {
-        if (!res.includes('users')) {
-          r.tableCreate('users')
-            .run(conn)
-            .then(() => {
-              r.table('users')
-                .insert(seedData)
-                .run(conn);
-            })
-            .then(() => {
-              r.db('rethinkdb')
-                .table('users')
-                .run(conn)
-                .then((res) => {
-                  const users = [];
-                  res.each(
-                    function(err, user) {
-                      users.push(user.id);
-                    },
-                    function() {
-                      if (!users.includes(RDBUSER)) {
-                        r.db('rethinkdb')
-                          .table('users')
-                          .insert({ id: RDBUSER, password: RDBPASSWORD })
-                          .run(conn)
-                          .catch((err) => {
-                            reject(err);
-                          });
-                        r.db('test')
-                          .table('users')
-                          .grant(`${RDBUSER}`, { read: true, write: true })
-                          .run(conn)
-                          .then(() => {
-                            resolve();
-                          })
-                          .catch((err) => {
-                            reject(err);
-                          });
+  r.connect({
+    host: RDBHOST,
+    port: RDBPORT,
+    db: RDBDATABASE,
+    timeout: RDBTIMEOUT
+  })
+    .then((conn) => {
+      r.tableList()
+        .run(conn)
+        .then((res) => {
+          if (!res.includes('users')) {
+            r.tableCreate('users')
+              .run(conn)
+              .then(() => {
+                r.table('users')
+                  .insert(seedData)
+                  .run(conn);
+              })
+              .then(() => {
+                r.db('rethinkdb')
+                  .table('users')
+                  .run(conn)
+                  .then((res) => {
+                    const users = [];
+                    res.each(
+                      function(err, user) {
+                        users.push(user.id);
+                      },
+                      function() {
+                        if (!users.includes(RDBUSER)) {
+                          r.db('rethinkdb')
+                            .table('users')
+                            .insert({ id: RDBUSER, password: RDBPASSWORD })
+                            .run(conn)
+                            .catch((err) => {
+                              reject(err);
+                            });
+                          r.db('test')
+                            .table('users')
+                            .grant(`${RDBUSER}`, { read: true, write: true })
+                            .run(conn)
+                            .then(() => {
+                              resolve();
+                            })
+                            .catch((err) => {
+                              reject(err);
+                            });
+                        }
                       }
-                    }
-                  );
-                });
-            });
-        } else {
-          resolve();
-        }
-      });
-  }).catch((err) => {
-    console.log('ERROR CONNECTING TO RETHINKDB', err.msg);
-  });
+                    );
+                  });
+              });
+          } else {
+            resolve();
+          }
+        });
+    })
+    .catch((err) => {
+      console.log('ERROR CONNECTING TO RETHINKDB', err.msg);
+    });
 });
 
 const connectionParams = {
@@ -120,7 +128,8 @@ const connectionParams = {
   port: RDBPORT,
   user: RDBUSER,
   password: RDBPASSWORD,
-  db: RDBDATABASE
+  db: RDBDATABASE,
+  timeout: RDBTIMEOUT
 };
 
 const dotJsFnString = function(data) {

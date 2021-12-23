@@ -17,52 +17,54 @@ module.exports = async function reDbQuery(
   const result = new Promise((resolve, reject) => {
     dbInit
       .then(() => {
-        r.connect(connectionParams).then((conn) => {
-          if (noop) {
-            resolve('NOOP');
-          }
-          if (safe) {
-            // We should change this when we start propagating joi custom validation
-            const safeInput = Joi.string().valid('Ivaylo');
-            const name = safeInput.validate(input);
-            if (name.error) {
-              resolve(name.error);
+        r.connect(connectionParams)
+          .then((conn) => {
+            if (noop) {
+              resolve('NOOP');
             }
-            r.table('users')
-              .filter({ name: name.value })
-              .run(conn)
-              .then((response) => {
-                response.toArray().then((formattedResponse) => {
-                  const endResult = formattedResponse.map(
-                    ({ name, age, addresses }) => ({
-                      name,
-                      age,
-                      addresses
-                    })
-                  );
-                  resolve(endResult);
-                });
-              })
-              .catch((err) => reject(err));
-          } else {
-            r.table('users')
-              .filter(JSON.parse(input))
-              .run(conn)
-              .then((response) => {
-                response.toArray().then((formattedResponse) => {
-                  const endResult = formattedResponse.map(
-                    ({ name, age, addresses }) => ({
-                      name,
-                      age,
-                      addresses
-                    })
-                  );
-                  resolve(endResult);
-                });
-              })
-              .catch((err) => reject(err));
-          }
-        }).catch((err) => reject(err));
+            if (safe) {
+              // We should change this when we start propagating joi custom validation
+              const safeInput = Joi.string().valid('Ivaylo');
+              const name = safeInput.validate(input);
+              if (name.error) {
+                resolve(name.error);
+              }
+              r.table('users')
+                .filter({ name: name.value })
+                .run(conn)
+                .then((response) => {
+                  response.toArray().then((formattedResponse) => {
+                    const endResult = formattedResponse.map(
+                      ({ name, age, addresses }) => ({
+                        name,
+                        age,
+                        addresses
+                      })
+                    );
+                    resolve(endResult);
+                  });
+                })
+                .catch((err) => reject(err));
+            } else {
+              r.table('users')
+                .filter(JSON.parse(input))
+                .run(conn)
+                .then((response) => {
+                  response.toArray().then((formattedResponse) => {
+                    const endResult = formattedResponse.map(
+                      ({ name, age, addresses }) => ({
+                        name,
+                        age,
+                        addresses
+                      })
+                    );
+                    resolve(endResult);
+                  });
+                })
+                .catch((err) => reject(err));
+            }
+          })
+          .catch((err) => reject(err));
       })
       .catch((err) => {
         reject(err);

@@ -12,31 +12,35 @@ const {
 const client = new MongoClient(MONGO_URL);
 
 const initDb = async () => {
-  await client.connect();
-  const db = client.db(MONGO_DB);
+  try {
+    await client.connect();
+    const db = client.db(MONGO_DB);
 
-  const collections = await db.collections();
-  await Promise.all(
-    collections.map((collection) =>
-      db.dropCollection(collection.collectionName).catch((err) => {
-        // this handles a race condition that can occur where we try to drop a
-        // collection after it has already been dropped
-        if (!err.codeName || err.codeName !== 'NamespaceNotFound') throw err;
-      })
-    )
-  );
+    const collections = await db.collections();
+    await Promise.all(
+      collections.map((collection) =>
+        db.dropCollection(collection.collectionName).catch((err) => {
+          // this handles a race condition that can occur where we try to drop a
+          // collection after it has already been dropped
+          if (!err.codeName || err.codeName !== 'NamespaceNotFound') throw err;
+        })
+      )
+    );
 
-  await db.collection(MONGO_COLLECTION).insertOne({
-    hello: 'world'
-  });
-  await db.collection(MONGO_COLLECTION).insertOne({
-    hello: 'world2'
-  });
-  await db.collection(MONGO_COLLECTION).insertOne({
-    hello: 'world3'
-  });
+    await db.collection(MONGO_COLLECTION).insertOne({
+      hello: 'world'
+    });
+    await db.collection(MONGO_COLLECTION).insertOne({
+      hello: 'world2'
+    });
+    await db.collection(MONGO_COLLECTION).insertOne({
+      hello: 'world3'
+    });
 
-  return db;
+    return db;
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 /**
@@ -50,36 +54,45 @@ module.exports[
   'mongodb.Db.prototype.find (Expansion Query)'
 ] = async function _eval({ input }, { safe = false, noop = false } = {}) {
   if (noop) return 'NOOP';
-  const db = await initDb();
+  try {
+    const db = await initDb();
 
-  const result = await db
-    .collection(MONGO_COLLECTION)
-    .find(input)
-    .toArray();
-
-  return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
+    const result = await db
+      .collection(MONGO_COLLECTION)
+      .find(input)
+      .toArray();
+    return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
+  } catch (error) {
+    return error;
+  }
 };
 
 module.exports[
   'mongodb.Db.prototype.delete (Expansion Query)'
 ] = async function _eval({ input }, { safe = false, noop = false } = {}) {
   if (noop) return 'NOOP';
-  const db = await initDb();
+  try {
+    const db = await initDb();
 
-  const result = await db
-    .collection(MONGO_COLLECTION)
-    .deleteMany(input);
-  return `<pre>${result.result.n} documents deleted</pre>`;
+    const result = await db.collection(MONGO_COLLECTION).deleteMany(input);
+    return `<pre>${result.result.n}</pre>`;
+  } catch (error) {
+    return error;
+  }
 };
 
 module.exports[
   'mongodb.Db.prototype.update (Expansion Query)'
 ] = async function _eval({ input }, { safe = false, noop = false } = {}) {
   if (noop) return 'NOOP';
-  const db = await initDb();
+  try {
+    const db = await initDb();
 
-  const result = await db
-    .collection(MONGO_COLLECTION)
-    .updateMany(input, { $set: { hello: '' }})
-  return `<pre>${result.result.n} documents updated</pre>`;
+    const result = await db
+      .collection(MONGO_COLLECTION)
+      .updateMany(input, { $set: { hello: '' } });
+    return `<pre>${result.result.n} documents updated</pre>`;
+  } catch (error) {
+    return error;
+  }
 };

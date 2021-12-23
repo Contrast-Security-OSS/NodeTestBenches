@@ -1,6 +1,7 @@
 'use strict';
 
 const { r, dbInit, connectionParams } = require('./dbInit');
+const Joi = require('joi');
 
 /**
  * @param {Object} params
@@ -21,9 +22,14 @@ module.exports = async function reDbQuery(
             resolve('NOOP');
           }
           if (safe) {
-            // MAYBE? The route is still unsafe because untrusted user data got into .filter method
+            // We should change this when we start propagating joi custom validation
+            const safeInput = Joi.string().valid('Ivaylo');
+            const name = safeInput.validate(input);
+            if (name.error) {
+              resolve(name.error);
+            }
             r.table('users')
-              .filter({ name: input })
+              .filter({ name: name.value })
               .run(conn)
               .then((response) => {
                 response.toArray().then((formattedResponse) => {

@@ -10,14 +10,25 @@
     </h4>
 
     <% ['unsafe', 'safe', 'noop'].forEach(function(safety) { %>
-    <p>
-      <a
-        target="_blank"
-        href="<%= sink.url %>/<%= safety %>?input[hello][$ne]=0"
-      >
-        <%= sink.url %>/<%= safety %>?input[hello][$ne]=0
-      </a>
-    </p>
+      <% if(safety == "safe" || safety == "noop"){ %>
+        <p>
+          <a
+            target="_blank"
+            href="<%= sink.url %>/<%= safety %>?input[hello]=world"
+          >
+            <%= sink.url %>/<%= safety %>?input[hello]=world
+          </a>
+        </p>
+      <% } else{ %>
+        <p>
+          <a
+            target="_blank"
+            href="<%= sink.url %>/<%= safety %>?input[hello][$ne]=0"
+          >
+            <%= sink.url %>/<%= safety %>?input[hello][$ne]=0
+          </a>
+        </p>
+     <% } %>
     <% }); %>
   </div>
 </div>

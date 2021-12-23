@@ -39,7 +39,7 @@ const initDb = async () => {
 
     return db;
   } catch (error) {
-    throw new Error(error);
+    throw new Error(error.message);
   }
 };
 

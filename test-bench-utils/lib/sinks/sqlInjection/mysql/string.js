@@ -16,6 +16,7 @@ const initDb = new Promise((resolve, reject) => {
 });
 
 const resetDb = new Promise((resolve, reject) => {
+  // These queries have to reject because it could fail because the db is already dropped or existent and we don't really care
   con.query('DROP TABLE IF EXISTS Students', function(err, result) {
     if (err) console.log('MySQL DB Error', err);
     con.query('CREATE TABLE IF NOT EXISTS Students (id INT)', (err, result) => {

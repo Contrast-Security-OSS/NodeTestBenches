@@ -1,6 +1,7 @@
 'use strict';
 
 const { r, dbInit, connectionParams, dotJsFnString } = require('./dbInit');
+const Joi = require('joi');
 
 /**
  * @param {Object} params
@@ -21,10 +22,17 @@ module.exports = function reDbQuery(
             resolve('NOOP');
           }
           if (safe) {
-            // MAYBE? The route is still unsafe because untrusted user data got into .filter method
+            const safeInput = Joi.number()
+              .integer()
+              .min(0)
+              .max(100);
+            const minAge = safeInput.validate(input);
+            if (minAge.error) {
+              resolve(minAge.error);
+            }
             r.table('users')
               .filter(function(user) {
-                return user('age').gt(Number(input));
+                return user('age').gt(minAge.value);
               })
               .run(conn)
               .then((response) => {

@@ -66,9 +66,7 @@ module.exports[
   if (noop) return 'NOOP';
   const db = await initDb();
 
-  const result = await db
-    .collection(MONGO_COLLECTION)
-    .deleteMany(input);
+  const result = await db.collection(MONGO_COLLECTION).deleteMany(input);
   return `<pre>${result.result.n} documents deleted</pre>`;
 };
 
@@ -80,6 +78,6 @@ module.exports[
 
   const result = await db
     .collection(MONGO_COLLECTION)
-    .updateMany(input, { $set: { hello: '' }})
+    .updateMany(input, { $set: { hello: '' } });
   return `<pre>${result.result.n} documents updated</pre>`;
 };

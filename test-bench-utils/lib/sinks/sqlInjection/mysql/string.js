@@ -8,7 +8,7 @@ const initDb = new Promise((resolve, reject) => {
     con.connect(function(err) {
       if (err) {
         console.log('MySQL DB Initial Connection Error', err);
-        reject();
+        reject(err);
       }
       resolve();
     });
@@ -18,8 +18,15 @@ const initDb = new Promise((resolve, reject) => {
 const resetDb = new Promise((resolve, reject) => {
   // These queries have to reject because it could fail because the db is already dropped or existent and we don't really care
   con.query('DROP TABLE IF EXISTS Students', function(err, result) {
-    if (err) console.log('MySQL DB Error', err);
+    if (err) {
+      console.log('MySQL: Could not drop table', err);
+      reject(err);
+    }
     con.query('CREATE TABLE IF NOT EXISTS Students (id INT)', (err, result) => {
+      if (err) {
+        console.log('MySQL: Could not create table', err);
+        reject(err);
+      }
       resolve(result);
     });
   });

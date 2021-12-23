@@ -16,7 +16,7 @@ const con = mysql.createConnection({
   database: MYSQL_DATABASE,
   password: MYSQL_PASSWORD,
   port: MYSQL_PORT,
-  connectTimeout: 30000
+  connectTimeout: 60000
 });
 
 module.exports = con;

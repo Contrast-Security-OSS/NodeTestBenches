@@ -111,15 +111,16 @@ const dbInit = new Promise((resolve, reject) => {
                         }
                       }
                     );
-                  });
-              });
+                  }).catch((err) => reject(err));
+              }).catch((err) => reject(err));
           } else {
             resolve();
           }
-        });
+        }).catch((err) => reject(err));
     })
     .catch((err) => {
       console.log('ERROR CONNECTING TO RETHINKDB', err.msg);
+      reject(err);
     });
 });
 

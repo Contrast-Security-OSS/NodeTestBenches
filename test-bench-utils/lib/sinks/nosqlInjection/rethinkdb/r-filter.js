@@ -56,7 +56,7 @@ module.exports = async function reDbQuery(
               })
               .catch((err) => reject(err));
           }
-        });
+        }).catch((err) => reject(err));
       })
       .catch((err) => {
         reject(err);

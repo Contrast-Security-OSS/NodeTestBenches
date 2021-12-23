@@ -33,6 +33,8 @@ module.exports = function reDbQuery(
                 reject(err);
               });
           }
+        }).catch((err) => {
+          reject(err);
         });
       })
       .catch((err) => {

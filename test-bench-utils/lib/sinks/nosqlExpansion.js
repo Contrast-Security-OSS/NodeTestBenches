@@ -54,45 +54,33 @@ module.exports[
   'mongodb.Db.prototype.find (Expansion Query)'
 ] = async function _eval({ input }, { safe = false, noop = false } = {}) {
   if (noop) return 'NOOP';
-  try {
-    const db = await initDb();
+  const db = await initDb();
 
-    const result = await db
-      .collection(MONGO_COLLECTION)
-      .find(input)
-      .toArray();
-    return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
-  } catch (error) {
-    return error;
-  }
+  const result = await db
+    .collection(MONGO_COLLECTION)
+    .find(input)
+    .toArray();
+  return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
 };
 
 module.exports[
   'mongodb.Db.prototype.delete (Expansion Query)'
 ] = async function _eval({ input }, { safe = false, noop = false } = {}) {
   if (noop) return 'NOOP';
-  try {
-    const db = await initDb();
+  const db = await initDb();
 
-    const result = await db.collection(MONGO_COLLECTION).deleteMany(input);
-    return `<pre>${result.result.n}</pre>`;
-  } catch (error) {
-    return error;
-  }
+  const result = await db.collection(MONGO_COLLECTION).deleteMany(input);
+  return `<pre>${result.result.n}</pre>`;
 };
 
 module.exports[
   'mongodb.Db.prototype.update (Expansion Query)'
 ] = async function _eval({ input }, { safe = false, noop = false } = {}) {
   if (noop) return 'NOOP';
-  try {
-    const db = await initDb();
+  const db = await initDb();
 
-    const result = await db
-      .collection(MONGO_COLLECTION)
-      .updateMany(input, { $set: { hello: '' } });
-    return `<pre>${result.result.n} documents updated</pre>`;
-  } catch (error) {
-    return error;
-  }
+  const result = await db
+    .collection(MONGO_COLLECTION)
+    .updateMany(input, { $set: { hello: '' } });
+  return `<pre>${result.result.n} documents updated</pre>`;
 };

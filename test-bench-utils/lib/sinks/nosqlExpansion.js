@@ -55,10 +55,11 @@ module.exports[
 ] = async function _eval({ input }, { safe = false, noop = false } = {}) {
   if (noop) return 'NOOP';
   const db = await initDb();
+  const searchParam = safe ? { hello: 'world' } : input;
 
   const result = await db
     .collection(MONGO_COLLECTION)
-    .find(input)
+    .find(searchParam)
     .toArray();
   return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
 };
@@ -68,8 +69,9 @@ module.exports[
 ] = async function _eval({ input }, { safe = false, noop = false } = {}) {
   if (noop) return 'NOOP';
   const db = await initDb();
+  const searchParam = safe ? { hello: 'world' } : input;
 
-  const result = await db.collection(MONGO_COLLECTION).deleteMany(input);
+  const result = await db.collection(MONGO_COLLECTION).deleteMany(searchParam);
   return `<pre>${result.result.n}</pre>`;
 };
 
@@ -78,9 +80,10 @@ module.exports[
 ] = async function _eval({ input }, { safe = false, noop = false } = {}) {
   if (noop) return 'NOOP';
   const db = await initDb();
+  const searchParam = safe ? { hello: 'world' } : input;
 
   const result = await db
     .collection(MONGO_COLLECTION)
-    .updateMany(input, { $set: { hello: '' } });
+    .updateMany(searchParam, { $set: { hello: '' } });
   return `<pre>${result.result.n} documents updated</pre>`;
 };

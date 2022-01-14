@@ -1,5 +1,4 @@
-const { navRoutes } = require('@contrast/test-bench-utils');
-const serveStatic = require('serve-static');
+'use strict';
 
 module.exports.http = {
   middleware: {

@@ -2,12 +2,8 @@
 
 const start = Date.now();
 const sails = require('sails');
-// TODO: Config Sails for HTTPS / HTTP2
 
-const config = require('./app').setup(sails);
-
-// Start server
-sails.lift(config, function (err) {
+function logServerStart(err) {
   if (err) {
     console.log('Error occurred lifting Sails app:', err);
     return;
@@ -16,4 +12,9 @@ sails.lift(config, function (err) {
   const stop = Date.now();
   /* eslint-disable no-console */
   console.log(`startup time: ${stop - start}`);
+}
+
+require('./app').setup(sails, function(err, config) {
+  sails.lift(config, logServerStart);
 });
+

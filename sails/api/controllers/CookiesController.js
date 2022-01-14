@@ -1,26 +1,20 @@
 module.exports = {
   safe: function(req, res) {
-    const options = {
-      httpOnly: true,
-      secure: true
-    };
+    req.session.cookie.httpOnly = true;
+    req.session.cookie.secure = true;
 
-    res.cookie('acceptable', Date.now(), options);
-    res.send({ key: 'acceptable', options });
+    res.send({ key: 'acceptable', cookie: req.session.cookie });
   },
   httponly: function(req, res) {
-    const options = {
-      httpOnly: false,
-      secure: true
-    };
-    res.cookie('httponly', Date.now(), options);
-    res.send({ key: 'httponly', options });
+    req.session.cookie.httpOnly = false;
+    req.session.cookie.secure = true;
+
+    res.send({ key: 'httponly', cookie: req.session.cookie });
   },
   secureflag: function(req, res) {
-    const options = {
-      secure: false
-    };
-    res.cookie('secure-flag-missing', Date.now(), options);
-    res.send({ key: 'secure-flag-missing', options });
+    req.session.cookie.httpOnly = true;
+    req.session.cookie.secure = false;
+
+    res.send({ key: 'secure-flag-missing', cookie: req.session.cookie  });
   }
 }

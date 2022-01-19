@@ -83,7 +83,6 @@ function formatParameterSpecs(
     param =>
       ({
         name: param,
-        schema: {type: 'string'},
         in: paramMapping[input] ? paramMapping[input] : input,
         required: true,
         examples: {}, // TODO

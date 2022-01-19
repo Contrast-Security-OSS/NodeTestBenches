@@ -3,6 +3,7 @@
 const glue = require('@hapi/glue');
 const path = require('path');
 const pem = require('pem');
+const Qs = require('qs');
 const { navRoutes } = require('@contrast/test-bench-utils');
 
 const { PORT = 3000, HOST = 'localhost', SSL } = process.env;
@@ -13,6 +14,9 @@ const manifest = {
     debug: { request: ['error', 'uncaught'] },
     port: PORT,
     host: HOST,
+    query: {
+      parser: (query) => Qs.parse(query)
+    },
     routes: {
       payload: {
         multipart: true

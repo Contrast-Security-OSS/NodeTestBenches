@@ -30,6 +30,7 @@
     "fastify-cookie": "^3.6.0",
     "fastify-formbody": "^3.1.0",
     "fastify-multipart": "^1.0.5",
+    "fastify-qs": "^3.0.1",
     "fastify-static": "^2.6.0",
     "lodash": "^4.17.19",
     "pem": "^1.14.4",

@@ -6,6 +6,8 @@
  */
 module.exports = function wrapHandler(handler) {
   return (req, res, next) => {
-    Promise.resolve(handler(req, res, next)).catch(next);
+    Promise.resolve(handler(req, res, next)).catch((err) => {
+      res.send(err.statusCode);
+    });
   };
 };

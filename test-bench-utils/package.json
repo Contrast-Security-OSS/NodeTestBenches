@@ -43,7 +43,7 @@
     "mongodb": "^3.5.2",
     "mustache": "^4.2.0",
     "mysql": "^2.18.1",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^3.1.1",
     "node-serialize": "0.0.4",
     "pg": "^8.7.1",
     "pug": "^3.0.2",

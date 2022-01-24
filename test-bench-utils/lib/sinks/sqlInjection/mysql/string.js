@@ -59,8 +59,7 @@ module.exports = async function mysqlQuery(
   return new Promise((resolve, reject) => {
     con.query(sql, (err, result) => {
       if (err) {
-        console.log('Error executing MySQL DB Query', err);
-        reject();
+        reject('Error executing MySQL DB Query');
       }
       return resolve(escape(JSON.stringify(result)));
     });

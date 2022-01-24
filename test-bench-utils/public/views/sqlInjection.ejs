@@ -9,8 +9,10 @@
     <form method="<%= sink.method %>" action="<%= sink.url %>/unsafe" target="_blank">
       <div class="form-group">
         <label>SELECT "${input}" as "test";</label>
-        <% if(sink.name == "pg.Connection.prototype.query (String)" || sink.name == "pg.Connection.prototype.query (Object)" || sink.name == "mysql/lib/Connection.query"){ %>
+        <% if(sink.name == "pg.Connection.prototype.query (String)" || sink.name == "pg.Connection.prototype.query (Object)"){ %>
           <input name="input" class="form-control" value="; DROP TABLE Students;--" />
+        <% } else if(sink.name == "mysql/lib/Connection.query"){ %>
+          <input name="input" class="form-control" value="SELECT SLEEP(1)--" />
         <% } else{ %>
           <input name="input" class="form-control" value="Robert&quot;); DROP TABLE Students;--" />
        <% } %>

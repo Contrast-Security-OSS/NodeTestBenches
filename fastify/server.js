@@ -31,7 +31,7 @@ const main = async () => {
   try {
     const app = await createServer();
 
-    app.register(require('fastify-qs'), {});
+    app.register(require('fastify-qs'), { allowDots: true });
     app.register(require('fastify-formbody'));
 
     // setup ejs renderer

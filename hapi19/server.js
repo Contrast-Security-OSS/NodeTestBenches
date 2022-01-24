@@ -15,7 +15,7 @@ const manifest = {
     port: PORT,
     host: HOST,
     query: {
-      parser: (query) => Qs.parse(query)
+      parser: (query) => Qs.parse(query, { allowDots: true })
     },
     routes: {
       payload: {

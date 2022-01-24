@@ -21,7 +21,7 @@ if (require.main === module) {
   const config = {
     rest: {
       expressSettings: {
-        ['query parser']: function(str: string) {
+        ['query parser']: function (str: string) {
           return qs.parse(str, {allowDots: true});
         },
       },

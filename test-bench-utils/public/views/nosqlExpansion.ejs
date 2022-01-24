@@ -8,6 +8,7 @@
     <h4 class="sub-header">
       <code><%= sink.name %></code>
     </h4>
+    <h5 class="sub-header"><strong>Bracket notation object</strong></h5>
 
     <% ['unsafe', 'safe', 'noop'].forEach(function(safety) { %>
         <p>
@@ -19,6 +20,30 @@
           </a>
         </p>
     <% }); %>
+    <h5 class="sub-header"><strong>Dot-delimited objects</strong></h5>
+
+    <% ['unsafe', 'safe', 'noop'].forEach(function(safety) { %>
+      <p>
+        <a
+          target="_blank"
+          href="<%= sink.url %>/<%= safety %>?input.hello.$ne=0"
+        >
+          <%= sink.url %>/<%= safety %>?input.hello.$ne=0
+        </a>
+      </p>
+  <% }); %>
+  <h5 class="sub-header"><strong>Mixed notation objects</strong></h5>
+
+  <% ['unsafe', 'safe', 'noop'].forEach(function(safety) { %>
+    <p>
+      <a
+        target="_blank"
+        href="<%= sink.url %>/<%= safety %>?input.hello[$ne]=0"
+      >
+        <%= sink.url %>/<%= safety %>?input.hello[$ne]=0
+      </a>
+    </p>
+<% }); %>
   </div>
 </div>
 

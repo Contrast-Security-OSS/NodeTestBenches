@@ -1,5 +1,6 @@
 import {ApplicationConfig, Loopback4TestBenchApplication} from './application';
 import {configureVulnerableRoutes} from './vulnerabilities';
+import qs from 'qs';
 
 export * from './application';
 
@@ -19,6 +20,11 @@ if (require.main === module) {
   // Run the application
   const config = {
     rest: {
+      expressSettings: {
+        ['query parser']: function (str: string) {
+          return qs.parse(str, {allowDots: true});
+        },
+      },
       port: +(process.env.PORT ?? 3000),
       host: process.env.HOST,
       // The `gracePeriodForClose` provides a graceful close for http/https

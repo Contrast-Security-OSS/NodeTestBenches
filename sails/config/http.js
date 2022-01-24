@@ -6,6 +6,7 @@ module.exports.http = {
       'cookieParser',
       'session',
       'requestLogger',
+      'queryParser',
       'bodyParser',
       'compress',
       'poweredBy',
@@ -13,6 +14,13 @@ module.exports.http = {
       'www',
       'favicon',
     ],
+    queryParser: (function _configureQueryParser(){
+      var qs = require('qs');
+      return function (req, res, next){
+        req.query = qs.parse(req.query, { allowDots: true });
+        return next();
+      }
+    })(),
     bodyParser: (function _configureBodyParser(){
       var skipper = require('skipper');
       var middlewareFn = skipper({ strict: true });

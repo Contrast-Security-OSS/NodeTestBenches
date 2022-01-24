@@ -22,7 +22,7 @@ const uploadDir = path.resolve(
 );
 
 server.use([
-  restify.plugins.queryParser(),
+  restify.plugins.queryParser({ allowDots: true }),
   restify.plugins.bodyParser({
     hash: 'sha1',
     rejectUnknown: true,

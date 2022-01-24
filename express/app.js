@@ -4,6 +4,8 @@ const layouts = require('express-ejs-layouts');
 const path = require('path');
 const { navRoutes } = require('@contrast/test-bench-utils');
 const express = require('express');
+// eslint-disable-next-line node/no-extraneous-require
+const qs = require('qs');
 
 module.exports.setup = function(app) {
   require('./vulnerabilities/static');
@@ -11,6 +13,9 @@ module.exports.setup = function(app) {
   app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
   app.use(bodyParser.json({ limit: '50mb', extended: true }));
   app.use(cookieParser('keyboard cat'));
+  app.set('query parser', function(str) {
+    return qs.parse(str, { allowDots: true });
+  });
 
   app.set('views', `${__dirname}/views`);
   app.set('view engine', 'ejs');

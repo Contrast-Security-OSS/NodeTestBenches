@@ -5,7 +5,7 @@ const Router = process.env.LEGACY_ROUTER
   ? require('koa-router')
   : require('@koa/router');
 const app = new Koa();
-require('koa-qs')(app);
+require('koa-qs')(app, 'extended', { allowDots: true });
 const router = new Router();
 const http2 = require('http2');
 const pem = require('pem');

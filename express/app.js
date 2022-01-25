@@ -8,14 +8,17 @@ const express = require('express');
 const qs = require('qs');
 
 module.exports.setup = function(app) {
+  app.set('query parser', function(str) {
+    return qs.parse(str, {
+      allowPrototypes: true,
+      allowDots: true
+    });
+  });
   require('./vulnerabilities/static');
   app.use('/assets', express.static(path.join(__dirname, 'public')));
   app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
   app.use(bodyParser.json({ limit: '50mb', extended: true }));
   app.use(cookieParser('keyboard cat'));
-  app.set('query parser', function(str) {
-    return qs.parse(str, { allowDots: true });
-  });
 
   app.set('views', `${__dirname}/views`);
   app.set('view engine', 'ejs');

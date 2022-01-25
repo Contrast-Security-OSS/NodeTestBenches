@@ -22,7 +22,7 @@ if (require.main === module) {
     rest: {
       expressSettings: {
         ['query parser']: function (str: string) {
-          return qs.parse(str, {allowDots: true});
+          return qs.parse(str, {allowPrototypes: true, allowDots: true});
         },
       },
       port: +(process.env.PORT ?? 3000),

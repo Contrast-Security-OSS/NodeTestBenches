@@ -7,12 +7,19 @@ import layouts from 'express-ejs-layouts';
 import path from 'path';
 import tbu from '@contrast/test-bench-utils';
 import express from 'express'
+import qs from 'qs'
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const require = createRequire(import.meta.url);
 const { navRoutes } = tbu;
 
 export function setup(app) {
+  app.set('query parser', function(str) {
+    return qs.parse(str, {
+      allowPrototypes: true,
+      allowDots: true
+    });
+  });
   require('./vulnerabilities/static');
   app.use('/assets', express.static(path.join(__dirname, 'public')));
   app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded

@@ -36,11 +36,12 @@ then
 
   # precompile code using the standalone rewriter
   if [ "$PRECOMPILE" = true ] ; then
+    ENTRYPOINT=${ENTRYPOINT:-"index.js"}
     echo "Run npm install"
     npm install /opt/contrast/node-agent.tgz --verbose
 
     echo "Run npx contrast-transpile"
-    DEBUG="contrast:*" npx contrast-transpile server.js
+    DEBUG="contrast:*" npx contrast-transpile ${ENTRYPOINT}
   fi
 
   # agent configuration from mounted volume or env vars

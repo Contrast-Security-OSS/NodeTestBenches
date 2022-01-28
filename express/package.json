@@ -1,5 +1,5 @@
 {
-  "name": "@contrast/express-test-bench",
+  "name": "@contrast/express-test-bench-yu",
   "private": true,
   "version": "3.27.3",
   "description": "Intentionally vulnerable Express application",
@@ -26,6 +26,7 @@
     "node": ">=10.13.0"
   },
   "dependencies": {
+    "@contrast/agent": "^4.10.0",
     "@contrast/test-bench-utils": "^3.27.3",
     "aws-sdk": "^2.397.0",
     "body-parser": "^1.14.2",

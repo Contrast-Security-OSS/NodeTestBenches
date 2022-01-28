@@ -15,8 +15,8 @@
     "node": ">=10.13.0"
   },
   "dependencies": {
-    "@contrast/agent": "^4.7.0",
-    "@contrast/test-bench-utils": "^3.27.3",
+    "@contrast/agent": "^4.10.0",
+    "@contrast/test-bench-utils": "^3.27.2",
     "grunt": "1.0.4",
     "pem": "^1.14.2",
     "sails": "^1.5.0",

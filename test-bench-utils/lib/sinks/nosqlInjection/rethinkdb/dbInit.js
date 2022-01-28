@@ -125,8 +125,8 @@ const dbInit = new Promise((resolve, reject) => {
         .catch((err) => reject(err));
     })
     .catch((err) => {
-      console.log('ERROR CONNECTING TO RETHINKDB', err.msg);
-      reject(err);
+      console.log(`[INFO] ${err.message}. Proceeding without RethinkDB`);
+      reject();
     });
 });
 

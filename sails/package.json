@@ -1,7 +1,7 @@
 {
   "name": "@contrast/sails-test-bench",
   "private": true,
-  "version": "3.27.3",
+  "version": "3.27.4",
   "description": "Intentionally vulnerable sails application",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "node": ">=10.13.0"
   },
   "dependencies": {
-    "@contrast/test-bench-utils": "^3.27.3",
+    "@contrast/test-bench-utils": "^3.27.4",
     "grunt": "1.0.4",
     "pem": "^1.14.2",
     "sails": "^1.5.0",

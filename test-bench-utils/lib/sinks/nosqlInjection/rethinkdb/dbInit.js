@@ -95,19 +95,22 @@ const dbInit = new Promise((resolve, reject) => {
                             .table('users')
                             .insert({ id: RDBUSER, password: RDBPASSWORD })
                             .run(conn)
-                            .catch((err) => {
-                              reject(err);
-                            });
-                          r.db('test')
-                            .table('users')
-                            .grant(`${RDBUSER}`, { read: true, write: true })
-                            .run(conn)
                             .then(() => {
-                              resolve();
+                              r.db('test')
+                                .table('users')
+                                .grant(`${RDBUSER}`, {
+                                  read: true,
+                                  write: true
+                                })
+                                .run(conn)
+                                .then(() => {
+                                  resolve();
+                                })
+                                .catch((err) => {
+                                  reject(err);
+                                });
                             })
-                            .catch((err) => {
-                              reject(err);
-                            });
+                            .catch((err) => reject(err));
                         }
                       }
                     );

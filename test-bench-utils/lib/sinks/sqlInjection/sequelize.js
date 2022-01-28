@@ -30,5 +30,7 @@ module.exports = async function sequelizeQuery(
     ? SQL`SELECT ${input} as "test"`
     : `SELECT "${input}" as "test";`;
 
-  return sequelize.query(sql).then((result) => escape(JSON.stringify(result)));
+  return sequelize.query(sql)
+    .then((result) => escape(JSON.stringify(result)))
+    .catch(console.log);
 };

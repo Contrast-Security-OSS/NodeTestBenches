@@ -47,7 +47,7 @@ module.exports = async function reDbQuery(
                 .catch((err) => reject(err));
             } else {
               r.table('users')
-                .filter(JSON.parse(input))
+                .filter(input)
                 .run(conn)
                 .then((response) => {
                   response.toArray().then((formattedResponse) => {

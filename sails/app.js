@@ -17,7 +17,7 @@ module.exports.setup = async function (app, ready) {
       secret: 'keyboard cat',
       cookie: { maxAge: 60000, httpOnly: false, secure: false }
     },
-    log: { level: 'silly' },
+    log: { level: 'debug' },
     port: PORT,
     explicitHost: HOST
   };

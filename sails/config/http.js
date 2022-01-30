@@ -32,7 +32,7 @@ module.exports.http = {
       return next();
     }),
     csp: require('lusca').csp({
-      policy: { 'default-src': '*' }
+      policy: [{ "img-src": "'self' http:" }, "block-all-mixed-content"]
     })
   }
 }

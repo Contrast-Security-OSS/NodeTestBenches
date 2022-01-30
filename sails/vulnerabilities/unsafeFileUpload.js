@@ -1,14 +1,10 @@
 const { utils } = require('@contrast/test-bench-utils');
 
-const sinkData = utils.getSinkData('unsafeFileUpload', 'express');
+const sinkData = utils.getSinkData('unsafeFileUpload', 'sails');
 const routeMeta = utils.getRouteMeta('unsafeFileUpload');
 
 module.exports = function(app, locals) {
   const sailsRoutes = {};
-  // should return obj of routes {
-  // 'GET /unsafeFileUpload' : ~view~ ,
-  // '
-  // }
 
   sailsRoutes[`GET /unsafeFileUpload`] = function(req, res, next) {
     return res.view('unsafeFileUpload', {

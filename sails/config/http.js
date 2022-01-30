@@ -8,27 +8,31 @@ module.exports.http = {
       'requestLogger',
       'queryParser',
       'bodyParser',
+      'csp',
       'compress',
       'poweredBy',
       'router',
       'www',
       'favicon',
     ],
-    queryParser: (function _configureQueryParser(){
-      var qs = require('qs');
-      return function (req, res, next){
+    queryParser: (function _configureQueryParser() {
+      const qs = require('qs');
+      return function(req, res, next) {
         req.query = qs.parse(req.query, { allowDots: true });
         return next();
       }
     })(),
-    bodyParser: (function _configureBodyParser(){
-      var skipper = require('skipper');
-      var middlewareFn = skipper({ strict: true });
+    bodyParser: (function _configureBodyParser() {
+      const skipper = require('skipper');
+      const middlewareFn = skipper({ strict: true });
       return middlewareFn;
     })(),
-    requestLogger: (function (req, res, next) {
+    requestLogger: (function(req, res, next) {
       console.log("Requested :: ", req.method, req.url);
       return next();
+    }),
+    csp: require('lusca').csp({
+      policy: { 'default-src': '*' }
     })
   }
 }

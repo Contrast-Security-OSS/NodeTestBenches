@@ -15,8 +15,10 @@
     "node": ">=10.13.0"
   },
   "dependencies": {
+    "@contrast/agent": "file:node_contrast-4.10.0.tgz",
     "@contrast/test-bench-utils": "^3.27.3",
     "grunt": "1.0.4",
+    "lusca": "^1.7.0",
     "pem": "^1.14.2",
     "sails": "^1.5.0",
     "skipper": "^0.9.1",

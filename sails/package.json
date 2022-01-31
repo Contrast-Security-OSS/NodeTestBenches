@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@contrast/test-bench-utils": "^3.27.3",
+    "crypto": "^1.0.1",
     "grunt": "1.0.4",
     "lusca": "^1.7.0",
     "pem": "^1.14.2",

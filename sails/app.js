@@ -14,7 +14,9 @@ module.exports.setup = async function (app, ready) {
 
   const config = {
     session: {
-      secret: 'keyboard cat',
+      isSessionDisabled: function (req, res) {
+        return (req.url.indexOf('cookies') < 0);
+      },
       cookie: { maxAge: 60000, httpOnly: false, secure: false }
     },
     log: { level: 'debug' },

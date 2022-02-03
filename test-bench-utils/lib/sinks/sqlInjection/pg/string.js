@@ -28,7 +28,7 @@ module.exports = async function pgQuery(
   try {
     const client = await initDb();
 
-    if (client._connected) {
+    if (!client._connectionError) {
       if (safe) {
         return client.query('SELECT $1::text as message', [input]);
       } else {
@@ -38,6 +38,7 @@ module.exports = async function pgQuery(
       return 'PostgreSQL Database is not available';
     }
   } catch (err) {
+    console.log(err);
     return err;
   }
 };

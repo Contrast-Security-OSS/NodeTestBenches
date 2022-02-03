@@ -3,7 +3,7 @@
 const client = require('./client');
 
 const initDb = async () => {
-  if (!client._connected && !client._connecting) {
+  if (!client._connected) {
     await client.connect();
   }
   client.query('DROP TABLE IF EXISTS students');
@@ -23,14 +23,21 @@ module.exports = async function pgQuery(
   { input },
   { safe = false, noop = false } = {}
 ) {
-  const client = await initDb();
+  if (noop) return 'NOOP';
 
-  if (noop) {
-    return 'NOOP';
-  }
-  if (safe) {
-    return client.query({ text: 'SELECT $1::text as message' }, [input]);
-  } else {
-    return client.query({ text: `SELECT ${input} as message` });
+  try {
+    const client = await initDb();
+
+    if (client._connected) {
+      if (safe) {
+        return client.query({ text: 'SELECT $1::text as message' }, [input]);
+      } else {
+        return client.query({ text: `SELECT ${input} as message` });
+      }
+    } else {
+      return 'PostgreSQL Database is not available';
+    }
+  } catch (err) {
+    return err;
   }
 };

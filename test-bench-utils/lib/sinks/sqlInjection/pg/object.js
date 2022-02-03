@@ -3,7 +3,7 @@
 const client = require('./client');
 
 const initDb = async () => {
-  if (!client._connected) {
+  if (!client._connected && !client._connecting) {
     await client.connect();
   }
   client.query('DROP TABLE IF EXISTS students');

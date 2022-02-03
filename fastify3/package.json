@@ -1,7 +1,7 @@
 {
   "name": "@contrast/fastify3-test-bench",
   "private": true,
-  "version": "3.27.3",
+  "version": "3.28.0",
   "description": "Intentionally vulnerable Fastify3 application",
   "author": "Contrast Security <nodejs@contrastsecurity.com>",
   "license": "UNLICENSED",
@@ -24,7 +24,7 @@
     "start": "node server.js | pino-pretty"
   },
   "dependencies": {
-    "@contrast/test-bench-utils": "^3.27.3",
+    "@contrast/test-bench-utils": "^3.28.0",
     "ejs": "^2.7.4",
     "fastify": "^3.9.2",
     "fastify-cookie": "^5.1.0",

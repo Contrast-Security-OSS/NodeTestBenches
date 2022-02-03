@@ -126,7 +126,7 @@ const dbInit = new Promise((resolve, reject) => {
     })
     .catch((err) => {
       console.log(`[INFO] ${err.message}. Proceeding without RethinkDB`);
-      reject();
+      reject(err.message);
     });
 });
 

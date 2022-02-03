@@ -13,31 +13,34 @@ module.exports = async function reDbQuery(
   { input },
   { safe = false, noop = false } = {}
 ) {
-  const result = new Promise((resolve, reject) => {
-    dbInit
-      .then(() => {
-        r.connect(connectionParams).then((conn) => {
-          if (noop) {
-            resolve('NOOP');
-          }
-          if (safe) {
-            resolve('TBD a safe way to use it');
-          } else {
-            const { toBeUpdated, updatedValues } = JSON.parse(input);
-            r.table('users')
-              .filter(toBeUpdated)
-              .update(updatedValues)
-              .run(conn)
-              .then((response) => {
-                resolve(response);
-              })
-              .catch((err) => reject(err));
-          }
-        }).catch((err) => reject(err));
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
-  return result;
+  if (noop) return 'NOOP';
+
+  try {
+    return await new Promise((resolve, reject) => {
+      dbInit
+        .then(() => {
+          r.connect(connectionParams).then((conn) => {
+            if (safe) {
+              resolve('TBD a safe way to use it');
+            } else {
+              const { toBeUpdated, updatedValues } = JSON.parse(input);
+              r.table('users')
+                .filter(toBeUpdated)
+                .update(updatedValues)
+                .run(conn)
+                .then((response) => {
+                  resolve(response);
+                })
+                .catch((err) => reject(err));
+            }
+          }).catch((err) => reject(err));
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
 };

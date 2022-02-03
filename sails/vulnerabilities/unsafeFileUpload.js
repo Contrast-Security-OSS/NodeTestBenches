@@ -19,9 +19,11 @@ module.exports = function(app, locals) {
       async (req, res) => {
         req.file('file').upload({
           dirname: require('path').resolve(__dirname, 'uploads')
-        }, function (err, files) {
+        }, async function (err, files) {
           if (err) return res.serverError(err);
-          res.send(files[0]);
+          const inputs = utils.getInput(req, key, params);
+          const result = await sinks.unsafe(inputs); // doesn't really do anything
+          res.send(result);
         });
       }]
   });

@@ -25,20 +25,15 @@ module.exports = async function pgQuery(
 ) {
   if (noop) return 'NOOP';
 
-  try {
-    const client = await initDb();
+  const client = await initDb();
 
-    if (!client._connectionError) {
-      if (safe) {
-        return client.query({ text: 'SELECT $1::text as message' }, [input]);
-      } else {
-        return client.query({ text: `SELECT ${input} as message` });
-      }
+  if (!client._connectionError) {
+    if (safe) {
+      return client.query({ text: 'SELECT $1::text as message' }, [input]);
     } else {
-      return 'PostgreSQL Database is not available';
+      return client.query({ text: `SELECT ${input} as message` });
     }
-  } catch (err) {
-    console.log(err);
-    return err;
+  } else {
+    return 'PostgreSQL Database is not available';
   }
 };

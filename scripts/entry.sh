@@ -26,6 +26,13 @@ mysql -e "update mysql.user set plugin = 'mysql_native_password' where User='roo
 mysql -uroot -e "create database $MYSQL_DATABASE"
 mysql -e "FLUSH PRIVILEGES"
 
+# Run DynamoDB
+DYNAMODB_HOME="${DYNAMODB_HOME:=/opt/dynamodb}"
+DYNAMODB_LOG=/var/log/dynamodb.log
+echo '=========================' >> "${DYNAMODB_LOG}"
+date >> "${DYNAMODB_LOG}"
+java -Djava.library.path="./${DYNAMODB_HOME}/DynamoDBLocal_lib" -jar "${DYNAMODB_HOME}/DynamoDBLocal.jar" -sharedDb >> "${DYNAMODB_LOG}" &
+
 if [[ -f "/opt/contrast/node-agent.tgz" ]];
 then
   npm config set offline

@@ -1,4 +1,5 @@
 #! /bin/bash -e
+cp ../scripts/install-dynamodb-local.sh .
 cp ../scripts/entry.sh .
 
 if [[ ! -f "Dockerfile" ]]; then

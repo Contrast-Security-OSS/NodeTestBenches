@@ -33,9 +33,10 @@ echo '=========================' >> "${DYNAMODB_LOG}"
 date >> "${DYNAMODB_LOG}"
 java -Djava.library.path="./${DYNAMODB_HOME}/DynamoDBLocal_lib" -jar "${DYNAMODB_HOME}/DynamoDBLocal.jar" -sharedDb >> "${DYNAMODB_LOG}" &
 
-LOCAL_UTILS=contrast-test-bench-utils.tgz
-if [[ -f "$LOCAL_UTILS" ]]; then
-  npm install $LOCAL_UTILS --verbose
+LOCAL_UTILS=contrast-test-bench-utils-*.tgz
+files=( $LOCAL_UTILS )
+if compgen -G "$LOCAL_UTILS" > /dev/null; then
+  npm install "$files" --verbose
 fi
 
 if [[ -f "/opt/contrast/node-agent.tgz" ]];

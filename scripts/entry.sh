@@ -33,6 +33,11 @@ echo '=========================' >> "${DYNAMODB_LOG}"
 date >> "${DYNAMODB_LOG}"
 java -Djava.library.path="./${DYNAMODB_HOME}/DynamoDBLocal_lib" -jar "${DYNAMODB_HOME}/DynamoDBLocal.jar" -sharedDb >> "${DYNAMODB_LOG}" &
 
+LOCAL_UTILS=contrast-test-bench-utils.tgz
+if [[ -f "$LOCAL_UTILS" ]]; then
+  npm install $LOCAL_UTILS --verbose
+fi
+
 if [[ -f "/opt/contrast/node-agent.tgz" ]];
 then
   npm config set offline

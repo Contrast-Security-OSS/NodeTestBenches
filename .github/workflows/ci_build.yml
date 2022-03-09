@@ -28,6 +28,8 @@ jobs:
           path: test-bench-utils/contrast-test-bench-utils-*.tgz
   build-and-push:
     if: ${{ github.event.label.name == 'ci-test' }}
+    needs:
+      - build-test-bench-utils
     runs-on: ubuntu-latest
     strategy:
       matrix:

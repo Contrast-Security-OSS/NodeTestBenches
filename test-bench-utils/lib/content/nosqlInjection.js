@@ -15,3 +15,10 @@ module.exports['r.filter'] = JSON.stringify({
 });
 module.exports['r.match'] = 'Iv|^';
 module.exports['r.js'] = '30';
+
+module.exports['aws-sdk.client-dynamodb.ScanCommand.ProjectionExpression'] =
+  'key=title&title=Star%20Wars';
+module.exports['aws-sdk.client-dynamodb.ScanCommand.FilterExpression'] =
+  'key=title&title=Star%20Wars&year=1982';
+module.exports['aws-sdk.client-dynamodb.ScanCommand.ComparisonOperator'] =
+  'title=Something&comp=NE';

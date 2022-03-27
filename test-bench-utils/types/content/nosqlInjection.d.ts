@@ -4,3 +4,6 @@ export var _r_update: string;
 export var _r_filter: string;
 export var _r_match: string;
 export var _r_js: string;
+export var _aws_sdk_client_dynamodb_ScanCommand_ProjectionExpression: string;
+export var _aws_sdk_client_dynamodb_ScanCommand_FilterExpression: string;
+export var _aws_sdk_client_dynamodb_ScanCommand_ComparisonOperator: string;

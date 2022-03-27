@@ -1,9 +1,9 @@
 export function getSinkData(rule: string, framework: string): SinkData[];
 export function groupSinkData(sinkData: SinkData[]): {
-    query: SinkData[];
-    params: SinkData[];
-    body: SinkData[];
     headers: SinkData[];
+    query: SinkData[];
+    body: SinkData[];
+    params: SinkData[];
     input: SinkData[];
     cookies: SinkData[];
 };

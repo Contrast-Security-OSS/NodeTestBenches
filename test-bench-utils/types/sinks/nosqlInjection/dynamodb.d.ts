@@ -3,10 +3,29 @@ export function _aws_sdk_DynamoDB_DocumentClient_prototype_scan({ input }: {
 }, { safe, noop }?: {
     safe?: boolean;
     noop?: boolean;
-}): Promise<string>;
+}): Promise<"NOOP" | import("aws-sdk/lib/request").PromiseResult<AWS.DynamoDB.DocumentClient.ScanOutput, AWS.AWSError>>;
 export function _aws_sdk_DynamoDB_prototype_makeRequest({ input }: {
     input: string;
 }, { safe, noop }?: {
     safe?: boolean;
     noop?: boolean;
-}): Promise<string>;
+}): Promise<any>;
+export function _aws_sdk_client_dynamodb_ScanCommand_ComparisonOperator({ input }: {
+    input: string;
+}, { safe, noop }?: {
+    safe?: boolean;
+    noop?: boolean;
+}): Promise<import("@aws-sdk/client-dynamodb").ScanCommandOutput | "NOOP">;
+export function _aws_sdk_client_dynamodb_ScanCommand_FilterExpression({ input }: {
+    input: string;
+}, { safe, noop }?: {
+    safe?: boolean;
+    noop?: boolean;
+}): Promise<import("@aws-sdk/client-dynamodb").ScanCommandOutput | "NOOP">;
+export function _aws_sdk_client_dynamodb_ScanCommand_ProjectionExpression({ input }: {
+    input: string;
+}, { safe, noop }?: {
+    safe?: boolean;
+    noop?: boolean;
+}): Promise<import("@aws-sdk/client-dynamodb").ScanCommandOutput | "NOOP">;
+import AWS = require("aws-sdk");

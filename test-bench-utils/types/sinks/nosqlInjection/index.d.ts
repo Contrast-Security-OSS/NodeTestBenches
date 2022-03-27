@@ -16,13 +16,31 @@ declare const _exports: {
     }, { safe, noop }?: {
         safe?: boolean;
         noop?: boolean;
-    }) => Promise<string>;
+    }) => Promise<"NOOP" | import("aws-sdk/lib/request").PromiseResult<AWS.DynamoDB.DocumentClient.ScanOutput, AWS.AWSError>>;
     'aws-sdk.DynamoDB.prototype.makeRequest': ({ input }: {
         input: string;
     }, { safe, noop }?: {
         safe?: boolean;
         noop?: boolean;
-    }) => Promise<string>;
+    }) => Promise<any>;
+    'aws-sdk.client-dynamodb.ScanCommand.ComparisonOperator': ({ input }: {
+        input: string;
+    }, { safe, noop }?: {
+        safe?: boolean;
+        noop?: boolean;
+    }) => Promise<import("@aws-sdk/client-dynamodb").ScanCommandOutput | "NOOP">;
+    'aws-sdk.client-dynamodb.ScanCommand.FilterExpression': ({ input }: {
+        input: string;
+    }, { safe, noop }?: {
+        safe?: boolean;
+        noop?: boolean;
+    }) => Promise<import("@aws-sdk/client-dynamodb").ScanCommandOutput | "NOOP">;
+    'aws-sdk.client-dynamodb.ScanCommand.ProjectionExpression': ({ input }: {
+        input: string;
+    }, { safe, noop }?: {
+        safe?: boolean;
+        noop?: boolean;
+    }) => Promise<import("@aws-sdk/client-dynamodb").ScanCommandOutput | "NOOP">;
     'r.insert': ({ input }: {
         input: string;
     }, { safe, noop }?: {

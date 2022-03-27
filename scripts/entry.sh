@@ -23,6 +23,7 @@ MYSQL_DATABASE=${MYSQL_DATABASE:-"testdb"}
 echo "mysql --version"
 mysql -e "UPDATE mysql.user SET authentication_string = PASSWORD('${MYSQL_ROOT_PASSWORD}') WHERE User = 'root' AND Host = 'localhost';"
 mysql -e "update mysql.user set plugin = 'mysql_native_password' where User='root'"
+mysql -uroot -e "drop database if exists $MYSQL_DATABASE"
 mysql -uroot -e "create database $MYSQL_DATABASE"
 mysql -e "FLUSH PRIVILEGES"
 

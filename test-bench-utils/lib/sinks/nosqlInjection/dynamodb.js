@@ -1,10 +1,10 @@
 'use strict';
 
 const localTableConfig = {
-  region: 'local',
-  access_key_id: 'fake',
-  secret_access_key: 'fake',
-  endpoint: 'http://localhost:8000'
+  region: 'us-east-1',
+  accessKeyId: 'accessKeyId',
+  secretAccessKey: 'secretAccessKey',
+  endpoint: 'http://localhost:8000',
 };
 
 // Config for aws-sdk @3.x

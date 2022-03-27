@@ -2,8 +2,6 @@
 
 const localTableConfig = {
   region: 'us-east-1',
-  accessKeyId: 'accessKeyId',
-  secretAccessKey: 'secretAccessKey',
   endpoint: 'http://localhost:8000',
 };
 
@@ -13,11 +11,19 @@ const {
   ScanCommand
 } = require("@aws-sdk/client-dynamodb");
 
-const client = new DynamoDBClient(localTableConfig);
+const client = new DynamoDBClient(Object.assign(localTableConfig, {
+  credentials: {
+    accessKeyId: 'accessKeyId',
+    secretAccessKey: 'secretAccessKey',
+  }
+});
 
 // Config for aws-sdk @2.x
 const AWS = require('aws-sdk');
-AWS.config.update(localTableConfig);
+AWS.config.update(Object.assign(localTableConfig, {
+  accessKeyId: 'accessKeyId',
+  secretAccessKey: 'secretAccessKey',
+});
 
 const db = new AWS.DynamoDB();
 const documentClient = new AWS.DynamoDB.DocumentClient();

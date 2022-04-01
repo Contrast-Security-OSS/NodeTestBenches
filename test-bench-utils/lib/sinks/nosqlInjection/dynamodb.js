@@ -8,6 +8,7 @@ const localTableConfig = {
 // Config for aws-sdk @3.x
 const {
   DynamoDBClient,
+  ExecuteStatementCommand,
   ScanCommand
 } = require("@aws-sdk/client-dynamodb");
 
@@ -122,6 +123,29 @@ module.exports['aws-sdk.DynamoDB.prototype.makeRequest'] = async function scan(
  * @param {boolean} [opts.safe] are we calling the sink safely?
  * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
+module.exports['aws-sdk.DynamoDB.prototype.executeStatement'] = async function scan(
+  { input },
+  { safe = false, noop = false } = {}
+) {
+  if (noop) return 'NOOP';
+  let params = {};
+
+  if (safe) {
+    params = { Statement:`SELECT * from Movies WHERE title= ?`, Parameters: [{ S: input }]}
+  } else {
+    params = { Statement:`SELECT * from Movies WHERE title='${input}'` }
+  }
+
+  return await db.executeStatement(params).promise();
+};
+
+/**
+ * @param {Object} params
+ * @param {string} params.input user input string
+ * @param {Object} opts
+ * @param {boolean} [opts.safe] are we calling the sink safely?
+ * @param {boolean} [opts.noop] are we calling the sink as a noop?
+ */
 module.exports['aws-sdk.client-dynamodb.ScanCommand.ComparisonOperator'] = async function scan(
   { input },
   { safe = false, noop = false } = {}
@@ -201,4 +225,29 @@ module.exports['aws-sdk.client-dynamodb.ScanCommand.ProjectionExpression'] = asy
       ":title": { "S": query.title }
     }
   }));
+};
+
+/**
+ * @param {Object} params
+ * @param {string} params.input user input string
+ * @param {Object} opts
+ * @param {boolean} [opts.safe] are we calling the sink safely?
+ * @param {boolean} [opts.noop] are we calling the sink as a noop?
+ */
+module.exports['aws-sdk.client-dynamodb.ExecuteStatementCommand'] = async function scan(
+  { input },
+  { safe = false, noop = false } = {}
+) {
+  if (noop) return 'NOOP';
+
+  //Title1%27%20OR%20Title=%27Title2
+  let params = {};
+
+  if (safe) {
+    params = { Statement:`SELECT * from Movies WHERE title= ?`, Parameters: [{ S: input }]}
+  } else {
+    params = { Statement:`SELECT * from Movies WHERE title='${input}'` }
+  }
+
+  return await client.send(new ExecuteStatementCommand(params));
 };

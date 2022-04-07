@@ -1,6 +1,6 @@
 {
   "name": "@contrast/test-bench-utils",
-  "version": "3.29.1",
+  "version": "3.29.2",
   "description": "Shared code to use in Contrast's web framework test apps. Test",
   "author": "Contrast Security <nodejs@contrastsecurity.com>",
   "license": "UNLICENSED",

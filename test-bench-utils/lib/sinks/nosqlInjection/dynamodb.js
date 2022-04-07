@@ -152,20 +152,16 @@ module.exports['aws-sdk.client-dynamodb.ScanCommand.ComparisonOperator'] = async
 ) {
   if (noop) return 'NOOP';
 
-  // title=Something&comp=NE
-  const query = require('querystring').parse(input);
-
-  // Query by value is safe, but if there is ALSO control on the
-  // comparison operator, then this could be exploited
-  if (safe) query.comp = 'EQ';
+  const data = JSON.parse(input);
+  if (safe) data.comp = 'EQ';
 
   return await client.send(new ScanCommand({
     TableName: 'Movies',
     Select: 'ALL_ATTRIBUTES',
     ScanFilter: {
       'title': {
-        'AttributeValueList': [{'S': query.title }],
-        'ComparisonOperator': query.comp
+        'AttributeValueList': [{'S': data.title }],
+        'ComparisonOperator': data.comp
       }
     }
   }));
@@ -184,17 +180,15 @@ module.exports['aws-sdk.client-dynamodb.ScanCommand.FilterExpression'] = async f
 ) {
   if (noop) return 'NOOP';
 
-  // key=title&title=Star%20Wars&year=1982
-  const query = require('querystring').parse(input);
-
-  if (safe) query.key = 'title';
+  const data = JSON.parse(input);
+  if (safe) data.key = 'title';
 
   return await client.send(new ScanCommand({
     TableName: 'Movies',
-    FilterExpression: query.key + " = :title AND released_year = :released_year",
+    FilterExpression: data.key + " = :title AND released_year = :released_year",
     ExpressionAttributeValues: {
-      ":title": { "S": query.title },
-      ":released_year": { "N": query.year }
+      ":title": { "S": data.title },
+      ":released_year": { "N": data.year }
     }
   }));
 };
@@ -212,17 +206,15 @@ module.exports['aws-sdk.client-dynamodb.ScanCommand.ProjectionExpression'] = asy
 ) {
   if (noop) return 'NOOP';
 
-  // key=title&title=Star%20Wars
-  const query = require('querystring').parse(input);
-
-  if (safe) query.key = 'title';
+  const data = JSON.parse(input);
+  if (safe) data.key = 'title';
 
   return await client.send(new ScanCommand({
     TableName: 'Movies',
     FilterExpression: 'title = :title',
-    ProjectionExpression: `released_year, ${query.key}`,
+    ProjectionExpression: `released_year, ${data.key}`,
     ExpressionAttributeValues: {
-      ":title": { "S": query.title }
+      ":title": { "S": data.title }
     }
   }));
 };

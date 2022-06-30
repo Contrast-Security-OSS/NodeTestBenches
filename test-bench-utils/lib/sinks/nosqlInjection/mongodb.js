@@ -75,3 +75,73 @@ module.exports['mongodb.Collection.prototype.rename'] = async function rename(
 
   return `<pre>${escape(JSON.stringify(result.collectionName, null, 2))}</pre>`;
 };
+
+/**
+ * @param {Object} params
+ * @param {string} params.input user input string
+ * @param {Object} opts
+ * @param {boolean} [opts.safe] are we calling the sink safely?
+ * @param {boolean} [opts.noop] are we calling the sink as a noop?
+ */
+module.exports['mongodb.Collection.prototype.findOne'] = async function rename(
+  { input },
+  { safe = false, noop = false } = {}
+) {
+  if (noop) return 'NOOP';
+
+  const value = safe ? 'world' : input;
+  const db = await initDb();
+  const result = await db
+    .collection(MONGO_COLLECTION)
+    .findOne({ hello: value })
+    .catch((err) => {});
+
+  return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
+};
+
+/**
+ * @param {Object} params
+ * @param {string} params.input user input string
+ * @param {Object} opts
+ * @param {boolean} [opts.safe] are we calling the sink safely?
+ * @param {boolean} [opts.noop] are we calling the sink as a noop?
+ */
+module.exports['mongodb.Collection.prototype.insertMany'] = async function rename(
+  { input },
+  { safe = false, noop = false } = {}
+) {
+  if (noop) return 'NOOP';
+
+  const value = safe ? 'Cat Henry' : input;
+  const db = await initDb();
+  const result = await db
+    .collection(MONGO_COLLECTION)
+    .insertMany([{ hello: 'Shusia' }, { hello: value }, { hello: 'Simba' }])
+    .catch((err) => {});
+
+  return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
+};
+
+/**
+ * @param {Object} params
+ * @param {string} params.input user input string
+ * @param {Object} opts
+ * @param {boolean} [opts.safe] are we calling the sink safely?
+ * @param {boolean} [opts.noop] are we calling the sink as a noop?
+ */
+module.exports['mongodb.Collection.prototype.updateOne'] = async function rename(
+  { input },
+  { safe = false, noop = false } = {}
+) {
+  if (noop) return 'NOOP';
+
+  // In this example, the filter is SAFE, but the update object might not be
+  const value = safe ? 'Shusia' : input;
+  const db = await initDb();
+  const result = await db
+    .collection(MONGO_COLLECTION)
+    .updateOne({ hello: 'world' }, { $set: { hello: value }})
+    .catch((err) => {});
+
+  return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
+};

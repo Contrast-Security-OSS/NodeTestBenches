@@ -1,6 +1,8 @@
 ARG node_version=12
 FROM node:${node_version}-stretch
 
+RUN npm install -g npm@$8.3.1
+
 # Create the file repository configuration, import the repository signing key and install PostgreSQL & sudo
 RUN echo "deb [arch=amd64] http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 RUN curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -

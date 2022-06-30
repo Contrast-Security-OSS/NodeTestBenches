@@ -1,9 +1,6 @@
 ARG node_version=12
 FROM node:${node_version}-stretch
 
-# Use an older NPM version due to issues with the latest ones
-RUN npm install -g npm@$8.3.1
-
 # Create the file repository configuration, import the repository signing key and install PostgreSQL & sudo
 RUN echo "deb [arch=amd64] http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 RUN curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
@@ -55,6 +52,8 @@ RUN chmod +x install-dynamodb-local.sh
 RUN ./install-dynamodb-local.sh
 EXPOSE 8000
 
+# Use an older NPM version due to issues with the latest ones
+RUN npm install -g npm@8.3.1
 RUN npm ci
 RUN chmod +x entry.sh
 CMD ./entry.sh

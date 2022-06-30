@@ -32,7 +32,7 @@
     "@hapi/vision": "^6.0.0",
     "ejs": "^2.7.4",
     "lodash": "^4.17.19",
-    "mongodb": "^3.0.1",
+    "mongodb": "^4.2.2",
     "pem": "^1.14.2"
   },
   "devDependencies": {

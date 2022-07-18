@@ -36,9 +36,13 @@ EXPOSE 3306
 RUN apt install sqlite3
 RUN sqlite3 --version
 
-## Java: At least Java v8.x is required for DynamoDB
+# DynamoDB
+# At least Java v8.x is required for DynamoDB
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt install default-jre -y
 RUN java -version
+RUN chmod +x install-dynamodb-local.sh
+RUN ./install-dynamodb-local.sh
+EXPOSE 8000
 
 # Application setup
 WORKDIR /app

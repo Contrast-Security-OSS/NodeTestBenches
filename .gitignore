@@ -1,6 +1,9 @@
 .vscode/
 coverage/
 node_modules/
+.DS_Store
+db.sqlite3
+test-bench-utils/test_coverage
 # form upload paths
 loopback/server/uploads/*
 !loopback/server/uploads/.gitkeep

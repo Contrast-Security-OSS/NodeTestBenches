@@ -1,6 +1,7 @@
 .vscode/
 coverage/
 node_modules/
+.DS_Store
 # form upload paths
 loopback/server/uploads/*
 !loopback/server/uploads/.gitkeep

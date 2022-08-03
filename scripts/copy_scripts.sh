@@ -14,3 +14,7 @@ if [[ ${PWD##*/} == "fastify3" ]]; then
     cp -R -n "../fastify/$folder" .
   done
 fi
+
+if [[ ${PWD##*/} == "fastify3" || ${PWD##*/} == "koa" || ${PWD##*/} == "express"]]; then
+  cp ../scripts/Dockerfile-screener .
+fi

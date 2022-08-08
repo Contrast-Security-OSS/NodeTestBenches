@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 REMOTE=$1
 REPOSITORY=$2
 DIRECTORY=${3:-$1}

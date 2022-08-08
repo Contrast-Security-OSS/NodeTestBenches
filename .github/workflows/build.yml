@@ -34,6 +34,6 @@ jobs:
           NODE_VERSION: ${{ matrix.version }}
         run: |
           cd $ECR_REPOSITORY
-          ../scripts/copy_scripts.sh
+          ../scripts/copy-scripts.sh
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG-$NODE_VERSION -t $ECR_REGISTRY/$ECR_REPOSITORY:latest-$NODE_VERSION --build-arg node_version=$NODE_VERSION .
           docker push -a $ECR_REGISTRY/$ECR_REPOSITORY

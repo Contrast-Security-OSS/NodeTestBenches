@@ -1,4 +1,7 @@
-#! /bin/bash -e
+#!/usr/bin/env bash
+
+set -e
+
 cp ../scripts/install-dynamodb-local.sh .
 cp ../scripts/entry.sh .
 

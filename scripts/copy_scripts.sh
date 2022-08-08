@@ -7,14 +7,7 @@ if [[ ! -f "Dockerfile" ]]; then
   cp ../scripts/docker-compose.yml .
 fi
 
-folders=("public" "routes" "uploads" "utils" "view")
-if [[ ${PWD##*/} == "fastify3" ]]; then
-  cp ../fastify/server.js .
-  for folder in "${folders[@]}"; do
-    cp -R -n "../fastify/$folder" .
-  done
-fi
-
-if [[ ${PWD##*/} == "fastify3" ]] || [[ ${PWD##*/} == "koa" ]] || [[ ${PWD##*/} == "express" ]]; then
+project="${PWD##*/}"
+if [[ "$project" == "fastify3" || "$project" == "koa" || "$project" == "express" ]]; then
   cp ../scripts/Dockerfile-screener .
 fi

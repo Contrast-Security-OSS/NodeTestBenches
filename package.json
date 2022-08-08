@@ -6,29 +6,17 @@
   },
   "scripts": {
     "test": "lerna run test",
-    "postinstall": "lerna bootstrap --ci --force-local",
     "postpublish": "lerna exec -- npm install --package-lock-only && git commit -a -m 'Bump package-lock' && git push",
-    "preinstall": "scripts/add-git-hook.sh"
+    "prepare": "scripts/prepare.sh"
   },
   "dependencies": {
     "lerna": "^3.22.1"
   },
   "devDependencies": {
-    "@contrast/eslint-config": "^2.0.0",
-    "@loopback/build": "^6.2.7",
-    "@loopback/cli": "^2.17.0",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-mocha": "^6.3.0",
-    "eslint-plugin-node": "^11.0.0",
-    "eslint-plugin-prettier": "^3.1.2",
-    "lint-staged": "^10.4.0",
-    "npm": "^7.13.0",
-    "prettier": "^1.19.1",
-    "shellcheck": "^0.4.4"
-  },
-  "prettier": {
-    "singleQuote": true,
-    "arrowParens": "always"
+    "@contrast/eslint-config": "^3.2.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "nodemon": "^2.0.19",
+    "shellcheck": "^1.1.0"
   }
 }

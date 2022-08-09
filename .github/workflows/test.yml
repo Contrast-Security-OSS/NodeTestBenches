@@ -2,22 +2,17 @@ name: Test
 
 on:
   push:
-    branches:
+    branches: [main]
       - main
   pull_request:
-    branches:
-      - '*'
-
-env:
-  CI: true
+    branches: ['*']
 
 jobs:
   test:
-    name: Node v${{ matrix.version }} on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
+    name: Node v${{ matrix.version }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [ubuntu-latest]
         version: [12.x, 14.x, 16.x]
     steps:
       - name: Checkout
@@ -28,7 +23,7 @@ jobs:
           node-version: ${{ matrix.version }}
       - name: Install dependencies
         shell: bash
-        run: npm install -g npm@7 && npm ci --ignore-scripts && npm run postinstall
+        run: npm install -g npm@8 && npm ci
       - name: Run tests
         shell: bash
         run: npm test

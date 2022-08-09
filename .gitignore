@@ -3,9 +3,11 @@ coverage/
 node_modules/
 .DS_Store
 # form upload paths
-**/unsafeFileUpload/uploads/*
-!**/unsafeFileUpload/uploads/.gitkeep
-**/contrast_security.y*ml
+unsafeFileUpload/uploads/*
+!unsafeFileUpload/uploads/.gitkeep
+contrast_security.y*ml
 # agent artifacts - logs, cache etc
+*.sqlite3
 *.log
+*.tsbuildinfo
 rewrite_cache/

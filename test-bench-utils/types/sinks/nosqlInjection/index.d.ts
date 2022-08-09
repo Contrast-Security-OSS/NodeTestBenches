@@ -52,18 +52,19 @@ declare const _exports: {
     }, { safe, noop }?: {
         safe?: boolean;
         noop?: boolean;
-    }) => Promise<import("@aws-sdk/client-dynamodb").ScanCommandOutput | "NOOP">;
+    }) => Promise<"NOOP" | import("@aws-sdk/client-dynamodb").ScanCommandOutput>;
     'aws-sdk.client-dynamodb.ScanCommand.FilterExpression': ({ input }: {
         input: string;
     }, { safe, noop }?: {
         safe?: boolean;
         noop?: boolean;
-    }) => Promise<import("@aws-sdk/client-dynamodb").ScanCommandOutput | "NOOP">;
+    }) => Promise<"NOOP" | import("@aws-sdk/client-dynamodb").ScanCommandOutput>;
     'aws-sdk.client-dynamodb.ScanCommand.ProjectionExpression': ({ input }: {
         input: string;
     }, { safe, noop }?: {
         safe?: boolean;
         noop?: boolean;
+<<<<<<< HEAD
     }) => Promise<import("@aws-sdk/client-dynamodb").ScanCommandOutput | "NOOP">;
     'aws-sdk.client-dynamodb.ExecuteStatementCommand': ({ input }: {
         input: string;
@@ -71,6 +72,17 @@ declare const _exports: {
         safe?: boolean;
         noop?: boolean;
     }) => Promise<import("@aws-sdk/client-dynamodb").ExecuteStatementCommandOutput | "NOOP">;
+||||||| parent of df354b6 (Update a few key deps, change min node version to 12)
+    }) => Promise<import("@aws-sdk/client-dynamodb").ScanCommandOutput | "NOOP">;
+=======
+    }) => Promise<"NOOP" | import("@aws-sdk/client-dynamodb").ScanCommandOutput>;
+    'aws-sdk.client-dynamodb.ExecuteStatementCommand': ({ input }: {
+        input: string;
+    }, { safe, noop }?: {
+        safe?: boolean;
+        noop?: boolean;
+    }) => Promise<"NOOP" | import("@aws-sdk/client-dynamodb").ExecuteStatementCommandOutput>;
+>>>>>>> df354b6 (Update a few key deps, change min node version to 12)
     'r.insert': ({ input }: {
         input: string;
     }, { safe, noop }?: {
@@ -103,31 +115,31 @@ declare const _exports: {
     }) => Promise<any>;
 };
 export = _exports;
-export var _r_insert: ({ input }: {
+export const _r_insert: ({ input }: {
     input: string;
 }, { safe, noop }?: {
     safe?: boolean;
     noop?: boolean;
 }) => Promise<any>;
-export var _r_update: ({ input }: {
+export const _r_update: ({ input }: {
     input: string;
 }, { safe, noop }?: {
     safe?: boolean;
     noop?: boolean;
 }) => Promise<any>;
-export var _r_filter: ({ input }: {
+export const _r_filter: ({ input }: {
     input: string;
 }, { safe, noop }?: {
     safe?: boolean;
     noop?: boolean;
 }) => Promise<any>;
-export var _r_match: ({ input }: {
+export const _r_match: ({ input }: {
     input: string;
 }, { safe, noop }?: {
     safe?: boolean;
     noop?: boolean;
 }) => Promise<any>;
-export var _r_js: ({ input }: {
+export const _r_js: ({ input }: {
     input: string;
 }, { safe, noop }?: {
     safe?: boolean;

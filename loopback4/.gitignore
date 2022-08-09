@@ -1,2 +1,3 @@
+dist/
 server/uploads/*
 server/uploads/.gitkeep

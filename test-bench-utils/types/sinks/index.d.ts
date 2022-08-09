@@ -10,7 +10,7 @@ export type SinkParams = {
     part?: string;
 };
 export type SinkOpts = {
-    boolean?: any;
+    boolean?: safe;
 };
 export type SinkFn = (params: SinkParams, opts?: SinkOpts) => any;
 export type SinkObj = {

@@ -1,1 +1,1 @@
-export var url: string;
+export const url: string;

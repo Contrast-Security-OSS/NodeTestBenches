@@ -37,8 +37,8 @@ echo '=========================' >> "${DYNAMODB_LOG}"
 date >> "${DYNAMODB_LOG}"
 java -Djava.library.path="./${DYNAMODB_HOME}/DynamoDBLocal_lib" -jar "${DYNAMODB_HOME}/DynamoDBLocal.jar" -sharedDb >> "${DYNAMODB_LOG}" &
 
-export SCREENER_APP_PATH=/app/server.js
-export SCREENER_APP_NAME=fastify3
+export SCREENER_APP_PATH=/app/index.js
+export SCREENER_APP_NAME=koa
 
 # run screener from mount
 /mnt/test/integration/screener/run.sh

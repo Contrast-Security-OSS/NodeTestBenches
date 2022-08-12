@@ -3,5 +3,5 @@ node-contrast-*.log
 security-*.log
 contrast_service.log
 security.log
-
-
+.vscode
+contrast_security.yaml

@@ -20,7 +20,7 @@ rethinkdb --daemon
 /etc/init.d/mysql start
 MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-"password"}
 MYSQL_DATABASE=${MYSQL_DATABASE:-"testdb"}
-echo "mysql --version"
+mysql --version
 mysql -e "UPDATE mysql.user SET authentication_string = PASSWORD('${MYSQL_ROOT_PASSWORD}') WHERE User = 'root' AND Host = 'localhost';"
 mysql -e "update mysql.user set plugin = 'mysql_native_password' where User='root'"
 mysql -uroot -e "drop database if exists $MYSQL_DATABASE"

@@ -7,3 +7,5 @@ export var _r_js: string;
 export var _aws_sdk_client_dynamodb_ScanCommand_ProjectionExpression: string;
 export var _aws_sdk_client_dynamodb_ScanCommand_FilterExpression: string;
 export var _aws_sdk_client_dynamodb_ScanCommand_ComparisonOperator: string;
+export var _aws_sdk_DynamoDB_DocumentClient_prototype_scan: string;
+export var _aws_sdk_DynamoDB_prototype_makeRequest: string;

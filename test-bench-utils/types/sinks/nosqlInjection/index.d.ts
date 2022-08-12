@@ -52,25 +52,25 @@ declare const _exports: {
     }, { safe, noop }?: {
         safe?: boolean;
         noop?: boolean;
-    }) => Promise<"NOOP" | import("@aws-sdk/client-dynamodb").ScanCommandOutput>;
+    }) => Promise<import("@aws-sdk/client-dynamodb").ScanCommandOutput | "NOOP">;
     'aws-sdk.client-dynamodb.ScanCommand.FilterExpression': ({ input }: {
         input: string;
     }, { safe, noop }?: {
         safe?: boolean;
         noop?: boolean;
-    }) => Promise<"NOOP" | import("@aws-sdk/client-dynamodb").ScanCommandOutput>;
+    }) => Promise<import("@aws-sdk/client-dynamodb").ScanCommandOutput | "NOOP">;
     'aws-sdk.client-dynamodb.ScanCommand.ProjectionExpression': ({ input }: {
         input: string;
     }, { safe, noop }?: {
         safe?: boolean;
         noop?: boolean;
-    }) => Promise<"NOOP" | import("@aws-sdk/client-dynamodb").ScanCommandOutput>;
+    }) => Promise<import("@aws-sdk/client-dynamodb").ScanCommandOutput | "NOOP">;
     'aws-sdk.client-dynamodb.ExecuteStatementCommand': ({ input }: {
         input: string;
     }, { safe, noop }?: {
         safe?: boolean;
         noop?: boolean;
-    }) => Promise<"NOOP" | import("@aws-sdk/client-dynamodb").ExecuteStatementCommandOutput>;
+    }) => Promise<import("@aws-sdk/client-dynamodb").ExecuteStatementCommandOutput | "NOOP">;
     'r.insert': ({ input }: {
         input: string;
     }, { safe, noop }?: {

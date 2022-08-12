@@ -2,7 +2,7 @@
 
 const localTableConfig = {
   region: 'us-east-1',
-  endpoint: 'http://localhost:8000',
+  endpoint: 'http://localhost:8000'
 };
 
 // Config for aws-sdk @3.x
@@ -16,7 +16,7 @@ const client = new DynamoDBClient(
   Object.assign(localTableConfig, {
     credentials: {
       accessKeyId: 'accessKeyId',
-      secretAccessKey: 'secretAccessKey',
+      secretAccessKey: 'secretAccessKey'
     }
   })
 );
@@ -35,34 +35,38 @@ const documentClient = new AWS.DynamoDB.DocumentClient();
 
 const createTable = async () => {
   try {
-    await db.createTable({
-      TableName: 'Movies',
-      KeySchema: [
-        { AttributeName: "released_year", KeyType: "HASH" },
-        { AttributeName: "title", KeyType: "RANGE" }  //Sort key
-      ],
-      AttributeDefinitions: [
-        { AttributeName: "released_year", AttributeType: "N" },
-        { AttributeName: "title", AttributeType: "S" }
-      ],
-      ProvisionedThroughput: {
-        ReadCapacityUnits: 10,
-        WriteCapacityUnits: 10
-      }
-    }).promise();
+    await db
+      .createTable({
+        TableName: 'Movies',
+        KeySchema: [
+          { AttributeName: 'released_year', KeyType: 'HASH' },
+          { AttributeName: 'title', KeyType: 'RANGE' } //Sort key
+        ],
+        AttributeDefinitions: [
+          { AttributeName: 'released_year', AttributeType: 'N' },
+          { AttributeName: 'title', AttributeType: 'S' }
+        ],
+        ProvisionedThroughput: {
+          ReadCapacityUnits: 10,
+          WriteCapacityUnits: 10
+        }
+      })
+      .promise();
   } catch (err) {
     // most-likely the table already exists
     console.log(err.code);
   }
 };
 
-(async function() { await createTable(); }());
+(async function() {
+  await createTable();
+})();
 
 function getDocClientParams(arg) {
   return {
-    FilterExpression: 'id = :id',
+    FilterExpression: `${arg} = :title`,
     ExpressionAttributeValues: {
-      ':id': arg
+      ':title': 'Gladiator'
     },
     TableName: 'Movies'
   };
@@ -71,9 +75,9 @@ function getDocClientParams(arg) {
 function getClientParams(arg) {
   return {
     TableName: 'Movies',
-    FilterExpression: 'id = :id',
+    FilterExpression: `${arg} = :title`,
     ExpressionAttributeValues: {
-      ':id': { S: arg }
+      ':title': { S: 'Gladiator' }
     }
   };
 }
@@ -95,7 +99,7 @@ module.exports[
   if (noop) return 'NOOP';
 
   //await db.deleteTable({'TableName': 'Movies'}).promise();
-  const params = getDocClientParams(safe ? 'safe' : input);
+  const params = getDocClientParams(safe ? 'title' : input);
   return await documentClient.scan(params).promise();
 };
 
@@ -123,17 +127,21 @@ module.exports['aws-sdk.DynamoDB.prototype.makeRequest'] = async function scan(
  * @param {boolean} [opts.safe] are we calling the sink safely?
  * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
-module.exports['aws-sdk.DynamoDB.prototype.executeStatement'] = async function scan(
-  { input },
-  { safe = false, noop = false } = {}
-) {
+module.exports[
+  'aws-sdk.DynamoDB.prototype.executeStatement'
+] = async function scan({ input }, { safe = false, noop = false } = {}) {
   if (noop) return 'NOOP';
   let params = {};
 
   if (safe) {
-    params = { Statement:`SELECT * from Movies WHERE title= ?`, Parameters: [{ S: input }]}
+    params = {
+      Statement: 'SELECT * from Movies WHERE title= ?',
+      Parameters: [{ S: input }]
+    };
   } else {
-    params = { Statement:`SELECT * from Movies WHERE title='${input}'` }
+    params = {
+      Statement: `SELECT * from Movies WHERE title='${input}'`
+    };
   }
 
   return await db.executeStatement(params).promise();
@@ -146,25 +154,26 @@ module.exports['aws-sdk.DynamoDB.prototype.executeStatement'] = async function s
  * @param {boolean} [opts.safe] are we calling the sink safely?
  * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
-module.exports['aws-sdk.client-dynamodb.ScanCommand.ComparisonOperator'] = async function scan(
-  { input },
-  { safe = false, noop = false } = {}
-) {
+module.exports[
+  'aws-sdk.client-dynamodb.ScanCommand.ComparisonOperator'
+] = async function scan({ input }, { safe = false, noop = false } = {}) {
   if (noop) return 'NOOP';
 
   const data = JSON.parse(input);
   if (safe) data.comp = 'EQ';
 
-  return await client.send(new ScanCommand({
-    TableName: 'Movies',
-    Select: 'ALL_ATTRIBUTES',
-    ScanFilter: {
-      'title': {
-        'AttributeValueList': [{'S': data.title }],
-        'ComparisonOperator': data.comp
+  return await client.send(
+    new ScanCommand({
+      TableName: 'Movies',
+      Select: 'ALL_ATTRIBUTES',
+      ScanFilter: {
+        'title': {
+          'AttributeValueList': [{ 'S': data.title }],
+          'ComparisonOperator': data.comp
+        }
       }
-    }
-  }));
+    })
+  );
 };
 
 /**
@@ -174,23 +183,25 @@ module.exports['aws-sdk.client-dynamodb.ScanCommand.ComparisonOperator'] = async
  * @param {boolean} [opts.safe] are we calling the sink safely?
  * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
-module.exports['aws-sdk.client-dynamodb.ScanCommand.FilterExpression'] = async function scan(
-  { input },
-  { safe = false, noop = false } = {}
-) {
+module.exports[
+  'aws-sdk.client-dynamodb.ScanCommand.FilterExpression'
+] = async function scan({ input }, { safe = false, noop = false } = {}) {
   if (noop) return 'NOOP';
 
   const data = JSON.parse(input);
   if (safe) data.key = 'title';
 
-  return await client.send(new ScanCommand({
-    TableName: 'Movies',
-    FilterExpression: data.key + " = :title AND released_year = :released_year",
-    ExpressionAttributeValues: {
-      ":title": { "S": data.title },
-      ":released_year": { "N": data.year }
-    }
-  }));
+  return await client.send(
+    new ScanCommand({
+      TableName: 'Movies',
+      FilterExpression:
+        data.key + ' = :title AND released_year = :released_year',
+      ExpressionAttributeValues: {
+        ':title': { 'S': data.title },
+        ':released_year': { 'N': data.year }
+      }
+    })
+  );
 };
 
 /**
@@ -200,23 +211,24 @@ module.exports['aws-sdk.client-dynamodb.ScanCommand.FilterExpression'] = async f
  * @param {boolean} [opts.safe] are we calling the sink safely?
  * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
-module.exports['aws-sdk.client-dynamodb.ScanCommand.ProjectionExpression'] = async function scan(
-  { input },
-  { safe = false, noop = false } = {}
-) {
+module.exports[
+  'aws-sdk.client-dynamodb.ScanCommand.ProjectionExpression'
+] = async function scan({ input }, { safe = false, noop = false } = {}) {
   if (noop) return 'NOOP';
 
   const data = JSON.parse(input);
   if (safe) data.key = 'title';
 
-  return await client.send(new ScanCommand({
-    TableName: 'Movies',
-    FilterExpression: 'title = :title',
-    ProjectionExpression: `released_year, ${data.key}`,
-    ExpressionAttributeValues: {
-      ":title": { "S": data.title }
-    }
-  }));
+  return await client.send(
+    new ScanCommand({
+      TableName: 'Movies',
+      FilterExpression: 'title = :title',
+      ProjectionExpression: `released_year, ${data.key}`,
+      ExpressionAttributeValues: {
+        ':title': { 'S': data.title }
+      }
+    })
+  );
 };
 
 /**
@@ -226,19 +238,21 @@ module.exports['aws-sdk.client-dynamodb.ScanCommand.ProjectionExpression'] = asy
  * @param {boolean} [opts.safe] are we calling the sink safely?
  * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
-module.exports['aws-sdk.client-dynamodb.ExecuteStatementCommand'] = async function scan(
-  { input },
-  { safe = false, noop = false } = {}
-) {
+module.exports[
+  'aws-sdk.client-dynamodb.ExecuteStatementCommand'
+] = async function scan({ input }, { safe = false, noop = false } = {}) {
   if (noop) return 'NOOP';
 
   //Title1%27%20OR%20Title=%27Title2
   let params = {};
 
   if (safe) {
-    params = { Statement:`SELECT * from Movies WHERE title= ?`, Parameters: [{ S: input }]}
+    params = {
+      Statement: `SELECT * from Movies WHERE title= ?`,
+      Parameters: [{ S: input }]
+    };
   } else {
-    params = { Statement:`SELECT * from Movies WHERE title='${input}'` }
+    params = { Statement: `SELECT * from Movies WHERE title='${input}'` };
   }
 
   return await client.send(new ExecuteStatementCommand(params));

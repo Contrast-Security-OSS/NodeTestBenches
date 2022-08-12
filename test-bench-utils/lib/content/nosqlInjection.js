@@ -16,19 +16,26 @@ module.exports['r.filter'] = JSON.stringify({
 module.exports['r.match'] = 'Iv|^';
 module.exports['r.js'] = '30';
 
-module.exports['aws-sdk.client-dynamodb.ScanCommand.ProjectionExpression'] =
-  JSON.stringify({
-    key: 'title',
-    title: 'Star Wars'
-  });
-module.exports['aws-sdk.client-dynamodb.ScanCommand.FilterExpression'] =
-  JSON.stringify({
-    key: 'title',
-    title: 'Star Wars',
-    year: '1982'
-  });
-module.exports['aws-sdk.client-dynamodb.ScanCommand.ComparisonOperator'] =
-  JSON.stringify({
-    title: 'Star Wars',
-    comp: 'NE'
-  });
+module.exports[
+  'aws-sdk.client-dynamodb.ScanCommand.ProjectionExpression'
+] = JSON.stringify({
+  key: 'title',
+  title: 'Star Wars'
+});
+module.exports[
+  'aws-sdk.client-dynamodb.ScanCommand.FilterExpression'
+] = JSON.stringify({
+  key: 'title',
+  title: 'Star Wars',
+  year: '1982'
+});
+module.exports[
+  'aws-sdk.client-dynamodb.ScanCommand.ComparisonOperator'
+] = JSON.stringify({
+  title: 'Star Wars',
+  comp: 'NE'
+});
+module.exports['aws-sdk.DynamoDB.DocumentClient.prototype.scan'] =
+  ':title = :title OR title';
+module.exports['aws-sdk.DynamoDB.prototype.makeRequest'] =
+  ':title = :title OR title';

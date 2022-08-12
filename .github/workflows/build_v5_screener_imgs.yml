@@ -1,4 +1,4 @@
-name: ECR Push
+name: ECR Push v5
 
 on:
   push:

@@ -15,6 +15,6 @@ if [[ ${PWD##*/} == "fastify3" ]]; then
   done
 fi
 
-if [[ ${PWD##*/} == "fastify3" || ${PWD##*/} == "koa" || ${PWD##*/} == "express"]]; then
+if [[ ${PWD##*/} == "fastify3" ]] || [[ ${PWD##*/} == "koa" ]] || [[ ${PWD##*/} == "express" ]]; then
   cp ../scripts/Dockerfile-screener .
 fi

@@ -60,6 +60,14 @@ then
 
   # agent configuration from mounted volume or env vars
   HOST=0.0.0.0 node -r /opt/contrast/package/bootstrap .
+elif [[ -f "/opt/contrast/node-agent-v5.tgz" ]];
+then
+  # agent from mounted volume
+  pushd /opt/contrast && tar xzf ./node-agent-v5.tgz && popd
+  node --version
+
+  # agent configuration from mounted volume or env vars
+  HOST=0.0.0.0 node -r /opt/contrast/package/protect-agent .
 else
   # 2: agent-less
   echo "Running app in agent-less mode"

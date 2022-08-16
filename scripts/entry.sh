@@ -62,8 +62,6 @@ then
   HOST=0.0.0.0 node -r /opt/contrast/package/bootstrap .
 elif [[ -f "/opt/contrast/node-agent-v5.tgz" ]];
 then
-  npm config set offline
-
   # agent from mounted volume
   pushd /opt/contrast && tar xzf ./node-agent-v5.tgz && popd
   node --version

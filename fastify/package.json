@@ -35,8 +35,5 @@
     "lodash": "^4.17.19",
     "pem": "^1.14.4",
     "point-of-view": "^4.8.0"
-  },
-  "devDependencies": {
-    "pino-pretty": "^3.6.1"
   }
 }

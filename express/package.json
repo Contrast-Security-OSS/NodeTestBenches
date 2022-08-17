@@ -41,11 +41,5 @@
     "pem": "^1.14.2",
     "spdy": "^4.0.2",
     "sqlite3": "^5.0.0"
-  },
-  "devDependencies": {
-    "chai": "^4.2.0",
-    "jest": "^26.1.0",
-    "mocha": "^8.0.1",
-    "supertest": "^4.0.2"
   }
 }

@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Generate secrets baseline if not found
+if [ -f ".secrets.baseline" ]; then
+  FILES=$(git diff --cached --name-only --diff-filter=ACM)
+  detect-secrets-hook --baseline .secrets.baseline "$FILES"
+else
+  echo "Warning: no .secrets.baseline found"
+fi
+
+echo "[INFO] If you encounter any issues with detect-secrets, please refer to https://github.com/Contrast-Labs/detect-secrets"
+pre-commit run

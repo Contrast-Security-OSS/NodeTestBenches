@@ -7,6 +7,7 @@
     "declaration": true,
     "declarationDir": "./types/",
     "removeComments": true,
+    "skipLibCheck": true,
     "emitDeclarationOnly": true,
     "incremental": true,
   }

@@ -1,1 +1,1 @@
-export var xml: string;
+export const xml: "\n<?xml version=\"1.0\"?>\n<users>\n  <user>\n    <username>admin</username>\n    <password>admin</password>\n  </user>\n  <user>\n    <username>user1</username>\n    <password>123456</password>\n  </user>\n  <user>\n    <username>tony</username>\n    <password>ynot</password>\n  </user>\n</users>\n";

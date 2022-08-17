@@ -3,36 +3,23 @@ coverage/
 node_modules/
 .DS_Store
 # form upload paths
-loopback/server/uploads/*
-!loopback/server/uploads/.gitkeep
-loopback4/server/uploads/*
-!loopback4/server/uploads/.gitkeep
-kraken/uploads/*
-!kraken/uploads/.gitkeep
-fastify/uploads/*
-!fastify/uploads/.gitkeep
-fastify3/uploads/
-!fastify3/uploads/.gitkeep
-**/unsafeFileUpload/uploads/*
-!**/unsafeFileUpload/uploads/.gitkeep
-**/contrast_security.y*ml
+unsafeFileUpload/uploads/*
+!unsafeFileUpload/uploads/.gitkeep
+contrast_security.y*ml
 # agent artifacts - logs, cache etc
+*.sqlite3
 *.log
+*.tsbuildinfo
 rewrite_cache/
 
-*~
-# vim swaps
-*.swp
-*.swo
-*.swl
-*.swn
-*.swm
-
-# these are copied from fastify in ./scripts/copy_scripts.sh
-fastify3/public/
-fastify3/routes/
-fastify3/utils/
-fastify3/view/
-fastify3/server.js
-fastify3/Dockerfile
-fastify3/entry.sh
+# copy-scripts.sh
+docker-compose.yml
+!/scripts/docker-compose.yml
+Dockerfile
+!/scripts/Dockerfile
+Dockerfile-screener
+!/scripts/Dockerfile-screener
+entry.sh
+!/scripts/entry.sh
+install-dynamodb-local.sh
+!/scripts/install-dynamodb-local.sh

@@ -21,7 +21,7 @@
     "start": "node server.js"
   },
   "engines": {
-    "node": ">=10.13.0"
+    "node": ">=12.13.0"
   },
   "dependencies": {
     "@contrast/test-bench-utils": "^3.29.4",
@@ -35,15 +35,5 @@
     "mongodb": "^3.0.1",
     "pem": "^1.14.2",
     "qs": "^6.10.3"
-  },
-  "devDependencies": {
-    "@contrast/eslint-config": "^2.0.0",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-mocha": "^6.3.0",
-    "eslint-plugin-node": "^11.0.0",
-    "eslint-plugin-prettier": "^3.1.2",
-    "nodemon": "^2.0.4",
-    "prettier": "^1.19.1"
   }
 }

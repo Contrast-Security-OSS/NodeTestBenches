@@ -13,9 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Set up Node v${{ matrix.version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
       - name: Build test-bench-utils
         run: |
           cd test-bench-utils
@@ -33,11 +33,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        apps: [express,fastify,fastify3,hapi18,hapi19,hapi20,koa,kraken,loopback,loopback4,restify,sails]
+        apps: [express,fastify,hapi18,hapi19,hapi20,koa,kraken,loopback,loopback4,restify,sails]
         version: [12, 14, 16]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Download test-bench-utils
         uses: actions/download-artifact@v2
         with:
@@ -61,7 +61,7 @@ jobs:
           NODE_VERSION: ${{ matrix.version }}
         run: |
           cd $ECR_REPOSITORY
-          ../scripts/copy_scripts.sh
+          ../scripts/copy-scripts.sh
           pr_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG-$NODE_VERSION -t $ECR_REGISTRY/$ECR_REPOSITORY:$pr_number-$NODE_VERSION --build-arg node_version=$NODE_VERSION .
           docker push -a $ECR_REGISTRY/$ECR_REPOSITORY

@@ -21,23 +21,23 @@ export function _aws_sdk_client_dynamodb_ScanCommand_ComparisonOperator({ input 
 }, { safe, noop }?: {
     safe?: boolean;
     noop?: boolean;
-}): Promise<import("@aws-sdk/client-dynamodb").ScanCommandOutput | "NOOP">;
+}): Promise<"NOOP" | import("@aws-sdk/client-dynamodb").ScanCommandOutput>;
 export function _aws_sdk_client_dynamodb_ScanCommand_FilterExpression({ input }: {
     input: string;
 }, { safe, noop }?: {
     safe?: boolean;
     noop?: boolean;
-}): Promise<import("@aws-sdk/client-dynamodb").ScanCommandOutput | "NOOP">;
+}): Promise<"NOOP" | import("@aws-sdk/client-dynamodb").ScanCommandOutput>;
 export function _aws_sdk_client_dynamodb_ScanCommand_ProjectionExpression({ input }: {
     input: string;
 }, { safe, noop }?: {
     safe?: boolean;
     noop?: boolean;
-}): Promise<import("@aws-sdk/client-dynamodb").ScanCommandOutput | "NOOP">;
+}): Promise<"NOOP" | import("@aws-sdk/client-dynamodb").ScanCommandOutput>;
 export function _aws_sdk_client_dynamodb_ExecuteStatementCommand({ input }: {
     input: string;
 }, { safe, noop }?: {
     safe?: boolean;
     noop?: boolean;
-}): Promise<import("@aws-sdk/client-dynamodb").ExecuteStatementCommandOutput | "NOOP">;
+}): Promise<"NOOP" | import("@aws-sdk/client-dynamodb").ExecuteStatementCommandOutput>;
 import AWS = require("aws-sdk");

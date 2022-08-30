@@ -35,7 +35,7 @@ module.exports['crypto-bad-ciphers'] = async function exec(
   if (noop) return 'NOOP';
 
   const { algorithm, bytes, key_length } = safe
-    ? { algorithm: 'aes-256-cbc', bytes: 16, key_length: 32}
+    ? { algorithm: 'aes-256-cbc', bytes: 16, key_length: 32 }
     : { algorithm: 'camellia-128-cbc', bytes: 16, key_length: 16 };
 
   const key = Buffer.alloc(key_length);

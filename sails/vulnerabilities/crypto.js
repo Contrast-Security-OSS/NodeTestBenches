@@ -29,7 +29,7 @@ module.exports = function(app, locals){
     'GET /crypto/query/cryptoBadCiphers/:sink': function (req, res) {
       if (req.params.sink === 'noop') return res.send('NOOP');
 
-      const { algorithm, bytes, key_length } = safe
+      const { algorithm, bytes, key_length } = req.params.sink === 'safe'
       ? { algorithm: 'aes-256-cbc', bytes: 16, key_length: 32}
       : { algorithm: 'camellia-128-cbc', bytes: 16, key_length: 16 };
   

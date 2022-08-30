@@ -29,11 +29,11 @@ module.exports = function(app, locals){
     'GET /crypto/query/cryptoBadCiphers/:sink': function (req, res) {
       if (req.params.sink === 'noop') return res.send('NOOP');
 
-      const { algorithm, bytes } = req.params.sink === 'safe'
-        ? { algorithm: 'aes-256-cbc', bytes: 16 }
-        : { algorithm: 'rc2', bytes: 8 };
+      const { algorithm, bytes, key_length } = req.params.sink === 'safe'
+        ? { algorithm: 'aes-256-cbc', bytes: 16, key_length: 32 }
+        : { algorithm: 'camellia-128-cbc', bytes: 16, key_length: 16 };
 
-      const key = Buffer.alloc(32);
+      const key = Buffer.alloc(key_length);
       const iv = Buffer.alloc(bytes);
       const cipher = crypto.createCipheriv(algorithm, key, iv);
       cipher.update('woot', 'utf8', 'base64');

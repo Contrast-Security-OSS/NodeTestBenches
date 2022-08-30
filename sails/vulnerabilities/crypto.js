@@ -30,9 +30,9 @@ module.exports = function(app, locals){
       if (req.params.sink === 'noop') return res.send('NOOP');
 
       const { algorithm, bytes, key_length } = req.params.sink === 'safe'
-       ? { algorithm: 'aes-256-cbc', bytes: 16, key_length: 32 }
-       : { algorithm: 'camellia-128-cbc', bytes: 16, key_length: 16 };
-  
+        ? { algorithm: 'aes-256-cbc', bytes: 16, key_length: 32 }
+        : { algorithm: 'camellia-128-cbc', bytes: 16, key_length: 16 };
+
       const key = Buffer.alloc(key_length);
       const iv = Buffer.alloc(bytes);
       const cipher = crypto.createCipheriv(algorithm, key, iv);

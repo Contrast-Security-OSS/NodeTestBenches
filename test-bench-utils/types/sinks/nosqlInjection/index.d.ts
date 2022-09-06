@@ -17,12 +17,6 @@ declare const _exports: {
         safe?: boolean;
         noop?: boolean;
     }) => Promise<string>;
-    'mongodb.Collection.prototype.insertMany': ({ input }: {
-        input: string;
-    }, { safe, noop }?: {
-        safe?: boolean;
-        noop?: boolean;
-    }) => Promise<string>;
     'mongodb.Collection.prototype.updateOne': ({ input }: {
         input: string;
     }, { safe, noop }?: {

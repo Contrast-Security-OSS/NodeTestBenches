@@ -106,29 +106,6 @@ module.exports['mongodb.Collection.prototype.findOne'] = async function rename(
  * @param {boolean} [opts.safe] are we calling the sink safely?
  * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
-module.exports['mongodb.Collection.prototype.insertMany'] = async function rename(
-  { input },
-  { safe = false, noop = false } = {}
-) {
-  if (noop) return 'NOOP';
-
-  const value = safe ? 'Cat Henry' : input;
-  const db = await initDb();
-  const result = await db
-    .collection(MONGO_COLLECTION)
-    .insertMany([{ hello: 'Shusia' }, { hello: value }, { hello: 'Simba' }])
-    .catch((err) => {});
-
-  return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
-};
-
-/**
- * @param {Object} params
- * @param {string} params.input user input string
- * @param {Object} opts
- * @param {boolean} [opts.safe] are we calling the sink safely?
- * @param {boolean} [opts.noop] are we calling the sink as a noop?
- */
 module.exports['mongodb.Collection.prototype.updateOne'] = async function rename(
   { input },
   { safe = false, noop = false } = {}

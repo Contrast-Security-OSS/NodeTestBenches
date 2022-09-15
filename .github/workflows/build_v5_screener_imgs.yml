@@ -11,7 +11,7 @@ jobs:
       matrix:
         # not all apps support node versions below, but at the very
         # least they all build
-        apps: [express,fastify3,koa]
+        apps: [express,fastify,koa,hapi18,hapi19,hapi20]
         version: [14, 16, 18]
     steps:
       - name: Checkout
@@ -35,6 +35,6 @@ jobs:
           NODE_VERSION: ${{ matrix.version }}
         run: |
           cd $APP_FOLDER
-          ../scripts/copy_scripts.sh
+          ../scripts/copy-scripts.sh
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG-$NODE_VERSION -t $ECR_REGISTRY/$ECR_REPOSITORY:latest-$NODE_VERSION --build-arg node_version=$NODE_VERSION -f ./Dockerfile-screener .
           docker push -a $ECR_REGISTRY/$ECR_REPOSITORY

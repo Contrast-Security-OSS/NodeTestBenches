@@ -19,12 +19,11 @@ sudo -u postgres createdb "${PGDATABASE}"
 rethinkdb --daemon
 
 # Run MySQL (MariaDB)
-/etc/init.d/mysql start
+/etc/init.d/mariadb start
 MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-"password"}
 MYSQL_DATABASE=${MYSQL_DATABASE:-"testdb"}
 mysql --version
-mysql -e "UPDATE mysql.user SET authentication_string = PASSWORD('${MYSQL_ROOT_PASSWORD}') WHERE User = 'root' AND Host = 'localhost';"
-mysql -e "update mysql.user set plugin = 'mysql_native_password' where User='root'"
+mysql -e "SET password for 'root'@'localhost' = PASSWORD('${MYSQL_ROOT_PASSWORD}');"
 mysql -uroot -e "drop database if exists $MYSQL_DATABASE"
 mysql -uroot -e "create database $MYSQL_DATABASE"
 mysql -e "FLUSH PRIVILEGES"

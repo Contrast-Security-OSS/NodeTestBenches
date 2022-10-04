@@ -74,6 +74,15 @@ module.exports = {
     params: ['input'],
     sinks: sinks.pathTraversal
   },
+  pathTraversalSemanticFileSecurityBypass: {
+    base: '/pathTraversalSemanticFileSecurityBypass',
+    name: 'Path Traversal Semantic File Security Bypass',
+    link: 'https://www.owasp.org/index.php/pathTraversal',
+    products: ['Protect'],
+    inputs: ['query'],
+    params: ['input'],
+    sinks: sinks.pathTraversalSemanticFileSecurityBypass
+  },
   sqlInjection: {
     base: '/sqlInjection',
     name: 'SQL Injection',

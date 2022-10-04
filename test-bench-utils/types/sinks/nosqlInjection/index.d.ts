@@ -58,17 +58,6 @@ declare const _exports: {
     }, { safe, noop }?: {
         safe?: boolean;
         noop?: boolean;
-<<<<<<< HEAD
-    }) => Promise<import("@aws-sdk/client-dynamodb").ScanCommandOutput | "NOOP">;
-    'aws-sdk.client-dynamodb.ExecuteStatementCommand': ({ input }: {
-        input: string;
-    }, { safe, noop }?: {
-        safe?: boolean;
-        noop?: boolean;
-    }) => Promise<import("@aws-sdk/client-dynamodb").ExecuteStatementCommandOutput | "NOOP">;
-||||||| parent of df354b6 (Update a few key deps, change min node version to 12)
-    }) => Promise<import("@aws-sdk/client-dynamodb").ScanCommandOutput | "NOOP">;
-=======
     }) => Promise<"NOOP" | import("@aws-sdk/client-dynamodb").ScanCommandOutput>;
     'aws-sdk.client-dynamodb.ExecuteStatementCommand': ({ input }: {
         input: string;
@@ -76,7 +65,6 @@ declare const _exports: {
         safe?: boolean;
         noop?: boolean;
     }) => Promise<"NOOP" | import("@aws-sdk/client-dynamodb").ExecuteStatementCommandOutput>;
->>>>>>> df354b6 (Update a few key deps, change min node version to 12)
     'r.insert': ({ input }: {
         input: string;
     }, { safe, noop }?: {

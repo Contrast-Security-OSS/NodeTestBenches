@@ -18,4 +18,3 @@ export type Route = {
         [name: string]: sinks.Sink;
     };
 };
-import sinks = require("./sinks");

@@ -4,16 +4,24 @@
   <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
     <% sinkData.forEach(function(sink) { %>
       <h4><%= sink.name %></h4>
-    <% ['unsafe', 'safe', 'noop'].forEach(function(safety) { %>
-    <p>
-      <a
-        target="_blank"
-        href="<%= sink.url %>/<%= safety %>"
-      >
-        <%= sink.url %>/<%= safety %>
-      </a>
-    </p>
-    <% }); %>
+<% ['unsafe', 'safe', 'noop'].forEach(function(safety) { %>
+  <p>
+    <a
+      target="_blank"
+      href="<%= sink.url %>/<%= safety %>?input=type1"
+    >
+      <%= sink.url %>/<%= safety %>?input=type1
+    </a>
+  </p>
+  <p>
+    <a
+      target="_blank"
+      href="<%= sink.url %>/<%= safety %>?input=type2"
+    >
+      <%= sink.url %>/<%= safety %>?input=type2
+    </a>
+  </p>
+<% }); %>
     <% }); %>
   </div>
 </div>

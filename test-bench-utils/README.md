@@ -100,7 +100,7 @@ Once you have configured the shared sink and view, consult the following
 instructions for including the shared functionality in each test bench app:
 
 - [express](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/express#adding-a-shared-vulnerability)
-- [fastify](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/fastify#adding-a-shared-vulnerability)
+- [fastify3](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/fastify3#adding-a-shared-vulnerability)
 - [hapi](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/hapi20#adding-a-shared-vulnerability)
 - [koa](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/koa#adding-a-shared-vulnerability)
 - [kraken](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/kraken#adding-a-shared-vulnerability)

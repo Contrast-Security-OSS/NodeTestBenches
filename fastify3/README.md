@@ -1,5 +1,5 @@
-# @contrast/fastify-test-bench
-An intentionally vulnerable `fastify` application.
+# @contrast/fastify3-test-bench
+An intentionally vulnerable `fastify3` application.
 
 ## Running Locally
 Make sure you have [Node.js](http://nodejs.org/) installed or install a version
@@ -7,7 +7,7 @@ of Node from [nvm](https://github.com/creationix/nvm).
 
 ```sh
 git clone https://github.com/Contrast-Security-OSS/NodeTestBenches.git # or clone your own fork
-cd NodeTestBenches/fastify
+cd NodeTestBenches/fastify3
 npm install
 npm start
 ```

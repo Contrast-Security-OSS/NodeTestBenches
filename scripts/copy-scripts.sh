@@ -11,6 +11,6 @@ if [[ ! -f "Dockerfile" ]]; then
 fi
 
 project="${PWD##*/}"
-if [[ "$project" == "fastify" || "$project" == "koa" || "$project" == "express" || "$project" == "hapi18" || "$project" == "hapi19" || "$project" == "hapi20" ]]; then
+if [[ "$project" == "fastify" || "$project" == "koa" || "$project" == "express" || "$project" == "hapi20" ]]; then
   cp ../scripts/Dockerfile-screener .
 fi

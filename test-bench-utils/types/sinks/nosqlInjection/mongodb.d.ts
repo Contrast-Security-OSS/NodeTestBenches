@@ -28,3 +28,15 @@ export function _mongodb_Collection_prototype_updateOne({ input }: {
     safe?: boolean;
     noop?: boolean;
 }): Promise<string>;
+export function _mongodb_Collection_prototype_findOneAndUpdate_where({ input }: {
+    input: any;
+}, { safe, noop }?: {
+    safe?: boolean;
+    noop?: boolean;
+}): Promise<string>;
+export function _mongodb_Collection_prototype_updateMany_where({ input }: {
+    input: any;
+}, { safe, noop }?: {
+    safe?: boolean;
+    noop?: boolean;
+}): Promise<string>;

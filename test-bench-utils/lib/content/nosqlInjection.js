@@ -1,9 +1,11 @@
 'use strict';
 
-module.exports['mongodb.Db.prototype.eval'] = {
+const registry = {};
+
+registry['mongodb.Db.prototype.eval'] = {
   attackValue: 'function() { return "hi"; }'
 };
-module.exports['r.insert'] = {
+registry['r.insert'] = {
   attackValue: JSON.stringify({
     addresses: ['Blagoevgrad', 'Plovdiv'],
     age: 22,
@@ -13,7 +15,7 @@ module.exports['r.insert'] = {
   })
 };
 
-module.exports['r.update'] = {
+registry['r.update'] = {
   attackValue: JSON.stringify({
     toBeUpdated: {
       name: 'Ivaylo'
@@ -23,19 +25,19 @@ module.exports['r.update'] = {
     }
   })
 };
-module.exports['r.filter'] = {
+registry['r.filter'] = {
   attackValue: JSON.stringify({
     secret: 'somethingsecret'
   })
 };
-module.exports['r.match'] = {
+registry['r.match'] = {
   attackValue: 'Iv|^'
 };
-module.exports['r.js'] = {
+registry['r.js'] = {
   attackValue: '30'
 };
 
-module.exports[
+registry[
   'aws-sdk.client-dynamodb.ScanCommand.ProjectionExpression'
 ] = {
   attackValue: JSON.stringify({
@@ -43,7 +45,7 @@ module.exports[
     title: 'Star Wars'
   })
 };
-module.exports[
+registry[
   'aws-sdk.client-dynamodb.ScanCommand.FilterExpression'
 ] = {
   attackValue: JSON.stringify({
@@ -52,7 +54,7 @@ module.exports[
     year: '1982'
   })
 };
-module.exports[
+registry[
   'aws-sdk.client-dynamodb.ScanCommand.ComparisonOperator'
 ] = {
   attackValue: JSON.stringify({
@@ -60,18 +62,35 @@ module.exports[
     comp: 'NE'
   })
 };
-module.exports['aws-sdk.DynamoDB.DocumentClient.prototype.scan'] = {
+registry['aws-sdk.DynamoDB.DocumentClient.prototype.scan'] = {
   attackValue: ':title = :title OR title'
 };
-module.exports['aws-sdk.DynamoDB.prototype.makeRequest'] = {
+registry['aws-sdk.DynamoDB.prototype.makeRequest'] = {
   attackValue: ':title = :title OR title'
 };
-module.exports['mongodb.Collection.prototype.findOneAndUpdate>$where'] = {
+registry['mongodb.Collection.prototype.findOneAndUpdate>$where'] = {
   attackValue: 'function() { return true })',
   description: 'This sink uses $where operator.'
 };
 
-module.exports['mongodb.Collection.prototype.updateMany>where'] = {
+registry['mongodb.Collection.prototype.updateMany>where'] = {
   attackValue: 'function() { return true }',
   description: 'This sink uses $where operator.'
+};
+
+const { attackValues, descriptions } = Object.entries(registry).reduce((acc, [key, value]) => {
+  if (value.attackValue) {
+    acc.attackValues[key] = value.attackValue;
+  }
+
+  if (value.description) {
+    acc.descriptions[key] = value.description;
+  }
+
+  return acc;
+}, { attackValues: {}, descriptions: {} });
+
+module.exports = {
+  attackValues,
+  descriptions
 };

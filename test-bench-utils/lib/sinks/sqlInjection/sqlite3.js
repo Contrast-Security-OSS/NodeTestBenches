@@ -1,9 +1,9 @@
 'use strict';
 
-const sqlite3 = require('sqlite3');
-const { SQL } = require('sql-template-strings');
+// const sqlite3 = require('sqlite3');
+// const { SQL } = require('sql-template-strings');
 
-const db = new sqlite3.Database('db.sqlite3');
+// const db = new sqlite3.Database('db.sqlite3');
 
 ['all', 'run', 'get', 'each', 'exec', 'prepare'].forEach((func) => {
   /**
@@ -21,11 +21,11 @@ const db = new sqlite3.Database('db.sqlite3');
       return 'NOOP';
     }
 
-    const sql = safe
-      ? SQL`SELECT ${input} as "test"`.sql
-      : `SELECT "${input}" as "test";`;
+    return 'NOOP';
+    // const sql = safe
+    //   ? SQL`SELECT ${input} as "test"`.sql
+    //   : `SELECT "${input}" as "test";`;
 
-    db[func](sql, (err, result) => {});
-    return encodeURIComponent(sql);
+    // db[func](sql, (err, result) => {});
   };
 });

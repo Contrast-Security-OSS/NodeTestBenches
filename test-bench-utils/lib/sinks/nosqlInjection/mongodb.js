@@ -146,7 +146,7 @@ module.exports['mongodb.Collection.prototype.updateOne'] = async function rename
   return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
 };
 
-module.exports['mongodb.Collection.prototype.findOneAndUpdate>>$where'] = async function findOneAndUpdate(
+module.exports['mongodb.Collection.prototype.findOneAndUpdate__$where'] = async function findOneAndUpdate(
   { input },
   { safe = false, noop = false } = {}
 ) {
@@ -162,7 +162,7 @@ module.exports['mongodb.Collection.prototype.findOneAndUpdate>>$where'] = async 
   return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
 };
 
-module.exports['mongodb.Collection.prototype.updateMany>>$where'] = async function findOneAndUpdate(
+module.exports['mongodb.Collection.prototype.updateMany__$where'] = async function updateMany(
   { input },
   { safe = false, noop = false } = {}
 ) {

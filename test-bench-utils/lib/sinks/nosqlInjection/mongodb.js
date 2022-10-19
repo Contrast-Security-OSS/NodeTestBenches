@@ -140,7 +140,39 @@ module.exports['mongodb.Collection.prototype.updateOne'] = async function rename
   const db = await initDb();
   const result = await db
     .collection(MONGO_COLLECTION)
-    .updateOne({ hello: 'world' }, { $set: { hello: value }})
+    .updateOne({ hello: 'world' }, { $set: { hello: value } })
+    .catch((err) => {});
+
+  return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
+};
+
+module.exports['mongodb.Collection.prototype.findOneAndUpdate>>$where'] = async function findOneAndUpdate(
+  { input },
+  { safe = false, noop = false } = {}
+) {
+  if (noop) return 'NOOP';
+
+  const value = safe ? '() => true' : input;
+  const db = await initDb();
+  const result = await db
+    .collection(MONGO_COLLECTION)
+    .findOneAndUpdate({ $where: value }, { $set: { hello: 'updated value' } })
+    .catch((err) => {});
+
+  return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
+};
+
+module.exports['mongodb.Collection.prototype.updateMany>>$where'] = async function findOneAndUpdate(
+  { input },
+  { safe = false, noop = false } = {}
+) {
+  if (noop) return 'NOOP';
+
+  const value = safe ? '() => true' : input;
+  const db = await initDb();
+  const result = await db
+    .collection(MONGO_COLLECTION)
+    .updateMany({ $where: value }, { $set: { hello: 'updated value' } })
     .catch((err) => {});
 
   return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;

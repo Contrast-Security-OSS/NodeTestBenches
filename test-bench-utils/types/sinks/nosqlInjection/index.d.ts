@@ -1,10 +1,4 @@
 declare const _exports: {
-    'mongodb.Db.prototype.eval': ({ input }: {
-        input: string;
-    }, { safe, noop }?: {
-        safe?: boolean;
-        noop?: boolean;
-    }) => Promise<string>;
     'mongodb.Collection.prototype.rename': ({ input }: {
         input: string;
     }, { safe, noop }?: {

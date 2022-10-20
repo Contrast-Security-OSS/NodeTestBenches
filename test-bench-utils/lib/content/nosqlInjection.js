@@ -1,4 +1,3 @@
-module.exports['mongodb.Db.prototype.eval'] = 'function() { return "hi"; }';
 module.exports['r.insert'] = JSON.stringify({
   addresses: ['Blagoevgrad', 'Plovdiv'],
   age: 22,

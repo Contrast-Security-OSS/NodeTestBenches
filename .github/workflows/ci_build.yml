@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         apps: [express,fastify,hapi18,hapi19,hapi20,koa,kraken,loopback,loopback4,restify,sails]
-        version: [12, 14, 16]
+        version: [12, 14, 16, 18]
     steps:
       - name: Checkout
         uses: actions/checkout@v3

@@ -1,8 +1,8 @@
 ARG node_version=12
-FROM node:${node_version}-stretch
+FROM node:${node_version}-bullseye
 
 # Create the file repository configuration, import the repository signing key and install PostgreSQL & sudo
-RUN echo "deb [arch=amd64] http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+RUN echo "deb [arch=amd64] http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 RUN curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 RUN apt update
 RUN apt install -y postgresql-10 postgresql-contrib-10 postgresql-client-10
@@ -20,7 +20,7 @@ EXPOSE 5432
 VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 
 # Install RethinkDB
-RUN echo "deb https://download.rethinkdb.com/repository/debian-stretch stretch main" > /etc/apt/sources.list.d/rethinkdb.list
+RUN echo "deb https://download.rethinkdb.com/repository/debian-bullseye bullseye main" > /etc/apt/sources.list.d/rethinkdb.list
 RUN wget -qO- https://download.rethinkdb.com/repository/raw/pubkey.gpg | sudo apt-key add -v - && apt-get update && apt-get install -y rethinkdb
 RUN rm -rf /var/lib/apt/lists/*
 VOLUME  ["/etc/rethinkdb", "/var/log/rethinkdb", "/var/lib/rethinkdb"]
@@ -29,10 +29,10 @@ EXPOSE 28015
 
 # Install MySQL Database
 ENV DEBIAN_FRONTEND="noninteractive"
-RUN wget http://repo.mysql.com/mysql-apt-config_0.8.13-1_all.deb
+RUN wget http://repo.mysql.com/mysql-apt-config_0.8.23-1_all.deb
 RUN apt update
-RUN apt install lsb-base lsb-release ./mysql-apt-config_0.8.13-1_all.deb
-RUN apt install mysql-server mysql-client -y
+RUN apt install lsb-base lsb-release ./mysql-apt-config_0.8.23-1_all.deb
+RUN apt install mariadb-server mariadb-client -y
 VOLUME ["/etc/mysql", "/var/lib/mysql"]
 
 EXPOSE 3306

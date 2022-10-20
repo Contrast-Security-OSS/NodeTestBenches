@@ -22,6 +22,7 @@ module.exports = {
   nosqlInjection: require('./nosqlInjection'),
   nosqlExpansion: require('./nosqlExpansion'),
   pathTraversal: require('./pathTraversal'),
+  pathTraversalSemanticFileSecurityBypass: require('./pathTraversalSemanticFileSecurityBypass'),
   sqlInjection: require('./sqlInjection'),
   ssjs: require('./ssjs'),
   ssrf: require('./ssrf'),

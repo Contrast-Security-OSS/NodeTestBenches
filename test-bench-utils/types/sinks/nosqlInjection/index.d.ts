@@ -1,10 +1,4 @@
 declare const _exports: {
-    'mongodb.Db.prototype.eval': ({ input }: {
-        input: string;
-    }, { safe, noop }?: {
-        safe?: boolean;
-        noop?: boolean;
-    }) => Promise<string>;
     'mongodb.Collection.prototype.rename': ({ input }: {
         input: string;
     }, { safe, noop }?: {
@@ -12,12 +6,6 @@ declare const _exports: {
         noop?: boolean;
     }) => Promise<string>;
     'mongodb.Collection.prototype.findOne': ({ input }: {
-        input: string;
-    }, { safe, noop }?: {
-        safe?: boolean;
-        noop?: boolean;
-    }) => Promise<string>;
-    'mongodb.Collection.prototype.insertMany': ({ input }: {
         input: string;
     }, { safe, noop }?: {
         safe?: boolean;

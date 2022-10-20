@@ -37,7 +37,7 @@ const attackValues = {
   }),
   'aws-sdk.DynamoDB.DocumentClient.prototype.scan': ':title = :title OR title',
   'aws-sdk.DynamoDB.prototype.makeRequest': ':title = :title OR title',
-  'mongodb.Collection.prototype.findOneAndUpdate__$where': 'function() { return true })',
+  'mongodb.Collection.prototype.findOneAndUpdate__$where': 'function() { return true }',
   'mongodb.Collection.prototype.updateMany__$where': 'function() { return true }',
 };
 

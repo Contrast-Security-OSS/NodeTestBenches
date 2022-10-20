@@ -113,7 +113,7 @@ module.exports['mongodb.Collection.prototype.findOneAndUpdate__$where'] = async 
   const db = await initDb();
   const result = await db
     .collection(MONGO_COLLECTION)
-    .findOneAndUpdate({ $where: ` ${value} ` }, { $set: { hello: 'updated value' } })
+    .findOneAndUpdate({ $where: `() => ${value} || true` }, { $set: { hello: 'updated value' } })
     .catch((err) => {});
 
   return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
@@ -129,7 +129,7 @@ module.exports['mongodb.Collection.prototype.updateMany__$where'] = async functi
   const db = await initDb();
   const result = await db
     .collection(MONGO_COLLECTION)
-    .updateMany({ $where: ` ${value} ` }, { $set: { hello: 'updated value' } })
+    .updateMany({ $where: `() => ${value} || true` }, { $set: { hello: 'updated value' } })
     .catch((err) => {});
 
   return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;

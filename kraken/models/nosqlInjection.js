@@ -1,4 +1,14 @@
-const { content, utils } = require('@contrast/test-bench-utils');
+'use strict';
+
+const {
+  content: {
+    nosqlInjection: {
+      attackValues,
+      descriptions
+    }
+  },
+  utils
+} = require('@contrast/test-bench-utils');
 
 module.exports = function SQLInjectionModel() {
   const sinkData = utils.getSinkData('nosqlInjection', 'kraken');
@@ -7,6 +17,7 @@ module.exports = function SQLInjectionModel() {
   return {
     ...routeMeta,
     sinkData,
-    attackValues: content.nosqlInjection
+    attackValues,
+    descriptions
   };
 };

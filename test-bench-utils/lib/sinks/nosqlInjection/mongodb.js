@@ -40,26 +40,6 @@ const initDb = async () => {
  * @param {boolean} [opts.safe] are we calling the sink safely?
  * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
-module.exports['mongodb.Db.prototype.eval'] = async function _eval(
-  { input },
-  { safe = false, noop = false } = {}
-) {
-  if (noop) return 'NOOP';
-
-  const fn = safe ? 'function() {}' : input;
-  const db = await initDb();
-  const result = await db.eval(fn);
-
-  return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
-};
-
-/**
- * @param {Object} params
- * @param {string} params.input user input string
- * @param {Object} opts
- * @param {boolean} [opts.safe] are we calling the sink safely?
- * @param {boolean} [opts.noop] are we calling the sink as a noop?
- */
 module.exports['mongodb.Collection.prototype.rename'] = async function rename(
   { input },
   { safe = false, noop = false } = {}

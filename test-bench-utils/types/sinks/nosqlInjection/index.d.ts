@@ -17,6 +17,18 @@ declare const _exports: {
         safe?: boolean;
         noop?: boolean;
     }) => Promise<string>;
+    'mongodb.Collection.prototype.findOneAndUpdate__$where': ({ input }: {
+        input: any;
+    }, { safe, noop }?: {
+        safe?: boolean;
+        noop?: boolean;
+    }) => Promise<string>;
+    'mongodb.Collection.prototype.updateMany__$where': ({ input }: {
+        input: any;
+    }, { safe, noop }?: {
+        safe?: boolean;
+        noop?: boolean;
+    }) => Promise<string>;
     'aws-sdk.DynamoDB.DocumentClient.prototype.scan': ({ input }: {
         input: string;
     }, { safe, noop }?: {

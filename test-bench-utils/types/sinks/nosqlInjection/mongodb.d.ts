@@ -22,3 +22,15 @@ export function _mongodb_Collection_prototype_updateOne({ input }: {
     safe?: boolean;
     noop?: boolean;
 }): Promise<string>;
+export function _mongodb_Collection_prototype_findOneAndUpdate___where({ input }: {
+    input: any;
+}, { safe, noop }?: {
+    safe?: boolean;
+    noop?: boolean;
+}): Promise<string>;
+export function _mongodb_Collection_prototype_updateMany___where({ input }: {
+    input: any;
+}, { safe, noop }?: {
+    safe?: boolean;
+    noop?: boolean;
+}): Promise<string>;

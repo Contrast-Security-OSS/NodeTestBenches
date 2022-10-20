@@ -6,6 +6,11 @@
     <h4 class="sub-header">
       <code><%= sink.name %></code>
     </h4>
+    <% if(descriptions[sink.name]) { %>
+    <h5 class="sub-header">
+      <strong><%= descriptions[sink.name] %></strong>
+    </h5>
+    <% } %>
     <form method="<%= sink.method %>" action="<%= sink.url %>/unsafe" target="_blank">
       <div class="form-group">
         <label>Input</label>

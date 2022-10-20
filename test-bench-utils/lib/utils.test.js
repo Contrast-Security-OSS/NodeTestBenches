@@ -1,3 +1,5 @@
+'use strict';
+
 const utils = require('./utils');
 
 jest.mock('./frameworks', () => ({
@@ -43,8 +45,8 @@ jest.mock('./routes', () => ({
   }
 }));
 
-describe('getSinkData', () => {
-  it('returns the expected array of SinkData objects for each input', () => {
+describe('getSinkData', function() {
+  it('returns the expected array of SinkData objects for each input', function() {
     const result = utils.getSinkData('rule', 'framework');
     expect(result).toMatchSnapshot();
 
@@ -60,7 +62,7 @@ describe('getSinkData', () => {
     expect(mockSink).toHaveBeenCalledWith({ input: 'baz' }, { noop: true });
   });
 
-  it('returns the expected array of SinkData objects for each sink', () => {
+  it('returns the expected array of SinkData objects for each sink', function() {
     const result = utils.getSinkData('rule2', 'framework');
     expect(result).toMatchSnapshot();
 
@@ -80,16 +82,16 @@ describe('getSinkData', () => {
   });
 });
 
-describe('groupSinkData', () => {
-  it('returns the expected grouped object', () => {
+describe('groupSinkData', function() {
+  it('returns the expected grouped object', function() {
     const sinkData = utils.getSinkData('rule', 'framework');
     const result = utils.groupSinkData(sinkData);
     expect(result).toMatchSnapshot();
   });
 });
 
-describe('getRouteMeta', () => {
-  it('returns the metadata for a given route', () => {
+describe('getRouteMeta', function() {
+  it('returns the metadata for a given route', function() {
     const result = utils.getRouteMeta('rule');
     expect(result).toMatchObject({
       base: '/rule',
@@ -106,12 +108,12 @@ describe('getRouteMeta', () => {
   });
 });
 
-describe('getInput', () => {
+describe('getInput', function() {
   const key = 'body';
   const params = ['input', 'arg'];
   let req;
 
-  beforeEach(() => {
+  beforeEach(function() {
     req = {
       body: {
         input: 'foo',
@@ -121,7 +123,7 @@ describe('getInput', () => {
     };
   });
 
-  it('returns the appropriate object keyed by expected parameters', () => {
+  it('returns the appropriate object keyed by expected parameters', function() {
     const result = utils.getInput(req, key, params);
     expect(result).toEqual({
       input: 'foo',
@@ -129,7 +131,7 @@ describe('getInput', () => {
     });
   });
 
-  it('returns parameters from the locals object when passed with input params', () => {
+  it('returns parameters from the locals object when passed with input params', function() {
     const locals = { input: 'FOO', arg: 'BAZ', attackValues: 'bad string!' };
     const result = utils.getInput(req, key, params, { locals });
     expect(result).toEqual({
@@ -138,7 +140,7 @@ describe('getInput', () => {
     });
   });
 
-  it('returns hard-coded values when provided', () => {
+  it('returns hard-coded values when provided', function() {
     const result = utils.getInput(req, key, params, { noop: true });
     expect(result).toEqual({
       input: 'noop',

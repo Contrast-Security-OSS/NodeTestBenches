@@ -2,6 +2,7 @@
   "packages": [
     "express",
     "fastify3",
+    "fastify4",
     "hapi18",
     "hapi19",
     "hapi20",

@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        apps: [express,fastify3,hapi18,hapi19,hapi20,koa,kraken,loopback,loopback4,restify,sails]
+        apps: [express,fastify3,fastify4,hapi18,hapi19,hapi20,koa,kraken,loopback,loopback4,restify,sails]
         version: [12, 14, 16, 18]
     steps:
       - name: Checkout

@@ -1,3 +1,5 @@
+'use strict';
+
 const sinks = require('./sinks');
 
 /** @typedef {import("./sinks").Param} Param */

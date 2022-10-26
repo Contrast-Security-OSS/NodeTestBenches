@@ -1,10 +1,4 @@
 declare const _exports: {
-    'mongodb.Db.prototype.eval': ({ input }: {
-        input: string;
-    }, { safe, noop }?: {
-        safe?: boolean;
-        noop?: boolean;
-    }) => Promise<string>;
     'mongodb.Collection.prototype.rename': ({ input }: {
         input: string;
     }, { safe, noop }?: {
@@ -19,6 +13,18 @@ declare const _exports: {
     }) => Promise<string>;
     'mongodb.Collection.prototype.updateOne': ({ input }: {
         input: string;
+    }, { safe, noop }?: {
+        safe?: boolean;
+        noop?: boolean;
+    }) => Promise<string>;
+    'mongodb.Collection.prototype.findOneAndUpdate__$where': ({ input }: {
+        input: any;
+    }, { safe, noop }?: {
+        safe?: boolean;
+        noop?: boolean;
+    }) => Promise<string>;
+    'mongodb.Collection.prototype.updateMany__$where': ({ input }: {
+        input: any;
     }, { safe, noop }?: {
         safe?: boolean;
         noop?: boolean;

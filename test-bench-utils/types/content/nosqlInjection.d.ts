@@ -1,11 +1,19 @@
-export const _mongodb_Db_prototype_eval: "function() { return \"hi\"; }";
-export const _r_insert: string;
-export const _r_update: string;
-export const _r_filter: string;
-export const _r_match: "Iv|^";
-export const _r_js: "30";
-export const _aws_sdk_client_dynamodb_ScanCommand_ProjectionExpression: string;
-export const _aws_sdk_client_dynamodb_ScanCommand_FilterExpression: string;
-export const _aws_sdk_client_dynamodb_ScanCommand_ComparisonOperator: string;
-export const _aws_sdk_DynamoDB_DocumentClient_prototype_scan: ":title = :title OR title";
-export const _aws_sdk_DynamoDB_prototype_makeRequest: ":title = :title OR title";
+export const attackValues: {
+    'mongodb.Db.prototype.eval': string;
+    'r.insert': string;
+    'r.update': string;
+    'r.filter': string;
+    'r.match': string;
+    'r.js': string;
+    'aws-sdk.client-dynamodb.ScanCommand.ProjectionExpression': string;
+    'aws-sdk.client-dynamodb.ScanCommand.FilterExpression': string;
+    'aws-sdk.client-dynamodb.ScanCommand.ComparisonOperator': string;
+    'aws-sdk.DynamoDB.DocumentClient.prototype.scan': string;
+    'aws-sdk.DynamoDB.prototype.makeRequest': string;
+    'mongodb.Collection.prototype.findOneAndUpdate__$where': string;
+    'mongodb.Collection.prototype.updateMany__$where': string;
+};
+export const descriptions: {
+    'mongodb.Collection.prototype.findOneAndUpdate__$where': string;
+    'mongodb.Collection.prototype.updateMany__$where': string;
+};

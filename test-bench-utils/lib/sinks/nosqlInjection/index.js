@@ -1,3 +1,5 @@
+'use strict';
+
 const dynamodb = require('./dynamodb');
 const mongodb = require('./mongodb');
 

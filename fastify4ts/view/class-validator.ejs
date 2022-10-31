@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ./partials/head %>
+  </head>
+  <body>
+    <% include ./partials/header %>
+
+    <div class="container-fluid">
+      <div class="row">
+        <% include ./partials/nav %>
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">Testing class-validator with Typescript</h1>
+          <div class="bs-callout bs-callout-warning">
+            <h4>Explanation</h4>
+            <p>Checks if class-validator works</p>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+            <h4 class="sub-header"> without validation </h4>
+            <form method="post" action="/class-validator?validate=false" target="">
+              <div class="form-group">
+                <label>Name</label>
+                <input name="username" class="form-control" value="string" />
+              </div>
+              <div class="form-group">
+                <label>email</label>
+                <input name="email" class="form-control" value="name@example.com" />
+              </div>
+              <div class="form-group">
+                <label>password</label>
+                <input name="password" class="form-control" value="password" />
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6" style="padding-bottom: 30px;">
+            <h4 class="sub-header"> with validation </h4>
+            <form method="post" action="/class-validator?validate=true" target="">
+              <div class="form-group">
+                <label>Name</label>
+                <input name="username" class="form-control" value="string" />
+              </div>
+              <div class="form-group">
+                <label>email</label>
+                <input name="email" class="form-control" value="name@example.com" />
+              </div>
+              <div class="form-group">
+                <label>password</label>
+                <input name="password" class="form-control" value="password" />
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+
+        <% include ./partials/footer %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,7 +1,8 @@
 {
   "packages": [
     "express",
-    "fastify",
+    "fastify3",
+    "fastify4",
     "hapi18",
     "hapi19",
     "hapi20",

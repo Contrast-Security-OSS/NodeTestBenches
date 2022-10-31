@@ -1,5 +1,5 @@
 {
-  "name": "@contrast/fastify-test-bench",
+  "name": "@contrast/fastify3-test-bench",
   "private": true,
   "version": "3.32.0",
   "description": "Intentionally vulnerable Fastify application",
@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/Contrast-Security-OSS/NodeTestBenches/issues"
   },
-  "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/fastify#readme",
+  "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/fastify3#readme",
   "main": "server.js",
   "scripts": {
     "contrast": "DEBUG=contrast:* node-contrast server.js",

@@ -42,6 +42,15 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt install default-jre -y
 RUN java -version
 EXPOSE 8000
 
+#MongoDB
+RUN wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
+RUN echo "deb http://repo.mongodb.org/apt/debian bullseye/mongodb-org/5.0 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
+RUN sudo apt-get update
+RUN sudo apt-get install -y mongodb-org
+VOLUME ["/etc/mongodb", "/var/lib/mongodb"]
+EXPOSE 27017
+
+
 # Application setup
 WORKDIR /app
 COPY . .

@@ -1,5 +1,9 @@
 #! /bin/bash -e
 
+# Run MongoDB
+mkdir -p ~/log
+sudo mongod --fork --logpath ~/log/mongodb.log --dbpath /var/lib/mongodb
+
 # Run PostgreSQL
 PGUSER=${PGUSER:-"postgres"}
 PGDATABASE=${PGDATABASE:-"testdb"}

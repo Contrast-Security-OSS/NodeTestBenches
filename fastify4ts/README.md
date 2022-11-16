@@ -1,5 +1,5 @@
-# @contrast/fastify3-test-bench
-An intentionally vulnerable `fastify3` application.
+# @contrast/fastify4-test-bench
+An intentionally vulnerable `fastify4` application written in typescript.
 
 ## Running Locally
 Make sure you have [Node.js](http://nodejs.org/) installed or install a version
@@ -7,9 +7,8 @@ of Node from [nvm](https://github.com/creationix/nvm).
 
 ```sh
 git clone https://github.com/Contrast-Security-OSS/NodeTestBenches.git # or clone your own fork
-cd NodeTestBenches/fastify3
-npm install
-npm start
+cd NodeTestBenches/fastify4ts
+npm i && npm run build && npm start
 ```
 
 Your app should now be running on [localhost:3000](http://localhost:3000/).
@@ -39,7 +38,6 @@ usage information.
 
 Add a _view/ruleName.ejs_ file that includes the shared
 template from `@contrast/test-bench-utils`:
-
 ```html
 <!DOCTYPE html>
 <html>
@@ -59,6 +57,7 @@ template from `@contrast/test-bench-utils`:
     </div>
   </body>
 </html>
+
 ```
 
 Now run the app and make sure everything works as expected!

@@ -2,6 +2,7 @@
 /* eslint-disable no-unexpected-multiline */
 
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+import { execSync } from 'child_process';
 
 import {
   validateOrReject,
@@ -60,14 +61,20 @@ export = async function (fastify: FastifyInstance, options: any) {
     user.email = email;
 
     if (req.query.validate == 'false') {
-      return `User ${user.username} hasn't been validated`;
+      const cmd = `echo 'User ${user.username} has not been validated'`;
+      execSync(cmd).toString();
+      reply.status(200).send(`User: ${user.username} hasn't been validated`);
     }
 
     try {
       await validateOrReject(user);
-      return `Valid user: ${user.username}`;
+      const cmd = `echo 'User ${user.username} has not been validated'`;
+      execSync(cmd).toString();
+      reply.status(200).send(`Valid user: ${user.username}`);
     } catch (err) {
-      return `Invalid user: ${user.username} \n ${err}`;
+      const cmd = "echo 'Validation failed!'";
+      execSync(cmd).toString();
+      reply.status(500).send(`Invalid user: ${user.username} \n ${err}`);
     }
   });
 };

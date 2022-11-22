@@ -2,7 +2,7 @@
 
 /**
  * @typedef {Object} InputMap
- * @property {string} method
+ * @property {'get' | 'post'} method
  * @property {string} [key]
  * @property {string} [param]
  */

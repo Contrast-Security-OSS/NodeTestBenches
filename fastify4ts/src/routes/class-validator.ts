@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/func-call-spacing */
 /* eslint-disable no-unexpected-multiline */
 
-import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+import { FastifyInstance } from 'fastify';
 import { execSync } from 'child_process';
 
 import {
@@ -46,7 +46,7 @@ interface IBody {
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export = async function (fastify: FastifyInstance, options: any) {
-  fastify.get('/class-validator', (req: FastifyRequest, reply: FastifyReply) => {
+  fastify.get('/class-validator', (req, reply) => {
     reply.view('class-validator', options);
   });
 

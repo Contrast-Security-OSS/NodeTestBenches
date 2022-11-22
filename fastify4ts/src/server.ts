@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { navRoutes } from '@contrast/test-bench-utils';
-import fastify from 'fastify';
+import fastify, { FastifyInstance } from 'fastify';
 import path from 'path';
 import pem from 'pem';
 import view from '@fastify/view';
@@ -10,15 +9,15 @@ import cookie from '@fastify/cookie';
 import formbody from '@fastify/formbody';
 import multipart from '@fastify/multipart';
 
-const { PORT = 3000, HOST = 'localhost', SSL, HTTP2 } = process.env;
+const { PORT = '3000', HOST = 'localhost', SSL, HTTP2 } = process.env;
 const isHttps = SSL === '1' ? true : false;
 const isHttp2 = HTTP2 === '1' ? true : false;
 
-const createServer = async (): Promise<any> => {
+const createServer = async (): Promise<FastifyInstance> => {
   const opts: { logger: boolean, http2?: boolean, https?: any } = { logger: true };
   if (!isHttps && !isHttp2) return fastify(opts);
 
-  return new Promise((resolve: (value: unknown) => void, reject: (reason?: any) => void) => {
+  return new Promise((resolve, reject) => {
     pem.createCertificate({ days: 1, selfSigned: true }, (err: Error, result: any) => {
       if (err) return reject(err);
 
@@ -47,7 +46,7 @@ const main = async () => {
       engine: {
         ejs: require('ejs')
       },
-      templates: `${__dirname}/view`,
+      templates: path.join(__dirname, '..', 'view'),
       includeViewExtension: true // dont want to write .ejs every time
     });
 
@@ -59,7 +58,7 @@ const main = async () => {
 
     // setup public assets
     app.register(require('@fastify/static'), {
-      root: path.join(__dirname, 'public'),
+      root: path.join(__dirname, '..', 'public'),
       prefix: '/assets/'
     });
 
@@ -76,7 +75,7 @@ const main = async () => {
     app.register(require('./routes/cookies'), context);
     app.register(require('./routes/class-validator'), context);
 
-    await app.listen({ port: PORT, host: HOST });
+    await app.listen({ port: parseInt(PORT, 10), host: HOST });
   } catch (err) {
     console.log(err);
   }

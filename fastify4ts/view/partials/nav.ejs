@@ -1,0 +1,26 @@
+<div id="navbar" class="col-sm-3 col-md-2 sidebar">
+  <label>Rules</label>
+  <ul class="nav nav-sidebar">
+    <% navRoutes.forEach(({ name, base, products }) => { %>
+    <li>
+      <a href="<%= base %>">
+        <%= name %>
+        <% products.forEach((product) => {%>
+        <span class="badge pull-right <% if(product === 'Protect') { %>badge-info<% } else { %>badge-success<%}%>">
+          <%= product %>
+        </span>
+        <% }); %>
+      </a>
+    </li>
+    <% }); %>
+  </ul>
+
+  <label>Other Rules</label>
+  <!-- <label>Headers</label> -->
+  <ul class="nav nav-sidebar">
+    <li><a href="/class-validator">Class Validator</a></li>
+    <li><a href="/cookies">Session Cookie Rules</a></li>
+    <li><a href="/header-injection">Header Injection</a></li>
+    <li><a href="/csp-header">Csp Header Insecure</a></li>
+  </ul>
+</div>

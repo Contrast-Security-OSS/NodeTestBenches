@@ -3,6 +3,7 @@
     "express",
     "fastify3",
     "fastify4",
+    "fastify4ts",
     "hapi18",
     "hapi19",
     "hapi20",

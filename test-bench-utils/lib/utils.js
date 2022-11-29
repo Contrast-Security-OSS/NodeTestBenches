@@ -30,7 +30,7 @@ const responsePreparers = require('./response-preparers');
  * @typedef {Object} SinkData
  * @property {Input} input unmapped input key under which user input lies
  * @property {string} key key under which user input lies
- * @property {string} method http method
+ * @property {'get' | 'post'} method http method
  * @property {string} name the name of the sink
  * @property {Param[]} params input parameters exposed to the sink
  * @property {SinkObj} sinks sink object containing methods which call the sink safely, dangerously, etc.

@@ -3,7 +3,7 @@ declare const _exports: {
 };
 export = _exports;
 export type InputMap = {
-    method: string;
+    method: 'get' | 'post';
     key?: string;
     param?: string;
 };

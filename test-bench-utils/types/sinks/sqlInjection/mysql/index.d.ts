@@ -1,6 +1,6 @@
-export function _sequelize_prototype_query({ input }: {
+export const _mysql_lib_Connection_query: ({ input }: {
     input: string;
 }, { safe, noop }?: {
     safe?: boolean;
     noop?: boolean;
-}): Promise<any>;
+}) => Promise<any>;

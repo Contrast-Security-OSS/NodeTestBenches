@@ -20,7 +20,7 @@ Sequelize.prototype.query = async function overloadedQuery(sql, opts) {
  * @param {boolean} [opts.safe] are we calling the sink safely?
  * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
-module.exports = async function sequelizeQuery(
+module.exports['sequelize.prototype.query'] = async function sequelizeQuery(
   { input },
   { safe = false, noop = false } = {}
 ) {

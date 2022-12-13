@@ -1,38 +1,57 @@
-export const _sequelize_prototype_query: ({ input }: {
-    input: string;
-}, { safe, noop }?: {
-    safe?: boolean;
-    noop?: boolean;
-}) => Promise<any>;
-export const _mysql_lib_Connection_query: ({ input }: {
-    input: string;
-}, { safe, noop }?: {
-    safe?: boolean;
-    noop?: boolean;
-}) => Promise<any>;
-export const _pg_Connection_prototype_query__String_: ({ input }: {
-    input: string;
-}, { safe, noop }?: {
-    safe?: boolean;
-    noop?: boolean;
-}) => Promise<any>;
-export const _pg_Connection_prototype_query__Object_: ({ input }: {
-    input: string;
-}, { safe, noop }?: {
-    safe?: boolean;
-    noop?: boolean;
-}) => Promise<any>;
-export const _typeorm_Repository_prototype_query: ({ input }: {
-    input: string;
-}, { safe, noop }?: {
-    safe?: boolean;
-    noop?: boolean;
-}) => Promise<any>;
-export const _typeorm_Connection_prototype_query: ({ input }: {
-    input: string;
-}, { safe, noop }?: {
-    safe?: boolean;
-    noop?: boolean;
-}) => Promise<any>;
-declare const _exports: any;
+declare const _exports: {
+    'typeorm.Repository.prototype.query': ({ input }: {
+        input: string;
+    }, { safe, noop }?: {
+        safe?: boolean;
+        noop?: boolean;
+    }) => Promise<any>;
+    'typeorm.Connection.prototype.query': ({ input }: {
+        input: string;
+    }, { safe, noop }?: {
+        safe?: boolean;
+        noop?: boolean;
+    }) => Promise<any>;
+    'sequelize.prototype.query': ({ input }: {
+        input: string;
+    }, { safe, noop }?: {
+        safe?: boolean;
+        noop?: boolean;
+    }) => Promise<any>;
+    'pg.Connection.prototype.query (String)': ({ input }: {
+        input: string;
+    }, { safe, noop }?: {
+        safe?: boolean;
+        noop?: boolean;
+    }) => Promise<any>;
+    'pg.Connection.prototype.query (Object)': ({ input }: {
+        input: string;
+    }, { safe, noop }?: {
+        safe?: boolean;
+        noop?: boolean;
+    }) => Promise<any>;
+    'mysql/lib/Connection.query': ({ input }: {
+        input: string;
+    }, { safe, noop }?: {
+        safe?: boolean;
+        noop?: boolean;
+    }) => Promise<any>;
+    'mssql.PreparedStatement.prototype.prepare': ({ input }: {
+        input: string;
+    }, { safe, noop }?: {
+        safe?: boolean;
+        noop?: boolean;
+    }) => Promise<any>;
+    'mssql.Request.prototype.batch': ({ input }: {
+        input: string;
+    }, { safe, noop }?: {
+        safe?: boolean;
+        noop?: boolean;
+    }) => Promise<any>;
+    'mssql.Request.prototype.query': ({ input }: {
+        input: string;
+    }, { safe, noop }?: {
+        safe?: boolean;
+        noop?: boolean;
+    }) => Promise<any>;
+};
 export = _exports;

@@ -10,6 +10,8 @@ contrast_security.y*ml
 *.sqlite3
 *.log
 *.tsbuildinfo
+contrast_effective_config.json
+contrast_system_info.json
 rewrite_cache/
 
 # copy-scripts.sh

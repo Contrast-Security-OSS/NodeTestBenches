@@ -19,52 +19,27 @@ const initDb = async () => {
  * @param {boolean} [opts.safe] are we calling the sink safely?
  * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
-module.exports['mssql.PreparedStatement.prototype.prepare'] = async function mssqlQuery(
-  { input },
-  { safe = false, noop = false } = {}
-) {
-  if (noop) {
-    return 'NOOP';
-  }
+module.exports['mssql.PreparedStatement.prototype.prepare'] =
+  async function mssqlPreparedStatementPrepare(
+    { input },
+    { safe = false, noop = false } = {}
+  ) {
+    if (noop) {
+      return 'NOOP';
+    }
 
-  const pool = await initDb();
-  const ps = new sql.PreparedStatement(pool);
+    const pool = await initDb();
+    const ps = new sql.PreparedStatement(pool);
 
-  if (safe) {
-    await ps.input('param', sql.NVarChar(sql.MAX));
-    await ps.prepare('SELECT * FROM Students WHERE name = @param');
-    return ps.execute({ param: input });
-  } else {
-    await ps.prepare(`SELECT * FROM Students WHERE name = '${input}'`);
-    return ps.execute();
-  }
-};
-
-
-/**
- * @param {Object} params
- * @param {string} params.input user input string
- * @param {Object} opts
- * @param {boolean} [opts.safe] are we calling the sink safely?
- * @param {boolean} [opts.noop] are we calling the sink as a noop?
- */
-module.exports['mssql.Request.prototype.batch'] = async function mssqlQuery(
-  { input },
-  { safe = false, noop = false } = {}
-) {
-  if (noop) {
-    return 'NOOP';
-  }
-
-  const pool = await initDb();
-
-  if (safe) {
-    return pool.batch`CREATE PROCEDURE #temp AS SELECT * FROM Students WHERE name = '${input}'`;
-  } else {
-    return pool.batch(`CREATE PROCEDURE #temp AS SELECT * FROM Students WHERE name = '${input}'`);
-  }
-};
-
+    if (safe) {
+      await ps.input('param', sql.NVarChar(sql.MAX));
+      await ps.prepare('SELECT * FROM Students WHERE name = @param');
+      return ps.execute({ param: input });
+    } else {
+      await ps.prepare(`SELECT * FROM Students WHERE name = '${input}'`);
+      return ps.execute();
+    }
+  };
 
 /**
  * @param {Object} params
@@ -73,19 +48,47 @@ module.exports['mssql.Request.prototype.batch'] = async function mssqlQuery(
  * @param {boolean} [opts.safe] are we calling the sink safely?
  * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
-module.exports['mssql.Request.prototype.query'] = async function mssqlQuery(
-  { input },
-  { safe = false, noop = false } = {}
-) {
-  if (noop) {
-    return 'NOOP';
-  }
+module.exports['mssql.Request.prototype.batch'] =
+  async function mssqlRequestBatch(
+    { input },
+    { safe = false, noop = false } = {}
+  ) {
+    if (noop) {
+      return 'NOOP';
+    }
 
-  const pool = await initDb();
+    const pool = await initDb();
 
-  if (safe) {
-    return pool.query`SELECT * FROM Students WHERE name = '${input}'`;
-  } else {
-    return pool.query(`SELECT * FROM Students WHERE name = '${input}'`);
-  }
-};
+    if (safe) {
+      return pool.batch`CREATE PROCEDURE #temp AS SELECT * FROM Students WHERE name = '${input}'`;
+    } else {
+      return pool.batch(
+        `CREATE PROCEDURE #temp AS SELECT * FROM Students WHERE name = '${input}'`
+      );
+    }
+  };
+
+/**
+ * @param {Object} params
+ * @param {string} params.input user input string
+ * @param {Object} opts
+ * @param {boolean} [opts.safe] are we calling the sink safely?
+ * @param {boolean} [opts.noop] are we calling the sink as a noop?
+ */
+module.exports['mssql.Request.prototype.query'] =
+  async function mssqlRequestQuery(
+    { input },
+    { safe = false, noop = false } = {}
+  ) {
+    if (noop) {
+      return 'NOOP';
+    }
+
+    const pool = await initDb();
+
+    if (safe) {
+      return pool.query`SELECT * FROM Students WHERE name = '${input}'`;
+    } else {
+      return pool.query(`SELECT * FROM Students WHERE name = '${input}'`);
+    }
+  };

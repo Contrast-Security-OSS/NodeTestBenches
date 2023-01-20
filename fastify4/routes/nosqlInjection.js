@@ -1,6 +1,13 @@
 'use strict';
 
-const { content } = require('@contrast/test-bench-utils');
+const {
+  content: {
+    nosqlInjection: {
+      attackValues,
+      descriptions
+    }
+  }
+} = require('@contrast/test-bench-utils');
 const controllerFactory = require('../utils/controllerFactory');
 
 /**
@@ -9,6 +16,7 @@ const controllerFactory = require('../utils/controllerFactory');
  */
 module.exports = controllerFactory('nosqlInjection', {
   locals: {
-    attackValues: content.nosqlInjection
+    attackValues,
+    descriptions
   }
 });

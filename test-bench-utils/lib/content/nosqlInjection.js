@@ -47,7 +47,7 @@ const descriptions = {
   'mongodb.Collection.prototype.findOneAndUpdate__$where': 'This sink uses $where operator.',
   'mongodb.Collection.prototype.updateMany__$where': 'This sink uses $where operator.',
   'mongodb.Collection.prototype.findOne__$function': 'This sink uses the $function operator.',
-  'mongodb.Collection.prototype.findOneAndUpdate__$function': 'This sink uses $where operator.',
+  'mongodb.Collection.prototype.findOneAndUpdate__$function': 'This sink uses $function operator.',
 };
 
 module.exports = {

@@ -96,7 +96,7 @@ module.exports['mongodb.Collection.prototype.findOne__$function'] = async functi
   const db = await initDb();
   const result = await db
     .collection(MONGO_COLLECTION)
-    .findOne({ $expr: { $function: { body: `${value}`, args: [], lang: 'js' } } })
+    .findOne({ $expr: { $function: { body: `${value} || true`, args: [], lang: 'js' } } })
     .catch((err) => {});
   return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
 };
@@ -111,7 +111,7 @@ module.exports['mongodb.Collection.prototype.findOneAndUpdate__$function'] = asy
   const db = await initDb();
   const result = await db
     .collection(MONGO_COLLECTION)
-    .findOneAndUpdate({ $expr: { $function: { body: `${value}`, args: [], lang: 'js' } } }, { $set: { hello: 'updated value' } })
+    .findOneAndUpdate({ $expr: { $function: { body: `${value} || true`, args: [], lang: 'js' } } }, { $set: { hello: 'updated value' } })
     .catch((err) => {});
 
   return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;

@@ -39,11 +39,15 @@ const attackValues = {
   'aws-sdk.DynamoDB.prototype.makeRequest': ':title = :title OR title',
   'mongodb.Collection.prototype.findOneAndUpdate__$where': 'function() { return true }',
   'mongodb.Collection.prototype.updateMany__$where': 'function() { return true }',
+  'mongodb.Collection.prototype.findOne__$function': 'function() { return true }',
+  'mongodb.Collection.prototype.findOneAndUpdate__$function': 'function() { return true }',
 };
 
 const descriptions = {
   'mongodb.Collection.prototype.findOneAndUpdate__$where': 'This sink uses $where operator.',
   'mongodb.Collection.prototype.updateMany__$where': 'This sink uses $where operator.',
+  'mongodb.Collection.prototype.findOne__$function': 'This sink uses the $function operator.',
+  'mongodb.Collection.prototype.findOneAndUpdate__$function': 'This sink uses $where operator.',
 };
 
 module.exports = {

@@ -12,8 +12,12 @@ export const attackValues: {
     'aws-sdk.DynamoDB.prototype.makeRequest': string;
     'mongodb.Collection.prototype.findOneAndUpdate__$where': string;
     'mongodb.Collection.prototype.updateMany__$where': string;
+    'mongodb.Collection.prototype.findOne__$function': string;
+    'mongodb.Collection.prototype.findOneAndUpdate__$function': string;
 };
 export const descriptions: {
     'mongodb.Collection.prototype.findOneAndUpdate__$where': string;
     'mongodb.Collection.prototype.updateMany__$where': string;
+    'mongodb.Collection.prototype.findOne__$function': string;
+    'mongodb.Collection.prototype.findOneAndUpdate__$function': string;
 };

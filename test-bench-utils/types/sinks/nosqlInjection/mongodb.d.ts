@@ -40,3 +40,27 @@ export function _mongodb_Collection_prototype_updateMany___where({ input }: {
     safe?: boolean;
     noop?: boolean;
 }): Promise<string>;
+export function _mongodb_Collection_prototype_aggregate___accumulator___init({ input }: {
+    input: any;
+}, { safe, noop }?: {
+    safe?: boolean;
+    noop?: boolean;
+}): Promise<string>;
+export function _mongodb_Collection_prototype_aggregate___accumulator___accumulate({ input }: {
+    input: any;
+}, { safe, noop }?: {
+    safe?: boolean;
+    noop?: boolean;
+}): Promise<string>;
+export function _mongodb_Collection_prototype_aggregate___accumulator___merge({ input }: {
+    input: any;
+}, { safe, noop }?: {
+    safe?: boolean;
+    noop?: boolean;
+}): Promise<string>;
+export function _mongodb_Collection_prototype_aggregate___accumulator___finalize({ input }: {
+    input: any;
+}, { safe, noop }?: {
+    safe?: boolean;
+    noop?: boolean;
+}): Promise<string>;

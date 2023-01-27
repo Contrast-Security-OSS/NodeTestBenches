@@ -14,10 +14,19 @@ export const attackValues: {
     'mongodb.Collection.prototype.updateMany__$where': string;
     'mongodb.Collection.prototype.findOne__$function': string;
     'mongodb.Collection.prototype.findOneAndUpdate__$function': string;
+    'mongodb.Collection.prototype.aggregate__$accumulator__$init': string;
+    'mongodb.Collection.prototype.aggregate__$accumulator__$accumulate': string;
+    'mongodb.Collection.prototype.aggregate__$accumulator__$merge': string;
+    'mongodb.Collection.prototype.aggregate__$accumulator__$finalize': string;
 };
 export const descriptions: {
     'mongodb.Collection.prototype.findOneAndUpdate__$where': string;
     'mongodb.Collection.prototype.updateMany__$where': string;
     'mongodb.Collection.prototype.findOne__$function': string;
     'mongodb.Collection.prototype.findOneAndUpdate__$function': string;
+    'mongodb.Collection.prototype.aggregate__$accumulator': string;
+    'mongodb.Collection.prototype.aggregate__$accumulator__$init': string;
+    'mongodb.Collection.prototype.aggregate__$accumulator__$accumulate': string;
+    'mongodb.Collection.prototype.aggregate__$accumulator__$merge': string;
+    'mongodb.Collection.prototype.aggregate__$accumulator__$finalize': string;
 };

@@ -172,3 +172,127 @@ module.exports['mongodb.Collection.prototype.updateMany__$where'] = async functi
 
   return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
 };
+
+module.exports['mongodb.Collection.prototype.aggregate__$accumulator__$init'] = async function findOneAndUpdate(
+  { input },
+  { safe = false, noop = false } = {}
+) {
+  if (noop) return 'NOOP';
+
+  const value = safe ? 'function() { return { count: 0 } }' : input;
+  const db = await initDb();
+  const result = await db
+    .collection(MONGO_COLLECTION).aggregate([
+      {
+        $group: {
+          _id: null,
+          count: {
+            $accumulator: {
+              init: value,
+              initArgs: [],
+              accumulate: 'function(state) { return { count: state.count + 1 } }',
+              accumulateArgs: [],
+              merge: 'function(state1, state2) { return { count: state1.count + state2.count } }',
+              finalize: 'function(state) { return state }',
+              lang: 'js'
+            }
+          }
+        }
+      }
+    ])
+    .toArray();
+  return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
+};
+
+module.exports['mongodb.Collection.prototype.aggregate__$accumulator__$accumulate'] = async function findOneAndUpdate(
+  { input },
+  { safe = false, noop = false } = {}
+) {
+  if (noop) return 'NOOP';
+
+  const value = safe ? 'function(state) { return { count: state.count + 1 } }' : input;
+  const db = await initDb();
+  const result = await db
+    .collection(MONGO_COLLECTION).aggregate([
+      {
+        $group: {
+          _id: null,
+          count: {
+            $accumulator: {
+              init: 'function() { return { count: 0 } }',
+              initArgs: [],
+              accumulate: value,
+              accumulateArgs: [],
+              merge: 'function(state1, state2) { return { count: state1.count + state2.count } }',
+              finalize: 'function(state) { return state }',
+              lang: 'js'
+            }
+          }
+        }
+      }
+    ])
+    .toArray();
+  return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
+};
+
+module.exports['mongodb.Collection.prototype.aggregate__$accumulator__$merge'] = async function findOneAndUpdate(
+  { input },
+  { safe = false, noop = false } = {}
+) {
+  if (noop) return 'NOOP';
+
+  const value = safe ? 'function(state1, state2) { return { count: state1.count + state2.count } }' : input;
+  const db = await initDb();
+  const result = await db
+    .collection(MONGO_COLLECTION).aggregate([
+      {
+        $group: {
+          _id: null,
+          count: {
+            $accumulator: {
+              init: 'function() { return { count: 0 } }',
+              initArgs: [],
+              accumulate: 'function(state) { return { count: state.count + 1 } }',
+              accumulateArgs: [],
+              merge: value,
+              finalize: 'function(state) { return state }',
+              lang: 'js'
+            }
+          }
+        }
+      }
+    ])
+    .toArray();
+  return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
+};
+
+module.exports['mongodb.Collection.prototype.aggregate__$accumulator__$finalize'] = async function findOneAndUpdate(
+  { input },
+  { safe = false, noop = false } = {}
+) {
+  if (noop) return 'NOOP';
+
+  const value = safe ? 'function(state) { return state }' : input;
+  const db = await initDb();
+  const result = await db
+    .collection(MONGO_COLLECTION).aggregate([
+      {
+        $group: {
+          _id: null,
+          count: {
+            $accumulator: {
+              init: 'function() { return { count: 0 } }',
+              initArgs: [],
+              accumulate: 'function(state) { return { count: state.count + 1 } }',
+              accumulateArgs: [],
+              merge: 'function(state1, state2) { return { count: state1.count + state2.count } }',
+              finalize: value,
+              lang: 'js'
+            }
+          }
+        }
+      }
+    ])
+    .toArray();
+  return `<pre>${escape(JSON.stringify(result, null, 2))}</pre>`;
+};

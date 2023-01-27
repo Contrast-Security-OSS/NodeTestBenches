@@ -41,6 +41,30 @@ declare const _exports: {
         safe?: boolean;
         noop?: boolean;
     }) => Promise<string>;
+    'mongodb.Collection.prototype.aggregate__$accumulator__$init': ({ input }: {
+        input: any;
+    }, { safe, noop }?: {
+        safe?: boolean;
+        noop?: boolean;
+    }) => Promise<string>;
+    'mongodb.Collection.prototype.aggregate__$accumulator__$accumulate': ({ input }: {
+        input: any;
+    }, { safe, noop }?: {
+        safe?: boolean;
+        noop?: boolean;
+    }) => Promise<string>;
+    'mongodb.Collection.prototype.aggregate__$accumulator__$merge': ({ input }: {
+        input: any;
+    }, { safe, noop }?: {
+        safe?: boolean;
+        noop?: boolean;
+    }) => Promise<string>;
+    'mongodb.Collection.prototype.aggregate__$accumulator__$finalize': ({ input }: {
+        input: any;
+    }, { safe, noop }?: {
+        safe?: boolean;
+        noop?: boolean;
+    }) => Promise<string>;
     'aws-sdk.DynamoDB.DocumentClient.prototype.scan': ({ input }: {
         input: string;
     }, { safe, noop }?: {

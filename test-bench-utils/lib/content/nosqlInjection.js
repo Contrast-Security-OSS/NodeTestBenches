@@ -41,6 +41,10 @@ const attackValues = {
   'mongodb.Collection.prototype.updateMany__$where': 'function() { return true }',
   'mongodb.Collection.prototype.findOne__$function': 'function() { return true }',
   'mongodb.Collection.prototype.findOneAndUpdate__$function': 'function() { return true }',
+  'mongodb.Collection.prototype.aggregate__$accumulator__$init': 'function() { return { count: 0 } }',
+  'mongodb.Collection.prototype.aggregate__$accumulator__$accumulate': 'function(state) { return { count: state.count + 1 } }',
+  'mongodb.Collection.prototype.aggregate__$accumulator__$merge': 'function(state1, state2) { return { count: state1.count + state2.count } }',
+  'mongodb.Collection.prototype.aggregate__$accumulator__$finalize': 'function(state) { return state }',
 };
 
 const descriptions = {
@@ -48,6 +52,15 @@ const descriptions = {
   'mongodb.Collection.prototype.updateMany__$where': 'This sink uses $where operator.',
   'mongodb.Collection.prototype.findOne__$function': 'This sink uses the $function operator.',
   'mongodb.Collection.prototype.findOneAndUpdate__$function': 'This sink uses $function operator.',
+  'mongodb.Collection.prototype.aggregate__$accumulator': 'This sink is using the $accumulator operator.',
+  'mongodb.Collection.prototype.aggregate__$accumulator__$init':
+    'This sink is using the $accumulator operator and tests the init property.',
+  'mongodb.Collection.prototype.aggregate__$accumulator__$accumulate':
+    'This sink is using the $accumulator operator and tests the accumulate property.',
+  'mongodb.Collection.prototype.aggregate__$accumulator__$merge':
+    'This sink is using the $accumulator operator and tests the merge property.',
+  'mongodb.Collection.prototype.aggregate__$accumulator__$finalize':
+    'This sink is using the $accumulator operator and tests the finalize property.'
 };
 
 module.exports = {

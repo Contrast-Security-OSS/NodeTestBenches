@@ -15,7 +15,7 @@
     "node": ">=12.13.0"
   },
   "dependencies": {
-    "@contrast/test-bench-utils": "^3.32.0",
+    "@contrast/test-bench-utils": "^3.34.0",
     "crypto": "^1.0.1",
     "grunt": "1.0.4",
     "lusca": "^1.7.0",

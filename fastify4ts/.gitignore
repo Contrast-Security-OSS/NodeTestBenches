@@ -1,3 +1,4 @@
 lib/
 uploads/*
 !uploads/.gitkeep
+!contrast_security.yaml

@@ -1,0 +1,20 @@
+api:
+  enable: false
+application:
+  name: "supertest-testing"
+agent:
+  reporters:
+    file: './file-testing.log'
+  diagnostics:
+    quiet:  true
+    enable: true
+  logger:
+    path: './testing.log'
+    level: DEBUG
+    append: false
+  service:
+    grpc: true
+assess:
+  enable: false
+protect:
+  enable: true

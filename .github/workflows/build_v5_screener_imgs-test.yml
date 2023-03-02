@@ -28,8 +28,8 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
       - name: Enable Docker Experimental Features
         run: |
-          echo '{ "experimental": "enabled" }' | sudo tee /etc/docker/daemon.json
-          sudo service docker restart
+          echo '{ "experimental": "enabled" }' | tee /etc/docker/daemon.json
+          service docker restart
       - name: Build, tag, and push image ${{ matrix.apps }} version ${{ matrix.version }} to Amazon ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}

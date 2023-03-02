@@ -26,12 +26,10 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-      - name: Add user to Docker group
-        run: sudo usermod -aG docker $USER
       - name: Enable Docker Experimental Features
         run: |
-          echo '{ "experimental": "enabled" }' | tee /etc/docker/daemon.json
-          service docker restart
+          echo '{ "experimental": "enabled" }' | sudo tee /etc/docker/daemon.json
+          sudo service docker restart
       - name: Build, tag, and push image ${{ matrix.apps }} version ${{ matrix.version }} to Amazon ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}

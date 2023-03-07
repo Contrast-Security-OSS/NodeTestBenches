@@ -24,13 +24,13 @@ rethinkdb --daemon
 echo "Starting MySQL"
 MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-"password"}
 MYSQL_DATABASE=${MYSQL_DATABASE:-"testdb"}
-/etc/init.d/mariadb start
+service mysql start
 
 mysql --version
-mysql -e "SET password for 'root'@'localhost' = PASSWORD('${MYSQL_ROOT_PASSWORD}');"
-mysql -uroot -e "drop database if exists $MYSQL_DATABASE"
-mysql -uroot -e "create database $MYSQL_DATABASE"
-mysql -e "FLUSH PRIVILEGES"
+mysql -uroot -ppassword -e "drop database if exists $MYSQL_DATABASE"
+mysql -uroot -ppassword -e "create database $MYSQL_DATABASE"
+mysql -uroot -ppassword -e "FLUSH PRIVILEGES"
+export MSSQL_USER=root
 
 # Run DynamoDB
 DYNAMODB_HOME="${DYNAMODB_HOME:=/opt/dynamodb}"

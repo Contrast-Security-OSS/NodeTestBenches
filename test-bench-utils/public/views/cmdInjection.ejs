@@ -8,7 +8,11 @@
       <form method="<%= sink.method %>" action="<%= sink.url %>/unsafe" target="_blank">
         <div class="form-group">
           <label>Path</label>
-          <input name="input" class="form-control" value="test &whoami">
+          <% if (sink.name.includes('second') || sink.name.includes('File')) { %>
+            <input name="input" class="form-control" value="; whoami">
+          <% } else { %>
+            <input name="input" class="form-control" value="test &whoami">
+          <% } %>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
@@ -21,7 +25,11 @@
     <% groupedSinkData.cookies.forEach(function(sink) { %>
       <h4><code><%= sink.name %></code></h4>
     <% ['unsafe', 'safe', 'noop'].forEach(function(safety) { %>
-    <p><pre>curl http://localhost:3000<%= sink.url %>/<%= safety %> -X POST -b "input=test &whoami"</pre></p>
+      <% if (sink.name.includes('second') || sink.name.includes('File')) { %>
+        <p><pre>curl http://localhost:3000<%= sink.url %>/<%= safety %> -X POST -b "input=test &whoami"</pre></p>
+      <% } else { %>
+        <p><pre>curl http://localhost:3000<%= sink.url %>/<%= safety %> -X POST -b "input=; whoami"</pre></p>
+      <% } %>
     <% }); %>
     <% }); %>
   </div>

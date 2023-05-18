@@ -1,7 +1,7 @@
 {
   "name": "@contrast/fastify-ts-test-bench",
   "private": true,
-  "version": "1.0.0",
+  "version": "3.33.0",
   "description": "Intentionally vulnerable Fastify application written in Typescript",
   "keywords": [],
   "author": "Contrast Security <nodejs@contrastsecurity.com>",
@@ -26,7 +26,7 @@
     "lint": "eslint --fix ."
   },
   "dependencies": {
-    "@contrast/test-bench-utils": "^3.34.0",
+    "@contrast/test-bench-utils": "^3.33.0",
     "@fastify/cookie": "^8.3.0",
     "@fastify/formbody": "^7.3.0",
     "@fastify/multipart": "^7.3.0",

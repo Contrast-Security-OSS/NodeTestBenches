@@ -171,5 +171,6 @@ module.exports['child_process.execFileSync'] = async function spawn(
   if (safe) return 'SAFE';
   if (noop) return 'NOOP';
 
-  return pre(cp.execFileSync('test', [input], { shell: true }).stdout.toString());
+  const result = cp.execFileSync('test', [input], { shell: true });
+  return pre(result && result.stdout && result.stdout.toString());
 };

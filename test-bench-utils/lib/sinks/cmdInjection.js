@@ -79,6 +79,31 @@ module.exports['child_process.spawn'] = async function spawn(
  * @param {boolean} [opts.safe] are we calling the sink safely?
  * @param {boolean} [opts.noop] are we calling the sink as a noop?
  */
+module.exports['child_process.spawn - second argument'] = async function spawn(
+  { input },
+  { safe = false, noop = false } = {}
+) {
+  if (safe) return 'SAFE';
+  if (noop) return 'NOOP';
+
+  return new Promise((resolve) => {
+    const command = cp.spawn('test', [input], { shell: true });
+    command.on('error', (err) => {
+      console.log(`spawn failed on test ${input}, err: ${err.message}`);
+    });
+    command.stdout.on('data', (data) => {
+      resolve(pre(data.toString()));
+    });
+  });
+};
+
+/**
+ * @param {Object} params
+ * @param {string} params.input user input string
+ * @param {Object} opts
+ * @param {boolean} [opts.safe] are we calling the sink safely?
+ * @param {boolean} [opts.noop] are we calling the sink as a noop?
+ */
 module.exports['child_process.spawnSync'] = async function spawn(
   { input },
   { safe = false, noop = false } = {}
@@ -88,4 +113,63 @@ module.exports['child_process.spawnSync'] = async function spawn(
 
   const [cmd, ...args] = input.split(' ');
   return pre(cp.spawnSync(cmd, args).stdout.toString());
+};
+
+/**
+ * @param {Object} params
+ * @param {string} params.input user input string
+ * @param {Object} opts
+ * @param {boolean} [opts.safe] are we calling the sink safely?
+ * @param {boolean} [opts.noop] are we calling the sink as a noop?
+ */
+module.exports['child_process.spawnSync - second argument'] = async function spawn(
+  { input },
+  { safe = false, noop = false } = {}
+) {
+  if (safe) return 'SAFE';
+  if (noop) return 'NOOP';
+
+  return pre(cp.spawnSync('test', [input], { shell: true }).stdout.toString());
+};
+
+/**
+ * @param {Object} params
+ * @param {string} params.input user input string
+ * @param {Object} opts
+ * @param {boolean} [opts.safe] are we calling the sink safely?
+ * @param {boolean} [opts.noop] are we calling the sink as a noop?
+ */
+module.exports['child_process.execFile'] = async function spawn(
+  { input },
+  { safe = false, noop = false } = {}
+) {
+  if (safe) return 'SAFE';
+  if (noop) return 'NOOP';
+
+  return new Promise((resolve) => {
+    const command = cp.execFile('test', [input], { shell: true });
+    command.on('error', (err) => {
+      console.log(`spawn failed on test ${input}, err: ${err.message}`);
+    });
+    command.stdout.on('data', (data) => {
+      resolve(pre(data.toString()));
+    });
+  });
+};
+
+/**
+ * @param {Object} params
+ * @param {string} params.input user input string
+ * @param {Object} opts
+ * @param {boolean} [opts.safe] are we calling the sink safely?
+ * @param {boolean} [opts.noop] are we calling the sink as a noop?
+ */
+module.exports['child_process.execFileSync'] = async function spawn(
+  { input },
+  { safe = false, noop = false } = {}
+) {
+  if (safe) return 'SAFE';
+  if (noop) return 'NOOP';
+
+  return pre(cp.execFileSync('test', [input], { shell: true }).stdout.toString());
 };

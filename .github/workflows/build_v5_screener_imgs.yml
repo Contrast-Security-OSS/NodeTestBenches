@@ -31,10 +31,9 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           APP_FOLDER: ${{ matrix.apps }}
           ECR_REPOSITORY: ${{ matrix.apps }}-screener
-          IMAGE_TAG: ${{ github.sha }}
           NODE_VERSION: ${{ matrix.version }}
         run: |
           cd $APP_FOLDER
           ../scripts/copy-scripts.sh
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG-$NODE_VERSION -t $ECR_REGISTRY/$ECR_REPOSITORY:latest-$NODE_VERSION --build-arg node_version=$NODE_VERSION -f ./Dockerfile-screener .
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest-$NODE_VERSION --build-arg node_version=$NODE_VERSION -f ./Dockerfile-screener .
           docker push -a $ECR_REGISTRY/$ECR_REPOSITORY

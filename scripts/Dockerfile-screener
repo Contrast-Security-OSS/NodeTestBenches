@@ -48,7 +48,7 @@ EXPOSE 28015
 ENV DEBIAN_FRONTEND="noninteractive"
 RUN wget http://repo.mysql.com/mysql-apt-config_0.8.23-1_all.deb
 RUN apt update
-RUN apt install -y lsb-release ./mysql-apt-config_0.8.23-1_all.deb
+RUN apt install lsb-base lsb-release ./mysql-apt-config_0.8.23-1_all.deb
 RUN apt install mariadb-server mariadb-client -y
 VOLUME ["/etc/mysql", "/var/lib/mysql"]
 EXPOSE 3306

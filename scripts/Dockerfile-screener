@@ -51,7 +51,7 @@ RUN apt update
 RUN apt install -y lsb-base lsb-release ./mysql-apt-config_0.8.23-1_all.deb
 
 RUN curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash
-RUN apt-get install mariadb-server mariadb-client -y
+RUN apt-get update && apt-get install mariadb-server mariadb-client -y
 VOLUME ["/etc/mysql", "/var/lib/mysql"]
 EXPOSE 3306
 

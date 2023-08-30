@@ -6,7 +6,9 @@ ARG DEBIAN_FRONTEND=noninteractive
 # Update package lists and install dependencies
 RUN apt-get update && \
     apt-get install -y curl ca-certificates wget && \
-    curl -sL "https://deb.nodesource.com/setup_${node_version}.x" | bash -
+    apt-get install -y curl ca-certificates gnupg && \
+    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg \
+    curl -sL "https://deb.nodesource.com/node_${node_version}.x" | bash -
 
 # Install Node.js
 RUN apt-get install -y nodejs

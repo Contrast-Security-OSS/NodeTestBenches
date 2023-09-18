@@ -1,5 +1,5 @@
-# @contrast/hapi-20-test-bench
-An intentionally vulnerable `hapi@20` application.
+# @contrast/hapi-21-test-bench
+An intentionally vulnerable `hapi@21` application.
 
 ## Running Locally
 Make sure you have [Node.js](http://nodejs.org/) installed or install a version

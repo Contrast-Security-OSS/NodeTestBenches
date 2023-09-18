@@ -11,7 +11,7 @@ jobs:
       matrix:
         # not all apps support node versions below, but at the very
         # least they all build
-        apps: [express,fastify3,hapi18,hapi19,hapi20,koa,kraken,loopback,loopback4,restify,sails]
+        apps: [express,fastify3,hapi18,hapi19,hapi20,hapi21,koa,kraken,loopback,loopback4,restify,sails]
         version: [14, 16, 18, 20]
     steps:
       - name: Checkout

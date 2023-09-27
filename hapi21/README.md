@@ -7,7 +7,7 @@ of Node from [nvm](https://github.com/creationix/nvm).
 
 ```sh
 git clone https://github.com/Contrast-Security-OSS/NodeTestBenches.git # or clone your own fork
-cd NodeTestBenches/hapi20
+cd NodeTestBenches/hapi21
 npm install
 npm start
 ```

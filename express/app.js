@@ -44,4 +44,8 @@ module.exports.setup = function(app) {
     res.send('adieu, cherie');
     process.exit(); // eslint-disable-line
   });
+
+  app.get('/hello', (req, res) => {
+    res.end('world')
+  });
 };

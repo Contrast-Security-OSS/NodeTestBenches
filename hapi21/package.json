@@ -1,0 +1,39 @@
+{
+  "name": "@contrast/hapi-21-test-bench",
+  "private": true,
+  "version": "3.36.0",
+  "description": "Intentionally vulnerable Hapi application",
+  "author": "Contrast Security <nodejs@contrastsecurity.com>",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Contrast-Security-OSS/NodeTestBenches.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Contrast-Security-OSS/NodeTestBenches/issues"
+  },
+  "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/hapi#readme",
+  "main": "server.js",
+  "scripts": {
+    "contrast": "DEBUG=contrast:* node-contrast server.js",
+    "dev": "nodemon server.js",
+    "lint": "eslint --fix .",
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=12.13.0"
+  },
+  "dependencies": {
+    "@contrast/test-bench-utils": "^3.36.0",
+    "@hapi/glue": "^8.0.0",
+    "@hapi/hapi": "^21.3.2",
+    "@hapi/hoek": "^9.0.4",
+    "@hapi/inert": "^6.0.1",
+    "@hapi/vision": "^6.0.0",
+    "ejs": "^2.7.4",
+    "lodash": "^4.17.19",
+    "mongodb": "^3.0.1",
+    "pem": "^1.14.2",
+    "qs": "^6.10.3"
+  }
+}

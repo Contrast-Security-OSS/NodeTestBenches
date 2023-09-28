@@ -6,10 +6,10 @@
   <body>
     <% include ../partials/header %>
     <div class="container-fluid">
-      <div class="row">
-        <% include ../partials/nav %>
+      <% include ../partials/nav %>
+			<div class="row">
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <% include ../../node_modules/@contrast/test-bench-utils/public/views/pathTraversalSemanticFileSecurityBypass %>
+          <%- content %>
           <% include ../partials/footer %>
         </div>
       </div>

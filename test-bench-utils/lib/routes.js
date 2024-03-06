@@ -282,5 +282,5 @@ module.exports = {
     link: '',
     products: ['Assess'],
     type: 'response-scanning'
-  }
+  },
 };

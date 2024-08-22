@@ -24,7 +24,7 @@
     "start": "node server.js | pino-pretty"
   },
   "dependencies": {
-    "@contrast/test-bench-utils": "^3.36.0",
+    "@contrast/test-bench-utils": "^3.37.0",
     "ejs": "^2.7.4",
     "fastify": "^3.9.2",
     "fastify-cookie": "^5.1.0",

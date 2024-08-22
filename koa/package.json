@@ -24,7 +24,7 @@
     "node": ">=12.13.0"
   },
   "dependencies": {
-    "@contrast/test-bench-utils": "^3.36.0",
+    "@contrast/test-bench-utils": "^3.37.0",
     "@koa/router": "^8.0.8",
     "koa": "^2.12.0",
     "koa-bodyparser": "^4.2.1",

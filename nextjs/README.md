@@ -1,4 +1,4 @@
-# @contrast/express-test-bench
+# @contrast/express-test4-bench
 An intentionally vulnerable `nextjs` application.
 
 ## Running Locally

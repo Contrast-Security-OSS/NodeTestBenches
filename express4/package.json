@@ -1,5 +1,5 @@
 {
-  "name": "@contrast/express-test-bench",
+  "name": "@contrast/express4-test-bench",
   "private": true,
   "version": "3.36.0",
   "description": "Intentionally vulnerable Express application",

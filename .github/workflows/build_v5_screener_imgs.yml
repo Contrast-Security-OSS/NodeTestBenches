@@ -11,7 +11,7 @@ jobs:
       matrix:
         # not all apps support node versions below, but at the very
         # least they all build
-        apps: [express,fastify3,fastify4,koa,hapi20,hapi21]
+        apps: [express4,express5,fastify3,fastify4,koa,hapi20,hapi21]
         version: [16, 18, 20, 22]
     steps:
       - name: Checkout

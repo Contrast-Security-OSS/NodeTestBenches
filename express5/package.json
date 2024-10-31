@@ -1,0 +1,44 @@
+{
+  "name": "@contrast/express5-test-bench",
+  "private": true,
+  "version": "3.36.0",
+  "description": "Intentionally vulnerable Express application",
+  "author": "Contrast Security <nodejs@contrastsecurity.com>",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Contrast-Security-OSS/NodeTestBenches.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Contrast-Security-OSS/NodeTestBenches/issues"
+  },
+  "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/express#readme",
+  "main": "index.js",
+  "scripts": {
+    "contrast": "DEBUG=contrast:* node-contrast index.js",
+    "dev": "nodemon index.js",
+    "lint": "eslint --fix .",
+    "start": "node index.js",
+    "test:mocha": "mocha test/index.mocha.test.js",
+    "test:jest": "jest"
+  },
+  "engines": {
+    "node": ">=12.13.0"
+  },
+  "dependencies": {
+    "@contrast/test-bench-utils": "^3.37.0",
+    "aws-sdk": "^2.397.0",
+    "body-parser": "^1.14.2",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.7.4",
+    "express": "^5.0.1",
+    "express-ejs-layouts": "^2.5.0",
+    "express-session": "^1.15.6",
+    "lodash": "^4.17.19",
+    "multer": "^1.4.1",
+    "newrelic": "^6.1.0",
+    "pem": "^1.14.2",
+    "spdy": "^4.0.2",
+    "sqlite3": "^5.0.0"
+  }
+}

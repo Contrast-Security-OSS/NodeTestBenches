@@ -1,6 +1,7 @@
 {
   "packages": [
-    "express",
+    "express4",
+    "express5",
     "fastify3",
     "fastify4",
     "fastify4ts",

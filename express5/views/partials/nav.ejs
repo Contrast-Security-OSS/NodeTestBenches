@@ -1,0 +1,31 @@
+<div id="navbar" class="col-sm-3 col-md-2 sidebar">
+  <% include ../../node_modules/@contrast/test-bench-utils/public/partials/nav.ejs %>
+  <label>Other Rules</label>
+  <ul class="nav nav-sidebar">
+    <li><a href="express-session">http-only secure-flag</a></li>
+    <li><a href="/header-injection">Header Injection</a></li>
+    <li><a href="/csp-header-insecure">Csp Header Insecure</a></li>
+  </ul>
+
+  <label>XSS Typechecks</label>
+  <ul class="nav nav-sidebar">
+    <li>
+      <a href="/typecheck/url">url</a>
+    </li>
+    <li>
+      <a href="/typecheck/stream">stream</a>
+    </li>
+    <li>
+      <a href="/typecheck/crypto/hmac">crypto</a>
+    </li>
+    <li>
+      <a href="/typecheck/path">path</a>
+    </li>
+    <li>
+      <a href="/typecheck/querystring">querystring</a>
+    </li>
+    <li>
+      <a href="/typecheck/sqlite3">sqlite3</a>
+    </li>
+  </ul>
+</div>

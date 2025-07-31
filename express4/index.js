@@ -27,7 +27,7 @@ const express = require('express');
  */
 require('express-async-errors');
 const http = require('http');
-const http2 = require('spdy');
+const http2 = require('http2');
 const https = require('https');
 const pem = require('pem');
 

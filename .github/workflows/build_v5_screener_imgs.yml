@@ -12,7 +12,7 @@ jobs:
         # not all apps support node versions below, but at the very
         # least they all build
         apps: [express4,express5,fastify3,fastify4,koa,hapi20,hapi21]
-        version: [16, 18, 20, 22]
+        version: [18, 20, 22, 24]
     steps:
       - name: Checkout
         uses: actions/checkout@v2

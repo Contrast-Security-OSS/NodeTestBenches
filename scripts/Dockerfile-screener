@@ -21,15 +21,15 @@ RUN curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 RUN apt update
 RUN apt-get -y install sudo
 
-# Add PostgreSQL repository and install PostgreSQL 12
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ plucky-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+# Add PostgreSQL repository and install PostgreSQL 11
+RUN echo "deb http://apt-archive.postgresql.org/pub/repos/apt/ focal-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
     apt-get update && \
-    apt-get install -y postgresql-12 postgresql-contrib-12 postgresql-client
+    apt-get install -y postgresql-11 postgresql-contrib-11 postgresql-client
 
 # Configure such that remote connections to the database are possible.
-RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/12/main/pg_hba.conf
-RUN echo "listen_addresses='*'" >> /etc/postgresql/12/main/postgresql.conf
+RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/11/main/pg_hba.conf
+RUN echo "listen_addresses='*'" >> /etc/postgresql/11/main/postgresql.conf
 
 # Add VOLUMEs to allow backup of config, logs and databases
 VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]

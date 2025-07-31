@@ -81,8 +81,6 @@ WORKDIR /app
 COPY . .
 RUN chmod +x install-dynamodb-local.sh
 RUN ./install-dynamodb-local.sh
-RUN npm i
-RUN npm uninstall libxmljs2
-RUN npm install libxmljs2
+RUN npm ci
 
 ENTRYPOINT ["./screener.sh"]

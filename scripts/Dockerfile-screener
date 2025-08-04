@@ -83,5 +83,6 @@ COPY . .
 RUN chmod +x install-dynamodb-local.sh
 RUN ./install-dynamodb-local.sh
 RUN npm ci
+RUN npm rebuild
 
 ENTRYPOINT ["./screener.sh"]

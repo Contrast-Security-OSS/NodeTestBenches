@@ -1,4 +1,4 @@
-FROM ubuntu:noble
+FROM ubuntu:jammy
 
 ARG node_version=14
 ARG DEBIAN_FRONTEND=noninteractive
@@ -22,21 +22,21 @@ RUN apt update
 RUN apt-get -y install sudo
 
 # Add PostgreSQL repository and install PostgreSQL 11
-RUN echo "deb https://apt.postgresql.org/pub/repos/apt/ noble-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ jammy-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
     apt-get update && \
-    apt-get install -y postgresql postgresql-contrib postgresql-client
+    apt-get install -y postgresql-11 postgresql-contrib-11 postgresql-client
 
 # Configure such that remote connections to the database are possible.
-RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/17/main/pg_hba.conf
-RUN echo "listen_addresses='*'" >> /etc/postgresql/17/main/postgresql.conf
+RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/11/main/pg_hba.conf
+RUN echo "listen_addresses='*'" >> /etc/postgresql/11/main/postgresql.conf
 
 # Add VOLUMEs to allow backup of config, logs and databases
 VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 EXPOSE 5432
 
 # RethinkDB
-RUN echo "deb https://download.rethinkdb.com/repository/ubuntu-noble noble main" > /etc/apt/sources.list.d/rethinkdb.list
+RUN echo "deb https://download.rethinkdb.com/repository/ubuntu-jammy jammy main" > /etc/apt/sources.list.d/rethinkdb.list
 RUN wget -qO- https://download.rethinkdb.com/repository/raw/pubkey.gpg | sudo apt-key add -v - && apt-get update && apt-get install -y rethinkdb
 RUN rm -rf /var/lib/apt/lists/*
 VOLUME  ["/etc/rethinkdb", "/var/log/rethinkdb", "/var/lib/rethinkdb"]
@@ -48,6 +48,7 @@ RUN wget http://repo.mysql.com/mysql-apt-config_0.8.34-1_all.deb
 RUN apt update
 RUN apt install -y lsb-release ./mysql-apt-config_0.8.34-1_all.deb
 RUN apt install mariadb-server mariadb-client -y
+RUN apt --fix-broken install
 VOLUME ["/etc/mysql", "/var/lib/mysql"]
 EXPOSE 3306
 
@@ -65,7 +66,7 @@ EXPOSE 8
 RUN apt-get update && \
     apt-get install -y gnupg curl && \
     curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | apt-key add - && \
-    echo "deb http://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-8.0.list && \
+    echo "deb http://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/8.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-8.0.list && \
     apt-get update
 
 # Install MongoDB

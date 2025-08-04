@@ -24,7 +24,7 @@ rethinkdb --daemon
 echo "Starting MySQL"
 MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-"password"}
 MYSQL_DATABASE=${MYSQL_DATABASE:-"testdb"}
-service mysql start
+service mariadb start
 
 mysql --version
 mysql -uroot -ppassword -e "drop database if exists $MYSQL_DATABASE"

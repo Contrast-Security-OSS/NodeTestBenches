@@ -36,7 +36,12 @@ module.exports = {
     ...sharedMapping,
     params: { method: 'get', key: 'params', param: '{input}' }
   },
-  koa: {
+  koa2: {
+    ...sharedMapping,
+    body: { method: 'post', key: 'request.body' },
+    cookies: { method: 'post', key: 'cookie' }
+  },
+  koa3: {
     ...sharedMapping,
     body: { method: 'post', key: 'request.body' },
     cookies: { method: 'post', key: 'cookie' }

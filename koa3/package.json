@@ -1,0 +1,41 @@
+{
+  "name": "@contrast/koa3-test-bench",
+  "private": true,
+  "version": "3.38.0",
+  "description": "Intentionally vulnerable Koa application",
+  "author": "Contrast Security <nodejs@contrastsecurity.com>",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Contrast-Security-OSS/NodeTestBenches.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Contrast-Security-OSS/NodeTestBenches/issues"
+  },
+  "homepage": "https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/koa#readme",
+  "main": "index.js",
+  "scripts": {
+    "contrast": "DEBUG=contrast:* node-contrast index.js",
+    "dev": "nodemon index.js",
+    "lint": "eslint --fix .",
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": ">=12.13.0"
+  },
+  "dependencies": {
+    "@contrast/test-bench-utils": "^3.38.0",
+    "@koa/router": "^14.0.0",
+    "koa": "^3.0.1",
+    "@koa/bodyparser": "^6.0.0",
+    "koa-cookie": "^1.0.0",
+    "koa-ejs": "^4.2.0",
+    "koa-mount": "^4.0.0",
+    "@koa/multer": "^4.0.0",
+    "koa-qs": "^3.0.0",
+    "koa-static": "^5.0.0",
+    "lodash": "^4.17.19",
+    "mocha": "^11.7.1",
+    "pem": "^1.14.4"
+  }
+}

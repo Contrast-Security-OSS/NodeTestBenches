@@ -103,6 +103,6 @@ instructions for including the shared functionality in each test bench app:
 - [fastify3](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/fastify3#adding-a-shared-vulnerability)
 - [fastify4](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/fastify4#adding-a-shared-vulnerability)
 - [hapi](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/hapi20#adding-a-shared-vulnerability)
-- [koa](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/koa#adding-a-shared-vulnerability)
+- [koa2](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/koa2#adding-a-shared-vulnerability)
 - [kraken](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/kraken#adding-a-shared-vulnerability)
 - [loopback](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/loopback#adding-a-shared-vulnerability)

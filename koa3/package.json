@@ -1,5 +1,5 @@
 {
-  "name": "@contrast/koa-test-bench",
+  "name": "@contrast/koa3-test-bench",
   "private": true,
   "version": "3.38.0",
   "description": "Intentionally vulnerable Koa application",

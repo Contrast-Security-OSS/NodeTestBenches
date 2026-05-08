@@ -35,7 +35,7 @@
     "@types/ejs": "^3.1.1",
     "class-validator": "^0.13.2",
     "ejs": "^2.7.4",
-    "fastify": "^4.9.2",
+    "fastify": "^5.8.5",
     "fastify-qs": "^4.0.1",
     "lodash": "^4.17.21",
     "pem": "^1.14.6"

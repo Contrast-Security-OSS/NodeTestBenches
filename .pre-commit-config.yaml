@@ -7,3 +7,15 @@ repos:
             language: python
             entry: detect-secrets-hook
             args: ['--baseline', '.secrets.baseline']
+  -   repo: https://github.com/gitleaks/gitleaks
+      rev: 83d9cd684c87d95d656c1458ef04895a7f1cbd8e # v8.30.1
+      hooks:
+        -   id: gitleaks
+  -   repo: https://github.com/pre-commit/mirrors-eslint
+      rev: 9158d5162f915488785c296b5d08d6d18be10d32 # v10.3.0
+      hooks:
+        -   id: eslint
+  -   repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c # v6.0.0
+      hooks:
+        -   id: end-of-file-fixer

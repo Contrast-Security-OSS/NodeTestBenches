@@ -28,7 +28,7 @@
     "@hapi/glue": "^8.0.0",
     "@hapi/hapi": "^20.1.5",
     "@hapi/hoek": "^9.0.4",
-    "@hapi/inert": "^6.0.1",
+    "@hapi/inert": "^7.1.1",
     "@hapi/vision": "^6.0.0",
     "ejs": "^2.7.4",
     "lodash": "^4.17.19",

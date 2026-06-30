@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@contrast/test-bench-utils": "^3.38.0",
-    "@koa/router": "^14.0.0",
+    "@koa/router": "^15.0.0",
     "koa": "^3.0.1",
     "@koa/bodyparser": "^6.0.0",
     "koa-cookie": "^1.0.0",

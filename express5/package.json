@@ -28,7 +28,7 @@
   "dependencies": {
     "@contrast/test-bench-utils": "^3.38.0",
     "aws-sdk": "^2.397.0",
-    "body-parser": "^1.14.2",
+    "body-parser": "^1.20.6",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.7.4",
     "express": "^5.0.1",

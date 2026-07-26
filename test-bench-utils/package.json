@@ -31,7 +31,7 @@
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.55.0",
     "aws-sdk": "^2.1104.0",
-    "axios": "^0.19.0",
+    "axios": "^1.18.1",
     "bent": "^1.5.13",
     "ejs": "^3.1.6",
     "escape-html": "^1.0.3",
@@ -42,7 +42,7 @@
     "libxmljs2": "^0.37.0",
     "lodash": "^4.17.19",
     "mongodb": "^4.2.2",
-    "mssql": "^6.4.1",
+    "mssql": "^12.7.0",
     "mustache": "^4.2.0",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",

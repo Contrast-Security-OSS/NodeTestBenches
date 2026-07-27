@@ -30,7 +30,7 @@
     "@fastify/cookie": "^8.3.0",
     "@fastify/formbody": "^7.3.0",
     "@fastify/multipart": "^7.3.0",
-    "@fastify/static": "^6.5.0",
+    "@fastify/static": "^10.1.2",
     "@fastify/view": "^7.1.2",
     "@types/ejs": "^3.1.1",
     "class-validator": "^0.13.2",

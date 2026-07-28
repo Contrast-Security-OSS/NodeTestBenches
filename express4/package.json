@@ -28,10 +28,10 @@
   "dependencies": {
     "@contrast/test-bench-utils": "^3.38.0",
     "aws-sdk": "^2.397.0",
-    "body-parser": "^1.14.2",
+    "body-parser": "^1.20.6",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.7.4",
-    "express": "^4.13.3",
+    "express": "^4.22.2",
     "express-async-errors": "^3.1.1",
     "express-ejs-layouts": "^2.5.0",
     "express-session": "^1.15.6",

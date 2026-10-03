@@ -29,7 +29,7 @@
     "@contrast/test-bench-utils": "^3.36.0",
     "@fastify/cookie": "^8.3.0",
     "@fastify/formbody": "^7.3.0",
-    "@fastify/multipart": "^7.3.0",
+    "@fastify/multipart": "^10.1.2",
     "@fastify/static": "^6.5.0",
     "@fastify/view": "^7.1.2",
     "@types/ejs": "^3.1.1",

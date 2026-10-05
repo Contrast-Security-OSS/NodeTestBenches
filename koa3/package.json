@@ -1,7 +1,7 @@
 {
   "name": "@contrast/koa3-test-bench",
   "private": true,
-  "version": "3.38.0",
+  "version": "3.39.0",
   "description": "Intentionally vulnerable Koa application",
   "author": "Contrast Security <nodejs@contrastsecurity.com>",
   "license": "UNLICENSED",
@@ -24,7 +24,7 @@
     "node": ">=12.13.0"
   },
   "dependencies": {
-    "@contrast/test-bench-utils": "^3.38.0",
+    "@contrast/test-bench-utils": "^3.39.0",
     "@koa/router": "^14.0.0",
     "koa": "^3.0.1",
     "@koa/bodyparser": "^6.0.0",

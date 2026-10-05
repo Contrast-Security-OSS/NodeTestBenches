@@ -28,20 +28,8 @@ const sharedMapping = {
 
 /** @type {{ [framework: string]: FrameworkMap }} */
 module.exports = {
-  restify: sharedMapping,
   express: sharedMapping,
-  kraken: sharedMapping,
-  loopback: sharedMapping,
-  'loopback@4': {
-    ...sharedMapping,
-    params: { method: 'get', key: 'params', param: '{input}' }
-  },
-  koa2: {
-    ...sharedMapping,
-    body: { method: 'post', key: 'request.body' },
-    cookies: { method: 'post', key: 'cookie' }
-  },
-  koa3: {
+  koa: {
     ...sharedMapping,
     body: { method: 'post', key: 'request.body' },
     cookies: { method: 'post', key: 'cookie' }
@@ -51,6 +39,5 @@ module.exports = {
     params: { method: 'get', key: 'params', param: '{input}' },
     body: { method: 'post', key: 'payload' },
     cookies: { method: 'post', key: 'state' }
-  },
-  sails: sharedMapping,
+  }
 };

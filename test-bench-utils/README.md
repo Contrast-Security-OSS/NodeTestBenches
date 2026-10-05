@@ -88,8 +88,6 @@ templates are rendered with the following locals provided:
   - `method`: the HTTP method being used to submit the attack
   - `name`: the name of the particular sink being exercised
   - `url`: the api endpoint url to hit
-- `_csrf` for Kraken apps, we provide the csrf token to be included as a hidden
-  field within a form
 
 An endpoint may also be configured to provide additional locals to the template
 to render additional context for a rule. For example, we provide an XML string
@@ -99,10 +97,10 @@ to the _xpathInjection_ endpoint as a potential attack value.
 Once you have configured the shared sink and view, consult the following
 instructions for including the shared functionality in each test bench app:
 
-- [express](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/express#adding-a-shared-vulnerability)
-- [fastify3](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/fastify3#adding-a-shared-vulnerability)
+- [express4](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/express4#adding-a-shared-vulnerability)
+- [express5](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/express5#adding-a-shared-vulnerability)
 - [fastify4](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/fastify4#adding-a-shared-vulnerability)
-- [hapi](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/hapi20#adding-a-shared-vulnerability)
+- [hapi20](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/hapi20#adding-a-shared-vulnerability)
+- [hapi21](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/hapi21#adding-a-shared-vulnerability)
 - [koa2](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/koa2#adding-a-shared-vulnerability)
-- [kraken](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/kraken#adding-a-shared-vulnerability)
-- [loopback](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/loopback#adding-a-shared-vulnerability)
+- [koa3](https://github.com/Contrast-Security-OSS/NodeTestBenches/tree/main/koa3#adding-a-shared-vulnerability)

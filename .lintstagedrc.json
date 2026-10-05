@@ -1,5 +1,5 @@
 {
-  "!(loopback@4)/**/*.js": "eslint --fix",
+  "**/*.js": "eslint --fix",
   "**/*.sh": "shellcheck"
 }
 

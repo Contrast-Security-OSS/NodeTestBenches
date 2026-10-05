@@ -7,7 +7,6 @@
     "hapi21",
     "koa2",
     "koa3",
-    "kraken",
     "test-bench-utils"
   ],
   "version": "3.39.0"

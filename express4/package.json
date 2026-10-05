@@ -27,7 +27,6 @@
   },
   "dependencies": {
     "@contrast/test-bench-utils": "^3.39.0",
-    "aws-sdk": "^2.397.0",
     "body-parser": "^1.14.2",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.7.4",
@@ -41,5 +40,9 @@
     "newrelic": "^6.1.0",
     "pem": "^1.14.2",
     "sqlite3": "^5.0.0"
+  },
+  "overrides": {
+    "mssql": "^11.0.2",
+    "nan": "^2.29.0"
   }
 }

@@ -2,6 +2,10 @@
 
 set -e
 
+# Run MongoDB
+mkdir -p /var/log/mongodb
+mongod --fork --logpath /var/log/mongodb/mongod.log --dbpath /var/lib/mongodb
+
 # Run PostgreSQL
 PGUSER=${PGUSER:-"postgres"}
 PGDATABASE=${PGDATABASE:-"testdb"}
@@ -35,10 +39,11 @@ echo '=========================' >> "${DYNAMODB_LOG}"
 date >> "${DYNAMODB_LOG}"
 java -Djava.library.path="./${DYNAMODB_HOME}/DynamoDBLocal_lib" -jar "${DYNAMODB_HOME}/DynamoDBLocal.jar" -sharedDb >> "${DYNAMODB_LOG}" &
 
-LOCAL_UTILS=contrast-test-bench-utils-*.tgz
-files=( $LOCAL_UTILS )
-if compgen -G "$LOCAL_UTILS" > /dev/null; then
-  npm install "$files" --verbose
+shopt -s nullglob
+local_utils=( contrast-test-bench-utils-*.tgz )
+shopt -u nullglob
+if (( ${#local_utils[@]} )); then
+  npm install "${local_utils[0]}" --verbose
 fi
 
 if [[ -f "/opt/contrast/node-agent.tgz" ]];
@@ -56,7 +61,7 @@ then
     npm install /opt/contrast/node-agent.tgz --verbose
 
     echo "Run npx contrast-transpile"
-    DEBUG="contrast:*" npx contrast-transpile ${ENTRYPOINT}
+    DEBUG="contrast:*" npx contrast-transpile "${ENTRYPOINT}"
   fi
 
   # agent configuration from mounted volume or env vars

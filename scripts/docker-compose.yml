@@ -6,17 +6,10 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        NODE_VERSION: 12
+        node_version: 24
+    entrypoint: ./entry.sh
+    ports:
+      - '3000:3000'
     volumes:
       - .:/app:cached
-    command: ./entry.sh
-    network_mode: service:mongo
-
-  mongo:
-    image: mongo:5
-    restart: unless-stopped
-    volumes:
-      - mongo-data:/data/db
-
-volumes:
-  mongo-data:
+      - /app/node_modules

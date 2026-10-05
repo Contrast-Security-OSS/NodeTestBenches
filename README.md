@@ -35,6 +35,5 @@ Outside of these two commands, development on each application or the
 ## Adding new sample app to lerna
  * Add folder name in `lerna.json` and re-run `lerna bootstrap`
  * Add the app (folder name) to `jobs.build-and-push.strategy.matrix.apps` in [.github/workflows/build_v5_screener_imgs.yml](.github/workflows/build_v5_screener_imgs.yml)
- * If the app has a screener image, add it to the `Dockerfile-screener` list in [scripts/copy-scripts.sh](scripts/copy-scripts.sh)
  * Add repository into ecr `aws ecr create-repository --repository-name <app>`
 

@@ -35,5 +35,5 @@ jobs:
         run: |
           cd $APP_FOLDER
           ../scripts/copy-scripts.sh
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest-$NODE_VERSION --build-arg node_version=$NODE_VERSION -f ./Dockerfile-screener .
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest-$NODE_VERSION --build-arg node_version=$NODE_VERSION -f ./Dockerfile .
           docker push -a $ECR_REGISTRY/$ECR_REPOSITORY

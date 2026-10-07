@@ -11,8 +11,8 @@ jobs:
       matrix:
         # not all apps support node versions below, but at the very
         # least they all build
-        apps: [express4,express5,fastify3,fastify4,koa2,koa3,hapi20,hapi21]
-        version: [18, 20, 22, 24]
+        apps: [express4,express5,fastify4,koa2,koa3,hapi20,hapi21]
+        version: [20, 22, 24, 26]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -35,5 +35,5 @@ jobs:
         run: |
           cd $APP_FOLDER
           ../scripts/copy-scripts.sh
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest-$NODE_VERSION --build-arg node_version=$NODE_VERSION -f ./Dockerfile-screener .
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest-$NODE_VERSION --build-arg node_version=$NODE_VERSION -f ./Dockerfile .
           docker push -a $ECR_REGISTRY/$ECR_REPOSITORY

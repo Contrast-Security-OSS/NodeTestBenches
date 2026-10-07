@@ -19,8 +19,6 @@ docker-compose.yml
 !/scripts/docker-compose.yml
 Dockerfile
 !/scripts/Dockerfile
-Dockerfile-screener
-!/scripts/Dockerfile-screener
 entry.sh
 !/scripts/entry.sh
 install-dynamodb-local.sh

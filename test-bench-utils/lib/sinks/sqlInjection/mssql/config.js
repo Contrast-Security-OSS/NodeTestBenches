@@ -12,8 +12,11 @@ const config = {
   user: MSSQL_USER,
   password: MSSQL_PASSWORD,
   server: MSSQL_HOST,
-  port: MSSQL_PORT,
-  database: MSSQL_DATABASE
+  port: Number(MSSQL_PORT),
+  database: MSSQL_DATABASE,
+  options: {
+    trustServerCertificate: true
+  }
 };
 
 module.exports = config;

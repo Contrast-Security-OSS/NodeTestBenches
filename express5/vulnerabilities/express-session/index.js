@@ -22,6 +22,4 @@ api.get('/xss', (req, res) => {
   }
 });
 
-/* Cookie-parser is not supported yet. You can test it in Kraken app */
-
 module.exports = api;

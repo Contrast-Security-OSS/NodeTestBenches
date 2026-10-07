@@ -1,59 +1,78 @@
-ARG node_version=12
-FROM node:${node_version}-bullseye
+FROM ubuntu:jammy
 
-# Create the file repository configuration, import the repository signing key and install PostgreSQL & sudo
-RUN echo "deb [arch=amd64] http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main" > /etc/apt/sources.list.d/pgdg.list
-RUN curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
-RUN apt update
-RUN apt install -y postgresql-10 postgresql-contrib-10 postgresql-client-10
+ARG node_version=24
+ARG DEBIAN_FRONTEND=noninteractive
+
+# Update package lists and install dependencies
+RUN apt-get update && \
+    apt-get install -y curl ca-certificates wget && \
+    curl -sL "https://deb.nodesource.com/setup_${node_version}.x" | bash -
+
+# Install Node.js
+RUN apt-get install -y nodejs
+
+# Install gnupg2
+RUN apt-get update && apt-get install -y gnupg2
+
 RUN apt-get -y install sudo
 
-# Adjust PostgreSQL configuration so that remote connections to the
-# database are possible.
-RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/10/main/pg_hba.conf
-RUN echo "listen_addresses='*'" >> /etc/postgresql/10/main/postgresql.conf
+# Add PostgreSQL repository and install PostgreSQL 11
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ jammy-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+    curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
+    apt-get update && \
+    apt-get install -y postgresql-11 postgresql-contrib-11 postgresql-client
 
-# Expose the PostgreSQL port
-EXPOSE 5432
+# Configure such that remote connections to the database are possible.
+RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/11/main/pg_hba.conf
+RUN echo "listen_addresses='*'" >> /etc/postgresql/11/main/postgresql.conf
 
 # Add VOLUMEs to allow backup of config, logs and databases
 VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
+EXPOSE 5432
 
-# Install RethinkDB
-RUN echo "deb https://download.rethinkdb.com/repository/debian-bullseye bullseye main" > /etc/apt/sources.list.d/rethinkdb.list
+# RethinkDB
+RUN echo "deb https://download.rethinkdb.com/repository/ubuntu-jammy jammy main" > /etc/apt/sources.list.d/rethinkdb.list
 RUN wget -qO- https://download.rethinkdb.com/repository/raw/pubkey.gpg | sudo apt-key add -v - && apt-get update && apt-get install -y rethinkdb
 RUN rm -rf /var/lib/apt/lists/*
 VOLUME  ["/etc/rethinkdb", "/var/log/rethinkdb", "/var/lib/rethinkdb"]
-
 EXPOSE 28015
 
-# Install MySQL Database
-ENV DEBIAN_FRONTEND="noninteractive"
-RUN wget http://repo.mysql.com/mysql-apt-config_0.8.23-1_all.deb
-RUN apt update
-RUN apt install lsb-base lsb-release ./mysql-apt-config_0.8.23-1_all.deb
-RUN apt install mariadb-server mariadb-client -y
+# Install MySQL Database (MariaDB from the Ubuntu repos)
+RUN apt-get update && apt-get install -y mariadb-server mariadb-client
 VOLUME ["/etc/mysql", "/var/lib/mysql"]
-
 EXPOSE 3306
 
-# Install SQLite DB
-RUN apt install sqlite3
+# SQLite DB
+RUN apt-get install -y sqlite3
 RUN sqlite3 --version
 
-## JAVA INSTALLATION - At least Java v8.x is required for DynamoDB
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt install default-jre -y
+# DynamoDB
+# At least Java v8.x is required for DynamoDB
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt install default-jre-headless -y
 RUN java -version
-
-WORKDIR /app
-COPY . .
-
-RUN chmod +x install-dynamodb-local.sh
-RUN ./install-dynamodb-local.sh
 EXPOSE 8000
 
-# Use an older NPM version due to issues with the latest ones
-RUN npm install -g npm@8.3.1
+# Install prerequisites
+RUN apt-get update && \
+    apt-get install -y gnupg curl && \
+    curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | apt-key add - && \
+    echo "deb http://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/8.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-8.0.list && \
+    apt-get update
+
+# Install MongoDB
+RUN apt-get install -y mongodb-org
+
+# Expose port 27017
+EXPOSE 27017
+
+RUN apt-get update && apt-get install -y build-essential libxml2-dev
+
+# Application setup
+WORKDIR /app
+COPY . .
+RUN chmod +x install-dynamodb-local.sh
+RUN ./install-dynamodb-local.sh
 RUN npm ci
-RUN chmod +x entry.sh
-CMD ./entry.sh
+RUN npm rebuild
+
+ENTRYPOINT ["./screener.sh"]

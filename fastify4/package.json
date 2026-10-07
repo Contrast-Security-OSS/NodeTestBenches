@@ -1,7 +1,7 @@
 {
   "name": "@contrast/fastify4-test-bench",
   "private": true,
-  "version": "3.38.0",
+  "version": "3.39.0",
   "description": "Intentionally vulnerable Fastify application",
   "author": "Contrast Security <nodejs@contrastsecurity.com>",
   "license": "UNLICENSED",
@@ -24,7 +24,7 @@
     "start": "node server.js | pino-pretty"
   },
   "dependencies": {
-    "@contrast/test-bench-utils": "^3.38.0",
+    "@contrast/test-bench-utils": "^3.39.0",
     "@fastify/cookie": "^8.3.0",
     "@fastify/formbody": "^7.3.0",
     "@fastify/multipart": "^7.2.0",
@@ -34,7 +34,6 @@
     "fastify": "^4.8.1",
     "fastify-qs": "^4.0.1",
     "lodash": "^4.17.19",
-    "mocha": "^11.7.1",
     "pem": "^1.14.4"
   }
 }

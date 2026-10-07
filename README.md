@@ -5,6 +5,16 @@ Contrast Security Node agent with various supported frameworks.
 Vulnerabilities are implemented in a shared module, `test-bench-utils`, which is
 then installed and used by each application.
 
+## Applications
+- [express4](express4)
+- [express5](express5)
+- [fastify4](fastify4)
+- [hapi20](hapi20)
+- [hapi21](hapi21)
+- [koa2](koa2)
+- [koa3](koa3)
+- [test-bench-utils](test-bench-utils) (shared sinks, routes, and views)
+
 ## Using [`lerna`](https://lerna.js.org)
 `lerna` is a tool for managing multiple packages within a single repository. We
 use lerna to handle the installation and version management of
@@ -24,6 +34,6 @@ Outside of these two commands, development on each application or the
 
 ## Adding new sample app to lerna
  * Add folder name in `lerna.json` and re-run `lerna bootstrap`
- * Add the app(folder name) to `jobs.build-and-push.strategy.matrix.apps` .github/workflows/build.yml
+ * Add the app (folder name) to `jobs.build-and-push.strategy.matrix.apps` in [.github/workflows/build_v5_screener_imgs.yml](.github/workflows/build_v5_screener_imgs.yml)
  * Add repository into ecr `aws ecr create-repository --repository-name <app>`
 
